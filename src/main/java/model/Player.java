@@ -1,17 +1,21 @@
 package model;
 
+import java.util.List;
+
 public class Player {
 	TypePlayer typePlayer;
 	Sector actualSector;
 	int speed;
 	int numberOfPlayer;
 	boolean alive;
-	public Player(TypePlayer typePlayer, Sector actualSector, int speed, int numberOfPlayer, boolean alive) {
+	List<ItemCard> itemCardPlayer;
+	public Player(TypePlayer typePlayer, Sector actualSector, int speed, int numberOfPlayer, boolean alive, List<ItemCard> itemCardPlayer) {
 		this.typePlayer = typePlayer;
 		this.actualSector = actualSector;
 		this.speed = speed;
 		this.numberOfPlayer = numberOfPlayer;
 		this.alive = alive;
+		this.itemCardPlayer=itemCardPlayer;
 	}
 	public TypePlayer getTypePlayer() {
 		return typePlayer;
@@ -36,6 +40,16 @@ public class Player {
 	}
 	public void setActualSector(Sector actualSector) {
 		this.actualSector = actualSector;
+	}
+	public List<ItemCard> getItemCardPlayer() {
+		//to do
+		return itemCardPlayer;
+	}
+	public void addItemCardPlayer(List<ItemCard> itemCardPlayer) {
+		//to do
+	}
+	public void removeItemCardPlayer(List<ItemCard> itemCardPlayer) {
+		//to do
 	}
 	
 }
