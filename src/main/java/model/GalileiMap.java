@@ -4,9 +4,9 @@ import java.util.List;
 
 public class GalileiMap extends Map{
 
-	public GalileiMap(List<Sector> lista, Game game)
+	public GalileiMap(List<Sector> lista, Game game, Coordinate humanSector, Coordinate alienSector)
 	{
-		this.game=game;
+		super(game, humanSector, alienSector);
 		this.listaSettori=lista;
 	}
 	@Override

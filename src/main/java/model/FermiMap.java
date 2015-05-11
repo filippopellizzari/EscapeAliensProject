@@ -3,9 +3,9 @@ package model;
 import java.util.List;
 
 public class FermiMap extends Map{
-	public FermiMap(List<Sector> lista, Game game)
+	public FermiMap(List<Sector> lista, Game game, Coordinate humanSector, Coordinate alienSector)
 	{
-		this.game=game;
+		super(game, humanSector, alienSector);
 		this.listaSettori=lista;
 	}
 	@Override

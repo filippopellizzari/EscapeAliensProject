@@ -1,7 +1,6 @@
 package controller;
 
-import model.Game;
-import model.Map;
+import model.*;
 
 public abstract class MapCreator {
 	protected Game game;
