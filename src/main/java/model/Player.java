@@ -41,15 +41,18 @@ public class Player {
 	public void setActualSector(Sector actualSector) {
 		this.actualSector = actualSector;
 	}
-	public List<ItemCard> getItemCardPlayer() {
-		//to do
-		return itemCardPlayer;
+	public ItemCard getItemCardPlayer(int numberOfCard) {
+		return itemCardPlayer.get(numberOfCard);
 	}
-	public void addItemCardPlayer(List<ItemCard> itemCardPlayer) {
-		//to do
+	public void addItemCardPlayer(ItemCard itemCard) {
+		if(itemCardPlayer.get(0)==null) itemCardPlayer.set(0, itemCard);
+		else {
+			if(itemCardPlayer.get(1)==null) itemCardPlayer.set(1, itemCard);
+			else itemCardPlayer.set(2, itemCard);
+		}
 	}
-	public void removeItemCardPlayer(List<ItemCard> itemCardPlayer) {
-		//to do
+	public ItemCard removeItemCardPlayer(int numberOfCard) {
+		return itemCardPlayer.remove(numberOfCard);
 	}
 	
 }

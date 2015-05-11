@@ -1,20 +1,22 @@
 package model;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
-public class Sector {
+public class Sector extends Coordinate{
 	protected TypeSector typeSector;
 	protected boolean crossable;
 	protected int x;
 	protected int y;
 	Queue<Player> playerQueue=new LinkedList<Player>();
-	public Sector (TypeSector typeSector, boolean crossable, int x, int y)
+	List<Coordinate> coordinate;
+	public Sector (TypeSector typeSector, boolean crossable, int x, int y, List<Coordinate> nextSector)
 	{
+		super(x,y);
 		this.typeSector=typeSector;
 		this.crossable=crossable;
-		this.x=x;
-		this.y=y;
+		coordinate=nextSector;
 	}
 	public int getX(){
 		return x;
