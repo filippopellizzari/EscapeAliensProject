@@ -20,8 +20,6 @@ public class Sector extends Coordinate{
 		this.players = new LinkedList<Player>();
 	}
 	
-	
-	
 	public TypeSector getName() {
 		return name;
 	}

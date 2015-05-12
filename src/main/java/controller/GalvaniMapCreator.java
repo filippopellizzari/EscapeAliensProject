@@ -11,6 +11,7 @@ public class GalvaniMapCreator extends MapCreator{
 	private String name="GalvaniMap.txt";
 	public GalvaniMapCreator() {
 	}
+	@Override
 	public Map createMap() {
 		try {
 			listSectors =loadExagonalmap.loadMap(name, listSectors);
