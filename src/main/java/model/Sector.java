@@ -7,8 +7,6 @@ import java.util.Queue;
 public class Sector extends Coordinate{
 	protected TypeSector typeSector;
 	protected boolean crossable;
-	protected int x;
-	protected int y;
 	Queue<Player> playerQueue=new LinkedList<Player>();
 	List<Coordinate> coordinate;
 	public Sector (TypeSector typeSector, boolean crossable, int x, int y, List<Coordinate> nextSector)
