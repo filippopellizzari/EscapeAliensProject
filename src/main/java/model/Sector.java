@@ -9,7 +9,6 @@ public class Sector extends Coordinate{
 	private TypeSector name;
 	protected boolean crossable;
 	Queue<Player> playerQueue=new LinkedList<Player>();
-	List<Coordinate> coordinate;
 	private Queue<Player> players;
 	private final List<Coordinate> adjacent;
 	
@@ -20,8 +19,6 @@ public class Sector extends Coordinate{
 		this.adjacent=adjacent;
 		this.players = new LinkedList<Player>();
 	}
-	
-	
 	
 	public TypeSector getName() {
 		return name;
