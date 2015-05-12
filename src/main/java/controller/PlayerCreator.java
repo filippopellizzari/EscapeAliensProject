@@ -7,6 +7,7 @@ import java.util.Random;
 import model.*;
 
 public class PlayerCreator {
+	
 	private Game game;
 	private Coordinate humanSector;
 	private Coordinate alienSector;
