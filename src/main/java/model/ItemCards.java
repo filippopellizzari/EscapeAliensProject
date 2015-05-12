@@ -9,9 +9,9 @@ public class ItemCards {
 	private List<ItemCard> deck;
 	private List<ItemCard> discardPile;
 
-	public ItemCards() {
+	public ItemCards(List<ItemCard> itemcard) {
 
-		this.deck = new ArrayList<ItemCard>();
+		this.deck = itemcard;
 		this.discardPile = new ArrayList<ItemCard>();
 
 	}
