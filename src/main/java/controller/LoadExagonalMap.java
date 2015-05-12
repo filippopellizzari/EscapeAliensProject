@@ -7,17 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoadExagonalMap {
+	
 	Coordinate alienSector;
 	Coordinate humanSector;
+	
 	public List<Sector> loadMap(String namefile, List<Sector> listSectors) throws NumberFormatException, IOException {
 		FileReader fileRead=new FileReader(""+namefile);
 		BufferedReader br = new BufferedReader(fileRead); 
-		String s;
 		int x=0, y=0;
 		TypeSector typeSector;
 		boolean crossable;
 		List<Coordinate> coordinate=new ArrayList<Coordinate>(6);
-		while((s=br.readLine()) != null) {
+		while((br.readLine()) != null) {
 			typeSector = TypeSector.valueOf(br.readLine());
 			if(typeSector!=TypeSector.Alien && typeSector!=TypeSector.Human) {
 				crossable=(br.readLine()=="true");
