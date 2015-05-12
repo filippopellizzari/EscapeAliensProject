@@ -16,18 +16,6 @@ public class GameController {
 		playerPlay=1;
 	}
 	public void play() {
-		while(controlEndGame()==false) {
-			//activePlayer(playerPlay);		non so ancora come farla
-			playerPlay++;			//prossimo giocatore
-			if(playerPlay==9) 
-				playerPlay=1;
-			if(game.getPlayers().get(playerPlay).getName()==TypePlayer.Alien) {
-				ControlHuman controlHuman=new ControlHuman(playerPlay, game);
-			}
-			else {
-				ControlAlien controlAlien=new ControlAlien(playerPlay,game);
-			}
-		}
 	}
 	/*activePlayer() {
 	}*/
