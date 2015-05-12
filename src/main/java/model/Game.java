@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Game {
 	
-	private final HatchCards hatchCards;
-	private final SectorCards sectorCards;
+    private final HatchCards hatchCards;
+    private final SectorCards sectorCards;
 	private final ItemCards itemCards;
 	private final Map map;
 	private final List<Player> players;

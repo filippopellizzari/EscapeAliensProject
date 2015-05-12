@@ -7,7 +7,7 @@ import java.util.Queue;
 public class Sector extends Coordinate{
 	
 	private TypeSector name;
-	private boolean crossable;
+	protected boolean crossable;
 	private Queue<Player> players;
 	private final List<Coordinate> adjacent;
 	

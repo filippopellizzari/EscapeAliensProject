@@ -4,9 +4,10 @@ import java.util.List;
 
 public abstract class Map {
 	
-	private List<Sector> listaSettori;
-	private Coordinate humanSector;
-	private Coordinate alienSector;
+	protected List<Sector> listaSettori;
+	protected Coordinate humanSector;
+	protected Coordinate alienSector;
+	
 	public abstract Sector getSector(Coordinate coordinate);
 	public abstract boolean isNull(Coordinate coordinate);
 	
