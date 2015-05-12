@@ -1,12 +1,14 @@
 package model;
 
 public class HatchCard {
+	
 	private final boolean green;
 	
-	public HatchCard(boolean status) {
-		this.green=status;
+	public HatchCard(boolean green) {
+		this.green=green;
 	}
-	public boolean getName() {
+	
+	public boolean isGreen() {
 		return green;
 	}
 }

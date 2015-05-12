@@ -1,11 +1,13 @@
 package model;
 
 public class SectorCard {
+	
 	private boolean itemCard;
 	private TypeSector name;
-	public SectorCard(boolean itemCard, TypeSector typeSector) {
+	
+	public SectorCard(boolean itemCard, TypeSector name) {
 		this.itemCard=itemCard;
-		this.name=typeSector;
+		this.name=name;
 	}
 	public boolean isItem() {
 		return itemCard;

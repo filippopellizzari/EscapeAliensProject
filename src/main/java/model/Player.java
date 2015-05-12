@@ -4,54 +4,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-	TypePlayer typePlayer;
-	Sector actualSector;
-	int speed;
-	int numberOfPlayer;
-	boolean alive;
-	List<ItemCard> itemCardPlayer;
-	public Player(TypePlayer typePlayer, Sector actualSector, int speed, int numberOfPlayer) {
-		this.typePlayer = typePlayer;
-		this.actualSector = actualSector;
+	
+	private final  TypePlayer name;
+	private Sector currentSector;
+	private int speed;
+	private final int numberOfPlayer;
+	private boolean alive;
+	private List<ItemCard> itemCardPlayer;
+	
+	public Player(TypePlayer name, Sector currentSector, int speed, int numberOfPlayer) {
+		this.name = name;
+		this.currentSector = currentSector;
 		this.speed = speed;
 		this.numberOfPlayer = numberOfPlayer;
 		this.alive = true;
-		this.itemCardPlayer=new ArrayList<ItemCard>();
+		this.itemCardPlayer = new ArrayList<ItemCard>();
 	}
-	public TypePlayer getTypePlayer() {
-		return typePlayer;
+	
+	public Sector getCurrentSector() {
+		return currentSector;
 	}
+
+	public void setCurrentSector(Sector currentSector) {
+		this.currentSector = currentSector;
+	}
+
 	public int getSpeed() {
 		return speed;
 	}
+
 	public void setSpeed(int speed) {
-		if(typePlayer==TypePlayer.Alien) speed++;
+		this.speed = speed;
 	}
-	public int getNumberOfPlayer() {
-		return numberOfPlayer;
-	}
+
 	public boolean isAlive() {
 		return alive;
 	}
+
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
-	public Sector getActualSector() {
-		return actualSector;
+
+	public TypePlayer getName() {
+		return name;
 	}
-	public void setActualSector(Sector actualSector) {
-		this.actualSector = actualSector;
+
+	public int getNumberOfPlayer() {
+		return numberOfPlayer;
 	}
+	
+	
 	public ItemCard getItemCardPlayer(int numberOfCard) {
 		return itemCardPlayer.get(numberOfCard);
 	}
+	
 	public void addItemCardPlayer(ItemCard itemCard) {
-		if(itemCardPlayer.get(0)==null) itemCardPlayer.set(0, itemCard);
-		else {
-			if(itemCardPlayer.get(1)==null) itemCardPlayer.set(1, itemCard);
-			else itemCardPlayer.set(2, itemCard);
-		}
+		itemCardPlayer.add(itemCard);
 	}
+	
 	public ItemCard removeItemCardPlayer(int numberOfCard) {
 		return itemCardPlayer.remove(numberOfCard);
 	}
