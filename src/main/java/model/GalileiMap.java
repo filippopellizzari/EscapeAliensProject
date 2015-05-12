@@ -4,8 +4,7 @@ import java.util.List;
 
 public class GalileiMap extends Map{
 
-	public GalileiMap(List<Sector> lista, Coordinate humanSector, Coordinate alienSector)
-	{
+	public GalileiMap(List<Sector> lista, Coordinate humanSector, Coordinate alienSector){
 		super(humanSector, alienSector);
 		this.listaSettori=lista;
 	}
