@@ -5,22 +5,32 @@ import java.util.Collections;
 import java.util.List;
 
 public class SectorCards {
-	private int counter;
-	private List<SectorCard> deckPile=new ArrayList<SectorCard>();
-	private List<SectorCard> discardPile=new ArrayList<SectorCard>();
-	public SectorCards(List<SectorCard> deckPile, List<SectorCard> discardPile) {
-		this.counter=-1;
-		this.deckPile=deckPile;
-		this.discardPile=discardPile;
+	private List<SectorCard> deck;
+	private List<SectorCard> discardPile;
+
+	public SectorCards() {
+
+		this.deck = new ArrayList<SectorCard>();
+		this.discardPile = new ArrayList<SectorCard>();
+
 	}
-	public SectorCard PickOut() {
-		counter++;
-		if(counter==26) Shuffle();
-		discardPile.set(counter, deckPile.get(counter));
-		return deckPile.get(counter);
+	
+	public SectorCard draw() {
+		
+		if (deck.isEmpty()){
+			deck.addAll(discardPile);
+			discardPile.clear();
+			Collections.shuffle(deck);
+
+		 	}
+
+			SectorCard current = deck.get(0);
+			deck.remove(0);
+			return current;			
+			
 	}
-	private void Shuffle() {
-		Collections.shuffle(discardPile);
-		deckPile=discardPile;
+	
+	public void discard(SectorCard current){
+		discardPile.add(current);	
 	}
 }

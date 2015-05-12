@@ -1,20 +1,36 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HatchCards {
-	private int counter;
-	private List<HatchCard> deckPile=new ArrayList<HatchCard>();
-	private List<HatchCard> discardPile=new ArrayList<HatchCard>();
-	public HatchCards(List<HatchCard> deckPile, List<HatchCard> discardPile) {
-		this.counter=-1;
-		this.deckPile=deckPile;
-		this.discardPile=discardPile;
+	private List<HatchCard> deck;
+	private List<HatchCard> discardPile;
+
+	public HatchCards() {
+
+		this.deck = new ArrayList<HatchCard>();
+		this.discardPile = new ArrayList<HatchCard>();
+
 	}
-	public HatchCard PickOut() {
-		counter++;
-		discardPile.set(counter, deckPile.get(counter));
-		return deckPile.get(counter);
+	
+	public HatchCard draw() {
+		
+		if (deck.isEmpty()){
+			deck.addAll(discardPile);
+			discardPile.clear();
+			Collections.shuffle(deck);
+
+		 	}
+
+			HatchCard current = deck.get(0);
+			deck.remove(0);
+			return current;			
+			
+	}
+	
+	public void discard(HatchCard current){
+		discardPile.add(current);	
 	}
 }
