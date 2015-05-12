@@ -16,16 +16,16 @@ public class Game {
 		this.playerInGame = playerInGame;
 	}
 	public HatchCard getDecksHatch() {
-		return decksHatch.PickOut();
+		return decksHatch.draw();
 	}
 	public SectorCard getDecksSector() {
-		return decksSector.PickOut();
+		return decksSector.draw();
 	}
 	public ItemCard getDecksItem() {
-		return decksItem.PickOut();
+		return decksItem.draw();
 	}
-	public void getDecksItem(ItemCard itemToDiscard) {
-		decksItem.Discard(itemToDiscard);
+	public void getDecksItem(ItemCard current) {
+		decksItem.discard(current);
 	}
 	public Map getGameMap() {
 		return gameMap;
