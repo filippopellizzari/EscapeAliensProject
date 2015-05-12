@@ -36,13 +36,18 @@ public class LoadExagonalMap {
 			}
 			if(typeSector==TypeSector.Alien || typeSector==TypeSector.Human) {
 				crossable=(br.readLine()=="true");
-				for(int i=0;i<6;i++) coordinate.set(i, new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
-				if(typeSector!=TypeSector.Hatch) listSectors.set((y-1)*23+x-1, new Sector(typeSector,crossable,x,y,coordinate));		//mettiamo nel file solo i settori presenti quindi una volta prese le 
-				else listSectors.set((y-1)*23+x-1, new HatchSector(typeSector,crossable,x,y,coordinate));								//coordinate inseriamo il settore al suo posto
+				for(int i=0;i<6;i++) 
+					coordinate.set(i, new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
+				if(typeSector!=TypeSector.Hatch) 
+					listSectors.set((y-1)*23+x-1, new Sector(typeSector,crossable,x,y,coordinate));		//mettiamo nel file solo i settori presenti quindi una volta prese le 
+				else 
+					listSectors.set((y-1)*23+x-1, new HatchSector(typeSector,crossable,x,y,coordinate));								//coordinate inseriamo il settore al suo posto
 			}																															//se è hatch va dichiarato diversamente
 			else {
-				if(typeSector!=TypeSector.Alien) alienSector=new Coordinate(x,y);
-				else humanSector=new Coordinate(x,y);
+				if(typeSector!=TypeSector.Alien) 
+					alienSector=new Coordinate(x,y);
+				else 
+					humanSector=new Coordinate(x,y);
 			}
 		}
 		br.close();
