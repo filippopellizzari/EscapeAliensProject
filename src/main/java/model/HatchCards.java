@@ -8,13 +8,11 @@ public class HatchCards {
 	private List<HatchCard> deck;
 	private List<HatchCard> discardPile;
 
-	public HatchCards() {
-
-		this.deck = new ArrayList<HatchCard>();
+	public HatchCards(List<HatchCard> hatchCard) {
+		this.deck = hatchCard;
 		this.discardPile = new ArrayList<HatchCard>();
 
 	}
-	
 	public HatchCard draw() {
 		
 		if (deck.isEmpty()){

@@ -8,9 +8,9 @@ public class SectorCards {
 	private List<SectorCard> deck;
 	private List<SectorCard> discardPile;
 
-	public SectorCards() {
+	public SectorCards(List<SectorCard> sectorCard) {
 
-		this.deck = new ArrayList<SectorCard>();
+		this.deck = sectorCard;
 		this.discardPile = new ArrayList<SectorCard>();
 
 	}
