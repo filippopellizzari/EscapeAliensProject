@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import model.*;
 
 public class CardsCreator {
+	
 	public HatchCards HatchCardsCreator() {
 		List<HatchCard> hatchCard=new ArrayList<HatchCard>();
 		for(int i=0;i<2;i++) hatchCard.add(new HatchCard(true));
@@ -14,6 +15,7 @@ public class CardsCreator {
 		Collections.shuffle(hatchCard);
 		return new HatchCards(hatchCard);
 	}
+	
 	public SectorCards SectorCardsCreator() {
 		List<SectorCard> sectorCard=new ArrayList<SectorCard>();
 		for(int i=0;i<4;i++) sectorCard.add(new SectorCard(true,TypeSectorCard.NoiseAny));
@@ -24,6 +26,7 @@ public class CardsCreator {
 		Collections.shuffle(sectorCard);
 		return new SectorCards(sectorCard);
 	}
+	
 	public ItemCards ItemCardsCreator() {
 		List<ItemCard> itemCard=new ArrayList<ItemCard>();
 		for(int i=0;i<2;i++) itemCard.add(new ItemCard(TypeItemCard.Adrenaline));
