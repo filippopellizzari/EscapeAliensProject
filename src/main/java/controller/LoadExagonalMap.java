@@ -9,6 +9,10 @@ import java.util.List;
 public class LoadExagonalMap {
 	Coordinate alienSector;
 	Coordinate humanSector;
+	List<Coordinate> hatchSectors;
+	public LoadExagonalMap() {
+		hatchSectors=new ArrayList<Coordinate>();
+	}
 	public List<Sector> loadMap(String namefile, List<Sector> listSectors) throws NumberFormatException, IOException {
 		FileReader fileRead=new FileReader(""+namefile);
 		BufferedReader br = new BufferedReader(fileRead); 
@@ -18,11 +22,20 @@ public class LoadExagonalMap {
 		boolean crossable;
 		List<Coordinate> coordinate=new ArrayList<Coordinate>(6);
 		while((s=br.readLine()) != null) {
+			x=Integer.parseInt(br.readLine());
+			y=Integer.parseInt(br.readLine());
 			typeSector = TypeSector.valueOf(br.readLine());
-			if(typeSector!=TypeSector.Alien && typeSector!=TypeSector.Human) {
+			switch(typeSector) {
+				case Alien: this.alienSector=new Coordinate(x,y);
+				break;
+				case Human: this.humanSector=new Coordinate(x,y);
+				break;
+				case Hatch: hatchSectors.add(new Coordinate(x,y));
+				break;
+				default: break;
+			}
+			if(typeSector==TypeSector.Alien || typeSector==TypeSector.Human) {
 				crossable=(br.readLine()=="true");
-				x=Integer.parseInt(br.readLine());
-				y=Integer.parseInt(br.readLine());
 				for(int i=0;i<6;i++) coordinate.set(i, new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
 				if(typeSector!=TypeSector.Hatch) listSectors.set((y-1)*23+x-1, new Sector(typeSector,crossable,x,y,coordinate));		//mettiamo nel file solo i settori presenti quindi una volta prese le 
 				else listSectors.set((y-1)*23+x-1, new HatchSector(typeSector,crossable,x,y,coordinate));								//coordinate inseriamo il settore al suo posto
@@ -40,5 +53,8 @@ public class LoadExagonalMap {
 	}
 	public Coordinate getHumanSector() {
 		return humanSector;
+	}
+	public List<Coordinate> getHatchSectors() {
+		return hatchSectors;
 	}
 }

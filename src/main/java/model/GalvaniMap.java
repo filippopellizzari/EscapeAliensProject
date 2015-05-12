@@ -3,9 +3,9 @@ package model;
 import java.util.List;
 
 public class GalvaniMap extends Map{
-	public GalvaniMap(List<Sector> lista, Coordinate humanSector, Coordinate alienSector)
+	public GalvaniMap(List<Sector> lista, Coordinate humanSector, Coordinate alienSector, List<Coordinate> hatchSectors)
 	{
-		super(humanSector, alienSector);
+		super(humanSector, alienSector, hatchSectors);
 		this.listaSettori=lista;
 	}
 	@Override

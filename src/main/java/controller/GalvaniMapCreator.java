@@ -24,7 +24,8 @@ public class GalvaniMapCreator extends MapCreator{
 		}
 		Coordinate alienSector=loadExagonalmap.getAlienSector();
 		Coordinate humanSector=loadExagonalmap.getHumanSector();
-		this.map=new FermiMap(listSectors, humanSector, alienSector);
+		List<Coordinate> hatchSectors=loadExagonalmap.getHatchSectors();
+		this.map=new GalvaniMap(listSectors, humanSector, alienSector,hatchSectors);
 		return map;
 	}
 }

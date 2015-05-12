@@ -22,7 +22,8 @@ public class FermiMapCreator extends MapCreator{
 		}
 		Coordinate alienSector=loadExagonalmap.getAlienSector();
 		Coordinate humanSector=loadExagonalmap.getHumanSector();
-		this.map=new FermiMap(listSectors, humanSector, alienSector);
+		List<Coordinate> hatchSectors=loadExagonalmap.getHatchSectors();
+		this.map=new FermiMap(listSectors, humanSector, alienSector,hatchSectors);
 		return map;
 	}
 }
