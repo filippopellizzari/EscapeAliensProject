@@ -18,12 +18,6 @@ public class Sector extends Coordinate{
 		this.crossable=crossable;
 		coordinate=nextSector;
 	}
-	public int getX(){
-		return x;
-	}
-	public int getY(){
-		return y;
-	}
 	public boolean isCrossable(){
 		return crossable;
 	}

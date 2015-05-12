@@ -2,22 +2,27 @@ package controller;
 
 import model.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FermiMapCreator extends MapCreator{
 	private List<Sector> listSectors=new ArrayList<Sector>(322);
 	private String name="FermiMap.txt";
-	private Game game;
-	public FermiMapCreator(Game game) {
-		this.game=game;
-	}
 	public Map createMap() {
 		LoadExagonalMap loadExagonalmap=new LoadExagonalMap();
-		listSectors =loadExagonalmap.loadMap(name, listSectors);
+		try {
+			listSectors =loadExagonalmap.loadMap(name, listSectors);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Coordinate alienSector=loadExagonalmap.getAlienSector();
 		Coordinate humanSector=loadExagonalmap.getHumanSector();
-		this.map=new FermiMap(listSectors,game, humanSector, alienSector);
+		this.map=new FermiMap(listSectors, humanSector, alienSector);
 		return map;
 	}
 }

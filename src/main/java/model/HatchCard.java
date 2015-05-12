@@ -1,7 +1,8 @@
 package model;
 
 public class HatchCard {
-	private boolean green;
+	private final boolean green;
+	
 	public HatchCard(boolean status) {
 		this.green=status;
 	}

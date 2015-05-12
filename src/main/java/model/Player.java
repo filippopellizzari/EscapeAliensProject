@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -9,13 +10,13 @@ public class Player {
 	int numberOfPlayer;
 	boolean alive;
 	List<ItemCard> itemCardPlayer;
-	public Player(TypePlayer typePlayer, Sector actualSector, int speed, int numberOfPlayer, boolean alive, List<ItemCard> itemCardPlayer) {
+	public Player(TypePlayer typePlayer, Sector actualSector, int speed, int numberOfPlayer) {
 		this.typePlayer = typePlayer;
 		this.actualSector = actualSector;
 		this.speed = speed;
 		this.numberOfPlayer = numberOfPlayer;
-		this.alive = alive;
-		this.itemCardPlayer=itemCardPlayer;
+		this.alive = true;
+		this.itemCardPlayer=new ArrayList<ItemCard>();
 	}
 	public TypePlayer getTypePlayer() {
 		return typePlayer;
@@ -54,5 +55,4 @@ public class Player {
 	public ItemCard removeItemCardPlayer(int numberOfCard) {
 		return itemCardPlayer.remove(numberOfCard);
 	}
-	
 }
