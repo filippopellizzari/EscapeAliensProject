@@ -11,7 +11,7 @@ public class CardsCreator {
 	public HatchCards HatchCardsCreator() {
 		List<HatchCard> hatchCard=new ArrayList<HatchCard>();
 		for(int i=0;i<2;i++) hatchCard.add(new HatchCard(true));
-		for(int i=0;i<4;i++) hatchCard.add(new HatchCard(true));
+		for(int i=0;i<4;i++) hatchCard.add(new HatchCard(false));
 		Collections.shuffle(hatchCard);
 		return new HatchCards(hatchCard);
 	}

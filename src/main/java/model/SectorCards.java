@@ -5,8 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class SectorCards {
-	private List<SectorCard> deck;
-	private List<SectorCard> discardPile;
+	
+	private final List<SectorCard> deck;
+	private final List<SectorCard> discardPile;
 
 	public SectorCards(List<SectorCard> sectorCard) {
 
@@ -33,4 +34,14 @@ public class SectorCards {
 	public void discard(SectorCard current){
 		discardPile.add(current);	
 	}
+
+	public List<SectorCard> getDeck() {
+		return deck;
+	}
+
+	public List<SectorCard> getDiscardPile() {
+		return discardPile;
+	}
+	
+	
 }
