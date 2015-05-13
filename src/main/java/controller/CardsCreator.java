@@ -52,7 +52,6 @@ public class CardsCreator {
 		for(int i=0;i<2;i++){
 			itemCard.add(new ItemCard(TypeItemCard.ATTACK));
 		}
-		itemCard.add(new ItemCard(TypeItemCard.DEFENSE));
 		for(int i=0;i<3;i++){
 			itemCard.add(new ItemCard(TypeItemCard.SEDATIVES));
 		}
@@ -62,6 +61,7 @@ public class CardsCreator {
 		for(int i=0;i<2;i++){
 			itemCard.add(new ItemCard(TypeItemCard.TELEPORT));
 		}
+		itemCard.add(new ItemCard(TypeItemCard.DEFENSE));
 		Collections.shuffle(itemCard);
 		return new ItemCards(itemCard);
 	}
