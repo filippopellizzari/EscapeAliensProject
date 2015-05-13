@@ -22,19 +22,19 @@ public class GameController {
 	}
 	/*activePlayer() {
 	}*/
-	boolean controlEndGame() {
+	boolean controlEndGame() {   //DIMINUIRE COMPLESSITà !
 		if(turn>39) return true;
 		boolean endTurn=true;
 		List<Coordinate> hatchSectorToControl=game.getMap().getHatchSectors();		//prende le coordinate degli hatch
 		for(int i=0;i<6;i++) 
-			if(game.getMap().getSector(hatchSectorToControl.get(i)).isCrossable()==true) 
+			if(game.getMap().getSector(hatchSectorToControl.get(i)).isCrossable()) 
 				endTurn=false;			//controlla settori accessibili
-		if(endTurn==true) 
+		if(endTurn) 
 			return true;		//tutti gli hatch sono chiusi
 		List<Player> player=game.getPlayers();
 		for(int i=0; i<numberOfPlayer;i++) {
 			if(player.get(i).getName()==TypePlayer.HUMAN)
-				if(player.get(i).isAlive()==true) 
+				if(player.get(i).isAlive()) 
 					return false;
 		}
 		return false;		//nessun giocatore umano vivo

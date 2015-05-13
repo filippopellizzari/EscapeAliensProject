@@ -20,9 +20,9 @@ public abstract class Map {
 	}
 	
 	public Map(Coordinate humanSector, Coordinate alienSector, List<Coordinate> hatchSectors) {
-		this.hatchSectors=hatchSectors;
 		this.humanSector = humanSector;
 		this.alienSector = alienSector;
+		this.hatchSectors=hatchSectors;
 	}
 	
 	public List<Coordinate> getHatchSectors() {
