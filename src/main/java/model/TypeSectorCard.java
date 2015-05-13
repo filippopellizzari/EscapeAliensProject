@@ -1,6 +1,7 @@
 package model;
 
 public enum TypeSectorCard {
-	Silence, NoiseYour, NoiseAny
+	
+	SILENCE, NOISEYOUR, NOISEANY
 
 }

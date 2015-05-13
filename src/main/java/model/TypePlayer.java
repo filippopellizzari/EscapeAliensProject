@@ -1,5 +1,5 @@
 package model;
 
 public enum TypePlayer {
-	Human, Alien
+	HUMAN, ALIEN
 }

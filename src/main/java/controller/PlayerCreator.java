@@ -19,12 +19,12 @@ public class PlayerCreator {
 	}
 	
 	private Player createHuman(int numberOfPlayer) {
-		Player humanPlayer=new Player(TypePlayer.Human,game.getMap().getSector(humanSector),1,numberOfPlayer);
+		Player humanPlayer=new Player(TypePlayer.HUMAN,game.getMap().getSector(humanSector),1,numberOfPlayer);
 		return humanPlayer;
 	}
 	
 	private Player createAlien(int numberOfPlayer) {
-		Player humanPlayer=new Player(TypePlayer.Human,game.getMap().getSector(alienSector),2,numberOfPlayer);
+		Player humanPlayer=new Player(TypePlayer.HUMAN,game.getMap().getSector(alienSector),2,numberOfPlayer);
 		return humanPlayer;
 	}
 	

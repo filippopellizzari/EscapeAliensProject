@@ -18,8 +18,8 @@ public class TestItemCards {
 	public void testDrawDiscard() {
 		
 		List<ItemCard> list = new ArrayList<ItemCard>();
-		for(int i=0;i<2;i++) list.add(new ItemCard(TypeItemCard.Adrenaline));
-		list.add(new ItemCard(TypeItemCard.Attack));
+		for(int i=0;i<2;i++) list.add(new ItemCard(TypeItemCard.ADRENALINE));
+		list.add(new ItemCard(TypeItemCard.ATTACK));
 		ItemCards h = new ItemCards(list);
 		
 		assertTrue(h.getDiscardPile().isEmpty());

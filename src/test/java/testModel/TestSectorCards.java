@@ -18,8 +18,8 @@ public class TestSectorCards {
 	public void testDrawDiscard() {
 		
 		List<SectorCard> list = new ArrayList<SectorCard>();
-		for(int i=0;i<2;i++) list.add(new SectorCard(true,TypeSectorCard.NoiseAny));
-		list.add(new SectorCard(false,TypeSectorCard.Silence));
+		for(int i=0;i<2;i++) list.add(new SectorCard(true,TypeSectorCard.NOISEANY));
+		list.add(new SectorCard(false,TypeSectorCard.SILENCE));
 		SectorCards h = new SectorCards(list);
 		
 		assertTrue(h.getDiscardPile().isEmpty());
