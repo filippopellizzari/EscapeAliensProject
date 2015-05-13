@@ -8,7 +8,7 @@ import model.*;
 
 public class CardsCreator {
 	
-	public HatchCards HatchCardsCreator() {
+	public HatchCards hatchCardsCreator() {
 		
 		List<HatchCard> hatchCard=new ArrayList<HatchCard>();
 		for(int i=0;i<2;i++){
@@ -21,46 +21,46 @@ public class CardsCreator {
 		return new HatchCards(hatchCard);
 	}
 	
-	public SectorCards SectorCardsCreator() {
+	public SectorCards sectorCardsCreator() {
 		
 		List<SectorCard> sectorCard=new ArrayList<SectorCard>();
 		for(int i=0;i<4;i++){
-			sectorCard.add(new SectorCard(true,TypeSectorCard.NoiseAny));
+			sectorCard.add(new SectorCard(true,TypeSectorCard.NOISEANY));
 		}
 		for(int i=0;i<6;i++){
-			sectorCard.add(new SectorCard(false,TypeSectorCard.NoiseAny));
+			sectorCard.add(new SectorCard(false,TypeSectorCard.NOISEANY));
 		}
 		for(int i=0;i<4;i++){
-			sectorCard.add(new SectorCard(true,TypeSectorCard.NoiseYour));
+			sectorCard.add(new SectorCard(true,TypeSectorCard.NOISEYOUR));
 		}
 		for(int i=0;i<6;i++){
-			sectorCard.add(new SectorCard(false,TypeSectorCard.NoiseYour));
+			sectorCard.add(new SectorCard(false,TypeSectorCard.NOISEYOUR));
 		}
 		for(int i=0;i<5;i++){
-			sectorCard.add(new SectorCard(false,TypeSectorCard.Silence));
+			sectorCard.add(new SectorCard(false,TypeSectorCard.SILENCE));
 		}
 		Collections.shuffle(sectorCard);
 		return new SectorCards(sectorCard);
 	}
 	
-	public ItemCards ItemCardsCreator() {
+	public ItemCards itemCardsCreator() {
 		
 		List<ItemCard> itemCard=new ArrayList<ItemCard>();
 		for(int i=0;i<2;i++){
-			itemCard.add(new ItemCard(TypeItemCard.Adrenaline));
+			itemCard.add(new ItemCard(TypeItemCard.ADRENALINE));
 		}
 		for(int i=0;i<2;i++){
-			itemCard.add(new ItemCard(TypeItemCard.Attack));
+			itemCard.add(new ItemCard(TypeItemCard.ATTACK));
 		}
-		itemCard.add(new ItemCard(TypeItemCard.Defense));
+		itemCard.add(new ItemCard(TypeItemCard.DEFENSE));
 		for(int i=0;i<3;i++){
-			itemCard.add(new ItemCard(TypeItemCard.Sedatives));
+			itemCard.add(new ItemCard(TypeItemCard.SEDATIVES));
 		}
 		for(int i=0;i<2;i++){
-			itemCard.add(new ItemCard(TypeItemCard.SpotLight));
+			itemCard.add(new ItemCard(TypeItemCard.SPOTLIGHT));
 		}
 		for(int i=0;i<2;i++){
-			itemCard.add(new ItemCard(TypeItemCard.Teleport));
+			itemCard.add(new ItemCard(TypeItemCard.TELEPORT));
 		}
 		Collections.shuffle(itemCard);
 		return new ItemCards(itemCard);
