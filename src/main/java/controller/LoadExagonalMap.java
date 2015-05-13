@@ -8,9 +8,9 @@ import java.util.List;
 
 public class LoadExagonalMap {
 	
-	Coordinate alienSector;
-	Coordinate humanSector;
-	List<Coordinate> hatchSectors;
+	private Coordinate alienSector;
+	private Coordinate humanSector;
+	private List<Coordinate> hatchSectors;
 	
 	public LoadExagonalMap() {
 		hatchSectors=new ArrayList<Coordinate>();

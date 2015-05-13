@@ -5,16 +5,19 @@ import java.util.List;
 import model.*;
 
 public class GameController {
-	Game game;
+	
+	private Game game;
 	int turn;
 	int playerPlay;						//giocatore attuale che gioca
 	int numberOfPlayer;
+	
 	public GameController(Game game) {
 		this.game=game;
 		this.turn=0;
 		this.numberOfPlayer=game.getPlayers().size();
 		playerPlay=1;
 	}
+	
 	public void play() {
 	}
 	/*activePlayer() {

@@ -11,18 +11,19 @@ public class PlayerCreator {
 	private Game game;
 	private Coordinate humanSector;
 	private Coordinate alienSector;
+	
 	public PlayerCreator(Game game) {
 		this.game=game;
 		humanSector=game.getMap().getHumanSector();
 		alienSector=game.getMap().getAlienSector();
 	}
 	
-	private Player CreateHuman(int numberOfPlayer) {
+	private Player createHuman(int numberOfPlayer) {
 		Player humanPlayer=new Player(TypePlayer.Human,game.getMap().getSector(humanSector),1,numberOfPlayer);
 		return humanPlayer;
 	}
 	
-	private Player CreateAlien(int numberOfPlayer) {
+	private Player createAlien(int numberOfPlayer) {
 		Player humanPlayer=new Player(TypePlayer.Human,game.getMap().getSector(alienSector),2,numberOfPlayer);
 		return humanPlayer;
 	}
@@ -35,10 +36,10 @@ public class PlayerCreator {
 			do {
 				number=random.nextInt(numberPlayer);
 			} while(players.get(number)!=null);
-			players.set(number, CreateHuman(number));
+			players.set(number, createHuman(number));
 		}
 		for(int i=0;i<numberPlayer;i++) {
-			if(players.get(i)!=null) players.set(i, CreateAlien(i));
+			if(players.get(i)!=null) players.set(i, createAlien(i));
 		}
 		return players;
 	}

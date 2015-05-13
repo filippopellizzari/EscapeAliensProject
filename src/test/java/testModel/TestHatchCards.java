@@ -1,49 +1,50 @@
-package TestModel;
+package testModel;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-import model.ItemCard;
-import model.ItemCards;
-import model.TypeItemCard;
+import model.HatchCard;
+import model.HatchCards;
 
 import org.junit.Test;
 
-public class TestItemCards {
-
+public class TestHatchCards {
+	
+	
 	@Test
 	public void testDrawDiscard() {
 		
-		List<ItemCard> list = new ArrayList<ItemCard>();
-		for(int i=0;i<2;i++) list.add(new ItemCard(TypeItemCard.Adrenaline));
-		list.add(new ItemCard(TypeItemCard.Attack));
-		ItemCards h = new ItemCards(list);
+		List<HatchCard> list = new ArrayList<HatchCard>();
+		for(int i=0;i<2;i++) list.add(new HatchCard(true));
+		list.add(new HatchCard(false));
+		HatchCards h = new HatchCards(list);
 		
 		assertTrue(h.getDiscardPile().isEmpty());
 		assertEquals(list.size(),3);
 		
-		ItemCard c1 = h.draw();
+		HatchCard c1 = h.draw();
 		h.discard(c1);
 		assertFalse(h.getDiscardPile().isEmpty());
 		
-		ItemCard c2 = h.draw();
+		HatchCard c2 = h.draw();
 		h.discard(c2);
 		assertEquals(h.getDiscardPile().size(), 2);
 		
-		ItemCard c3 = h.draw();
+		HatchCard c3 = h.draw();
 		h.discard(c3);
 		assertTrue(list.isEmpty());
 		
-		ItemCard c4 = h.draw();
+		HatchCard c4 = h.draw();
 		assertTrue(h.getDiscardPile().isEmpty());
 		h.discard(c4);
 		assertEquals(h.getDiscardPile().size(),1);
 			
 		
 	}
+	
+		
 	
 
 }
