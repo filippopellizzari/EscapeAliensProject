@@ -16,14 +16,17 @@ public class PlayerCreator {
 		humanSector=game.getMap().getHumanSector();
 		alienSector=game.getMap().getAlienSector();
 	}
+	
 	private Player CreateHuman(int numberOfPlayer) {
 		Player humanPlayer=new Player(TypePlayer.Human,game.getMap().getSector(humanSector),1,numberOfPlayer);
 		return humanPlayer;
 	}
+	
 	private Player CreateAlien(int numberOfPlayer) {
 		Player humanPlayer=new Player(TypePlayer.Human,game.getMap().getSector(alienSector),2,numberOfPlayer);
 		return humanPlayer;
 	}
+	
 	public List<Player> createPlayer(int numberPlayer) {
 		List<Player> players=new ArrayList<Player>(numberPlayer);
 		Random random=new Random();
