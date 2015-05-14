@@ -11,7 +11,6 @@ public class Player {
 	private final int numberOfPlayer;
 	private boolean alive;
 	private List<ItemCard> itemCardPlayer;
-	//private boolean defense; //passa a true appena un giocatore pesca una carta Defense, si mantiene da un turno all'altro quindi è un attributo
 	
 	public Player(TypePlayer name, Sector currentSector, int speed, int numberOfPlayer) {
 		this.name = name;
@@ -20,7 +19,7 @@ public class Player {
 		this.numberOfPlayer = numberOfPlayer;
 		this.alive = true;
 		this.itemCardPlayer = new ArrayList<ItemCard>();
-		//this.defense = false;
+		
 	}
 	
 	public Sector getCurrentSector() {
@@ -67,14 +66,6 @@ public class Player {
 	public ItemCard removeItemCardPlayer(int numberOfCard) {
 		return itemCardPlayer.remove(numberOfCard);
 	}
-/*
-	public boolean isDefense() {
-		return defense;
-	}
 
-	public void setDefense(boolean defense) {
-		this.defense = defense;
-	}
-	*/
 	
 }
