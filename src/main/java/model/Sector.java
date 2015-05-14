@@ -8,7 +8,6 @@ public class Sector extends Coordinate{
 	
 	private TypeSector name;
 	protected boolean crossable;
-	Queue<Player> playerQueue=new LinkedList<Player>();
 	private Queue<Player> players;
 	private final List<Coordinate> adjacent;
 	

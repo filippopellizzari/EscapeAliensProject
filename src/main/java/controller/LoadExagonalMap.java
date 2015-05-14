@@ -8,12 +8,14 @@ import java.util.List;
 
 public class LoadExagonalMap {
 	
-	Coordinate alienSector;
-	Coordinate humanSector;
-	List<Coordinate> hatchSectors;
+	private Coordinate alienSector;
+	private Coordinate humanSector;
+	private List<Coordinate> hatchSectors;
+	
 	public LoadExagonalMap() {
 		hatchSectors=new ArrayList<Coordinate>();
 	}
+	
 	public List<Sector> loadMap(String namefile, List<Sector> listSectors) throws NumberFormatException, IOException {
 		FileReader fileRead=new FileReader(""+namefile);
 		BufferedReader br = new BufferedReader(fileRead); 

@@ -6,8 +6,8 @@ import java.util.List;
 
 public class ItemCards {
 	
-	private List<ItemCard> deck;
-	private List<ItemCard> discardPile;
+	private final List<ItemCard> deck;
+	private final List<ItemCard> discardPile;
 
 	public ItemCards(List<ItemCard> itemcard) {
 
@@ -35,5 +35,16 @@ public class ItemCards {
 		discardPile.add(current);	
 	}
 
+	public List<ItemCard> getDeck() {
+		return deck;
+	}
+
+	public List<ItemCard> getDiscardPile() {
+		return discardPile;
+	}
+	
+	
+
+	
 	
 }

@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GalvaniMapCreator extends MapCreator{
+	
 	private List<Sector> listSectors=new ArrayList<Sector>(322);
 	private String name="GalvaniMap.txt";
+	
 	public GalvaniMapCreator() {
 	}
+	
 	@Override
 	public Map createMap() {
 		try {
@@ -21,4 +24,5 @@ public class GalvaniMapCreator extends MapCreator{
 		this.map=new FermiMap(listSectors, loadExagonalmap.getHumanSector(), loadExagonalmap.getAlienSector(),loadExagonalmap.getHatchSectors());
 		return map;
 	}
+	
 }

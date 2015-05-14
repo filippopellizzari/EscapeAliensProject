@@ -1,5 +1,5 @@
 package model;
 
 public enum TypeItemCard {
-	Attack, Teleport, Sedatives, SpotLight, Defense, Adrenaline;
+	ATTACK, TELEPORT, SEDATIVES, SPOTLIGHT, DEFENSE, ADRENALINE;
 }

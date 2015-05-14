@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FermiMapCreator extends MapCreator{
+	
 	private List<Sector> listSectors=new ArrayList<Sector>(322);
 	private String name="FermiMap.txt";
+	
 	@Override
 	public Map createMap() {
 		try {
@@ -19,4 +21,5 @@ public class FermiMapCreator extends MapCreator{
 		this.map=new FermiMap(listSectors, loadExagonalmap.getHumanSector(), loadExagonalmap.getAlienSector(),loadExagonalmap.getHatchSectors());
 		return map;
 	}
+	
 }
