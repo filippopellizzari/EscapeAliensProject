@@ -1,6 +1,6 @@
 package model;
 
 public enum TypeSector {
-	Secure, Dangerous, Human, Alien, Hatch
+	SECURE, DANGEROUS, HUMAN, ALIEN, HATCH
 
 }

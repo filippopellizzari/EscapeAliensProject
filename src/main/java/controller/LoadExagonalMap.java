@@ -21,34 +21,38 @@ public class LoadExagonalMap {
 		TypeSector typeSector;
 		boolean crossable;
 		List<Coordinate> coordinate=new ArrayList<Coordinate>(6);
-		while((br.readLine()) != null) {
+		String s;
+		while((s=br.readLine()) != null) {
+			switch(s) {
+				case "Alien": typeSector=TypeSector.ALIEN;
+				break;
+				case "Human": typeSector=TypeSector.HUMAN;
+				break;
+				case "Hatch": typeSector=TypeSector.HATCH;
+				break;
+				case "Dangerous": typeSector=TypeSector.DANGEROUS;
+				break;
+				default: typeSector=TypeSector.SECURE;
+				break;
+			}
+			crossable=(br.readLine()=="true");
 			x=Integer.parseInt(br.readLine());
 			y=Integer.parseInt(br.readLine());
-			typeSector = TypeSector.valueOf(br.readLine());
 			switch(typeSector) {
-				case Alien: this.alienSector=new Coordinate(x,y);
+				case ALIEN: this.alienSector=new Coordinate(x,y);
 				break;
-				case Human: this.humanSector=new Coordinate(x,y);
+				case HUMAN: this.humanSector=new Coordinate(x,y);
 				break;
-				case Hatch: hatchSectors.add(new Coordinate(x,y));
+				case HATCH: hatchSectors.add(new Coordinate(x,y));
 				break;
 				default: break;
 			}
-			if(typeSector==TypeSector.Alien || typeSector==TypeSector.Human) {
-				crossable=(br.readLine()=="true");
-				for(int i=0;i<6;i++) 
-					coordinate.set(i, new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
-				if(typeSector!=TypeSector.Hatch) 
-					listSectors.set((y-1)*23+x-1, new Sector(typeSector,crossable,x,y,coordinate));		//mettiamo nel file solo i settori presenti quindi una volta prese le 
-				else 
-					listSectors.set((y-1)*23+x-1, new HatchSector(typeSector,crossable,x,y,coordinate));								//coordinate inseriamo il settore al suo posto
-			}																															//se è hatch va dichiarato diversamente
-			else {
-				if(typeSector!=TypeSector.Alien) 
-					alienSector=new Coordinate(x,y);
-				else 
-					humanSector=new Coordinate(x,y);
-			}
+			for(int i=0;i<6;i++) 
+				coordinate.set(i, new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
+			if(typeSector!=TypeSector.HATCH) 
+				listSectors.set((y-1)*23+x-1, new Sector(typeSector,crossable,x,y,coordinate));		//mettiamo nel file solo i settori presenti quindi una volta prese le 
+			else 
+				listSectors.set((y-1)*23+x-1, new HatchSector(typeSector,crossable,x,y,coordinate));								//coordinate inseriamo il settore al suo posto
 		}
 		br.close();
 		return listSectors;
