@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class Map {
 	
-	protected List<Sector> listaSettori; 
+	protected Sector[] listaSettori; 
 	protected Coordinate humanSector;
 	protected Coordinate alienSector;
 	protected List<Coordinate> hatchSectors;

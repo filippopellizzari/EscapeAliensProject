@@ -16,13 +16,13 @@ public class LoadExagonalMap {
 		hatchSectors=new ArrayList<Coordinate>();
 	}
 	
-	public List<Sector> loadMap(String namefile, List<Sector> listSectors) throws NumberFormatException, IOException {
-		FileReader fileRead=new FileReader(""+namefile);
+	public Sector[] loadMap(String namefile, Sector[] listSectors) throws NumberFormatException, IOException {
+		FileReader fileRead=new FileReader("C:\\Users\\Nicola\\Documents\\ANNO 3\\Ingegneria del Software\\Progetto\\"+namefile);
 		BufferedReader br = new BufferedReader(fileRead); 
 		int x=0, y=0;
 		TypeSector typeSector;
 		boolean crossable;
-		List<Coordinate> coordinate=new ArrayList<Coordinate>(6);
+		List<Coordinate> coordinate=new ArrayList<Coordinate>();
 		String s;
 		while((s=br.readLine()) != null) {
 			switch(s) {
@@ -50,11 +50,11 @@ public class LoadExagonalMap {
 				default: break;
 			}
 			for(int i=0;i<6;i++) 
-				coordinate.set(i, new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
+				coordinate.add(new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
 			if(typeSector!=TypeSector.HATCH) 
-				listSectors.set((y-1)*23+x-1, new Sector(typeSector,crossable,x,y,coordinate));		//mettiamo nel file solo i settori presenti quindi una volta prese le 
+				listSectors[(y-1)*23+x-1]= new Sector(typeSector,crossable,x,y,coordinate);		//mettiamo nel file solo i settori presenti quindi una volta prese le 
 			else 
-				listSectors.set((y-1)*23+x-1, new HatchSector(typeSector,crossable,x,y,coordinate));								//coordinate inseriamo il settore al suo posto
+				listSectors[(y-1)*23+x-1]= new HatchSector(typeSector,crossable,x,y,coordinate);								//coordinate inseriamo il settore al suo posto
 		}
 		br.close();
 		return listSectors;

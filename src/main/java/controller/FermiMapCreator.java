@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FermiMapCreator extends MapCreator{
 	
-	private List<Sector> listSectors=new ArrayList<Sector>(322);
+	private Sector[] listSectors=new Sector[322];
 	private String name="FermiMap.txt";
 	
 	@Override
