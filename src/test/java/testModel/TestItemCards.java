@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import model.ItemCard;
 import model.ItemCards;
 import model.TypeItemCard;
@@ -42,7 +41,7 @@ public class TestItemCards {
 		h.discard(c4);
 		assertEquals(h.getDiscardPile().size(),1);
 			
-		
+		assertEquals(h.getDiscardPile().size() + list.size(), 3);
 	}
 	
 
