@@ -7,23 +7,22 @@ import java.util.Random;
 import model.*;
 
 public class PlayerCreator {
-	
-	private Game game;
+	private Map map;
 	private Coordinate humanSector;
 	private Coordinate alienSector;
 	
-	public PlayerCreator(Game game) {
-		this.game=game;
-		humanSector=game.getMap().getHumanSector();
-		alienSector=game.getMap().getAlienSector();
+	public PlayerCreator(Map map) {
+		this.map=map;
+		humanSector=map.getHumanSector();
+		alienSector=map.getAlienSector();
 	}
 	
 	private Player createHuman(int numberOfPlayer) {
-		return new Player(TypePlayer.HUMAN,game.getMap().getSector(humanSector),1,numberOfPlayer);
+		return new Player(TypePlayer.HUMAN,map.getSector(humanSector),1,numberOfPlayer);
 	}
 	
 	private Player createAlien(int numberOfPlayer) {
-		return new Player(TypePlayer.HUMAN,game.getMap().getSector(alienSector),2,numberOfPlayer);
+		return new Player(TypePlayer.HUMAN,map.getSector(alienSector),2,numberOfPlayer);
 	}
 	
 	public List<Player> createPlayer(int numberPlayer) {
