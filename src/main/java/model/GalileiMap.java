@@ -8,5 +8,8 @@ public class GalileiMap extends ExagonalMap{
 		super(humanSector, alienSector, hatchSectors);
 		this.listaSettori=lista;
 	}
+
+	
+	
 	
 }
