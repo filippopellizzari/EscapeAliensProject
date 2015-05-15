@@ -11,10 +11,10 @@ public class CardsCreator {
 	public HatchCards hatchCardsCreator() {
 		
 		List<HatchCard> hatchCard=new ArrayList<HatchCard>();
-		for(int i=0;i<2;i++){
+		for(int i=0;i<3;i++){
 			hatchCard.add(new HatchCard(true));
 		}
-		for(int i=0;i<4;i++){
+		for(int i=0;i<3;i++){
 			hatchCard.add(new HatchCard(false));
 		}
 		Collections.shuffle(hatchCard);
