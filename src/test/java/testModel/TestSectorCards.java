@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import model.SectorCard;
 import model.SectorCards;
 import model.TypeSectorCard;
@@ -41,6 +40,8 @@ public class TestSectorCards {
 		assertTrue(h.getDiscardPile().isEmpty());
 		h.discard(c4);
 		assertEquals(h.getDiscardPile().size(),1);
+		
+		assertEquals(h.getDiscardPile().size() + list.size(), 3);
 			
 		
 	}

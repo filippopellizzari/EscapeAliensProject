@@ -36,10 +36,7 @@ public class TestHatchCards {
 		h.discard(c3);
 		assertTrue(list.isEmpty());
 		
-		HatchCard c4 = h.draw();
-		assertTrue(h.getDiscardPile().isEmpty());
-		h.discard(c4);
-		assertEquals(h.getDiscardPile().size(),1);
+		assertEquals(h.getDiscardPile().size() + list.size(), 3);
 			
 		
 	}
