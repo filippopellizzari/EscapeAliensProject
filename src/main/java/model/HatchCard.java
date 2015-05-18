@@ -2,13 +2,15 @@ package model;
 
 public class HatchCard {
 	
-	private final boolean green;
+	private final HatchCardColor color;
 	
-	public HatchCard(boolean green) {
-		this.green=green;
+	public HatchCard(HatchCardColor color) {
+		this.color = color;
+	}
+
+	public HatchCardColor getColor() {
+		return color;
 	}
 	
-	public boolean isGreen() {
-		return green;
-	}
+	
 }

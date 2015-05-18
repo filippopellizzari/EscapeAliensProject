@@ -16,4 +16,5 @@ public class ControlAlien extends ControlPlayer{
 	@Override
 	public void round() {		
 	}
+	
 }

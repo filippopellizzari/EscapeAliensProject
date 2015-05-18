@@ -28,6 +28,7 @@ public class TestSectorCards {
 		h.discard(c1);
 		assertFalse(h.getDiscardPile().isEmpty());
 		
+		
 		SectorCard c2 = h.draw();
 		h.discard(c2);
 		assertEquals(h.getDiscardPile().size(), 2);

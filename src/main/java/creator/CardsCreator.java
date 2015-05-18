@@ -12,11 +12,12 @@ public class CardsCreator {
 		
 		List<HatchCard> hatchCard=new ArrayList<HatchCard>();
 		for(int i=0;i<3;i++){
-			hatchCard.add(new HatchCard(true));
+			hatchCard.add(new HatchCard(HatchCardColor.GREEN));
 		}
 		for(int i=0;i<3;i++){
-			hatchCard.add(new HatchCard(false));
+			hatchCard.add(new HatchCard(HatchCardColor.RED));
 		}
+		
 		
 		Collections.shuffle(hatchCard);
 		return new HatchCards(hatchCard);

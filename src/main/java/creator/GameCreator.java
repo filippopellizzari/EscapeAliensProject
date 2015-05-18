@@ -10,7 +10,7 @@ public class GameCreator {
 	/**
 	 * pattern Singleton
 	 */
-	final private static GameCreator instance = new GameCreator();
+	private static GameCreator instance = new GameCreator();
 	
 	private GameCreator() { 
 		
@@ -33,10 +33,8 @@ public class GameCreator {
 		try {
 			map = mapCreator.createMap(mapName);
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -45,6 +43,6 @@ public class GameCreator {
 		Player[] players = playerCreator.createPlayer(numberOfPlayers);
 		
 		
-		return new Game(hatchCards,sectorCards,itemCards,map,players);
+		return new Game(hatchCards, sectorCards, itemCards, map, players);
 	}
 }
