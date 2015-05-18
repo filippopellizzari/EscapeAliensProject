@@ -1,5 +1,5 @@
 package model;
 
-public enum TypePlayer {
+public enum PlayerType {
 	HUMAN, ALIEN
 }

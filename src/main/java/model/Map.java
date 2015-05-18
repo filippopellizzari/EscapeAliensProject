@@ -2,21 +2,28 @@ package model;
 
 import java.util.List;
 
-public abstract class Map {
+public class Map {
 	
-	protected Sector[] listaSettori; 
-	protected Coordinate humanSector;
-	protected Coordinate alienSector;
-	protected List<Coordinate> hatchSectors;
+	private Sector[] listaSettori; 
+	private Coordinate humanSector;
+	private Coordinate alienSector;
+	private List<Coordinate> hatchSectors;
 	
-	public Map(Coordinate humanSector, Coordinate alienSector, List<Coordinate> hatchSectors) {
+	public Map(Sector[] listaSettori, Coordinate humanSector, Coordinate alienSector, List<Coordinate> hatchSectors) {
 		this.humanSector = humanSector;
 		this.alienSector = alienSector;
-		this.hatchSectors=hatchSectors;
+		this.hatchSectors = hatchSectors;
 	}
 	
-	public abstract Sector getSector(Coordinate coordinate);
-	public abstract boolean isNull(Coordinate coordinate);
+	
+	public Sector getSector(Coordinate coordinate) {
+		return listaSettori[(coordinate.getX()-1)+(coordinate.getY()-1)*23];
+	}
+	
+	public boolean isNull(Coordinate coordinate) {					
+		return(listaSettori[(coordinate.getX()-1)+(coordinate.getY()-1)*23]==null);
+	}
+	
 	
 	public Coordinate getHumanSector() {
 		return humanSector;
@@ -29,4 +36,5 @@ public abstract class Map {
 	public List<Coordinate> getHatchSectors() {
 		return hatchSectors;
 	}
+	
 }

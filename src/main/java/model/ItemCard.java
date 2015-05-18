@@ -2,12 +2,12 @@ package model;
 
 public class ItemCard {
 	
-	private final TypeItemCard name;
+	private final ItemCardType itemCardType;
 	
-	public ItemCard(TypeItemCard name) {
-		this.name = name;
+	public ItemCard(ItemCardType itemCardType) {
+		this.itemCardType = itemCardType;
 	}
-	public TypeItemCard getName() {
-		return name;
+	public ItemCardType getName() {
+		return itemCardType;
 	}
 }

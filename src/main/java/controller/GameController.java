@@ -33,7 +33,7 @@ public class GameController {
 			return true;		//tutti gli hatch sono chiusi
 		for(int i=0; i<numberOfPlayer;i++) {
 			Player player=game.getPlayers(i);
-			if(player.getName()==TypePlayer.HUMAN)
+			if(player.getName()==PlayerType.HUMAN)
 				if(player.isAlive()) 
 					return false;
 		}

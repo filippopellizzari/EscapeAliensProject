@@ -7,7 +7,7 @@ import java.util.List;
 
 import model.SectorCard;
 import model.SectorCards;
-import model.TypeSectorCard;
+import model.SectorCardType;
 
 import org.junit.Test;
 
@@ -17,8 +17,8 @@ public class TestSectorCards {
 	public void testDrawDiscard() {
 		
 		List<SectorCard> list = new ArrayList<SectorCard>();
-		for(int i=0;i<2;i++) list.add(new SectorCard(true,TypeSectorCard.NOISEANY));
-		list.add(new SectorCard(false,TypeSectorCard.SILENCE));
+		for(int i=0;i<2;i++) list.add(new SectorCard(true,SectorCardType.NOISEANY));
+		list.add(new SectorCard(false,SectorCardType.SILENCE));
 		SectorCards h = new SectorCards(list);
 		
 		assertTrue(h.getDiscardPile().isEmpty());

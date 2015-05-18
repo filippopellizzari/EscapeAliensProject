@@ -1,6 +1,6 @@
 package model;
 
-public enum TypeSectorCard {
+public enum SectorCardType {
 	
 	SILENCE, NOISEYOUR, NOISEANY
 

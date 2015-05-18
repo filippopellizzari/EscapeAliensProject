@@ -1,4 +1,4 @@
-package controller;
+package creator;
 
 import java.util.Random;
 
@@ -16,11 +16,11 @@ public class PlayerCreator {
 	}
 	
 	private Player createHuman(int numberOfPlayer) {
-		return new Player(TypePlayer.HUMAN,map.getSector(humanSector),1,numberOfPlayer);
+		return new Player(PlayerType.HUMAN, map.getSector(humanSector),1,numberOfPlayer);
 	}
 	
 	private Player createAlien(int numberOfPlayer) {
-		return new Player(TypePlayer.HUMAN,map.getSector(alienSector),2,numberOfPlayer);
+		return new Player(PlayerType.HUMAN, map.getSector(alienSector),2,numberOfPlayer);
 	}
 	
 	public Player[] createPlayer(int numberPlayer) {

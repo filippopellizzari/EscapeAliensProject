@@ -1,5 +1,5 @@
 package model;
 
-public enum TypeItemCard {
+public enum ItemCardType {
 	ATTACK, TELEPORT, SEDATIVES, SPOTLIGHT, DEFENSE, ADRENALINE;
 }
