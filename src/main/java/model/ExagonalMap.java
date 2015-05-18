@@ -14,7 +14,7 @@ public abstract class ExagonalMap extends Map{
 	}
 
 	@Override
-	public boolean isNull(Coordinate coordinate) {					//dice se esiste tale casella  //HO BISOGNO DELLE MAPPE PER TESTARLO!
+	public boolean isNull(Coordinate coordinate) {					//dice se esiste tale casella  //
 		if(listaSettori[(coordinate.getX()-1)+(coordinate.getY()-1)*23]==null) return true;
 		return false;
 	}

@@ -46,6 +46,14 @@ public class Sector extends Coordinate{
 	public Player removePlayer() {
 		return players.remove();
 	}
+
+	@Override
+	public String toString() {
+		return "Sector [name=" + name + ", crossable=" + crossable
+				+ ", players=" + players + ", adjacent=" + adjacent + "]";
+	}
+	
+	
 	
 	
 }
