@@ -41,7 +41,7 @@ public class LoadExagonalMap {
 				default: sectorType = SectorType.SECURE;
 				break;
 			}
-			boolean crossable = (br.readLine()=="true");
+			boolean open = (br.readLine()=="true");
 			int x = Integer.parseInt(br.readLine());
 			int y = Integer.parseInt(br.readLine());
 			
@@ -57,17 +57,18 @@ public class LoadExagonalMap {
 			}
 			
 			//6 settori adiacenti a un settore
-			List<Coordinate> adjacent=new ArrayList<Coordinate>();
-			for(int i=0;i<6;i++) 
+			List<Coordinate> adjacent = new ArrayList<Coordinate>();
+			for(int i=0; i<6; i++){
 				adjacent.add(new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
+			}
 			
 			
 			//creazione concreta del settore
 			if(sectorType != SectorType.HATCH) {
-				sectors[(y-1)*23+x-1]= new Sector(sectorType,crossable,x,y,adjacent);
+				sectors[(y-1)*23 + (x-1)]= new Sector(sectorType, x, y, adjacent, open);
 			}
 			else {
-				sectors[(y-1)*23+x-1] = new HatchSector(sectorType,crossable,x,y,adjacent);		
+				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, x, y, adjacent, open);		
 			}
 			
 		}

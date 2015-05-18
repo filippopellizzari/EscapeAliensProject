@@ -4,14 +4,20 @@ import java.util.List;
 
 public class HatchSector extends Sector{
 	
-	public HatchSector(SectorType typeSector, boolean crossable, int x, int y, List<Coordinate> nextSector){
-		super(typeSector, crossable, x, y, nextSector);
+	private boolean open;
+	
+	public HatchSector(SectorType sectorType, int x, int y, List<Coordinate> adjacent, boolean open){
+		super(sectorType, x, y, adjacent, open);
+	}
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
 	}
 	
-	@Override
-	public void addPlayer(Player player){
-		super.addPlayer(player);
-		crossable=false;
-	}
+	
 	
 }

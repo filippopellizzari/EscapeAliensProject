@@ -6,19 +6,44 @@ import model.*;
 
 public class MapCreator {
 	
-	public Map createMap(String mapName) throws NumberFormatException, IOException{
+	public Map createMap(String mapName) {
 		
-		Map map;
+		Map map = null;
 		LoadExagonalMap loadExagonalmap = new LoadExagonalMap();
 		
+		
 		switch(mapName) {
-			case "Fermi": map = loadExagonalmap.loadMap("FermiMap.txt");
+			case "Fermi": try {
+				map = loadExagonalmap.loadMap("FermiMap.txt");
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			break;
-			case "Galilei": map = loadExagonalmap.loadMap("GalileiMap.txt");
+			case "Galilei": try {
+				map = loadExagonalmap.loadMap("GalileiMap.txt");
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			break;
-			case "Galvani": map = loadExagonalmap.loadMap("GalvaniMap.txt");
+			case "Galvani": try {
+				map = loadExagonalmap.loadMap("GalvaniMap.txt");
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			break;
-			default: map = loadExagonalmap.loadMap("GalileiMap.txt");
+			default: try {
+				map = loadExagonalmap.loadMap("GalileiMap.txt");
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		

@@ -27,7 +27,7 @@ public class GameController {
 		boolean endTurn=true;
 		List<Coordinate> hatchSectorToControl=game.getMap().getHatchSectors();		//prende le coordinate degli hatch
 		for(int i=0;i<6;i++) 
-			if(game.getMap().getSector(hatchSectorToControl.get(i)).isCrossable()) 
+			if(game.getMap().getSector(hatchSectorToControl.get(i)).isOpen()) 
 				endTurn=false;			//controlla settori accessibili
 		if(endTurn) 
 			return true;		//tutti gli hatch sono chiusi
