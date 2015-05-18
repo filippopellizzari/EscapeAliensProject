@@ -12,7 +12,7 @@ public class TestCoordinate {
 	
 
 	@Test
-	public void testGetX() {
+	public void testGet() {
 		Coordinate c = new Coordinate(3,5);
 		assertEquals(c.getX(),3);
 		assertNotEquals(c.getY(),3);
