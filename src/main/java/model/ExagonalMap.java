@@ -2,10 +2,11 @@ package model;
 
 import java.util.List;
 
-public abstract class ExagonalMap extends Map{
+public class ExagonalMap extends Map{
 	
-	public ExagonalMap(Coordinate humanSector, Coordinate alienSector,List<Coordinate> hatchSectors) {
+	public ExagonalMap(Sector[] lista, Coordinate humanSector, Coordinate alienSector,List<Coordinate> hatchSectors) {
 		super(humanSector, alienSector, hatchSectors);
+		this.listaSettori=lista;
 	}
 
 	@Override

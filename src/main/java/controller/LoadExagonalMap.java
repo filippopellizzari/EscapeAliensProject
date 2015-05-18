@@ -11,12 +11,15 @@ public class LoadExagonalMap {
 	private Coordinate alienSector;
 	private Coordinate humanSector;
 	private List<Coordinate> hatchSectors;
+	private Sector[] listSectors;
+	private Map map;
 	
 	public LoadExagonalMap() {
 		hatchSectors=new ArrayList<Coordinate>();
+		this.listSectors=new Sector[322];
 	}
 	
-	public Sector[] loadMap(String namefile, Sector[] listSectors) throws NumberFormatException, IOException {
+	public Map loadMap(String namefile) throws NumberFormatException, IOException {
 		FileReader fileRead=new FileReader("C:\\Users\\Nicola\\Documents\\ANNO 3\\Ingegneria del Software\\Progetto\\"+namefile);
 		BufferedReader br = new BufferedReader(fileRead); 
 		int x=0, y=0;
@@ -57,15 +60,7 @@ public class LoadExagonalMap {
 				listSectors[(y-1)*23+x-1]= new HatchSector(typeSector,crossable,x,y,coordinate);								//coordinate inseriamo il settore al suo posto
 		}
 		br.close();
-		return listSectors;
-	}
-	public Coordinate getAlienSector() {
-		return alienSector;
-	}
-	public Coordinate getHumanSector() {
-		return humanSector;
-	}
-	public List<Coordinate> getHatchSectors() {
-		return hatchSectors;
+		map=new ExagonalMap(listSectors,humanSector,alienSector,hatchSectors);
+		return map;
 	}
 }

@@ -14,15 +14,13 @@ public class GameCreator {
 		SectorCards sectorCards=cardCreator.sectorCardsCreator();
 		ItemCards itemCards=cardCreator.itemCardsCreator();
 		Map map;
+		MapCreator mapCreator=new MapCreator();
 		switch(numberMap) {
-			case 1: GalileiMapCreator galileiMapCreator=new GalileiMapCreator();
-			map=galileiMapCreator.createMap();
+			case 1: map=mapCreator.createMap("GalileiMap.txt","Exagonal");
 			break;
-			case 2: GalvaniMapCreator galvaniMapCreator=new GalvaniMapCreator();
-			map=galvaniMapCreator.createMap();
+			case 2: map=mapCreator.createMap("GalileiMap.txt","Exagonal");
 			break;
-			default: FermiMapCreator fermiMapCreator=new FermiMapCreator();
-			map=fermiMapCreator.createMap();
+			default: map=mapCreator.createMap("GalileiMap.txt","Exagonal");
 			break;
 		}
 		PlayerCreator playerCreator=new PlayerCreator(map);
