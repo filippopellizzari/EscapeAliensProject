@@ -28,7 +28,7 @@ public class GameCreator {
 			break;
 		}
 		PlayerCreator playerCreator=new PlayerCreator(map);
-		List<Player> players=playerCreator.createPlayer(numberOfPlayers);
+		Player[] players=playerCreator.createPlayer(numberOfPlayers);
 		return new Game(hatchCards,sectorCards,itemCards,map,players);
 	}
 }

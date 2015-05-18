@@ -25,18 +25,18 @@ public class PlayerCreator {
 		return new Player(TypePlayer.HUMAN,map.getSector(alienSector),2,numberOfPlayer);
 	}
 	
-	public List<Player> createPlayer(int numberPlayer) {
-		List<Player> players=new ArrayList<Player>(numberPlayer);
+	public Player[] createPlayer(int numberPlayer) {
+		Player[] players=new Player[numberPlayer];
 		Random random=new Random();
 		for(int i=0;i<numberPlayer/2;i++) {
 			int number;
 			do {
 				number=random.nextInt(numberPlayer);
-			} while(players.get(number)!=null);
-			players.set(number, createHuman(number));
+			} while(players[number]!=null);
+			players[number]=createHuman(number);
 		}
 		for(int i=0;i<numberPlayer;i++) {
-			if(players.get(i)!=null) players.set(i, createAlien(i));
+			if(players[i]!=null) players[i]=createAlien(i);
 		}
 		return players;
 	}
