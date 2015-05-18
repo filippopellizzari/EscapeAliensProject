@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.List;
-
 import model.*;
 
 public class GameCreator {
@@ -31,7 +29,7 @@ public class GameCreator {
 		}
 		
 		PlayerCreator playerCreator=new PlayerCreator(map);
-		List<Player> players=playerCreator.createPlayer(numberOfPlayers);
+		Player[] players=playerCreator.createPlayer(numberOfPlayers);
 		return new Game(hatchCards,sectorCards,itemCards,map,players);
 	}
 }

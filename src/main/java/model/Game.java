@@ -8,10 +8,10 @@ public class Game {
     private final SectorCards sectorCards;
 	private final ItemCards itemCards;
 	private final Map map;
-	private final List<Player> players;
+	private final Player[] players;
 	
 	public Game(HatchCards hatchCards, SectorCards sectorCards,
-			ItemCards itemCards, Map map, List<Player> players) {
+			ItemCards itemCards, Map map, Player[] players) {
 		super();
 		this.hatchCards = hatchCards;
 		this.sectorCards = sectorCards;
@@ -36,8 +36,8 @@ public class Game {
 		return map;
 	}
 
-	public List<Player> getPlayers() {
-		return players;
+	public Player getPlayers(int numberOfPlayer) {
+		return players[numberOfPlayer];
 	}
 	
 	

@@ -11,10 +11,10 @@ public class GameController {
 	int playerPlay;						//giocatore attuale che gioca
 	int numberOfPlayer;
 	
-	public GameController(Game game) {
+	public GameController(Game game, int numberOfPlayers) {
 		this.game=game;
 		this.turn=0;
-		this.numberOfPlayer=game.getPlayers().size();
+		this.numberOfPlayer=numberOfPlayers;
 		playerPlay=1;
 	}
 	
@@ -31,10 +31,10 @@ public class GameController {
 				endTurn=false;			//controlla settori accessibili
 		if(endTurn) 
 			return true;		//tutti gli hatch sono chiusi
-		List<Player> player=game.getPlayers();
 		for(int i=0; i<numberOfPlayer;i++) {
-			if(player.get(i).getName()==TypePlayer.HUMAN)
-				if(player.get(i).isAlive()) 
+			Player player=game.getPlayers(i);
+			if(player.getName()==TypePlayer.HUMAN)
+				if(player.isAlive()) 
 					return false;
 		}
 		return false;		//nessun giocatore umano vivo

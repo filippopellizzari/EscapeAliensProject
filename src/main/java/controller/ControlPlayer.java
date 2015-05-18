@@ -12,7 +12,7 @@ public abstract class ControlPlayer {
 	}
 	
 	public void checkPosition(int numberOfPlayer) {
-		this.sectorOfPlayer=game.getPlayers().get(numberOfPlayer).getCurrentSector();
+		this.sectorOfPlayer=game.getPlayers(numberOfPlayer).getCurrentSector();
 	}
 	
 	public abstract boolean checkMove(Coordinate coordinate, int numberOfPlayer);
