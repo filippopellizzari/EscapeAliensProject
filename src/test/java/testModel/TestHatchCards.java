@@ -5,9 +5,8 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.HatchCard;
-import model.HatchCardColor;
-import model.HatchCards;
+import model.*;
+import creator.*;
 
 import org.junit.Test;
 
@@ -16,28 +15,16 @@ public class TestHatchCards {
 	
 	@Test
 	public void testDrawDiscard() {
-		
-		List<HatchCard> list = new ArrayList<HatchCard>();
-		for(int i=0;i<2;i++) list.add(new HatchCard(HatchCardColor.GREEN));
-		list.add(new HatchCard(HatchCardColor.RED));
-		HatchCards h = new HatchCards(list);
-		
-		assertTrue(h.getDiscardPile().isEmpty());
-		assertEquals(list.size(),3);
-		
-		HatchCard c1 = h.draw();
-		h.discard(c1);
-		assertFalse(h.getDiscardPile().isEmpty());
-		
-		HatchCard c2 = h.draw();
-		h.discard(c2);
-		assertEquals(h.getDiscardPile().size(), 2);
-		
-		HatchCard c3 = h.draw();
-		h.discard(c3);
-		assertTrue(list.isEmpty());
-		
-		assertEquals(h.getDiscardPile().size() + list.size(), 3);
+		CardsCreator cardCreator=new CardsCreator();
+		HatchCards listHatch=cardCreator.createHatchCards();
+		int green=0;
+		int red=0;
+		HatchCard hatchCard=listHatch.draw();
+		assertTrue(hatchCard instanceof HatchCard);
+		for(int i=0;i<5;i++) {
+			if(listHatch.draw().getColor()==HatchCardColor.GREEN) green++;
+			else red++;
+		}
 			
 		
 	}

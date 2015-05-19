@@ -24,17 +24,4 @@ public class HatchCards {
 	public void discard(HatchCard current){
 		discardPile.add(current);	
 	}
-	
-	
-	
-	public List<HatchCard> getDeck() {
-		return deck;
-	}
-	
-	public List<HatchCard> getDiscardPile() {
-		return discardPile;
-	}
-	
-	
-	
 }
