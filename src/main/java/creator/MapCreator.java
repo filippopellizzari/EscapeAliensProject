@@ -13,40 +13,23 @@ public class MapCreator {
 		
 		
 		switch(mapName) {
-			case "Fermi": try {
+			case "Fermi": 
+			try {
 				map = loadExagonalmap.loadMap("FermiMap.txt");
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			} catch (NumberFormatException | IOException e1) {}
 			break;
 			case "Galilei": try {
 				map = loadExagonalmap.loadMap("GalileiMap.txt");
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			} catch (NumberFormatException | IOException e1) {}
 			break;
 			case "Galvani": try {
 				map = loadExagonalmap.loadMap("GalvaniMap.txt");
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			} catch (NumberFormatException | IOException e1) {}
 			break;
 			default: try {
 				map = loadExagonalmap.loadMap("GalileiMap.txt");
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			} catch (NumberFormatException | IOException e1) {}
 		}
-		
-		
 		return map;
 	}
 }
