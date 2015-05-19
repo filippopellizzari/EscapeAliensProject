@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.*;
-
+import model.SectorType;
+import model.Coordinate;
 import org.junit.Test;
-	public class TestSector {
-		public void testInizializeSector() {
+public class TestSector {
+	public void testInizializeSector() {
 		List<Coordinate> coordinate=new ArrayList<Coordinate>();
-		SectorType typeSector;
 		for(int i=0;i<6;i++) {
 			coordinate.add(new Coordinate(i,i+1));
 		}
@@ -21,6 +21,13 @@ import org.junit.Test;
 		assertTrue(coordinate.get(3).getX()==3 && coordinate.get(0).getY()==4);
 		assertTrue(coordinate.get(4).getX()==4 && coordinate.get(0).getY()==5);
 		assertTrue(coordinate.get(5).getX()==5 && coordinate.get(0).getY()==6);
+		boolean open=true;
+		SectorType sectort= SectorType.ALIEN;
+		Sector sector=new Sector(sectort , open, 10, 10, coordinate);
+		assertTrue(sector.getSectorType()==SectorType.ALIEN);
+		assertTrue(sector.getX()==10);
+		assertTrue(sector.getY()==10);
+		assertTrue(sector.isOpen()==true);
 	}
 }
 	/*assertTrue(h.getDiscardPile().isEmpty());
