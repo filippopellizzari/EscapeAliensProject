@@ -46,7 +46,7 @@ public class Player {
 		this.alive = alive;
 	}
 
-	public PlayerType getName() {
+	public PlayerType getPlayerType() {
 		return playerType;
 	}
 
@@ -54,6 +54,9 @@ public class Player {
 		return numberOfPlayer;
 	}
 	
+	public List<ItemCard> getItemCardPlayer() {
+		return itemCardPlayer;
+	}
 	
 	public ItemCard getItemCardPlayer(int numberOfCard) {
 		return itemCardPlayer.get(numberOfCard);

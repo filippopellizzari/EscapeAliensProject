@@ -2,18 +2,20 @@ package testCreator;
 
 import static org.junit.Assert.*;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 
 import creator.*;
 import model.*;
 
 
-public class testMapCreator {
+public class TestMapCreator {
 
 	@Test
 	public void testGalilei(){
 		MapCreator mc = new MapCreator();
 		Map	m = mc.createMap("Galilei");
+		
 		
 		
 		assertEquals(m.getAlienSector().getX(),12);
