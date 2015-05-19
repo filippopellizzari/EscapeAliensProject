@@ -14,7 +14,7 @@ public class TestPlayerCreator {
 		
 		
 		MapCreator mc = new MapCreator();
-		Map m = mc.createMap("Galilei");
+		Map m = mc.createMap("Galilei", "Exagonal");
 		PlayerCreator pc = new PlayerCreator(m);
 		Player[] players = pc.createPlayer(6);
 		assertEquals (players.length, 6);
