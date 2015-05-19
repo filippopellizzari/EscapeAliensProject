@@ -18,7 +18,7 @@ public class GameCreator {
 	}
 
 
-	public Game createGame(String mapName, int totPlayers) {
+	public Game createGame(String mapName, int totPlayers, String typeMap) {
 		
 		CardsCreator cardsCreator = new CardsCreator();
 		HatchCards hatchCards = cardsCreator.createHatchCards();
@@ -26,7 +26,7 @@ public class GameCreator {
 		ItemCards itemCards = cardsCreator.createItemCards();
 		
 		MapCreator mapCreator = new MapCreator();
-		Map map = mapCreator.createMap(mapName);
+		Map map = mapCreator.createMap(mapName,typeMap);
 		
 		PlayerCreator playerCreator = new PlayerCreator(map);
 		Player[] players = playerCreator.createPlayer(totPlayers);
