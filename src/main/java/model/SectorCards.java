@@ -23,12 +23,9 @@ public class SectorCards {
 			discardPile.clear();
 			Collections.shuffle(deck);
 		}
-		if(deck.isEmpty()==false) {					//if after shuffle the deck is empty return null without  this return error is deck is empty and you draw a card
-			SectorCard current = deck.get(0);
-			deck.remove(0);
-			return current;
-		}
-		return null;
+		SectorCard current = deck.get(0);
+		deck.remove(0);
+		return current;
 	}
 	
 	public void discard(SectorCard current){
