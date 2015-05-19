@@ -13,7 +13,7 @@ public class testMapCreator {
 	@Test
 	public void testGalilei(){
 		MapCreator mc = new MapCreator();
-		Map	m = mc.createMap("Galilei");
+		Map	m = mc.createMap("Galilei", "Exagonal");
 		
 		
 		assertEquals(m.getAlienSector().getX(),12);
@@ -49,7 +49,7 @@ public class testMapCreator {
 	@Test
 	public void testFermi(){
 		MapCreator mc = new MapCreator();
-		Map	m = mc.createMap("Fermi");
+		Map	m = mc.createMap("Fermi", "Exagonal");
 	
 		
 		assertEquals(m.getAlienSector().getX(),12);
@@ -73,7 +73,7 @@ public class testMapCreator {
 	@Test
 	public void testGalvani(){
 		MapCreator mc = new MapCreator();
-		Map	m = mc.createMap("Galvani");
+		Map	m = mc.createMap("Galvani", "Exagonal");
 		
 		
 		assertEquals(m.getAlienSector().getX(),12);
