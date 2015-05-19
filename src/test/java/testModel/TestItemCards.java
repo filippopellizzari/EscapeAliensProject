@@ -7,7 +7,7 @@ import java.util.List;
 
 import model.ItemCard;
 import model.ItemCards;
-import model.TypeItemCard;
+import model.ItemCardType;
 
 import org.junit.Test;
 
@@ -17,8 +17,8 @@ public class TestItemCards {
 	public void testDrawDiscard() {
 		
 		List<ItemCard> list = new ArrayList<ItemCard>();
-		for(int i=0;i<2;i++) list.add(new ItemCard(TypeItemCard.ADRENALINE));
-		list.add(new ItemCard(TypeItemCard.ATTACK));
+		for(int i=0;i<2;i++) list.add(new ItemCard(ItemCardType.ADRENALINE));
+		list.add(new ItemCard(ItemCardType.ATTACK));
 		ItemCards h = new ItemCards(list);
 		
 		assertTrue(h.getDiscardPile().isEmpty());

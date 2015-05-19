@@ -3,16 +3,16 @@ package model;
 public class SectorCard {
 	
 	private boolean itemIcon;
-	private TypeSectorCard name;
+	private SectorCardType sectorCardType;
 	
-	public SectorCard(boolean itemIcon, TypeSectorCard name) {
+	public SectorCard(boolean itemIcon, SectorCardType name) {
 		this.itemIcon=itemIcon;
-		this.name=name;
+		this.sectorCardType=name;
 	}
 	public boolean isItemIcon() {
 		return itemIcon;
 	}
-	public TypeSectorCard getName() {
-		return name;
+	public SectorCardType getName() {
+		return sectorCardType;
 	}
 }

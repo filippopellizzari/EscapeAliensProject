@@ -5,15 +5,15 @@ import java.util.List;
 
 public class Player {
 	
-	private final  TypePlayer name;
+	private final  PlayerType playerType;
 	private Sector currentSector;
 	private int speed;
 	private final int numberOfPlayer;
 	private boolean alive;
 	private List<ItemCard> itemCardPlayer;
 	
-	public Player(TypePlayer name, Sector currentSector, int speed, int numberOfPlayer) {
-		this.name = name;
+	public Player(PlayerType name, Sector currentSector, int speed, int numberOfPlayer) {
+		this.playerType = name;
 		this.currentSector = currentSector;
 		this.speed = speed;
 		this.numberOfPlayer = numberOfPlayer;
@@ -46,8 +46,8 @@ public class Player {
 		this.alive = alive;
 	}
 
-	public TypePlayer getName() {
-		return name;
+	public PlayerType getName() {
+		return playerType;
 	}
 
 	public int getNumberOfPlayer() {

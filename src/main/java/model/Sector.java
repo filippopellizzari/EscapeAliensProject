@@ -6,39 +6,27 @@ import java.util.Queue;
 
 public class Sector extends Coordinate{
 	
-	private TypeSector name;
-	protected boolean crossable;
+	private final SectorType sectorType;
 	private Queue<Player> players;
-	private final List<Coordinate> adjacent;
+	private List<Coordinate> adjacent;
+	private boolean open;
 	
-	public Sector (TypeSector name, boolean crossable, int x, int y, List<Coordinate> adjacent){
+	public Sector (SectorType sectorType, int x, int y, List<Coordinate> adjacent, boolean open){
 		super(x,y);
-		this.name=name;
-		this.crossable=crossable;
-		this.adjacent=adjacent;
+		this.sectorType = sectorType;
+		this.adjacent = adjacent;
 		this.players = new LinkedList<Player>();
+		this.open = open;
 	}
 	
-	public TypeSector getName() {
-		return name;
-	}
-
-	public void setName(TypeSector name) {
-		this.name = name;
+	public SectorType getSectorType() {
+		return sectorType;
 	}
 
 	public List<Coordinate> getAdjacent() {
 		return adjacent;
 	}
 
-	public void setCrossable(boolean crossable) {
-		this.crossable = crossable;
-	}
-
-	public boolean isCrossable(){
-		return crossable;
-	}
-	
 	public void addPlayer(Player player){
 		players.add(player);
 	}
@@ -47,9 +35,18 @@ public class Sector extends Coordinate{
 		return players.remove();
 	}
 
+	
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
+	}
+
 	@Override
 	public String toString() {
-		return "Sector [name=" + name + ", crossable=" + crossable
+		return "Sector [name=" + sectorType 
 				+ ", players=" + players + ", adjacent=" + adjacent + "]";
 	}
 	

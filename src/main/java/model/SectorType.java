@@ -1,6 +1,6 @@
 package model;
 
-public enum TypeSector {
+public enum SectorType {
 	SECURE, DANGEROUS, HUMAN, ALIEN, HATCH
 
 }

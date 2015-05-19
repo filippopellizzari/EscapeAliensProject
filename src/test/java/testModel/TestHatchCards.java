@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.HatchCard;
+import model.HatchCardColor;
 import model.HatchCards;
 
 import org.junit.Test;
@@ -17,8 +18,8 @@ public class TestHatchCards {
 	public void testDrawDiscard() {
 		
 		List<HatchCard> list = new ArrayList<HatchCard>();
-		for(int i=0;i<2;i++) list.add(new HatchCard(true));
-		list.add(new HatchCard(false));
+		for(int i=0;i<2;i++) list.add(new HatchCard(HatchCardColor.GREEN));
+		list.add(new HatchCard(HatchCardColor.RED));
 		HatchCards h = new HatchCards(list);
 		
 		assertTrue(h.getDiscardPile().isEmpty());

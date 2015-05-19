@@ -12,7 +12,7 @@ public class Game {
 	
 	public Game(HatchCards hatchCards, SectorCards sectorCards,
 			ItemCards itemCards, Map map, Player[] players) {
-		super();
+		
 		this.hatchCards = hatchCards;
 		this.sectorCards = sectorCards;
 		this.itemCards = itemCards;
