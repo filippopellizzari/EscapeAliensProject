@@ -15,10 +15,9 @@ public class MapCreator {
  			default: try {
 				map=loadExagonalmap.loadMap(mapName);
 			} catch (NumberFormatException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
- 			
+
  		}
 
 			
