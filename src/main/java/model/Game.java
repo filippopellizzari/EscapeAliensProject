@@ -1,5 +1,6 @@
 package model;
 
+
 public class Game {
 	
     private final HatchCards hatchCards;
