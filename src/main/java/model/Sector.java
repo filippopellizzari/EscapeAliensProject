@@ -49,8 +49,4 @@ public class Sector extends Coordinate{
 		return "Sector [name=" + sectorType 
 				+ ", players=" + players + ", adjacent=" + adjacent + "]";
 	}
-	
-	
-	
-	
 }
