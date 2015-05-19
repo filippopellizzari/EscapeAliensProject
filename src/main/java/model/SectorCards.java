@@ -18,17 +18,17 @@ public class SectorCards {
 	
 	public SectorCard draw() {
 		
-		if (deck.isEmpty()){
+		if (deck.isEmpty()) {
 			deck.addAll(discardPile);
 			discardPile.clear();
 			Collections.shuffle(deck);
-
-		 	}
-
+		}
+		if(deck.isEmpty()==false) {					//if after shuffle the deck is empty return null without  this return error is deck is empty and you draw a card
 			SectorCard current = deck.get(0);
 			deck.remove(0);
-			return current;			
-			
+			return current;
+		}
+		return null;
 	}
 	
 	public void discard(SectorCard current){
