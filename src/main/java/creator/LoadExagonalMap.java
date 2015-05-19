@@ -65,10 +65,10 @@ public class LoadExagonalMap {
 			
 			//creazione concreta del settore
 			if(sectorType != SectorType.HATCH) {
-				sectors[(y-1)*23 + (x-1)]= new Sector(sectorType, x, y, adjacent, open);
+				sectors[(y-1)*23 + (x-1)]= new Sector(sectorType, open, x, y, adjacent);
 			}
 			else {
-				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, x, y, adjacent, open);		
+				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, open, x, y, adjacent);		
 			}
 			
 		}

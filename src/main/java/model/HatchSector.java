@@ -6,8 +6,8 @@ public class HatchSector extends Sector{
 	
 	private boolean open;
 	
-	public HatchSector(SectorType sectorType, int x, int y, List<Coordinate> adjacent, boolean open){
-		super(sectorType, x, y, adjacent, open);
+	public HatchSector(SectorType sectorType, boolean open, int x, int y, List<Coordinate> adjacent){
+		super(sectorType, open, x, y, adjacent);
 	}
 
 	public boolean isOpen() {

@@ -11,7 +11,7 @@ public class Sector extends Coordinate{
 	private List<Coordinate> adjacent;
 	private boolean open;
 	
-	public Sector (SectorType sectorType, int x, int y, List<Coordinate> adjacent, boolean open){
+	public Sector (SectorType sectorType, boolean open, int x, int y, List<Coordinate> adjacent){
 		super(x,y);
 		this.sectorType = sectorType;
 		this.adjacent = adjacent;
