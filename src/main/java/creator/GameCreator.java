@@ -17,6 +17,7 @@ public class GameCreator {
 		return instance;
 	}
 
+
 	public Game createGame(String mapName, int totPlayers) {
 		
 		CardsCreator cardsCreator = new CardsCreator();
