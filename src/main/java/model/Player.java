@@ -12,8 +12,8 @@ public class Player {
 	private boolean alive;
 	private List<ItemCard> itemCardPlayer;
 	
-	public Player(PlayerType name, Sector currentSector, int speed, int numberOfPlayer) {
-		this.playerType = name;
+	public Player(PlayerType playerType, Sector currentSector, int speed, int numberOfPlayer) {
+		this.playerType = playerType;
 		this.currentSector = currentSector;
 		this.speed = speed;
 		this.numberOfPlayer = numberOfPlayer;
