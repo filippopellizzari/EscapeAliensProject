@@ -43,7 +43,7 @@ public class TestiItemCards {
 		int adr=0;
 		int lig=0;
 		for(int i=0;i<12;i++) {
-			switch(listItemCards.get(i).getName()){								//test SectorCardType enumeration, 
+			switch(listItemCards.get(i).getItemCardType()){								//test SectorCardType enumeration, 
 				case ATTACK: atk++;
 				break;
 				case ADRENALINE: adr++;
@@ -70,7 +70,7 @@ public class TestiItemCards {
 	@Test
 	public void thereAreNoCardDifferentFromThisType() {
 		for(int i=0;i<12;i++)
-			assertTrue(listItemCards.get(i).getName()==ItemCardType.ADRENALINE || listItemCards.get(i).getName()==ItemCardType.ATTACK || listItemCards.get(i).getName()==ItemCardType.DEFENSE || listItemCards.get(i).getName()==ItemCardType.SEDATIVES || listItemCards.get(i).getName()==ItemCardType.SPOTLIGHT || listItemCards.get(i).getName()==ItemCardType.TELEPORT);		//test getName, class ItemCard
+			assertTrue(listItemCards.get(i).getItemCardType()==ItemCardType.ADRENALINE || listItemCards.get(i).getItemCardType()==ItemCardType.ATTACK || listItemCards.get(i).getItemCardType()==ItemCardType.DEFENSE || listItemCards.get(i).getItemCardType()==ItemCardType.SEDATIVES || listItemCards.get(i).getItemCardType()==ItemCardType.SPOTLIGHT || listItemCards.get(i).getItemCardType()==ItemCardType.TELEPORT);		//test getItemCardType, class ItemCard
 	}
 	
 	@Test

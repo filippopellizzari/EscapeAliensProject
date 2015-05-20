@@ -2,8 +2,8 @@ package model;
 
 public class SectorCard {
 	
-	private boolean itemIcon;
-	private SectorCardType sectorCardType;
+	private final  boolean itemIcon;
+	private final SectorCardType sectorCardType;
 	
 	public SectorCard(boolean itemIcon, SectorCardType name) {
 		this.itemIcon=itemIcon;
@@ -12,7 +12,7 @@ public class SectorCard {
 	public boolean isItemIcon() {
 		return itemIcon;
 	}
-	public SectorCardType getName() {
+	public SectorCardType getSectorCardType() {
 		return sectorCardType;
 	}
 }

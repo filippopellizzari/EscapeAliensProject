@@ -7,8 +7,8 @@ import java.util.Queue;
 public class Sector extends Coordinate{
 	
 	private final SectorType sectorType;
-	private Queue<Player> players;
-	private List<Coordinate> adjacent;
+	private final Queue<Player> players;
+	private final List<Coordinate> adjacent;
 	protected boolean close;						//used by hatch sector (subclasses)
 	
 	public Sector (SectorType sectorType, boolean close, int x, int y, List<Coordinate> adjacent){
@@ -25,6 +25,11 @@ public class Sector extends Coordinate{
 
 	public List<Coordinate> getAdjacent() {
 		return adjacent;
+	}
+
+
+	public Queue<Player> getPlayers() {
+		return players;
 	}
 
 	public void addPlayer(Player player){

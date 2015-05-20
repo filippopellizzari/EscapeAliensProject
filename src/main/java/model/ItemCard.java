@@ -7,7 +7,7 @@ public class ItemCard {
 	public ItemCard(ItemCardType itemCardType) {
 		this.itemCardType = itemCardType;
 	}
-	public ItemCardType getName() {
+	public ItemCardType getItemCardType() {
 		return itemCardType;
 	}
 }
