@@ -1,13 +1,12 @@
 package model;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class Sector extends Coordinate{
 	
 	private final SectorType sectorType;
-	private final Queue<Player> players;
+	private final List<Player> players;
 	private final List<Coordinate> adjacent;
 	protected boolean close;						//used by hatch sector (subclasses)
 	
@@ -15,7 +14,7 @@ public class Sector extends Coordinate{
 		super(x,y);
 		this.sectorType = sectorType;
 		this.adjacent = adjacent;
-		this.players = new LinkedList<Player>();
+		this.players = new ArrayList<Player>();
 		this.close = close;
 	}
 	
@@ -28,7 +27,7 @@ public class Sector extends Coordinate{
 	}
 
 
-	public Queue<Player> getPlayers() {
+	public List<Player> getPlayers() {
 		return players;
 	}
 
@@ -37,7 +36,7 @@ public class Sector extends Coordinate{
 	}
 	
 	public Player removePlayer() {
-		return players.remove();
+		return players.remove(0);
 	}
 
 	public boolean isClose() {
@@ -46,7 +45,9 @@ public class Sector extends Coordinate{
 
 	@Override
 	public String toString() {
-		return "Sector [name=" + sectorType 
-				+ ", players=" + players + ", adjacent=" + adjacent + "]";
+		return "Sector [sectorType=" + sectorType + ", getX()=" + getX()
+				+ ", getY()=" + getY() + "]";
 	}
+
+	
 }

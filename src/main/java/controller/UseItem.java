@@ -23,13 +23,18 @@ public class UseItem {
 		model.getItemCards().discard(sedativesCard);			
 	}
 	
-	public void spotlight(Game model, ItemCard spotlightCard, Coordinate chosen){
+	public void spotlight(Game model, ItemCard spotlightCard, Sector chosen){
 
-		Sector spot = model.getMap().getSector(chosen);
 		for (int i=0; i<6; i++){
-			System.out.println(model.getMap().getSector(spot.getAdjacent().get(i)).getPlayers());
-			
+			Sector lighted = model.getMap().getSector(chosen.getAdjacent().get(i));
+			for(int j=0; j<lighted.getPlayers().size(); j++){
+				Player hit = lighted.getPlayers().get(j);
+				System.out.println("sono il giocatore "+hit+" e mi trovo nel settore "+lighted);
+			}
+				
 		}
+			
+		
 		
 	
 	}
