@@ -20,7 +20,10 @@ public class LoadExagonalMap {
 
 	public Map loadMap(String fileName) throws NumberFormatException, IOException {
 		
-		FileReader fileRead = new FileReader(fileName+".txt");
+		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File(classLoader.getResource(fileName+"Map.txt").getFile());
+		
+		FileReader fileRead = new FileReader(file);
 		BufferedReader br = new BufferedReader(fileRead); 
 		
 		SectorType sectorType;
