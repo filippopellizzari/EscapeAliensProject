@@ -68,5 +68,13 @@ public class Player {
 		else return null;
 	}
 
+	@Override
+	public String toString() {
+		return "Player [playerType=" + playerType 
+				+ ", numberOfPlayer=" + numberOfPlayer +
+				 "]";
+	}
+
+	
 	
 }

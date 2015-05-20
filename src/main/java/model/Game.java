@@ -35,8 +35,12 @@ public class Game {
 		return map;
 	}
 
-	public Player getPlayers(int numberOfPlayer) {
+	public Player getPlayer(int numberOfPlayer) {
 		return players[numberOfPlayer];
+	}
+
+	public Player[] getPlayers() {
+		return players;
 	}
 	
 	
