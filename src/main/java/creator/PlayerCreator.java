@@ -36,7 +36,7 @@ public class PlayerCreator {
 			players[number] = createHuman(number);
 		}
 		for(int i=0; i<totPlayers; i++) {
-			if(players[i] != null){
+			if(players[i] == null){
 				players[i] = createAlien(i);
 			}
 		}

@@ -37,6 +37,7 @@ public class Game {
 	}
 
 	public Player getPlayers(int numberOfPlayer) {
+		if(numberOfPlayer>players.length-1) return null;
 		return players[numberOfPlayer];
 	}
 }
