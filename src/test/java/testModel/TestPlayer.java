@@ -28,6 +28,7 @@ public class TestPlayer {
 		player.setSpeed(3); 											//use the method setSpeed, classPlayer
 		playerSector.addPlayer(player);									//use the method addPlayer, class Sector
 		assertEquals(player,playerSector.removePlayer());				//test if remove return the same player that i have passed before, class Sector
+		playerSector.addPlayer(player);	
 		coordinate=new ArrayList<Coordinate>();
 		coordinate.add(new Coordinate(-1,-1));
 		coordinate.add(new Coordinate(1,1));
@@ -54,11 +55,33 @@ public class TestPlayer {
 		assertEquals(card2,null);										//test removeCardItemPlayer when the card is null, class Player
 		card2=player.removeItemCardPlayer(0);
 		assertEquals(card2,card);										//test if the card pass and the card discarded is the same, class Player
-		for(int i=0;i<6;i++) {
-			if(player.getCurrentSector().getAdjacent().get(i)==new Coordinate(sector1.getX(),sector1.getY())) {
-				
+		int i=0;
+		boolean condition=false;
+		while(i<6 && condition==false) {
+			if(player.getCurrentSector().getAdjacent().get(i).getX()==sector1.getX() && player.getCurrentSector().getAdjacent().get(i).getY()==sector1.getY()) {
+				if(sector1.isClose()==false) {						//control if the sector is accessible
+					condition=true;
+					sector1.addPlayer(playerSector.removePlayer());
+					player.setCurrentSector(sector1);
+				}
 			}
+			i++;
 		}
-		
+		assertEquals(player.getCurrentSector(),sector1);	//test if the sector of player is sector1, classPlayer
+		i=0;
+		condition=false;
+		while(i<6 && condition==false) {
+			if(player.getCurrentSector().getAdjacent().get(i).getX()==sector2.getX() && player.getCurrentSector().getAdjacent().get(i).getY()==sector2.getY()) {
+				if(sector2.isClose()==false) {						//control if the sector is accessible
+					condition=true;
+					sector2.addPlayer(sector1.removePlayer());
+					player.setCurrentSector(sector2);
+					player.setAlive(false); 					//player is dead
+				}
+			}
+			i++;
+		}
+		assertEquals(player.getCurrentSector(),sector2);	//test if the sector of player is sector1, classPlayer
+		assertTrue(sector2.isClose()==true && player.isAlive()==false); 	//control if the player is really dead and the sector is close, class HatchSector
 	}
 }
