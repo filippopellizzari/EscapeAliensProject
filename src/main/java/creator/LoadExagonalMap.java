@@ -19,7 +19,7 @@ public class LoadExagonalMap {
 	}
 
 	public Map loadMap(String fileName) throws NumberFormatException, IOException {
-		
+
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource(fileName+"Map.txt").getFile());
 		
