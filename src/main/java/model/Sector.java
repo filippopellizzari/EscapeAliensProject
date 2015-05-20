@@ -9,14 +9,14 @@ public class Sector extends Coordinate{
 	private final SectorType sectorType;
 	private Queue<Player> players;
 	private List<Coordinate> adjacent;
-	private boolean open;
+	protected boolean close;						//used by hatch sector (subclasses)
 	
-	public Sector (SectorType sectorType, boolean open, int x, int y, List<Coordinate> adjacent){
+	public Sector (SectorType sectorType, boolean close, int x, int y, List<Coordinate> adjacent){
 		super(x,y);
 		this.sectorType = sectorType;
 		this.adjacent = adjacent;
 		this.players = new LinkedList<Player>();
-		this.open = open;
+		this.close = close;
 	}
 	
 	public SectorType getSectorType() {
@@ -37,11 +37,7 @@ public class Sector extends Coordinate{
 
 	
 	public boolean isOpen() {
-		return open;
-	}
-
-	public void setOpen(boolean open) {
-		this.open = open;
+		return close;
 	}
 
 	@Override

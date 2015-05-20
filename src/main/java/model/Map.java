@@ -2,12 +2,12 @@ package model;
 
 import java.util.List;
 
-public class Map {
+public abstract class Map {						//abstract because the true Map is Exagonal, more extensible 
 	
-	private Sector[] sectors; 
-	private Coordinate humanSector;
-	private Coordinate alienSector;
-	private List<Coordinate> hatchSectors;
+	protected Sector[] sectors; 				//all attributes are the same in each map but they are used by subclasses
+	protected Coordinate humanSector;
+	protected Coordinate alienSector;
+	protected List<Coordinate> hatchSectors;
 	
 	public Map(Sector[] sectors, Coordinate humanSector, Coordinate alienSector, List<Coordinate> hatchSectors) {
 		this.sectors = sectors;
@@ -17,14 +17,9 @@ public class Map {
 	}
 	
 	
-	public Sector getSector(Coordinate coordinate) {
-		return sectors[(coordinate.getX()-1)+(coordinate.getY()-1)*23];
-	}
+	public abstract Sector getSector(Coordinate coordinate);				//each type of map has its own method to get a sector and show if it is null
 	
-	public boolean isNull(Coordinate coordinate) {					
-		return(sectors[(coordinate.getX()-1)+(coordinate.getY()-1)*23]==null);
-	}
-	
+	public abstract boolean isNull(Coordinate coordinate);	
 	
 	public Coordinate getHumanSector() {
 		return humanSector;

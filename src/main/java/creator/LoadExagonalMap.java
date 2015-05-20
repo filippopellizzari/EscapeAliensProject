@@ -20,7 +20,7 @@ public class LoadExagonalMap {
 
 	public Map loadMap(String fileName) throws NumberFormatException, IOException {
 		
-		FileReader fileRead = new FileReader("/Users/filippopellizzari/git/progettoingsoftwgruppo27/MapsFile/"+fileName+".txt");
+		FileReader fileRead = new FileReader(fileName+".txt");
 		BufferedReader br = new BufferedReader(fileRead); 
 		
 		SectorType sectorType;
@@ -41,7 +41,7 @@ public class LoadExagonalMap {
 				default: sectorType = SectorType.SECURE;
 				break;
 			}
-			boolean open = (br.readLine()=="true");
+			boolean close = (br.readLine()=="true");
 			int x = Integer.parseInt(br.readLine());
 			int y = Integer.parseInt(br.readLine());
 			
@@ -65,16 +65,16 @@ public class LoadExagonalMap {
 			
 			//creazione concreta del settore
 			if(sectorType != SectorType.HATCH) {
-				sectors[(y-1)*23 + (x-1)]= new Sector(sectorType, open, x, y, adjacent);
+				sectors[(y-1)*23 + (x-1)]= new Sector(sectorType, close, x, y, adjacent);
 			}
 			else {
-				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, open, x, y, adjacent);		
+				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, close, x, y, adjacent);		
 			}
 			
 		}
 		br.close();
 		
-		return new Map(sectors, humanSector, alienSector, hatchSectors);
+		return new ExagonalMap(sectors, humanSector, alienSector, hatchSectors);
 		
 	}
 }
