@@ -58,16 +58,14 @@ public class Player {
 		return itemCardPlayer;
 	}
 	
-	public ItemCard getItemCardPlayer(int numberOfCard) {
-		return itemCardPlayer.get(numberOfCard);
-	}
-	
 	public void addItemCardPlayer(ItemCard itemCard) {
 		itemCardPlayer.add(itemCard);
 	}
 	
 	public ItemCard removeItemCardPlayer(int numberOfCard) {
-		return itemCardPlayer.remove(numberOfCard);
+		if(itemCardPlayer.size()>=numberOfCard+1) 
+			return itemCardPlayer.remove(numberOfCard);
+		else return null;
 	}
 
 	

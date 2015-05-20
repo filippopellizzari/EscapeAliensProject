@@ -43,9 +43,22 @@ public class TestPlayer {
 		coordinate.add(new Coordinate(2,3));
 		coordinate.add(new Coordinate(1,4));
 		coordinate.add(new Coordinate(-1,-1));
-		Sector sector2=new HatchSector(SectorType.SECURE,false,1,3,coordinate);
+		Sector sector2=new HatchSector(SectorType.HATCH,false,1,3,coordinate);
 		assertTrue(playerSector.getSectorType()==SectorType.ALIEN && sector1.getSectorType()==SectorType.SECURE && sector2.getSectorType()==SectorType.HATCH); //test type of sector, class SectorType
 		assertTrue(player.getNumberOfPlayer()==1 && player.isAlive()==true && player.getPlayerType()==PlayerType.ALIEN);
+		ItemCard card=new ItemCard(ItemCardType.ADRENALINE);
+		ItemCard card2;
+		player.addItemCardPlayer(card);									//use the function addcard, class Player
+		assertTrue(player.getItemCardPlayer().size()==1);				//test number of item card, class Player
+		card2=player.removeItemCardPlayer(1);
+		assertEquals(card2,null);										//test removeCardItemPlayer when the card is null, class Player
+		card2=player.removeItemCardPlayer(0);
+		assertEquals(card2,card);										//test if the card pass and the card discarded is the same, class Player
+		for(int i=0;i<6;i++) {
+			if(player.getCurrentSector().getAdjacent().get(i)==new Coordinate(sector1.getX(),sector1.getY())) {
+				
+			}
+		}
 		
 	}
 }
