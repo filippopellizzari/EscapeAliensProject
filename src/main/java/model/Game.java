@@ -1,6 +1,7 @@
 package model;
 
 
+
 public class Game {
 	
     private final HatchCards hatchCards;
@@ -38,10 +39,4 @@ public class Game {
 	public Player getPlayers(int numberOfPlayer) {
 		return players[numberOfPlayer];
 	}
-	
-	
-	
-	
-	
-
 }
