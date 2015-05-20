@@ -35,8 +35,7 @@ public class Sector extends Coordinate{
 		return players.remove();
 	}
 
-	
-	public boolean isOpen() {
+	public boolean isClose() {
 		return close;
 	}
 
