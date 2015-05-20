@@ -3,6 +3,12 @@ package controller;
 import creator.GameCreator;
 import model.*;
 
+/**
+ * 
+ * @author filippopellizzari
+ *
+ */
+
 public class GameController {
 	
 	

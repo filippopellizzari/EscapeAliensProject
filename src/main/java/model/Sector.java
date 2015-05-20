@@ -35,8 +35,8 @@ public class Sector extends Coordinate{
 		players.add(player);
 	}
 	
-	public Player removePlayer() {
-		return players.remove(0);
+	public void removePlayer(Player player) { //LASCIALO COSI'! SERVE PER LA LOGICA
+		players.remove(player);
 	}
 
 	public boolean isClose() {

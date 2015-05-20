@@ -62,17 +62,42 @@ public class Player {
 		itemCardPlayer.add(itemCard);
 	}
 	
-	public ItemCard removeItemCardPlayer(int numberOfCard) {
-		if(itemCardPlayer.size()>=numberOfCard+1) 
-			return itemCardPlayer.remove(numberOfCard);
-		else return null;
+	public void removeItemCardPlayer(ItemCard itemCard) { //LASCIALO COSI'! SERVE PER LA LOGICA
+		itemCardPlayer.remove(itemCard);
+	}
+
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + numberOfPlayer;
+		result = prime * result
+				+ ((playerType == null) ? 0 : playerType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Player other = (Player) obj;
+		if (numberOfPlayer != other.numberOfPlayer)
+			return false;
+		if (playerType != other.playerType)
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Player [playerType=" + playerType 
-				+ ", numberOfPlayer=" + numberOfPlayer +
-				 "]";
+		return "Player "+numberOfPlayer;
+				
 	}
 
 	
