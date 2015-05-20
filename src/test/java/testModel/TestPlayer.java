@@ -53,8 +53,7 @@ public class TestPlayer {
 	
 	@Test
 	public void TestSpeedAndSector() {
-		assertTrue(player.getSpeed()==2 && player.getCurrentSector()==playerSector);	//test if the speed is 2 and is sector of Player is the same that i have passed before, classPlayer;
-		
+		assertTrue(player.getSpeed()==3 && player.getCurrentSector()==playerSector);	//test if the speed is 2 and is sector of Player is the same that i have passed before, classPlayer;
 	}
 	
 	@Test
@@ -88,6 +87,7 @@ public class TestPlayer {
 	@Test
 	public void testSameCardPassed() {
 		card2=player.removeItemCardPlayer(0);
+		player.addItemCardPlayer(card2);
 		assertEquals(card2,card);										//test if the card pass and the card discarded is the same, class Player
 		
 	}
@@ -107,9 +107,13 @@ public class TestPlayer {
 			i++;
 		}
 		assertEquals(player.getCurrentSector(),sector1);	//test if the sector of player is sector1, classPlayer
+		playerSector.addPlayer(sector1.removePlayer());
+		player.setCurrentSector(playerSector);
 	}
 	@Test
 	public void testPlayerMove2() {
+		sector1.addPlayer(playerSector.removePlayer());
+		player.setCurrentSector(sector1);
 		int i=0;
 		boolean condition=false;
 		while(i<6 && condition==false) {
@@ -124,6 +128,8 @@ public class TestPlayer {
 			i++;
 		}
 		assertEquals(player.getCurrentSector(),sector2);	//test if the sector of player is sector1, classPlayer
+		playerSector.addPlayer(sector2.removePlayer());
+		player.setCurrentSector(playerSector);
 	}
 	@Test
 	public void testHatchSector() {

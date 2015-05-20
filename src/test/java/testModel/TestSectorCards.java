@@ -41,12 +41,6 @@ public class TestSectorCards {
 	}
 	
 	@Test
-	public void testDraw() {
-		listSectorCards=new ArrayList<SectorCard>();	//remove the card
-		listSectorCards.add(decksOfCards.draw());
-		assertTrue(decksOfCards.getDeck().size()==24 && decksOfCards.getDiscardPile().size()==0 && listSectorCards.get(0) instanceof SectorCard);
-	}//test draw when deck is empty, after the operation deck should be 24 card, discard 0 and the card draw is SectorCard, class SectorCards
-	@Test
 	public void testNumberAndTypeOfCard() {
 		
 		int noiseInYourType0=0;

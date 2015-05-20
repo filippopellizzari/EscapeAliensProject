@@ -23,15 +23,16 @@ public class TestiItemCards {
 				decksOfCards.discard(listItemCards.get(i));
 		}
 	}
-	@Test
-	public void dimensionDeck() {
-		assertTrue(decksOfCards.getDeck().size()==0 && decksOfCards.getDiscardPile().size()==6);		//test dimension of deck and discard, class ItemCards
-	}
-	
+
 	@Test
 	public void deckisEmpty() {
 		for(int i=0;i<6;i++)
 			assertEquals(decksOfCards.getDiscardPile().get(i),listItemCards.get(i*2));	//test discardPile, class ItemCards
+	}
+	
+	@Test
+	public void dimensionDeck() {
+		assertTrue(decksOfCards.getDeck().size()==0 && decksOfCards.getDiscardPile().size()==6);		//test dimension of deck and discard, class ItemCards
 	}
 	
 	@Test
@@ -75,13 +76,19 @@ public class TestiItemCards {
 	
 	@Test
 	public void drawMoreCard() {
-		listItemCards=new ArrayList<ItemCard>();	//remove the card
+		List<ItemCard> listItemCards2=new ArrayList<ItemCard>();	//remove the card
+		ItemCards decksOfCards2 = cardCreator.createItemCards();
+		for(int i=0;i<12;i++) {
+			if(i%2==0)
+				decksOfCards2.discard(decksOfCards2.draw());
+			else decksOfCards2.draw();
+		}
 		int contatore=0;
 		for(int i=0;i<7;i++)
 		{
-			listItemCards.add(decksOfCards.draw());
-			if(listItemCards.get(i)!=null) contatore++;
+			listItemCards2.add(decksOfCards2.draw());
+			if(listItemCards2.get(i)!=null) contatore++;
 		}
-		assertTrue(decksOfCards.getDeck().size()==0 && decksOfCards.getDiscardPile().size()==0 && contatore==6 && listItemCards.get(6)==null);	//test draw when deck is empty, after the operation deck should be 24 card, discard 0 and the card draw is SectorCard, class SectorCards
+		assertTrue(decksOfCards2.getDeck().size()==0 && decksOfCards2.getDiscardPile().size()==0 && contatore==6 && listItemCards2.get(6)==null);	//test draw when deck is empty, after the operation deck should be 24 card, discard 0 and the card draw is SectorCard, class SectorCards
 	}
 }
