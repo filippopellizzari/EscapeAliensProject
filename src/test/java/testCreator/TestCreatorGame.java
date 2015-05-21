@@ -15,14 +15,17 @@ import creator.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+*/
 
+//QUESTA CLASSE DI TEST è TROPPO GRANDE...SUDDIVIDILA IN PIù CLASSI!
+/*
 public class TestCreatorGame {
 	static Game game;
 	static GameCreator gameCreator;
 	
 	@BeforeClass public static void onlyOnce() {
 		gameCreator=GameCreator.getinstance();
-		game=gameCreator.createGame("FermiMap", 3, "Exagonal");
+		game=gameCreator.createGame("FermiMap", 3, "Exagonal"); //NULL POINTER EXEPTION!
 		
 	}
 	
@@ -78,8 +81,9 @@ public class TestCreatorGame {
 		}
 	}
 	*/
-	//CONTROLLA IL TEST! QUESTA CLASSE DI TEST è TROPPO GRANDE, SUDDIVIDILA IN PIù CLASSI DI TEST
-	//non serve caricare la mappa da file, lo hai giò fatto nel @before
+	
+	//CONTROLLA QUESTO TEST! 
+	
 	/*
 	@Test
 	public void testMap() throws NumberFormatException, IOException {
