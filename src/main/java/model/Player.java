@@ -89,8 +89,6 @@ public class Player {
 		Player other = (Player) obj;
 		if (numberOfPlayer != other.numberOfPlayer)
 			return false;
-		if (playerType != other.playerType)
-			return false;
 		return true;
 	}
 
