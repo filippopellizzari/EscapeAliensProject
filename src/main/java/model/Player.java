@@ -86,7 +86,7 @@ public class Player {
 	
 	/**
 	 * 
-	 * @param alive
+	 * @param alive, set the new status of player it is used to kill a player
 	 */
 
 	public void setAlive(boolean alive) {
@@ -95,7 +95,7 @@ public class Player {
 	
 	/**
 	 * 
-	 * @return
+	 * @return player type, used by controller because a human can do some option denied at alien and vice versa
 	 */
 
 	public PlayerType getPlayerType() {
@@ -104,7 +104,7 @@ public class Player {
 	
 	/**
 	 * 
-	 * @return
+	 * @return number of player, each player is a client and play with one playere identify by number
 	 */
 	
 	public int getNumberOfPlayer() {
@@ -113,7 +113,7 @@ public class Player {
 	
 	/**
 	 * 
-	 * @return
+	 * @return item of player, used to control the number of the card because none can has more than 3 item card
 	 */
 	
 	public List<ItemCard> getItemCardPlayer() {
@@ -122,7 +122,8 @@ public class Player {
 	
 	/**
 	 * 
-	 * @param itemCard
+	 * @param itemCard, add a card draw by a player, player draw item card when go in a dangerous sector and draw a sectorcard with the correct 
+	 * symbols(item)
 	 */
 	
 	public void addItemCardPlayer(ItemCard itemCard) {
@@ -131,8 +132,8 @@ public class Player {
 	
 	/**
 	 * 
-	 * @param numberOfCard
-	 * @return
+	 * @param numberOfCard to remove from the player
+	 * @return the card if its exit and null otherwise because
 	 */
 	
 	public ItemCard removeItemCardPlayer(int numberOfCard) {

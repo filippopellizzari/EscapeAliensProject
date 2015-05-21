@@ -86,4 +86,17 @@ public class Game {
 		if(numberOfPlayer>players.length-1) return null;
 		return players[numberOfPlayer];
 	}
+
+	/**
+	 * 
+	 * @return return the array of the player used to control they status for decide if the game is finished and for test
+	 */
+
+	public Player[] getPlayers() {
+		return players;
+	}
+	
 }
+	
+	
+	

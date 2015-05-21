@@ -6,9 +6,9 @@ import java.util.List;
 public class Sector {
 	
 	private final SectorType sectorType;
-	private List<Player> players;
-	private List<Coordinate> adjacent;
-	protected boolean close;						//used by hatch sector (subclasses)
+	private final List<Player> players;
+	private final List<Coordinate> adjacent;
+	protected boolean close;
 	Coordinate coordinate;
 	
 	public Sector (SectorType sectorType, boolean close, int x, int y, List<Coordinate> adjacent){
@@ -27,9 +27,15 @@ public class Sector {
 		return adjacent;
 	}
 
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
 	public void addPlayer(Player player){
 		players.add(player);
 	}
+	
 	
 	public Player removePlayer() {
 		return players.remove(0);
@@ -44,7 +50,9 @@ public class Sector {
 
 	@Override
 	public String toString() {
-		return "Sector [name=" + sectorType 
-				+ ", players=" + players + ", adjacent=" + adjacent + "]";
+		return "Sector [sectorType=" + sectorType + ", getX()=" + getCoordinate().getX()
+				+ ", getY()=" + getCoordinate().getY() + "]";
 	}
+
+	
 }

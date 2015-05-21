@@ -23,7 +23,17 @@ public class TestiItemCards {
 				decksOfCards.discard(listItemCards.get(i));
 		}
 	}
+<<<<<<< HEAD
 
+=======
+	/*
+	@Test
+	public void dimensionDeck() {
+		assertTrue(decksOfCards.getDeck().size()==0 && decksOfCards.getDiscardPile().size()==6);		//test dimension of deck and discard, class ItemCards
+	}
+	*/
+	/*
+>>>>>>> branch 'master' of https://bitbucket.org/NicSap/progettoingsoftwgruppo27
 	@Test
 	public void deckisEmpty() {
 		for(int i=0;i<6;i++)
@@ -34,7 +44,8 @@ public class TestiItemCards {
 	public void dimensionDeck() {
 		assertTrue(decksOfCards.getDeck().size()==0 && decksOfCards.getDiscardPile().size()==6);		//test dimension of deck and discard, class ItemCards
 	}
-	
+	*/
+	/*
 	@Test
 	public void testCorrectNumberOfCard() {
 		int atk=0;
@@ -44,7 +55,7 @@ public class TestiItemCards {
 		int adr=0;
 		int lig=0;
 		for(int i=0;i<12;i++) {
-			switch(listItemCards.get(i).getName()){								//test SectorCardType enumeration, 
+			switch(listItemCards.get(i).getItemCardType()){								//test SectorCardType enumeration, 
 				case ATTACK: atk++;
 				break;
 				case ADRENALINE: adr++;
@@ -61,17 +72,18 @@ public class TestiItemCards {
 		}
 		assertTrue(atk==2 && def==1 && tele==2 && sed==3 && lig==2 && adr==2); //test the tipe of card in deck, class ItemCards
 	}
-	
+	*/
+	/*
 	@Test
 	public void cardAreTheTypeItemCard() {
 		for(int i=0;i<12;i++)									//test constructor, class ItemCards
 			assertTrue(listItemCards.get(i) instanceof ItemCard);	
 	}
-	
+	*/
 	@Test
 	public void thereAreNoCardDifferentFromThisType() {
 		for(int i=0;i<12;i++)
-			assertTrue(listItemCards.get(i).getName()==ItemCardType.ADRENALINE || listItemCards.get(i).getName()==ItemCardType.ATTACK || listItemCards.get(i).getName()==ItemCardType.DEFENSE || listItemCards.get(i).getName()==ItemCardType.SEDATIVES || listItemCards.get(i).getName()==ItemCardType.SPOTLIGHT || listItemCards.get(i).getName()==ItemCardType.TELEPORT);		//test getName, class ItemCard
+			assertTrue(listItemCards.get(i).getItemCardType()==ItemCardType.ADRENALINE || listItemCards.get(i).getItemCardType()==ItemCardType.ATTACK || listItemCards.get(i).getItemCardType()==ItemCardType.DEFENSE || listItemCards.get(i).getItemCardType()==ItemCardType.SEDATIVES || listItemCards.get(i).getItemCardType()==ItemCardType.SPOTLIGHT || listItemCards.get(i).getItemCardType()==ItemCardType.TELEPORT);		//test getItemCardType, class ItemCard
 	}
 	
 	@Test
