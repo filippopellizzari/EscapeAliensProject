@@ -2,6 +2,13 @@ package testCreator;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import model.*;
 import creator.*;
 
@@ -66,6 +73,64 @@ public class TestCreatorGame {
 			else 
 				assertTrue(player.getCurrentSector()==game.getMap().getSector(game.getMap().getHumanSector()) 
 					&& player.getSpeed()==1 && player.isAlive()==true && player.getItemCardPlayer().isEmpty()==true);
+		}
+	}
+	@Test
+	public void testMap() throws NumberFormatException, IOException {
+		ExagonalMap map;
+		Sector[] sectors=new Sector[322];
+		FileReader fileRead = new FileReader("C:\\Users\\Nicola\\Documents\\Java Projects\\cg_27\\src\\main\\resource\\FermiMap.txt");
+		SectorType sectorType;
+		Coordinate humanSector = null;
+		Coordinate alienSector = null;
+		List<Coordinate> hatchSectors = new ArrayList<Coordinate>();
+		BufferedReader br = new BufferedReader(fileRead); 
+		String s;
+		while((s = br.readLine()) != null) {
+				
+			//assegnazione del tipo di settore
+			switch(s) {
+				case "Alien": sectorType = SectorType.ALIEN;
+				break;
+				case "Human": sectorType = SectorType.HUMAN;
+				break;
+				case "Hatch": sectorType = SectorType.HATCH;
+				break;
+				case "Dangerous": sectorType = SectorType.DANGEROUS;
+				break;
+				default: sectorType = SectorType.SECURE;
+				break;
+			}
+			br.readLine();
+			int x = Integer.parseInt(br.readLine());
+			int y = Integer.parseInt(br.readLine());
+			
+			
+			switch(sectorType) {
+				case ALIEN: alienSector = new Coordinate(x,y);
+				break;
+				case HUMAN: humanSector = new Coordinate(x,y);
+				break;
+				case HATCH: hatchSectors.add(new Coordinate(x,y));
+				break;
+				default: break;
+			}
+			List<Coordinate> adjacent = new ArrayList<Coordinate>();
+			for(int i=0; i<6; i++){
+				adjacent.add(new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
+			}
+			if(sectorType != SectorType.HATCH) {
+				sectors[(y-1)*23 + (x-1)]= new Sector(sectorType, false, x, y, adjacent);
+			}
+			else {
+				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, false, x, y, adjacent);		
+			}
+			/*for(int i=0;i<23;i++)
+				for(int j=0;j<14;j++)
+					if(game.getMap().isNull(new Coordinate(i,j))==false)
+						if(game.getMap().getSector(new Coordinate(i,j))==sectors[(j-1)*23+i-1]) assertTrue(true);
+			assertTrue(humanSector==game.getMap().getHumanSector()&&alienSector==game.getMap().getAlienSector());
+			for(int i=0;i<6;i++) assertTrue(game.getMap().getHatchSectors().get(i)==hatchSectors.get(i));*/
 		}
 	}
 }

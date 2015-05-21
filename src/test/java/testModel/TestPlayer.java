@@ -97,7 +97,7 @@ public class TestPlayer {
 		int i=0;
 		boolean condition=false;
 		while(i<6 && condition==false) {
-			if(player.getCurrentSector().getAdjacent().get(i).getX()==sector1.getX() && player.getCurrentSector().getAdjacent().get(i).getY()==sector1.getY()) {
+			if(player.getCurrentSector().getCoordinate()==sector1.getCoordinate()) {
 				if(sector1.isClose()==false) {						//control if the sector is accessible
 					condition=true;
 					sector1.addPlayer(playerSector.removePlayer());
@@ -117,7 +117,7 @@ public class TestPlayer {
 		int i=0;
 		boolean condition=false;
 		while(i<6 && condition==false) {
-			if(player.getCurrentSector().getAdjacent().get(i).getX()==sector2.getX() && player.getCurrentSector().getAdjacent().get(i).getY()==sector2.getY()) {
+			if(player.getCurrentSector().getCoordinate()==sector2.getCoordinate()) {
 				if(sector2.isClose()==false) {						//control if the sector is accessible
 					condition=true;
 					sector2.addPlayer(sector1.removePlayer());
