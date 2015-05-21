@@ -6,7 +6,7 @@ import java.util.List;
  * This class is the map of the game, it has all of the sector, the coordinate of human, alien e hatch sector
  * in some sector there are players, all the game is based in the map
  * @author Nicola
- * @see Exagonal Map to know how sector is passed
+ * @see Exagonal Map to know how sector is passed is an extension and it's used to use exagonal map
  * @see Sector to see how propriety has the map
  *
  */
