@@ -23,29 +23,18 @@ public class TestiItemCards {
 				decksOfCards.discard(listItemCards.get(i));
 		}
 	}
-<<<<<<< HEAD
-
-=======
-	/*
+	
 	@Test
 	public void dimensionDeck() {
 		assertTrue(decksOfCards.getDeck().size()==0 && decksOfCards.getDiscardPile().size()==6);		//test dimension of deck and discard, class ItemCards
 	}
-	*/
-	/*
->>>>>>> branch 'master' of https://bitbucket.org/NicSap/progettoingsoftwgruppo27
+	
 	@Test
 	public void deckisEmpty() {
 		for(int i=0;i<6;i++)
 			assertEquals(decksOfCards.getDiscardPile().get(i),listItemCards.get(i*2));	//test discardPile, class ItemCards
 	}
 	
-	@Test
-	public void dimensionDeck() {
-		assertTrue(decksOfCards.getDeck().size()==0 && decksOfCards.getDiscardPile().size()==6);		//test dimension of deck and discard, class ItemCards
-	}
-	*/
-	/*
 	@Test
 	public void testCorrectNumberOfCard() {
 		int atk=0;
@@ -72,14 +61,13 @@ public class TestiItemCards {
 		}
 		assertTrue(atk==2 && def==1 && tele==2 && sed==3 && lig==2 && adr==2); //test the tipe of card in deck, class ItemCards
 	}
-	*/
-	/*
+	
 	@Test
 	public void cardAreTheTypeItemCard() {
 		for(int i=0;i<12;i++)									//test constructor, class ItemCards
 			assertTrue(listItemCards.get(i) instanceof ItemCard);	
 	}
-	*/
+	
 	@Test
 	public void thereAreNoCardDifferentFromThisType() {
 		for(int i=0;i<12;i++)
