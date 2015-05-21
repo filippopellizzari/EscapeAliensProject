@@ -12,7 +12,7 @@ public class UseItem {
 	public void teleport(Game model, ItemCard teleportCard, Player player){
 		
 		model.getItemCards().discard(teleportCard); //scarto la carta teletrasporto (coperta)
-		player.getCurrentSector().removePlayer(player); //tolgo il giocatore dalla casella attuale
+		player.getCurrentSector().removePlayer(); //tolgo il giocatore dalla casella attuale
 		Sector destination = model.getMap().getSector(model.getMap().getHumanSector());//seleziono il settore umano
 		destination.addPlayer(player); //posiziono il giocatore nel settore umano
 		player.setCurrentSector(destination); 

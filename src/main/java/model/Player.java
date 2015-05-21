@@ -1,7 +1,16 @@
 package model;
 
 import java.util.ArrayList;
+
 import java.util.List;
+
+/**
+ * 
+ * @author Nicola
+ * this class represent a player in the game with all its attributes
+ * @see PlayerType
+ *
+ */
 
 public class Player {
 	
@@ -11,6 +20,14 @@ public class Player {
 	private final int numberOfPlayer;
 	private boolean alive;
 	private List<ItemCard> itemCardPlayer;
+	
+	/**
+	 * 
+	 * @param playerType, there are 2 type of player Alien and Human
+	 * @param currentSector, sector where there is this player
+	 * @param speed, number of sector that player can pass in one round 
+	 * @param numberOfPlayer	number of player, used to communicate with the controller
+	 */
 	
 	public Player(PlayerType playerType, Sector currentSector, int speed, int numberOfPlayer) {
 		this.playerType = playerType;
@@ -22,61 +39,109 @@ public class Player {
 		
 	}
 	
+	/**
+	 * 
+	 * @return the player's sector
+	 */
+	
 	public Sector getCurrentSector() {
 		return currentSector;
 	}
+	
+	/**
+	 * 
+	 * @param currentSector, the sector where the player go is the new location of player
+	 */
 
 	public void setCurrentSector(Sector currentSector) {
 		this.currentSector = currentSector;
 	}
+	
+	/**
+	 * 
+	 * @return the player speed, used by controller to check the move
+	 */
 
 	public int getSpeed() {
 		return speed;
 	}
+	
+	/**
+	 * 
+	 * @param speed, used by alien player when kill a human to increase his speed
+	 */
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
+	
+	/**
+	 * 
+	 * @return status of player, if player is Alive he/she can play, otherwise no
+	 */
 
 	public boolean isAlive() {
 		return alive;
 	}
+	
+	/**
+	 * 
+	 * @param alive, set the new status of player it is used to kill a player
+	 */
 
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
+	
+	/**
+	 * 
+	 * @return player type, used by controller because a human can do some option denied at alien and vice versa
+	 */
 
 	public PlayerType getPlayerType() {
 		return playerType;
 	}
-
+	
+	/**
+	 * 
+	 * @return number of player, each player is a client and play with one playere identify by number
+	 */
+	
 	public int getNumberOfPlayer() {
 		return numberOfPlayer;
 	}
+	
+	/**
+	 * 
+	 * @return item of player, used to control the number of the card because none can has more than 3 item card
+	 */
 	
 	public List<ItemCard> getItemCardPlayer() {
 		return itemCardPlayer;
 	}
 	
+	/**
+	 * 
+	 * @param itemCard, add a card draw by a player, player draw item card when go in a dangerous sector and draw a sectorcard with the correct 
+	 * symbols(item)
+	 */
+	
 	public void addItemCardPlayer(ItemCard itemCard) {
 		itemCardPlayer.add(itemCard);
 	}
 	
-	public void removeItemCardPlayer(ItemCard itemCard) { //LASCIALO COSI'! SERVE PER LA LOGICA
-		itemCardPlayer.remove(itemCard);
+	/**
+	 * 
+	 * @param numberOfCard to remove from the player
+	 * @return the card if its exit and null otherwise because
+	 */
+	
+	public ItemCard removeItemCardPlayer(int numberOfCard) {
+		if(itemCardPlayer.size()>=numberOfCard+1) 
+			return itemCardPlayer.remove(numberOfCard);
+		else return null;
 	}
 
-	
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + numberOfPlayer;
-		result = prime * result
-				+ ((playerType == null) ? 0 : playerType.hashCode());
-		return result;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -98,6 +163,5 @@ public class Player {
 				
 	}
 
-	
 	
 }
