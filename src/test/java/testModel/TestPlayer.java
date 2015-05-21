@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TestPlayer {
 	static Sector playerSector;
 	static Player player;
-	static Sector sector1;
+	static Sector sector1;		//first sector where player has to go
 	static Sector sector2;
 	static ItemCard card;
 	static ItemCard card2;
@@ -96,8 +96,11 @@ public class TestPlayer {
 	public void testPlayeMove1() {
 		int i=0;
 		boolean condition=false;
+		Player player2=player;	
+		Sector sector3=sector1;
 		while(i<6 && condition==false) {
-			if(player.getCurrentSector().getCoordinate()==sector1.getCoordinate()) {
+			if(player.getCurrentSector().getAdjacent().get(i).equals(sector1.getCoordinate()))
+			{
 				if(sector1.isClose()==false) {						//control if the sector is accessible
 					condition=true;
 					sector1.addPlayer(playerSector.removePlayer());
@@ -117,7 +120,7 @@ public class TestPlayer {
 		int i=0;
 		boolean condition=false;
 		while(i<6 && condition==false) {
-			if(player.getCurrentSector().getCoordinate()==sector2.getCoordinate()) {
+			if(player.getCurrentSector().getAdjacent().get(i).equals(sector2.getCoordinate())) {
 				if(sector2.isClose()==false) {						//control if the sector is accessible
 					condition=true;
 					sector2.addPlayer(sector1.removePlayer());
@@ -130,9 +133,6 @@ public class TestPlayer {
 		assertEquals(player.getCurrentSector(),sector2);	//test if the sector of player is sector1, classPlayer
 		playerSector.addPlayer(sector2.removePlayer());
 		player.setCurrentSector(playerSector);
-	}
-	@Test
-	public void testHatchSector() {
 		assertTrue(sector2.isClose()==true && player.isAlive()==false); 	//control if the player is really dead and the sector is close, class HatchSector
 	}
 }
