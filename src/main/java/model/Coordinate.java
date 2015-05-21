@@ -50,8 +50,6 @@ public class Coordinate {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (getClass() != obj.getClass())
-			return false;
 		Coordinate other = (Coordinate) obj;
 		if (x != other.x)
 			return false;
