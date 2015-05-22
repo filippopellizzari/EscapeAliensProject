@@ -141,4 +141,27 @@ public class Player {
 			return itemCardPlayer.remove(numberOfCard);
 		else return null;
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Player other = (Player) obj;
+		if (numberOfPlayer != other.numberOfPlayer)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Player "+numberOfPlayer;
+				
+	}
+
+	
 }

@@ -22,26 +22,26 @@ public class TestSectorCards {
 			decksOfCards.discard(listSectorCards.get(i));
 		}
 	}
-	/*
+	
 	@Test
 	public void numberOfCardInDeckAndDiscard() {
 		assertTrue(decksOfCards.getDeck().size()==0 && decksOfCards.getDiscardPile().size()==25);		//test dimension of deck and discard, class SectorCards
 	}
-	*/
-	/*
+	
+	
 	@Test
 	public void cardOfCorrectType() {
 		for(int i=0;i<25;i++) 
 			assertTrue(listSectorCards.get(i) instanceof SectorCard);				//test draw, class SectorCards
 	}
-	*/
-	/*
+	
+	
 	@Test
 	public void testOfCorrectTypeOfCard() {
 		for(int i=0;i<25;i++)
 			assertTrue(listSectorCards.get(i).getSectorCardType()==SectorCardType.NOISEANY|| listSectorCards.get(i).getSectorCardType()==SectorCardType.NOISEYOUR || listSectorCards.get(i).getSectorCardType()==SectorCardType.SILENCE);		//test getName, class SectorCard
 	}
-	*/
+	
 	@Test
 	public void testNumberAndTypeOfCard() {
 		

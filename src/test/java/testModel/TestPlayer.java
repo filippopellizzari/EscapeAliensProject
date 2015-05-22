@@ -50,20 +50,20 @@ public class TestPlayer {
 		card=new ItemCard(ItemCardType.ADRENALINE);
 		player.addItemCardPlayer(card);									//use the function addcard, class Player
 	}
-	/*
+	
 	@Test
 	public void TestSpeedAndSector() {
 		assertTrue(player.getSpeed()==3 && player.getCurrentSector()==playerSector);	//test if the speed is 2 and is sector of Player is the same that i have passed before, classPlayer;
 	}
-	*/
-	/*
+	
+	
 	@Test
 	public void testremoveAndAdd() {
-		assertEquals(player,playerSector.removePlayer(player));				//test if remove return the same player that i have passed before, class Sector
+		assertEquals(player,playerSector.removePlayer());				//test if remove return the same player that i have passed before, class Sector
 		playerSector.addPlayer(player);	
 		
 	}
-	*/
+	
 	@Test
 	public void testCorrectTypeOfSector() {
 		assertTrue(playerSector.getSectorType()==SectorType.ALIEN && sector1.getSectorType()==SectorType.SECURE && sector2.getSectorType()==SectorType.HATCH); //test type of sector, class SectorType
@@ -78,14 +78,14 @@ public class TestPlayer {
 	public void testNumberCardOfPlayer() {
 		assertTrue(player.getItemCardPlayer().size()==1);				//test number of item card, class Player
 	}
-	/*
+	
 	@Test
 	public void testRemoveCard() {
 		card2=player.removeItemCardPlayer(1);
 		assertEquals(card2,null);										//test removeCardItemPlayer when the card is null, class Player
 	}
-	/*
-	/*
+	
+	
 	@Test
 	public void testSameCardPassed() {
 		card2=player.removeItemCardPlayer(0);
@@ -93,14 +93,12 @@ public class TestPlayer {
 		assertEquals(card2,card);										//test if the card pass and the card discarded is the same, class Player
 		
 	}
-	*/
-	/*
+	
+	
 	@Test
 	public void testPlayeMove1() {
 		int i=0;
 		boolean condition=false;
-		Player player2=player;	
-		Sector sector3=sector1;
 		while(i<6 && condition==false) {
 			if(player.getCurrentSector().getAdjacent().get(i).equals(sector1.getCoordinate()))
 			{
@@ -116,8 +114,8 @@ public class TestPlayer {
 		playerSector.addPlayer(sector1.removePlayer());
 		player.setCurrentSector(playerSector);
 	}
-	*/
-	/*
+	
+	
 	@Test
 	public void testPlayerMove2() {
 		sector1.addPlayer(playerSector.removePlayer());
@@ -136,17 +134,16 @@ public class TestPlayer {
 			i++;
 		}
 		assertEquals(player.getCurrentSector(),sector2);	//test if the sector of player is sector1, classPlayer
-<<<<<<< HEAD
+
 		playerSector.addPlayer(sector2.removePlayer());
 		player.setCurrentSector(playerSector);
-=======
+
 	}
-	*/
-	/*
+	
+	
 	@Test
 	public void testHatchSector() {
->>>>>>> branch 'master' of https://bitbucket.org/NicSap/progettoingsoftwgruppo27
 		assertTrue(sector2.isClose()==true && player.isAlive()==false); 	//control if the player is really dead and the sector is close, class HatchSector
 	}
-	*/
+	
 }

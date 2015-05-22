@@ -4,7 +4,7 @@ import model.*;
 /**
  * azioni sulle carte oggetto; possono essere eseguite solo da giocatori di tipo "umano"
  * 
- * @author filippopellizzari
+ * @author Filippo
  *
  */
 public class UseItem {

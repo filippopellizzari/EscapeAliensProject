@@ -4,7 +4,7 @@ import model.*;
 
 /**
  * 
- * @author filippopellizzari
+ * @author Filippo
  *
  */
 
