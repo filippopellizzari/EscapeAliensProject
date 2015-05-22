@@ -12,43 +12,39 @@ public class UseItem {
 	public void teleport(Game model, ItemCard teleportCard, Player player){
 		
 		model.getItemCards().discard(teleportCard); //scarto la carta teletrasporto (coperta)
-		player.getCurrentSector().removePlayer(); //tolgo il giocatore dalla casella attuale
-		Sector destination = model.getMap().getSector(model.getMap().getHumanSector());//seleziono il settore umano
-		destination.addPlayer(player); //posiziono il giocatore nel settore umano
-		player.setCurrentSector(destination); 
-		
-			
+		model.getMap().getSector(model.getMap().getHumanSector()).addPlayer(player.getCurrentSector().removePlayer());//seleziono il settore umano
 	}
-	
 	
 	public void sedatives(Game model, ItemCard sedativesCard){
 		
 		model.getItemCards().discard(sedativesCard); //scarto la carta sedativi (coperta)
+		//manca la modifica alla variabile di stato del controller
 	}
 	
-	
-	
-	public void spotlight(Game model, ItemCard spotlightCard, Sector chosen){
-
-		for(int i = 0; i < chosen.getPlayers().size(); i++){
-			Player declaring = chosen.getPlayers().get(i);
-			System.out.println("Sono il giocatore "+declaring+" e mi trovo nel settore "+chosen); 
+	public String spotlight(Game model, ItemCard spotlightCard, Sector chosen){
+		String s="";
+		for(int i = 0; i < chosen.getPlayers().size(); i++) {
+			Player declaring=chosen.getPlayers().get(i);
+			s+="Player "+declaring.getNumberOfPlayer()+" tipo: "+declaring.getPlayerType()+" in sector "+chosen.getCoordinate().getX()+" "+chosen.getCoordinate().getY()+"\n";
 		}
-		
-		for (int i = 0; i < 6; i++){
+			for (int i = 0; i < 6; i++){
 			Sector lighted = model.getMap().getSector(chosen.getAdjacent().get(i));
-			for(int j = 0; j < lighted.getPlayers().size(); j++){
-				Player declaring = lighted.getPlayers().get(j);
-				System.out.println("Sono il giocatore "+declaring+" e mi trovo nel settore "+lighted); 
-			}		
+			if(lighted!=null)
+				for(int j = 0; j < lighted.getPlayers().size(); j++){
+					Player declaring = lighted.getPlayers().get(j);
+					System.out.println("Sono il giocatore "+declaring+" e mi trovo nel settore "+lighted); 
+					s+="Player "+declaring.getNumberOfPlayer()+" tipo: "+declaring.getPlayerType()+" in sector "+lighted.getCoordinate().getX()+" "+lighted.getCoordinate().getY()+"\n";
+				}		
 		}
 		//ogni giocatore nel settore scelto e in quelli adiacenti devono dichiarare la loro posizione
+		return s;
 	}
 		
 	
-	public void adrenaline(Game model, ItemCard adrenalineCard, Player player){
+	public void adrenaline(Game model, ItemCard adrenalineCard){
 		
 		model.getItemCards().discard(adrenalineCard); //scarto la carta adrenalina (coperta)
+		
 	}
 		
 	public void attack(Game model, ItemCard attackCard, Player player){
