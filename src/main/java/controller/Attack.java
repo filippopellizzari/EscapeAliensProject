@@ -55,6 +55,7 @@ public class Attack {
 	private boolean isDefendable(Player attacked){
 		for(int j = 0; j < attacked.getItemCardPlayer().size(); j++){
 			if(attacked.getItemCardPlayer().get(j).getItemCardType() == ItemCardType.DEFENSE){
+				attacked.removeItemCardPlayer(j);
 				return true;
 			}
 		}

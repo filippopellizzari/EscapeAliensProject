@@ -31,14 +31,6 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
           <include>GalvaniMap.txt</include>
         </includes>
       </resource>
-      <resource>
-        <directory>src/test/resource</directory>
-        <includes>
-          <include>FermiMap.txt</include>
-          <include>GalileiMap.txt</include>
-          <include>GalvaniMap.txt</include>
-        </includes>
-      </resource>
     </resources>
 		<plugins>
 			<plugin>

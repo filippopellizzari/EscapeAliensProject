@@ -26,7 +26,7 @@ public class ExagonalMap extends Map{
 	}
 	
 	@Override	
-	public Sector getSector(Coordinate coordinate) {								//to find a sector 
+	public Sector getSector(Coordinate coordinate) {							
 			return sectors[(coordinate.getX()-1)+(coordinate.getY()-1)*23];
 	}
 	

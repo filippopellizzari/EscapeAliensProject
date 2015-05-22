@@ -11,10 +11,21 @@ import creator.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ *With this test i want verify if itemcard deck is correct and is well draw and discard, i create the deck with the
+ * ItemCardcreator from CardCreator
+ * @author Nicola
+ *
+ */
+
 public class TestiItemCards {
 	static CardsCreator cardCreator=new CardsCreator();
 	static ItemCards decksOfCards=cardCreator.createItemCards();
 	static List<ItemCard> listItemCards=new ArrayList<ItemCard>();
+	
+	/**
+	 * I create the deck and draw 12 card, 6 of them are put in the discard pile
+	 */
 	
 	@BeforeClass public static void onlyOnce() {
 		for(int i=0;i<12;i++) {									//test constructor, class ItemCards
@@ -24,16 +35,28 @@ public class TestiItemCards {
 		}
 	}
 	
+	/**
+	 * i verify if the deck is empty and the discard pile contains exactly 6 card
+	 */
+	
 	@Test
 	public void dimensionDeck() {
 		assertTrue(decksOfCards.getDeck().size()==0 && decksOfCards.getDiscardPile().size()==6);		//test dimension of deck and discard, class ItemCards
 	}
+	
+	/**
+	 * test if the discard pile has the same card that i had discard
+	 */
 	
 	@Test
 	public void deckisEmpty() {
 		for(int i=0;i<6;i++)
 			assertEquals(decksOfCards.getDiscardPile().get(i),listItemCards.get(i*2));	//test discardPile, class ItemCards
 	}
+	
+	/**
+	 * verify the correct number of item in the deck
+	 */
 	
 	@Test
 	public void testCorrectNumberOfCard() {
@@ -62,17 +85,29 @@ public class TestiItemCards {
 		assertTrue(atk==2 && def==1 && tele==2 && sed==3 && lig==2 && adr==2); //test the tipe of card in deck, class ItemCards
 	}
 	
+	/**
+	 * i verify if the card are the correct type
+	 */
+	
 	@Test
 	public void cardAreTheTypeItemCard() {
 		for(int i=0;i<12;i++)									//test constructor, class ItemCards
 			assertTrue(listItemCards.get(i) instanceof ItemCard);	
 	}
 	
+	/**
+	 * I verify that there aren't any others type of card in the deck
+	 */
+	
 	@Test
 	public void thereAreNoCardDifferentFromThisType() {
 		for(int i=0;i<12;i++)
 			assertTrue(listItemCards.get(i).getItemCardType()==ItemCardType.ADRENALINE || listItemCards.get(i).getItemCardType()==ItemCardType.ATTACK || listItemCards.get(i).getItemCardType()==ItemCardType.DEFENSE || listItemCards.get(i).getItemCardType()==ItemCardType.SEDATIVES || listItemCards.get(i).getItemCardType()==ItemCardType.SPOTLIGHT || listItemCards.get(i).getItemCardType()==ItemCardType.TELEPORT);		//test getItemCardType, class ItemCard
 	}
+	
+	/**
+	 * I verify, after draw 7 card than the first 6 are correct and the seven is null before both discard pile and deck are empty after draw 6 card
+	 */
 	
 	@Test
 	public void drawMoreCard() {

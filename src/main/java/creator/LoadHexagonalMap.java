@@ -6,17 +6,35 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoadExagonalMap {
+/**
+ * This class take the name of map and load the correct map from the corresponding file
+ * @author Nicola
+ *
+ */
+
+public class LoadHexagonalMap {
 	
 	private Sector[] sectors;
 	private Coordinate alienSector;
 	private Coordinate humanSector;
 	private List<Coordinate> hatchSectors;
 	
-	public LoadExagonalMap() {
+	/**
+	 * 
+	 */
+	
+	public LoadHexagonalMap() {
 		this.hatchSectors = new ArrayList<Coordinate>();
 		this.sectors = new Sector[322];
 	}
+	
+	/**
+	 * 
+	 * @param fileName, name of file 
+	 * @return exagonal map
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 
 	public Map loadMap(String fileName) throws NumberFormatException, IOException {
 

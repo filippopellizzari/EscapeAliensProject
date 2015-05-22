@@ -6,7 +6,19 @@ import java.util.ArrayList;
 
 import model.*;
 
+/**
+ * 
+ * @author Nicola
+ * This class is used to create the 3 decks used in the game
+ *
+ */
+
 public class CardsCreator {
+	
+	/**
+	 * 
+	 * @return HatchCards, the decks of HatchCard, create 3 red hatchcard and 3 green card and shuffle the deck 
+	 */
 	
 	public HatchCards createHatchCards() {
 		
@@ -22,6 +34,12 @@ public class CardsCreator {
 		Collections.shuffle(hatchCard);
 		return new HatchCards(hatchCard);
 	}
+	
+	/**
+	 * 
+	 * @return SectorCards, the decks of SectorCard, create 10 noise in your sector (4 with item), 10 noise in any sector (4 with item) and 5
+	 * silence, the shuffle the deck 
+	 */
 	
 	public SectorCards createSectorCards() {
 		
@@ -45,6 +63,12 @@ public class CardsCreator {
 		Collections.shuffle(sectorCard);
 		return new SectorCards(sectorCard);
 	}
+	
+	/**
+	 * 
+	 * @return ItemCards, the decks of ItemCard, create 3 sedative, 2 teletransport, 2 attack, 2 adrenaline, 1 defense, 2 spotlight
+	 * and shuffle the deck 
+	 */
 	
 	public ItemCards createItemCards() {
 		

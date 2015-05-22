@@ -19,7 +19,7 @@ public class Player {
 	private int speed;
 	private final int numberOfPlayer;
 	private boolean alive;
-	private List<ItemCard> itemCardPlayer;
+	private final List<ItemCard> itemCardPlayer;
 	
 	/**
 	 * 
@@ -133,7 +133,7 @@ public class Player {
 	/**
 	 * 
 	 * @param numberOfCard to remove from the player
-	 * @return the card if its exit and null otherwise because
+	 * @return the card if this exist and null otherwise
 	 */
 	
 	public ItemCard removeItemCardPlayer(int index) {

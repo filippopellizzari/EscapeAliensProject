@@ -13,12 +13,9 @@ import java.util.List;
 import model.*;
 import creator.*;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
-
-
-
 
 public class TestCreatorGame {
 	static Game game;
@@ -29,7 +26,7 @@ public class TestCreatorGame {
 		 
 		
 		gameCreator=GameCreator.getinstance();
-		//game=gameCreator.createGame("FermiMap", 3, "Exagonal"); 
+		game=gameCreator.createGame("Fermi", 3, "Hexagonal"); 
 		
 	}
 	
@@ -40,7 +37,7 @@ public class TestCreatorGame {
 	   assertNotNull(classLoader.getResource("FermiMap.txt"));
 	   
 	}
-	/*
+	
 	@Test
 	public void testCreateGame() {
 		assertTrue(game instanceof Game);				//test correct type of game, class game
@@ -61,10 +58,6 @@ public class TestCreatorGame {
 		assertTrue(game.getItemCards().getDeck().size()==12 && game.getItemCards().getDiscardPile().isEmpty()==true);		//test number of item cards, class Game
 	}
 	
-	@Test
-	public void testTakeTheWrongPlayer() {			//test number of player, class Game
-		assertTrue(game.getPlayers(3)==null);
-	}
 	
 	@Test
 	public void testTypeOfPlayer() {				//test correct number of type of player, class playerCreator
@@ -91,13 +84,9 @@ public class TestCreatorGame {
 				assertTrue(player.getCurrentSector()==game.getMap().getSector(game.getMap().getHumanSector()) 
 					&& player.getSpeed()==1 && player.isAlive()==true && player.getItemCardPlayer().isEmpty()==true);
 		}
-	}
+	}	
 	
-	
-	//CONTROLLA QUESTO TEST! 
-	
-	
-	@Test
+	@Ignore
 	public void testMap() throws NumberFormatException, IOException {
 		ExagonalMap map;
 		Sector[] sectors=new Sector[322];
@@ -154,8 +143,7 @@ public class TestCreatorGame {
 			else {
 				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, false, x, y, adjacent);		
 			}
-			*/
-			/*
+			
 			for(int i=0;i<23;i++){
 				for(int j=0;j<14;j++){
 					if(game.getMap().isNull(new Coordinate(i,j))==false){
@@ -170,15 +158,8 @@ public class TestCreatorGame {
 			assertTrue(humanSector==game.getMap().getHumanSector()&&alienSector==game.getMap().getAlienSector());
 			for(int i=0;i<6;i++) 
 				assertTrue(game.getMap().getHatchSectors().get(i)==hatchSectors.get(i));
-			*/
-		/*	
+			
 		}
-
 	}
-	
-	
-	*/
-	
-	
 }
 

@@ -4,12 +4,26 @@ import java.io.IOException;
 
 import model.*;
 
+/**
+ * This class create a map of the type you passed, in this case exagonal map and one of the three available
+ * @author Nicola
+ * @see Map
+ *
+ */
+
 public class MapCreator {
+	
+	/**
+	 * 
+	 * @param mapName the name of the map: Fermi, Galilei, Galvani
+	 * @param typeMap exagonal in this case but can be different
+	 * @return map
+	 */
 	
 	public Map createMap(String mapName, String typeMap) {
 		
 		Map map = null;
-		LoadExagonalMap loadExagonalmap = new LoadExagonalMap();
+		LoadHexagonalMap loadExagonalmap = new LoadHexagonalMap();
 		
  		switch(typeMap) {
  			default: try {
