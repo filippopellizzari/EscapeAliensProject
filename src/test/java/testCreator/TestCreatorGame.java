@@ -20,7 +20,7 @@ import org.junit.Test;
 
 
 
-public class TestCreatorGame {
+/*public class TestCreatorGame {
 	static Game game;
 	static GameCreator gameCreator;
 	static ClassLoader classLoader;
@@ -29,7 +29,7 @@ public class TestCreatorGame {
 		 
 		
 		gameCreator=GameCreator.getinstance();
-		//game=gameCreator.createGame("FermiMap", 3, "Exagonal"); 
+		//game=gameCreator.createGame("FermiMap", 3, "Hexagonal"); 
 		
 	}
 	
@@ -40,7 +40,7 @@ public class TestCreatorGame {
 	   assertNotNull(classLoader.getResource("FermiMap.txt"));
 	   
 	}
-	/*
+	
 	@Test
 	public void testCreateGame() {
 		assertTrue(game instanceof Game);				//test correct type of game, class game
@@ -177,8 +177,5 @@ public class TestCreatorGame {
 	}
 	
 	
-	*/
-	
-	
-}
+}*/
 

@@ -12,7 +12,7 @@ import java.util.List;
  *
  */
 
-public class LoadExagonalMap {
+public class LoadHexagonalMap {
 	
 	private Sector[] sectors;
 	private Coordinate alienSector;
@@ -23,7 +23,7 @@ public class LoadExagonalMap {
 	 * 
 	 */
 	
-	public LoadExagonalMap() {
+	public LoadHexagonalMap() {
 		this.hatchSectors = new ArrayList<Coordinate>();
 		this.sectors = new Sector[322];
 	}

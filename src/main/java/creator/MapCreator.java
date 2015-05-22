@@ -23,7 +23,7 @@ public class MapCreator {
 	public Map createMap(String mapName, String typeMap) {
 		
 		Map map = null;
-		LoadExagonalMap loadExagonalmap = new LoadExagonalMap();
+		LoadHexagonalMap loadExagonalmap = new LoadHexagonalMap();
 		
  		switch(typeMap) {
  			default: try {
