@@ -1,4 +1,4 @@
-/*
+
 package testCreator;
 
 import static org.junit.Assert.*;
@@ -13,22 +13,33 @@ import java.util.List;
 import model.*;
 import creator.*;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-*/
 
-//QUESTA CLASSE DI TEST è TROPPO GRANDE...SUDDIVIDILA IN PIù CLASSI!
-/*
+
+
 public class TestCreatorGame {
 	static Game game;
 	static GameCreator gameCreator;
+	static ClassLoader classLoader;
 	
 	@BeforeClass public static void onlyOnce() {
+		 
+		
 		gameCreator=GameCreator.getinstance();
-		game=gameCreator.createGame("FermiMap", 3, "Exagonal"); //NULL POINTER EXEPTION!
+		//game=gameCreator.createGame("FermiMap", 3, "Exagonal"); 
 		
 	}
 	
+
+	@Test
+	public void testStreamToString() {
+		ClassLoader classLoader = getClass().getClassLoader();
+	   assertNotNull(classLoader.getResource("FermiMap.txt"));
+	   
+	}
+	/*
 	@Test
 	public void testCreateGame() {
 		assertTrue(game instanceof Game);				//test correct type of game, class game
@@ -80,17 +91,22 @@ public class TestCreatorGame {
 					&& player.getSpeed()==1 && player.isAlive()==true && player.getItemCardPlayer().isEmpty()==true);
 		}
 	}
-	*/
+	
 	
 	//CONTROLLA QUESTO TEST! 
 	
-	/*
+	
 	@Test
 	public void testMap() throws NumberFormatException, IOException {
 		ExagonalMap map;
 		Sector[] sectors=new Sector[322];
+		
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource("FermiMap.txt").getFile());
+		
+		
+		
+		
 		FileReader fileRead = new FileReader(file);
 		SectorType sectorType;
 		Coordinate humanSector = null;
@@ -137,23 +153,31 @@ public class TestCreatorGame {
 			else {
 				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, false, x, y, adjacent);		
 			}
+			*/
+			/*
 			for(int i=0;i<23;i++){
 				for(int j=0;j<14;j++){
 					if(game.getMap().isNull(new Coordinate(i,j))==false){
 						if(game.getMap().getSector(new Coordinate(i,j))==sectors[(j-1)*23+i-1]) {
 							assertTrue(true);
+							
 						}
 					}
 				}
 			}
+			
 			assertTrue(humanSector==game.getMap().getHumanSector()&&alienSector==game.getMap().getAlienSector());
-			for(int i=0;i<6;i++) assertTrue(game.getMap().getHatchSectors().get(i)==hatchSectors.get(i));
+			for(int i=0;i<6;i++) 
+				assertTrue(game.getMap().getHatchSectors().get(i)==hatchSectors.get(i));
+			*/
+		/*	
 		}
 
 	}
+	
+	
 	*/
-		
-/*	
+	
 	
 }
-*/
+
