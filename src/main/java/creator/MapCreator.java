@@ -24,16 +24,16 @@ public class MapCreator {
 		
 		Map map = null;
 		LoadHexagonalMap loadExagonalmap = new LoadHexagonalMap();
-		
- 		switch(typeMap) {
- 			default: try {
+
+		switch(typeMap) {
+			default: try {
 				map=loadExagonalmap.loadMap(mapName);
-			} catch (NumberFormatException | IOException e) {
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
- 		}
-
+		}
 			
 		return map;
 	}

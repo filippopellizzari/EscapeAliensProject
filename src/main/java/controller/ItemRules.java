@@ -36,7 +36,7 @@ public class ItemRules {
 	
 	
 	private boolean humanCheck(){
-		return (player.getPlayerType() == PlayerType.HUMAN);
+		return player.getPlayerType() == PlayerType.HUMAN;
 	}
 	
 	private boolean cardCheck(ItemCardType type){

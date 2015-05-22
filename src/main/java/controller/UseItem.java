@@ -38,7 +38,7 @@ public class UseItem {
 	}
 	
 	
-	public String spotlight(ItemCard spotlightCard, Sector chosen){
+	public String spotlight(Sector chosen){
 		if(itemRules.spotlightCheck()){
 			String s="";
 			for(int i = 0; i < chosen.getPlayers().size(); i++) {
