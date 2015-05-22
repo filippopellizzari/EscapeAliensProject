@@ -4,7 +4,20 @@ import java.io.IOException;
 
 import model.*;
 
+/**
+ * 
+ * @author Nicola
+ *
+ */
+
 public class MapCreator {
+	
+	/**
+	 * 
+	 * @param mapName
+	 * @param typeMap
+	 * @return
+	 */
 	
 	public Map createMap(String mapName, String typeMap) {
 		

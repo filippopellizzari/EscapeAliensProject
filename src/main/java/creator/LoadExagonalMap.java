@@ -6,6 +6,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Nicola
+ *
+ */
+
 public class LoadExagonalMap {
 	
 	private Sector[] sectors;
@@ -13,10 +19,22 @@ public class LoadExagonalMap {
 	private Coordinate humanSector;
 	private List<Coordinate> hatchSectors;
 	
+	/**
+	 * 
+	 */
+	
 	public LoadExagonalMap() {
 		this.hatchSectors = new ArrayList<Coordinate>();
 		this.sectors = new Sector[322];
 	}
+	
+	/**
+	 * 
+	 * @param fileName, name of file 
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 
 	public Map loadMap(String fileName) throws NumberFormatException, IOException {
 

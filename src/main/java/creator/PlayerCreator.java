@@ -4,10 +4,21 @@ import java.util.Random;
 
 import model.*;
 
+/**
+ * 
+ * @author Nicola
+ *
+ */
+
 public class PlayerCreator {
 	private Map map;
 	private Coordinate humanSector;
 	private Coordinate alienSector;
+	
+	/**
+	 * 
+	 * @param map
+	 */
 	
 	public PlayerCreator(Map map) {
 		this.map = map;
@@ -15,13 +26,31 @@ public class PlayerCreator {
 		alienSector = map.getAlienSector();
 	}
 	
+	/**
+	 * 
+	 * @param numberOfPlayer
+	 * @return
+	 */
+	
 	private Player createHuman(int numberOfPlayer) {
 		return new Player(PlayerType.HUMAN, map.getSector(humanSector), 1, numberOfPlayer);
 	}
 	
+	/**
+	 * 
+	 * @param numberOfPlayer
+	 * @return
+	 */
+	
 	private Player createAlien(int numberOfPlayer) {
 		return new Player(PlayerType.ALIEN, map.getSector(alienSector), 2, numberOfPlayer);
 	}
+	
+	/**
+	 * 
+	 * @param totPlayers
+	 * @return
+	 */
 	
 	public Player[] createPlayer(int totPlayers) {  //me la devi spiegare
 		Player[] players = new Player[totPlayers];
