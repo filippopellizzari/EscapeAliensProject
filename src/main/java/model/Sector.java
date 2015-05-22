@@ -15,24 +15,24 @@ public class Sector {
 	private final SectorType sectorType;
 	private final List<Player> players;
 	private final List<Coordinate> adjacent;
-	protected boolean close;
-	Coordinate coordinate;
+	protected boolean closed;
+	private Coordinate coordinate;
 	
 	/**
 	 * 
 	 * @param sectorType indicate the varius tipe each has its own propriety defined in the controller for the game rules
-	 * @param close indicate if the sector is crossable by player
+	 * @param closed indicate if the sector is crossable by player
 	 * @param x		use for indicate the letter of a sector
 	 * @param y		use for indicate the number of a sector
 	 * @param adjacent	list of adjacent sectors's coordinate
 	 */
 	
-	public Sector (SectorType sectorType, boolean close, int x, int y, List<Coordinate> adjacent){
-		this.coordinate=new Coordinate(x,y);
+	public Sector (SectorType sectorType, boolean closed, int x, int y, List<Coordinate> adjacent){
+		this.coordinate = new Coordinate(x,y);
 		this.sectorType = sectorType;
 		this.adjacent = adjacent;
 		this.players = new ArrayList<Player>();
-		this.close = close;
+		this.closed = closed;
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class Sector {
 	
 	/**
 	 * 
-	 * @return a player used when this player move to anothe cell, so this method cancel that player from this cell
+	 * @return a player used when this player move to another cell, so this method cancels that player from this cell
 	 */
 	
 	public Player removePlayer() {
@@ -86,8 +86,8 @@ public class Sector {
 	 * @return is sector is close (not crossable) or not
 	 */
 
-	public boolean isClose() {
-		return close;
+	public boolean isClosed() {
+		return closed;
 	}
 	
 	/**

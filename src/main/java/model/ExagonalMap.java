@@ -27,9 +27,7 @@ public class ExagonalMap extends Map{
 	
 	@Override	
 	public Sector getSector(Coordinate coordinate) {								//to find a sector 
-		if(isNull(coordinate)==false)
 			return sectors[(coordinate.getX()-1)+(coordinate.getY()-1)*23];
-		else return null;
 	}
 	
 	@Override

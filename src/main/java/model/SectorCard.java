@@ -17,9 +17,9 @@ public class SectorCard {
 	 * @param name
 	 */
 	
-	public SectorCard(boolean itemIcon, SectorCardType name) {
-		this.itemIcon=itemIcon;
-		this.sectorCardType=name;
+	public SectorCard(boolean itemIcon, SectorCardType sectorCardType) {
+		this.itemIcon = itemIcon;
+		this.sectorCardType = sectorCardType;
 	}
 	
 	/**

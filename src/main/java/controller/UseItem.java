@@ -8,8 +8,23 @@ import model.*;
  *
  */
 public class UseItem {
+	
+	
+	private Game model;
+	private Player player;
+	private ItemRules itemRules;
+	
+	
+	public UseItem(Game model, Player player, ItemRules itemRules) {
+		
+		this.model = model;
+		this.player = player;
+		this.itemRules = itemRules;
+	}
 
-	public void teleport(Game model, ItemCard teleportCard, Player player){
+
+	public void teleport(ItemCard teleportCard){
+		
 		
 		model.getItemCards().discard(teleportCard); //scarto la carta teletrasporto (coperta)
 		player.getCurrentSector().removePlayer(); //tolgo il giocatore dalla casella attuale
@@ -21,14 +36,14 @@ public class UseItem {
 	}
 	
 	
-	public void sedatives(Game model, ItemCard sedativesCard){
+	public void sedatives(ItemCard sedativesCard){
 		
 		model.getItemCards().discard(sedativesCard); //scarto la carta sedativi (coperta)
 	}
 	
 	
 	
-	public void spotlight(Game model, ItemCard spotlightCard, Sector chosen){
+	public void spotlight(ItemCard spotlightCard, Sector chosen){
 
 		for(int i = 0; i < chosen.getPlayers().size(); i++){
 			Player declaring = chosen.getPlayers().get(i);
@@ -46,12 +61,12 @@ public class UseItem {
 	}
 		
 	
-	public void adrenaline(Game model, ItemCard adrenalineCard, Player player){
+	public void adrenaline(ItemCard adrenalineCard){
 		
 		model.getItemCards().discard(adrenalineCard); //scarto la carta adrenalina (coperta)
 	}
 		
-	public void attack(Game model, ItemCard attackCard, Player player){
+	public void attack(ItemCard attackCard){
 		
 		model.getItemCards().discard(attackCard); //scarto la carta attacco (coperta)
 		Attack a = new Attack(model, player);

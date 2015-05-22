@@ -23,10 +23,10 @@ public class SectorCards {
 			discardPile.clear();
 			Collections.shuffle(deck);
 		}
-		SectorCard current = deck.get(0);
-		deck.remove(0);
-		return current;
+		
+		return deck.remove(0);
 	}
+	
 	
 	public void discard(SectorCard current){
 		discardPile.add(current);	

@@ -11,13 +11,13 @@ import java.util.List;
  */
 
 public class HatchSector extends Sector{
-	public HatchSector(SectorType sectorType, boolean close, int x, int y, List<Coordinate> adjacent){
-		super(sectorType, close, x, y, adjacent);
+	public HatchSector(SectorType sectorType, boolean closed, int x, int y, List<Coordinate> adjacent){
+		super(sectorType, closed, x, y, adjacent);
 	}
 	
 	@Override
-	public void addPlayer(Player player) {			//because hatch sector is blocked when a human enter we close the sector after this operation
+	public void addPlayer(Player player) {	//an hatch sector close when a human enters
 		super.addPlayer(player);
-		this.close=true;
+		this.closed = true;
 	}
 }

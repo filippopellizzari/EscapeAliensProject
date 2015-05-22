@@ -136,30 +136,16 @@ public class Player {
 	 * @return the card if its exit and null otherwise because
 	 */
 	
-	public ItemCard removeItemCardPlayer(int numberOfCard) {
-		if(itemCardPlayer.size()>=numberOfCard+1) 
-			return itemCardPlayer.remove(numberOfCard);
-		else return null;
+	public ItemCard removeItemCardPlayer(int index) {
+			return itemCardPlayer.remove(index);
+		
 	}
 
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Player other = (Player) obj;
-		if (numberOfPlayer != other.numberOfPlayer)
-			return false;
-		return true;
-	}
 
 	@Override
 	public String toString() {
-		return "Player "+numberOfPlayer;
+		return "Player "+ numberOfPlayer;
 				
 	}
 

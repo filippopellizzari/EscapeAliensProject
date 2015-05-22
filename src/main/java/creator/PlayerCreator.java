@@ -23,7 +23,7 @@ public class PlayerCreator {
 		return new Player(PlayerType.ALIEN, map.getSector(alienSector), 2, numberOfPlayer);
 	}
 	
-	public Player[] createPlayer(int totPlayers) {  //me la devi spiegare
+	public Player[] createPlayer(int totPlayers) {  
 		Player[] players = new Player[totPlayers];
 		Random random = new Random();
 		
