@@ -57,11 +57,6 @@ public class UseItem {
 		Attack a = new Attack(model, player);
 		a.attackMove();	
 	}
-		
-	
-	
-	
-	
 	
 }
 

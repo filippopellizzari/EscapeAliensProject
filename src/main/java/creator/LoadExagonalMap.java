@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ * This class take the name of map and load the correct map from the corresponding file
  * @author Nicola
  *
  */
@@ -31,7 +31,7 @@ public class LoadExagonalMap {
 	/**
 	 * 
 	 * @param fileName, name of file 
-	 * @return
+	 * @return exagonal map
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
