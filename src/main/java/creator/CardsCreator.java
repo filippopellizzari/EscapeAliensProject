@@ -6,7 +6,18 @@ import java.util.ArrayList;
 
 import model.*;
 
+/**
+ * 
+ * @author Nicola
+ *
+ */
+
 public class CardsCreator {
+	
+	/**
+	 * 
+	 * @return
+	 */
 	
 	public HatchCards createHatchCards() {
 		
@@ -22,6 +33,11 @@ public class CardsCreator {
 		Collections.shuffle(hatchCard);
 		return new HatchCards(hatchCard);
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	
 	public SectorCards createSectorCards() {
 		
@@ -45,6 +61,11 @@ public class CardsCreator {
 		Collections.shuffle(sectorCard);
 		return new SectorCards(sectorCard);
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	
 	public ItemCards createItemCards() {
 		
