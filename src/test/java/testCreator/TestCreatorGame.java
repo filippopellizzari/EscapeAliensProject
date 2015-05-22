@@ -17,10 +17,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
-
-
-/*public class TestCreatorGame {
+public class TestCreatorGame {
 	static Game game;
 	static GameCreator gameCreator;
 	static ClassLoader classLoader;
@@ -29,7 +26,7 @@ import org.junit.Test;
 		 
 		
 		gameCreator=GameCreator.getinstance();
-		//game=gameCreator.createGame("FermiMap", 3, "Hexagonal"); 
+		game=gameCreator.createGame("FermiMap", 3, "Hexagonal"); 
 		
 	}
 	
@@ -91,11 +88,7 @@ import org.junit.Test;
 				assertTrue(player.getCurrentSector()==game.getMap().getSector(game.getMap().getHumanSector()) 
 					&& player.getSpeed()==1 && player.isAlive()==true && player.getItemCardPlayer().isEmpty()==true);
 		}
-	}
-	
-	
-	//CONTROLLA QUESTO TEST! 
-	
+	}	
 	
 	@Test
 	public void testMap() throws NumberFormatException, IOException {
@@ -154,7 +147,6 @@ import org.junit.Test;
 			else {
 				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, false, x, y, adjacent);		
 			}
-			*/
 			/*
 			for(int i=0;i<23;i++){
 				for(int j=0;j<14;j++){
@@ -171,11 +163,7 @@ import org.junit.Test;
 			for(int i=0;i<6;i++) 
 				assertTrue(game.getMap().getHatchSectors().get(i)==hatchSectors.get(i));
 			*/
-		/*	
 		}
-
 	}
-	
-	
-}*/
+}
 
