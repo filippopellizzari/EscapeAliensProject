@@ -11,7 +11,7 @@ import controller.*;
 
 public class testMoveRules {
 
-	@Ignore
+	@Test
 	public void testDistanceCheck() {
 		//TODO
 		Game model = GameCreator.getinstance().createGame("Galilei", 8, "Exagonal");
