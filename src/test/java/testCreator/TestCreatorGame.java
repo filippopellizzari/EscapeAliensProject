@@ -1,5 +1,4 @@
-
-package testCreator;
+/*package testCreator;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +19,7 @@ import org.junit.Test;
 public class TestCreatorGame {
 	static Game game;
 	static GameCreator gameCreator;
-	static ClassLoader classLoader;
+
 	
 	@BeforeClass public static void onlyOnce() {
 		 
@@ -161,5 +160,5 @@ public class TestCreatorGame {
 			
 		}
 	}
-}
+}*/
 
