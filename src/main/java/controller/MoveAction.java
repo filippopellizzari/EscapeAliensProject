@@ -15,10 +15,10 @@ public class MoveAction {
 		
 	}
 	
-	public void Move(Coordinate dest){
-			Sector d = model.getMap().getSector(dest);
-			d.addPlayer(player.getCurrentSector().removePlayer());
-			player.setCurrentSector(d);	
+	public void Move(Coordinate destCoord){
+			Sector destSector = model.getMap().getSector(destCoord);
+			destSector.addPlayer(player.getCurrentSector().removePlayer());
+			player.setCurrentSector(destSector);	
 	}
 	
 	

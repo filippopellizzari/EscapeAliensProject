@@ -95,7 +95,7 @@ public class LoadHexagonalMap {
 		}
 		br.close();
 		
-		return new ExagonalMap(sectors, humanSector, alienSector, hatchSectors);
+		return new HexagonalMap(sectors, humanSector, alienSector, hatchSectors);
 		
 	}
 }

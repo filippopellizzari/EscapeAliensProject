@@ -13,10 +13,10 @@ import java.util.List;
 
 public abstract class Map {						//abstract because the true Map is Exagonal, more extensible 
 	
-	protected Sector[] sectors; 				//all attributes are the same in each map but they are used by subclasses
-	protected Coordinate humanSector;
-	protected Coordinate alienSector;
-	protected List<Coordinate> hatchSectors;
+	protected final Sector[] sectors; 				//all attributes are the same in each map but they are used by subclasses
+	protected final Coordinate humanSector;
+	protected final Coordinate alienSector;
+	protected final List<Coordinate> hatchSectors;
 	
 	/**
 	 * 
@@ -76,5 +76,15 @@ public abstract class Map {						//abstract because the true Map is Exagonal, mo
 	public List<Coordinate> getHatchSectors() {
 		return hatchSectors;
 	}
+	/**
+	 * 
+	 * @return array of all the sectors;
+	 */
+
+	public Sector[] getSectors() {
+		return sectors;
+	}
+	
+	
 	
 }

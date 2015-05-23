@@ -148,7 +148,7 @@ public class TestPlayer {
 	}
 	
 	/**
-	 * I test that the player move correcty from sector 1 to sector 2
+	 * I test that the player move correctly from sector 1 to sector 2
 	 */
 	
 	@Test
@@ -175,7 +175,7 @@ public class TestPlayer {
 
 	}
 	/**
-	 * I verify that sector2 (hatch) is close after player enter in it and the player is dead
+	 * I verify that sector2 (hatch) is close after player enter it and the player is dead
 	 */
 	
 	@Test

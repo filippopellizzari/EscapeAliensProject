@@ -1,4 +1,3 @@
-
 package testCreator;
 
 import static org.junit.Assert.*;
@@ -31,12 +30,6 @@ public class TestCreatorGame {
 	}
 	
 
-	@Test
-	public void testStreamToString() {
-		ClassLoader classLoader = getClass().getClassLoader();
-	   assertNotNull(classLoader.getResource("FermiMap.txt"));
-	   
-	}
 	
 	@Test
 	public void testCreateGame() {
@@ -85,10 +78,11 @@ public class TestCreatorGame {
 					&& player.getSpeed()==1 && player.isAlive()==true && player.getItemCardPlayer().isEmpty()==true);
 		}
 	}	
+
 	
 	@Ignore
 	public void testMap() throws NumberFormatException, IOException {
-		ExagonalMap map;
+		HexagonalMap map;
 		Sector[] sectors=new Sector[322];
 		
 		ClassLoader classLoader = getClass().getClassLoader();

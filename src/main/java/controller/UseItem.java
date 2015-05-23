@@ -24,27 +24,19 @@ public class UseItem {
 
 
 	public String teleport(){
-		if(itemRules.teleportCheck()){
 			String s = player + "sta usando una carta oggetto\n";
 			Coordinate humanSector = model.getMap().getHumanSector();
 			model.getMap().getSector(humanSector).addPlayer(player.getCurrentSector().removePlayer());
-			return s;
-		}
-		return null;
-		
+			return s;		
 	}
 	
 	public String sedatives(){
-		if(itemRules.sedativesCheck()){
 			String s = player + " sta usando una carta oggetto\n";
+			player.setSedated(true);
 			return s;
-		}
-		return null;
 	}
 	
-	
 	public String spotlight(Sector chosen){
-		if(itemRules.spotlightCheck()){
 			String s = player + " sta usando una carta oggetto\n";
 			for(int i = 0; i < chosen.getPlayers().size(); i++) {
 				Player declaring = chosen.getPlayers().get(i);
@@ -60,34 +52,20 @@ public class UseItem {
 						s += declaring+" in sector "+lighted.getCoordinate()+"\n";
 					}		
 			}
-		
-		
 		//ogni giocatore nel settore scelto e in quelli adiacenti devono dichiarare la loro posizione
 			return s;
-		}
-		return null;
-		
 	}
 		
-	
-	
 	public String adrenaline(){
-		if(itemRules.adrenalineCheck()){
 			String s = player + " sta usando una carta oggetto\n";
 			player.setSpeed(2);  //aumento la velocità dell'umano, alla fine del turno torna a 1
 			return s;
-		}
-		return null;
-		
 	}
 		
 	public String attack(){
-		if(itemRules.attackCheck()){
 			String s = player + " sta usando una carta oggetto\n";
 			s += new Attack(model,player).attackMove();
 			return s;
-		}
-		return null;
 	}
 	
 	

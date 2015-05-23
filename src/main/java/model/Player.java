@@ -19,6 +19,7 @@ public class Player {
 	private int speed;
 	private final int numberOfPlayer;
 	private boolean alive;
+	private boolean sedated;
 	private final List<ItemCard> itemCardPlayer;
 	
 	/**
@@ -35,6 +36,7 @@ public class Player {
 		this.speed = speed;
 		this.numberOfPlayer = numberOfPlayer;
 		this.alive = true;
+		this.setSedated(false);
 		this.itemCardPlayer = new ArrayList<ItemCard>();
 		
 	}
@@ -110,7 +112,21 @@ public class Player {
 	public int getNumberOfPlayer() {
 		return numberOfPlayer;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isSedated() {
+		return sedated;
+	}
+	/**
+	 * 
+	 * @param sedated
+	 */
+	public void setSedated(boolean sedated) {
+		this.sedated = sedated;
+	}
+
 	/**
 	 * 
 	 * @return item of player, used to control the number of the card because none can has more than 3 item card
