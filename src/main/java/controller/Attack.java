@@ -10,6 +10,7 @@ import model.*;
 
 public class Attack {
 	
+	
 	private Game model;
 	private Player player;
 	
