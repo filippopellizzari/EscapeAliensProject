@@ -10,6 +10,7 @@ import model.*;
 
 public class Attack {
 	
+	
 	private Game model;
 	private Player player;
 	
@@ -23,26 +24,28 @@ public class Attack {
 	/**
 	 * mossa di attacco (vale per tutti i tipi di giocatore)
 	 */
-	public void attackMove(){
+	public String attackMove(){
+		String s = "";
 		Sector current = player.getCurrentSector();
-		System.out.println(player+" : ATTACK in "+current); //il giocatore dichiara l'attacco in un settore
+		s += player+" : ATTACK in "+current+"\n"; //il giocatore dichiara l'attacco in un settore
 		for(int i = 0; i < current.getPlayers().size()-1; i++){
 			Player attacked = current.removePlayer();	//prendo il giocatore sotto attacco in quel settore
-			System.out.println(attacked+" è sotto attacco!"); //se un giocatore si trova nel settore, dichiara la propria presenza
+			s += attacked+" è sotto attacco!\n"; //se un giocatore si trova nel settore, dichiara la propria presenza
 			if(isDefendable(attacked)){
-				System.out.println(attacked+" : si salva grazie alla carta Difesa");
+				s += attacked+" : si salva grazie alla carta Difesa!\n";
 				current.addPlayer(attacked); 	//rimetto il giocatore nel settore
 			}
 			else{
-				System.out.println(attacked+" è ucciso e viene eliminato dal gioco: la sua identità era "+
-							attacked.getPlayerType());
+				s += attacked+" è ucciso e viene eliminato dal gioco: la sua identità era "+
+							attacked.getPlayerType()+"\n";
 				attacked.setAlive(false); //? ha più senso toglierlo dal modello? 
 				for(int j = 0; j < attacked.getItemCardPlayer().size(); j++){ //scarto tutte le carte oggetto del giocatore eliminato
 					model.getItemCards().discard(attacked.getItemCardPlayer().get(j));
 				}	
 			}
 		}
-		current.addPlayer(current.removePlayer()); 	//rimetto l'attaccante in coda così se c'era uno che aveva la difesa mi basta fare remove per muoverlo
+		current.addPlayer(current.removePlayer()); 	//rimetto l'attaccante in coda 
+		return s;
 	}
 	
 	
@@ -55,7 +58,7 @@ public class Attack {
 	private boolean isDefendable(Player attacked){
 		for(int j = 0; j < attacked.getItemCardPlayer().size(); j++){
 			if(attacked.getItemCardPlayer().get(j).getItemCardType() == ItemCardType.DEFENSE){
-				attacked.removeItemCardPlayer(j);
+				model.getItemCards().discard(attacked.removeItemCardPlayer(j)); //scarto carta difesa  
 				return true;
 			}
 		}

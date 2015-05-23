@@ -15,34 +15,39 @@ public class UseItem {
 	private ItemRules itemRules;
 	
 	
-	public UseItem(Game model, Player player, ItemRules itemRules) {
+	public UseItem(Game model, Player player) {
 		
 		this.model = model;
 		this.player = player;
-		this.itemRules = itemRules;
+		this.itemRules = new ItemRules(model, player);
 	}
 
 
-	public void teleport(){
+	public String teleport(){
 		if(itemRules.teleportCheck()){
+			String s = player + "sta usando una carta oggetto\n";
 			Coordinate humanSector = model.getMap().getHumanSector();
 			model.getMap().getSector(humanSector).addPlayer(player.getCurrentSector().removePlayer());
+			return s;
 		}
+		return null;
 		
 	}
 	
-	public void sedatives(){
+	public String sedatives(){
 		if(itemRules.sedativesCheck()){
-			//il giocatore diventa sedato
+			String s = player + " sta usando una carta oggetto\n";
+			return s;
 		}
+		return null;
 	}
 	
 	
 	public String spotlight(Sector chosen){
 		if(itemRules.spotlightCheck()){
-			String s="";
+			String s = player + " sta usando una carta oggetto\n";
 			for(int i = 0; i < chosen.getPlayers().size(); i++) {
-				Player declaring=chosen.getPlayers().get(i);
+				Player declaring = chosen.getPlayers().get(i);
 				s += declaring+" in sector "+chosen.getCoordinate()+"\n";
 
 			}
@@ -66,18 +71,23 @@ public class UseItem {
 		
 	
 	
-	public void adrenaline(){
+	public String adrenaline(){
 		if(itemRules.adrenalineCheck()){
-			//il giocatore ha l'adrenalina
+			String s = player + " sta usando una carta oggetto\n";
+			player.setSpeed(2);  //aumento la velocità dell'umano, alla fine del turno torna a 1
+			return s;
 		}
+		return null;
 		
 	}
 		
-	public void attack(){
+	public String attack(){
 		if(itemRules.attackCheck()){
-			new Attack(model,player).attackMove();
-			//il giocatore attacca
+			String s = player + " sta usando una carta oggetto\n";
+			s += new Attack(model,player).attackMove();
+			return s;
 		}
+		return null;
 	}
 	
 	
