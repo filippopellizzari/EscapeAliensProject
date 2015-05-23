@@ -10,12 +10,28 @@ import model.*;
  */
 
 public class GameController {
-	public static void main(String[] args) {
-		
-	int totPlayers = 8;
-	Game model = GameCreator.getinstance().createGame("Galilei", totPlayers, "Hexagonal");
-	System.out.println("Alien Sector: "+model.getMap().getAlienSector());
+	private static int numberOfGames=0;
+	private final int numberOfThisGame;
+	private Game game;
+	private Turn currentTurn;
 	
-	
+	public GameController(String mapName, int numberOfPlayers, String typeMap) {
+		this.numberOfGames++;
+		this.numberOfThisGame=numberOfGames;
+		GameCreator gameCreator = GameCreator.getinstance();
+		this.game=gameCreator.createGame(mapName, numberOfPlayers, typeMap);
+		currentTurn=new Turn(numberOfPlayers, game);
 	}
+	
+	/**
+	 * @return the numberOfThisGame
+	 */
+	
+	public int getNumberOfThisGame() {
+		return numberOfThisGame;
+	}
+	
+	//public doAnAction(Game DTO)
+	
+	public static void main(String[] args) { }
 }

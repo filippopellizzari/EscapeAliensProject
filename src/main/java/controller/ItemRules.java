@@ -7,8 +7,6 @@ public class ItemRules {
 	private Game model;
 	private Player player;
 	
-	
-
 	public ItemRules(Game model, Player player) {
 		this.model = model;
 		this.player = player;

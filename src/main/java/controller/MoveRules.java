@@ -28,8 +28,6 @@ public class MoveRules {
 		return false;	
 	}
 		
-
-
 	/**
 	 * controlla che la destinazione sia raggiungibile secondo la velocità del giocatore e che le caselle lungo il percorso siano tutte attraversabili
 	 * @param curr
@@ -37,47 +35,37 @@ public class MoveRules {
 	 * @param speed
 	 * @return
 	 */
+	
 	public boolean distanceCheck(Coordinate curr,Coordinate dest, int speed){
-		 //TODO
+		 	if(player.getPlayerType()==PlayerType.ALIEN && model.getMap().getSector(dest).getSectorType()==SectorType.HATCH) return false;
 			if(speed == 0){
 				return (curr.equals(dest));
 			}
 			else{
 				Sector s = model.getMap().getSector(curr);
+				Coordinate coordinateNull=new Coordinate(-1,-1);
 				for(int i = 0; i < s.getAdjacent().size(); i++){
-					if (s.getAdjacent().get(i) != null && crossableCheck(s)){
-						speed = speed -1;
-						if(distanceCheck(s.getAdjacent().get(i), dest, speed))
-							return true;						
-					}
+					if (model.getMap().isNull(s.getAdjacent().get(i))==false)
+						if(crossableCheck(model.getMap().getSector(s.getAdjacent().get(i)))) {
+							speed--;
+							if(distanceCheck(s.getAdjacent().get(i), dest, speed))
+								return true;	
+						}
 				}
-				return false;
-				
-			} 
-				
-	}
+			}
+			return false;
+		}
 	
 	/**
 	 * controlla che una casella sia attraversabile da un giocatore
 	 * @return
 	 */
+
 	public boolean crossableCheck(Sector s){
 		//TODO
 		if (s.isClosed()){
 			return false;
 		}
-		if (player.getPlayerType() == PlayerType.ALIEN){
-			return (s.getSectorType() != SectorType.HATCH);
-		}
 		return true;
 	}
-	
-	
-	
-	
-	
-
-	
-	
-	
 }
