@@ -21,14 +21,12 @@ public class MoveRules {
 	 */
 
 	public boolean moveCheck(Coordinate dest){
-		//TODO
+		
 		if(!model.getMap().isNull(dest)){
 			return distanceCheck(player.getCurrentSector().getCoordinate(), dest, player.getSpeed());
 		}
 		return false;	
 	}
-		
-
 
 	/**
 	 * controlla che la destinazione sia raggiungibile secondo la velocità del giocatore e che le caselle lungo il percorso siano tutte attraversabili
@@ -38,23 +36,26 @@ public class MoveRules {
 	 * @return
 	 */
 	public boolean distanceCheck(Coordinate curr,Coordinate dest, int speed){
-		 //TODO
+		
 			if(speed == 0){
 				return (curr.equals(dest));
 			}
 			else{
-				Sector s = model.getMap().getSector(curr);
-				for(int i = 0; i < s.getAdjacent().size(); i++){
-					if (s.getAdjacent().get(i) != null && crossableCheck(s)){
-						speed = speed -1;
-						if(distanceCheck(s.getAdjacent().get(i), dest, speed))
-							return true;						
+				Sector currSector = model.getMap().getSector(curr);
+				for(int i = 0; i < currSector.getAdjacent().size(); i++){
+					Coordinate adjCoord = currSector.getAdjacent().get(i);
+					Sector adjSector = model.getMap().getSector(adjCoord);
+					if (!model.getMap().isNull(adjCoord)){
+						if(!adjSector.isClosed()){
+							speed--;
+							if(distanceCheck(adjCoord, dest, speed)){
+								return true;					
+							}
+						}
 					}
 				}
 				return false;
-				
-			} 
-				
+			}			
 	}
 	
 	/**
@@ -65,9 +66,6 @@ public class MoveRules {
 		//TODO
 		if (s.isClosed()){
 			return false;
-		}
-		if (player.getPlayerType() == PlayerType.ALIEN){
-			return (s.getSectorType() != SectorType.HATCH);
 		}
 		return true;
 	}

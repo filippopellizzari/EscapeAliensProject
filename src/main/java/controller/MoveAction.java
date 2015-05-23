@@ -16,14 +16,9 @@ public class MoveAction {
 	}
 	
 	public void Move(Coordinate dest){
-		//TODO
-		if (moveRules.moveCheck(dest)){
 			Sector d = model.getMap().getSector(dest);
 			d.addPlayer(player.getCurrentSector().removePlayer());
-			player.setCurrentSector(d);
-			
-		}
-		
+			player.setCurrentSector(d);	
 	}
 	
 	
