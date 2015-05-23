@@ -19,9 +19,9 @@ public class SectorCard {
 	 * @param name, typeOf sector card 3 types but only noise in your sector and noise in any sector can have an object card
 	 */
 	
-	public SectorCard(boolean itemIcon, SectorCardType name) {
-		this.itemIcon=itemIcon;
-		this.sectorCardType=name;
+	public SectorCard(boolean itemIcon, SectorCardType sectorCardType) {
+		this.itemIcon = itemIcon;
+		this.sectorCardType = sectorCardType;
 	}
 	
 	/**

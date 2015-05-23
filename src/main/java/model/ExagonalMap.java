@@ -21,20 +21,18 @@ public class ExagonalMap extends Map{
 	 * @param hatchSectors list of coordinate of each hatch sectors in the map 
 	 */
 
-	public ExagonalMap(Sector[] sectors, Coordinate humanSector,Coordinate alienSector, List<Coordinate> hatchSectors) {
+	public ExagonalMap(Sector[] sectors, Coordinate humanSector, Coordinate alienSector, List<Coordinate> hatchSectors) {
 		super(sectors, humanSector, alienSector, hatchSectors);
 	}
 	
 	@Override	
-	public Sector getSector(Coordinate coordinate) {								//to find a sector 
-		if(isNull(coordinate)==false)
-			return sectors[(coordinate.getX()-1)+(coordinate.getY()-1)*23];
-		else return null;
+	public Sector getSector(Coordinate coordinate) {							
+		return sectors[(coordinate.getX()-1)+(coordinate.getY()-1)*23];
 	}
 	
 	@Override
 	public boolean isNull(Coordinate coordinate) {
-		return(sectors[(coordinate.getX()-1)+(coordinate.getY()-1)*23]==null);
+		return sectors[(coordinate.getX()-1)+(coordinate.getY()-1)*23] == null;
 	}
 
 }

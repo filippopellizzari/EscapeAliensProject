@@ -34,11 +34,7 @@ public class HatchCards {
 	 */
 	
 	public HatchCard draw() {
-
-			HatchCard current = deck.get(0);
-			deck.remove(0);
-			return current;			
-			
+			return deck.remove(0);					
 	}
 	
 	/**

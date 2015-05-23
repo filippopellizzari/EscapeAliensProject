@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class take the name of map and load the correct map from the corresponding file
+ * This class load an exagonal map from the corresponding file
  * @author Nicola
  *
  */
@@ -62,7 +62,7 @@ public class LoadHexagonalMap {
 				default: sectorType = SectorType.SECURE;
 				break;
 			}
-			boolean close = (br.readLine()=="true");
+			boolean close = br.readLine() == "true";
 			int x = Integer.parseInt(br.readLine());
 			int y = Integer.parseInt(br.readLine());
 			
@@ -79,7 +79,7 @@ public class LoadHexagonalMap {
 			
 			//6 settori adiacenti a un settore
 			List<Coordinate> adjacent = new ArrayList<Coordinate>();
-			for(int i=0; i<6; i++){
+			for(int i = 0; i < 6; i++){
 				adjacent.add(new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
 			}
 			

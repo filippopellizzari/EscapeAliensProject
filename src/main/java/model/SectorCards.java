@@ -41,15 +41,16 @@ public class SectorCards {
 			discardPile.clear();
 			Collections.shuffle(deck);
 		}
-		SectorCard current = deck.get(0);
-		deck.remove(0);
-		return current;
+		
+		return deck.remove(0);
 	}
 	
+
 	/**
 	 * 
 	 * @param current, add at the discard pile the card used after the action is completed
 	 */
+
 	
 	public void discard(SectorCard current){
 		discardPile.add(current);	

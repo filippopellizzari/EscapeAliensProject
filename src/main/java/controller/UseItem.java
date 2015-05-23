@@ -8,51 +8,80 @@ import model.*;
  *
  */
 public class UseItem {
+	
+	
+	private Game model;
+	private Player player;
+	private ItemRules itemRules;
+	
+	
+	public UseItem(Game model, Player player, ItemRules itemRules) {
+		
+		this.model = model;
+		this.player = player;
+		this.itemRules = itemRules;
+	}
 
-	public void teleport(Game model, ItemCard teleportCard, Player player){
-		
-		model.getItemCards().discard(teleportCard); //scarto la carta teletrasporto (coperta)
-		model.getMap().getSector(model.getMap().getHumanSector()).addPlayer(player.getCurrentSector().removePlayer());//seleziono il settore umano
-	}
-	
-	public void sedatives(Game model, ItemCard sedativesCard){
-		
-		model.getItemCards().discard(sedativesCard); //scarto la carta sedativi (coperta)
-		//manca la modifica alla variabile di stato del controller
-	}
-	
-	public String spotlight(Game model, ItemCard spotlightCard, Sector chosen){
-		String s="";
-		for(int i = 0; i < chosen.getPlayers().size(); i++) {
-			Player declaring=chosen.getPlayers().get(i);
-			s+="Player "+declaring.getNumberOfPlayer()+" tipo: "+declaring.getPlayerType()+" in sector "+chosen.getCoordinate().getX()+" "+chosen.getCoordinate().getY()+"\n";
+
+	public void teleport(){
+		if(itemRules.teleportCheck()){
+			Coordinate humanSector = model.getMap().getHumanSector();
+			model.getMap().getSector(humanSector).addPlayer(player.getCurrentSector().removePlayer());
 		}
+		
+	}
+	
+	public void sedatives(){
+		if(itemRules.sedativesCheck()){
+			//il giocatore diventa sedato
+		}
+	}
+	
+	
+	public String spotlight(Sector chosen){
+		if(itemRules.spotlightCheck()){
+			String s="";
+			for(int i = 0; i < chosen.getPlayers().size(); i++) {
+				Player declaring=chosen.getPlayers().get(i);
+				s += declaring+" in sector "+chosen.getCoordinate()+"\n";
+
+			}
+			
 			for (int i = 0; i < 6; i++){
-			Sector lighted = model.getMap().getSector(chosen.getAdjacent().get(i));
-			if(lighted!=null)
-				for(int j = 0; j < lighted.getPlayers().size(); j++){
-					Player declaring = lighted.getPlayers().get(j);
-					System.out.println("Sono il giocatore "+declaring+" e mi trovo nel settore "+lighted); 
-					s+="Player "+declaring.getNumberOfPlayer()+" tipo: "+declaring.getPlayerType()+" in sector "+lighted.getCoordinate().getX()+" "+lighted.getCoordinate().getY()+"\n";
-				}		
-		}
+				Sector lighted = model.getMap().getSector(chosen.getAdjacent().get(i));
+				if(lighted!=null)
+					for(int j = 0; j < lighted.getPlayers().size(); j++){
+						Player declaring = lighted.getPlayers().get(j); 
+						s += declaring+" in sector "+lighted.getCoordinate()+"\n";
+					}		
+			}
+		
+		
 		//ogni giocatore nel settore scelto e in quelli adiacenti devono dichiarare la loro posizione
-		return s;
+			return s;
+		}
+		return null;
+		
 	}
 		
 	
-	public void adrenaline(Game model, ItemCard adrenalineCard){
-		
-		model.getItemCards().discard(adrenalineCard); //scarto la carta adrenalina (coperta)
+	
+	public void adrenaline(){
+		if(itemRules.adrenalineCheck()){
+			//il giocatore ha l'adrenalina
+		}
 		
 	}
 		
-	public void attack(Game model, ItemCard attackCard, Player player){
-		
-		model.getItemCards().discard(attackCard); //scarto la carta attacco (coperta)
-		Attack a = new Attack(model, player);
-		a.attackMove();	
+	public void attack(){
+		if(itemRules.attackCheck()){
+			new Attack(model,player).attackMove();
+			//il giocatore attacca
+		}
 	}
+	
+	
+	
 	
 }
 

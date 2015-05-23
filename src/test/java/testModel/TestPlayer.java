@@ -108,20 +108,12 @@ public class TestPlayer {
 	public void testNumberCardOfPlayer() {
 		assertTrue(player.getItemCardPlayer().size()==1);				//test number of item card, class Player
 	}
-	
-	/**
-	 * I verify the method remove card when the card remove don't exist
-	 */
-	
-	@Test
-	public void testRemoveCard() {
-		card2=player.removeItemCardPlayer(1);
-		assertEquals(card2,null);										//test removeCardItemPlayer when the card is null, class Player
-	}
-	
+
+
 	/**
 	 * I verify that the card discarded and then draw again by the player is the same
 	 */
+
 	
 	@Test
 	public void testSameCardPassed() {
@@ -142,7 +134,7 @@ public class TestPlayer {
 		while(i<6 && condition==false) {
 			if(player.getCurrentSector().getAdjacent().get(i).equals(sector1.getCoordinate()))
 			{
-				if(sector1.isClose()==false) {						//control if the sector is accessible
+				if(sector1.isClosed()==false) {						//control if the sector is accessible
 					condition=true;
 					sector1.addPlayer(start.removePlayer());
 					player.setCurrentSector(sector1);
@@ -167,7 +159,7 @@ public class TestPlayer {
 		boolean condition=false;
 		while(i<6 && condition==false) {
 			if(player.getCurrentSector().getAdjacent().get(i).equals(sector2.getCoordinate())) {
-				if(sector2.isClose()==false) {						//control if the sector is accessible
+				if(sector2.isClosed()==false) {						//control if the sector is accessible
 					condition=true;
 					sector2.addPlayer(sector1.removePlayer());
 					player.setCurrentSector(sector2);
@@ -188,7 +180,7 @@ public class TestPlayer {
 	
 	@Test
 	public void testHatchSector() {
-		assertTrue(sector2.isClose()==true && player.isAlive()==false); 	//control if the player is really dead and the sector is close, class HatchSector
+		assertTrue(sector2.isClosed()==true && player.isAlive()==false); 	//control if the player is really dead and the sector is close, class HatchSector
 	}
 	
 	/**

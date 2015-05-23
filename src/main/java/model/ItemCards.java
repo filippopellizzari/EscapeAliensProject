@@ -37,18 +37,15 @@ public class ItemCards {
 	public ItemCard draw() {
 		
 		if (deck.isEmpty()){
+			if (discardPile.isEmpty()){
+				return null;            //può capitare che non ci siano carte scartate
+			}
 			deck.addAll(discardPile);
 			discardPile.clear();
 			Collections.shuffle(deck);
-
 		}
-		if(deck.isEmpty()==false) {					//if after shuffle the deck is empty return null without  this return error is deck is empty and you draw a card
-			ItemCard current = deck.get(0);
-			deck.remove(0);
-			return current;
-		}
-		else 
-			return null;
+						 
+		return deck.remove(0);
 		
 	}
 	

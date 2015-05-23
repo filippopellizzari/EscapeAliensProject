@@ -48,6 +48,7 @@ public class PlayerCreator {
 		return new Player(PlayerType.ALIEN, map.getSector(alienSector), 2, numberOfPlayer);
 	}
 	
+
 	/**
 	 * 
 	 * @param totPlayers, number of player in this game, this method use a random generator to create the human players then 
@@ -55,7 +56,7 @@ public class PlayerCreator {
 	 * @return array of player
 	 */
 	
-	public Player[] createPlayer(int totPlayers) {  //me la devi spiegare
+	public Player[] createPlayer(int totPlayers) {  
 		Player[] players = new Player[totPlayers];
 		Random random = new Random();
 		

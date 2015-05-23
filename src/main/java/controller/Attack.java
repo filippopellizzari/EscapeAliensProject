@@ -25,10 +25,10 @@ public class Attack {
 	 */
 	public void attackMove(){
 		Sector current = player.getCurrentSector();
-		System.out.println(player+" : ATTACK in "+current); //il giocatore dichiara l'attacco
+		System.out.println(player+" : ATTACK in "+current); //il giocatore dichiara l'attacco in un settore
 		for(int i = 0; i < current.getPlayers().size()-1; i++){
-			Player attacked = current.removePlayer();	//tolgo giocatore eliminato dalla mappa 
-			System.out.println(attacked+" : è attaccato!"); //se un giocatore si trova nel settore, dichiara la propria presenza
+			Player attacked = current.removePlayer();	//prendo il giocatore sotto attacco in quel settore
+			System.out.println(attacked+" è sotto attacco!"); //se un giocatore si trova nel settore, dichiara la propria presenza
 			if(isDefendable(attacked)){
 				System.out.println(attacked+" : si salva grazie alla carta Difesa");
 				current.addPlayer(attacked); 	//rimetto il giocatore nel settore
