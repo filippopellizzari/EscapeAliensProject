@@ -43,7 +43,7 @@ public class Turn {
 			}
 		}
 		else response+="The sector: "+dataTurn.getCoordinate().getX()+" "+dataTurn.getCoordinate().getY()+" don't exist, please retry";
-		if(dataTurn.isAttack()==true&& move==true && playerPlay.getPlayerType()==PlayerType.ALIEN) {	//attack only if you have already move and you are alien
+		if(dataTurn.isAttack()==true&& move==true && playerPlay.getType()==PlayerType.ALIEN) {	//attack only if you have already move and you are alien
 			//FAI ATTACCARE AND RESTITUISCI LA STRINGA CON I RISULTATI
 		}
 		if(dataTurn.getTypeCard()!=null) {
@@ -93,8 +93,8 @@ public class Turn {
 
 	private boolean ckeckCard(ItemCardType typeCard) {				//control if the player has this card or this attributes is null
 		if(typeCard==null) return true;
-		for(int i=0;i<playerPlay.getItemCardPlayer().size();i++) {
-			if(playerPlay.getItemCardPlayer().get(i).getItemCardType()==typeCard) return true;
+		for(int i=0;i<playerPlay.getItem().size();i++) {
+			if(playerPlay.getItem().get(i).getType()==typeCard) return true;
 		}
 		return false;
 	}

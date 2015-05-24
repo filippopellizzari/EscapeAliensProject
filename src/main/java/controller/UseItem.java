@@ -12,32 +12,32 @@ public class UseItem {
 	
 	private Game model;
 	private Player player;
-	private ItemRules itemRules;
-	
 	
 	public UseItem(Game model, Player player) {
-		
 		this.model = model;
 		this.player = player;
-		this.itemRules = new ItemRules(model, player);
 	}
 
 
 	public String teleport(){
+		    discard(ItemCardType.TELEPORT);
 			String s = player + "sta usando una carta oggetto\n";
 			Coordinate humanSector = model.getMap().getHumanSector();
-			model.getMap().getSector(humanSector).addPlayer(player.getCurrentSector().removePlayer());
+			model.getMap().getSector(humanSector).addPlayer(player.getSector().removePlayer());
 			return s;		
 	}
 	
 	public String sedatives(){
+		    discard(ItemCardType.SEDATIVES);
 			String s = player + " sta usando una carta oggetto\n";
 			player.setSedated(true);
 			return s;
 	}
 	
 	public String spotlight(Sector chosen){
+			discard(ItemCardType.SPOTLIGHT);
 			String s = player + " sta usando una carta oggetto\n";
+			
 			for(int i = 0; i < chosen.getPlayers().size(); i++) {
 				Player declaring = chosen.getPlayers().get(i);
 				s += declaring+" in sector "+chosen.getCoordinate()+"\n";
@@ -57,16 +57,30 @@ public class UseItem {
 	}
 		
 	public String adrenaline(){
+			discard(ItemCardType.ADRENALINE);
 			String s = player + " sta usando una carta oggetto\n";
 			player.setSpeed(2);  //aumento la velocità dell'umano, alla fine del turno torna a 1
 			return s;
 	}
 		
 	public String attack(){
+			discard(ItemCardType.ATTACK);
 			String s = player + " sta usando una carta oggetto\n";
 			s += new Attack(model,player).attackMove();
 			return s;
 	}
+	
+	
+	
+	private void discard(ItemCardType type){
+		for(int i = 0; i < player.getItem().size(); i++){
+			if(player.getItem().get(i).getType().equals(type)){
+				model.getItemCards().discard(player.removeItem(i));
+			}
+		}
+	}
+	
+	
 	
 	
 	

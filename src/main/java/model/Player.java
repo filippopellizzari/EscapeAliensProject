@@ -36,9 +36,18 @@ public class Player {
 		this.speed = speed;
 		this.numberOfPlayer = numberOfPlayer;
 		this.alive = true;
-		this.setSedated(false);
+		this.sedated = false;
 		this.itemCardPlayer = new ArrayList<ItemCard>();
 		
+	}
+	
+	/**
+	 * 
+	 * @return player type, used by controller because a human can do some option denied at alien and vice versa
+	 */
+
+	public PlayerType getType() {
+		return playerType;
 	}
 	
 	/**
@@ -46,7 +55,7 @@ public class Player {
 	 * @return the player's sector
 	 */
 	
-	public Sector getCurrentSector() {
+	public Sector getSector() {
 		return currentSector;
 	}
 	
@@ -55,7 +64,7 @@ public class Player {
 	 * @param currentSector, the sector where the player go is the new location of player
 	 */
 
-	public void setCurrentSector(Sector currentSector) {
+	public void setSector(Sector currentSector) {
 		this.currentSector = currentSector;
 	}
 	
@@ -79,6 +88,15 @@ public class Player {
 	
 	/**
 	 * 
+	 * @return number of player, each player is a client and play with one playere identify by number
+	 */
+	
+	public int getNumber() {
+		return numberOfPlayer;
+	}
+	
+	/**
+	 * 
 	 * @return status of player, if player is Alive he/she can play, otherwise no
 	 */
 
@@ -94,24 +112,7 @@ public class Player {
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
-	
-	/**
-	 * 
-	 * @return player type, used by controller because a human can do some option denied at alien and vice versa
-	 */
 
-	public PlayerType getPlayerType() {
-		return playerType;
-	}
-	
-	/**
-	 * 
-	 * @return number of player, each player is a client and play with one playere identify by number
-	 */
-	
-	public int getNumberOfPlayer() {
-		return numberOfPlayer;
-	}
 	/**
 	 * 
 	 * @return
@@ -132,7 +133,7 @@ public class Player {
 	 * @return item of player, used to control the number of the card because none can has more than 3 item card
 	 */
 	
-	public List<ItemCard> getItemCardPlayer() {
+	public List<ItemCard> getItem() {
 		return itemCardPlayer;
 	}
 	
@@ -142,7 +143,7 @@ public class Player {
 	 * symbols(item)
 	 */
 	
-	public void addItemCardPlayer(ItemCard itemCard) {
+	public void addItem(ItemCard itemCard) {
 		itemCardPlayer.add(itemCard);
 	}
 	
@@ -152,7 +153,7 @@ public class Player {
 	 * @return the card if this exist and null otherwise
 	 */
 	
-	public ItemCard removeItemCardPlayer(int index) {
+	public ItemCard removeItem(int index) {
 			return itemCardPlayer.remove(index);
 		
 	}

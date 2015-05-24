@@ -4,11 +4,10 @@ import model.*;
 
 public class ItemRules {
 	
-	private Game model;
+
 	private Player player;
 	
-	public ItemRules(Game model, Player player) {
-		this.model = model;
+	public ItemRules(Player player) {
 		this.player = player;
 	}
 
@@ -34,13 +33,12 @@ public class ItemRules {
 	
 	
 	private boolean humanCheck(){
-		return player.getPlayerType() == PlayerType.HUMAN;
+		return player.getType() == PlayerType.HUMAN;
 	}
 	
 	private boolean cardCheck(ItemCardType type){
-		for(int i = 0; i < player.getItemCardPlayer().size(); i++){
-			if(player.getItemCardPlayer().get(i).getItemCardType() == type){
-				model.getItemCards().discard(player.removeItemCardPlayer(i)); //se ha la carta oggetto la scarta (coperta) e può fare l'azione
+		for(int i = 0; i < player.getItem().size(); i++){
+			if(player.getItem().get(i).getType() == type){
 				return true;
 			}
 		}

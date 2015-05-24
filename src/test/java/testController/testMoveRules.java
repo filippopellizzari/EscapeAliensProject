@@ -19,7 +19,7 @@ public class testMoveRules {
 		Player player = model.getPlayers(0);
 		Coordinate start = new Coordinate(12,5);
 		Sector s = model.getMap().getSector(start);
-		player.setCurrentSector(s);
+		player.setSector(s);
 		
 		MoveRules moveRules = new MoveRules(model, player);
 		

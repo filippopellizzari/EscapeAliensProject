@@ -58,8 +58,8 @@ public class TestCreatorGame {
 		int human=0;
 		for(int i=0;i<3;i++)
 		{
-			if(game.getPlayers(i).getPlayerType()==PlayerType.ALIEN) alien++;
-			if(game.getPlayers(i).getPlayerType()==PlayerType.HUMAN) human++;
+			if(game.getPlayers(i).getType()==PlayerType.ALIEN) alien++;
+			if(game.getPlayers(i).getType()==PlayerType.HUMAN) human++;
 		}
 		assertTrue(alien==2 && human==1);
 	}
@@ -70,12 +70,12 @@ public class TestCreatorGame {
 		for(int i=0;i<3;i++)
 		{
 			player=game.getPlayers(i);
-			if(player.getPlayerType()==PlayerType.ALIEN)
-				assertTrue(player.getCurrentSector()==game.getMap().getSector(game.getMap().getAlienSector()) 
-				&& player.getSpeed()==2 && player.isAlive()==true && player.getItemCardPlayer().isEmpty()==true);
+			if(player.getType()==PlayerType.ALIEN)
+				assertTrue(player.getSector()==game.getMap().getSector(game.getMap().getAlienSector()) 
+				&& player.getSpeed()==2 && player.isAlive()==true && player.getItem().isEmpty()==true);
 			else 
-				assertTrue(player.getCurrentSector()==game.getMap().getSector(game.getMap().getHumanSector()) 
-					&& player.getSpeed()==1 && player.isAlive()==true && player.getItemCardPlayer().isEmpty()==true);
+				assertTrue(player.getSector()==game.getMap().getSector(game.getMap().getHumanSector()) 
+					&& player.getSpeed()==1 && player.isAlive()==true && player.getItem().isEmpty()==true);
 		}
 	}	
 

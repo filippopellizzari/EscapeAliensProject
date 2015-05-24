@@ -12,6 +12,10 @@ import model.ItemCardType;
  */
 
 public class DTOGame implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Coordinate coordinate;
 	private final int numberGame;
 	private final int numberPlayer;

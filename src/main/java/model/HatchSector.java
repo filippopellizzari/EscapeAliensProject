@@ -16,7 +16,7 @@ public class HatchSector extends Sector{
 	}
 	
 	@Override
-	public void addPlayer(Player player) {	//an hatch sector close when a human enters
+	public void addPlayer(Player player) {	//a hatch sector close when a human enters
 		super.addPlayer(player);
 		this.closed = true;
 	}

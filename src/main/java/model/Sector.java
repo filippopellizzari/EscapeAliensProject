@@ -41,7 +41,7 @@ public class Sector {
 	 * @see SectorType
 	 */
 	
-	public SectorType getSectorType() {
+	public SectorType getType() {
 		return sectorType;
 	}
 
