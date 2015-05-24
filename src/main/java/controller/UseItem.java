@@ -52,14 +52,13 @@ public class UseItem {
 						s += declaring+" in sector "+lighted.getCoordinate()+"\n";
 					}		
 			}
-		//ogni giocatore nel settore scelto e in quelli adiacenti devono dichiarare la loro posizione
 			return s;
 	}
 		
 	public String adrenaline(){
 			discard(ItemCardType.ADRENALINE);
 			String s = player + " sta usando una carta oggetto\n";
-			player.setSpeed(2);  //aumento la velocità dell'umano, alla fine del turno torna a 1
+			player.setSpeed(2);  
 			return s;
 	}
 		
