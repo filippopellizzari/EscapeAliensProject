@@ -15,7 +15,11 @@ import creator.*;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-
+/**
+ * @author Nicola
+ * @author Filippo
+ *
+ */
 public class TestCreatorGame {
 	static Game game;
 	static GameCreator gameCreator;
@@ -71,10 +75,10 @@ public class TestCreatorGame {
 		{
 			player=game.getPlayers(i);
 			if(player.getType()==PlayerType.ALIEN)
-				assertTrue(player.getSector()==game.getMap().getSector(game.getMap().getAlienSector()) 
+				assertTrue(player.getSector()==game.getMap().getSector(game.getMap().getAlienCoord()) 
 				&& player.getSpeed()==2 && player.isAlive()==true && player.getItem().isEmpty()==true);
 			else 
-				assertTrue(player.getSector()==game.getMap().getSector(game.getMap().getHumanSector()) 
+				assertTrue(player.getSector()==game.getMap().getSector(game.getMap().getHumanCoord()) 
 					&& player.getSpeed()==1 && player.isAlive()==true && player.getItem().isEmpty()==true);
 		}
 	}	
@@ -149,7 +153,7 @@ public class TestCreatorGame {
 				}
 			}
 			
-			assertTrue(humanSector==game.getMap().getHumanSector()&&alienSector==game.getMap().getAlienSector());
+			assertTrue(humanSector==game.getMap().getHumanCoord()&&alienSector==game.getMap().getAlienCoord());
 			for(int i=0;i<6;i++) 
 				assertTrue(game.getMap().getHatchSectors().get(i)==hatchSectors.get(i));
 			

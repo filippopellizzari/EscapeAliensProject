@@ -22,7 +22,7 @@ public class UseItem {
 	public String teleport(){
 		    discard(ItemCardType.TELEPORT);
 			String s = player + "sta usando una carta oggetto\n";
-			Coordinate humanSector = model.getMap().getHumanSector();
+			Coordinate humanSector = model.getMap().getHumanCoord();
 			model.getMap().getSector(humanSector).addPlayer(player.getSector().removePlayer());
 			return s;		
 	}

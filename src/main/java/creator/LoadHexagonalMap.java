@@ -62,10 +62,11 @@ public class LoadHexagonalMap {
 				default: sectorType = SectorType.SECURE;
 				break;
 			}
-			boolean close = br.readLine() == "true";
+			
+			boolean closed = Boolean.parseBoolean(br.readLine()); 
+			
 			int x = Integer.parseInt(br.readLine());
 			int y = Integer.parseInt(br.readLine());
-			
 			
 			switch(sectorType) {
 				case ALIEN: this.alienSector = new Coordinate(x,y);
@@ -86,10 +87,10 @@ public class LoadHexagonalMap {
 			
 			//creazione concreta del settore
 			if(sectorType != SectorType.HATCH) {
-				sectors[(y-1)*23 + (x-1)]= new Sector(sectorType, close, x, y, adjacent);
+				sectors[(y-1)*23 + (x-1)]= new Sector(sectorType, closed, x, y, adjacent);
 			}
 			else {
-				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, close, x, y, adjacent);		
+				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, closed, x, y, adjacent);		
 			}
 			
 		}

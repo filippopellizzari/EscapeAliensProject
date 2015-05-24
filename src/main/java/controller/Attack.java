@@ -35,7 +35,7 @@ public class Attack {
 				s += attacked+" : si salva grazie alla carta Difesa!\n";
 			}
 			else{
-				if(player.getType().equals(PlayerType.ALIEN)){
+				if(player.getType().equals(PlayerType.ALIEN) && attacked.getType().equals(PlayerType.HUMAN)){
 					player.setSpeed(3);                         //alien feeding
 				}
 				s += attacked+" è ucciso e viene eliminato dal gioco: la sua identità era "+

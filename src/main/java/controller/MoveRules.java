@@ -2,7 +2,11 @@ package controller;
 
 import model.*;
 
-
+/**
+ * La classe contiene le regole per lo spostamento all'interno della mappa
+ * @author Filippo
+ *
+ */
 public class MoveRules {
 	
 	private Game model;
@@ -21,36 +25,49 @@ public class MoveRules {
 	 */
 
 	public boolean moveCheck(Coordinate dest){
-		
-		if(!model.getMap().isNull(dest)){
-			if(player.getType()==PlayerType.ALIEN 
-			   && model.getMap().getSector(dest).getType()==SectorType.HATCH) {
-				return false;
-			}
-			return pathCheck(player.getSector().getCoordinate(), dest, player.getSpeed());
-		}
-		return false;	
+
+		return pathCheck(player.getSector().getCoordinate(), dest, player.getSpeed())
+				&& destCheck (dest);		
 	}
 
 	/**
-	 * controlla che la destinazione sia raggiungibile secondo la velocità del giocatore
-	 *  e che le caselle lungo il percorso siano tutte attraversabili
-	 * @param curr
+	 * controlla che la destinazione sia dentro la mappa; 
+	 * nel caso degli alieni, controlla che non possano accedere ad un settore scialuppa
 	 * @param dest
-	 * @param speed
+	 * @return
+	 */
+	
+	private boolean destCheck(Coordinate dest){
+		if(!model.getMap().isNull(dest)){
+			if(player.getType()==PlayerType.ALIEN 
+			   && model.getMap().getSector(dest).getType().equals(SectorType.HATCH)) {
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * controlla che la destinazione sia raggiungibile secondo la velocità del giocatore
+	 *  e che i settori lungo il percorso siano tutti attraversabili
+	 * @param curr, coordinata di partenza
+	 * @param dest, coordinata di destinazione
+	 * @param speed, velocità del giocatore, ossia di quanti settori può spostarsi
 	 * @return
 	 */
 	
 	
 	//DA CORREGGERE ASSOLUTAMENTE!
 	
-	public boolean pathCheck(Coordinate curr,Coordinate dest, int count){
-			if (curr.getX() == dest.getX() && curr.getY() == dest.getY()){
-					return true;
+	public boolean pathCheck(Coordinate curr,Coordinate dest, int speed){
+			if (speed==0){
+					return curr.equals(dest);
 			}
 			
 			else{
-				count++;
+				
 				Sector currSector = model.getMap().getSector(curr);
 				for(int i = 0; i < currSector.getAdjacent().size(); i++){
 					Coordinate adjCoord = currSector.getAdjacent().get(i);
@@ -58,9 +75,11 @@ public class MoveRules {
 					if (adjCoord.getX() != -1 && adjCoord.getY() != -1){
 						Sector adjSector = model.getMap().getSector(adjCoord);
 						if(!adjSector.isClosed()){
-							if (pathCheck(adjCoord, dest, count)){
+							speed--;
+							if (pathCheck(adjCoord, dest, speed)){
 								return true;
-							}						
+							}
+							speed++;
 						}
 							
 					}
@@ -70,9 +89,7 @@ public class MoveRules {
 				}
 				
 			
-			return false;
-					
-			
+			return false;		
 	}
 	
 

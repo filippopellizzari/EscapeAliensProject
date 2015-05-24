@@ -41,7 +41,7 @@ public class Draw {
 		
 	}
 	
-	public String drawItemCard(){
+	private String drawItemCard(){
 		String s = "";
 		ItemCard current = model.getItemCards().draw();
 		if(current == null){

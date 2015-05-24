@@ -13,10 +13,12 @@ public class MoveAction {
 		this.player = player;
 	}
 	
-	public void Move(Coordinate destCoord){
+	public String move(Coordinate destCoord){
 			Sector destSector = model.getMap().getSector(destCoord);
 			destSector.addPlayer(player.getSector().removePlayer());
 			player.setSector(destSector);
+			String s = "Ti sei spostato nel settore "+destCoord; //messaggio privato
+			return s;
 			
 	}
 	

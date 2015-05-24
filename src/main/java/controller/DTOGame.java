@@ -6,7 +6,7 @@ import model.Coordinate;
 import model.ItemCardType;
 
 /**
- * this class is used as DTO between Client and Server, when the game is start
+ * this class is used as DTO between Client and Server, when the game starts
  * @author Nicola
  *
  */

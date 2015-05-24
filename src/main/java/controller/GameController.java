@@ -42,10 +42,7 @@ public class GameController {
 		Player player = model.getPlayers(0);
 		Sector currentSector = model.getMap().getSector(new Coordinate (12,3));
 		player.setSector(currentSector);
-		MoveRules mr = new MoveRules(model, player);
-		Coordinate destCoord = new Coordinate (12,5);
-		boolean b = mr.pathCheck(currentSector.getCoordinate(), destCoord , 0);
-		System.out.println (b);
+		
 		
 	}
 }

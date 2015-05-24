@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * 
  * @author Nicola
+ * @author Filippo
  * this class represent a player in the game with all its attributes
  * @see PlayerType
  *
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class Player {
 	
-	private final  PlayerType playerType;
+	private PlayerType playerType;
 	private Sector currentSector;
 	private int speed;
 	private final int numberOfPlayer;
@@ -50,6 +51,15 @@ public class Player {
 		return playerType;
 	}
 	
+	/**
+	 * 
+	 * @param playerType
+	 */
+	
+	public void setPlayerType(PlayerType playerType) {
+		this.playerType = playerType;
+	}
+
 	/**
 	 * 
 	 * @return the player's sector
@@ -115,7 +125,7 @@ public class Player {
 
 	/**
 	 * 
-	 * @return
+	 * @return true, se il giocatore è sedato
 	 */
 	public boolean isSedated() {
 		return sedated;

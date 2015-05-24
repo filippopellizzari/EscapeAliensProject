@@ -7,6 +7,7 @@ import java.util.List;
  * This class define the "cells" that compounds the map, each has a type, the coordinate to adjcent sector to know if player can move there and a 
  * list of player in this sector, the attribute close indicate if it is possible to move in this sector
  * @author Nicola
+ * @author Filippo
  *@see Coordinate to know what it is
  */
 
@@ -83,9 +84,8 @@ public class Sector {
 	
 	/**
 	 * 
-	 * @return is sector is close (not crossable) or not
+	 * @return true se il settore è "chiuso", ossia non attraversabile e non raggiungibile
 	 */
-
 	public boolean isClosed() {
 		return closed;
 	}

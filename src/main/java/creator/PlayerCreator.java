@@ -24,8 +24,8 @@ public class PlayerCreator {
 	
 	public PlayerCreator(Map map) {
 		this.map = map;
-		humanSector = map.getHumanSector();
-		alienSector = map.getAlienSector();
+		humanSector = map.getHumanCoord();
+		alienSector = map.getAlienCoord();
 	}
 	
 	/**
