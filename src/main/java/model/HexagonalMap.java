@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 
-public class ExagonalMap extends Map{
+public class HexagonalMap extends Map{
 	
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class ExagonalMap extends Map{
 	 * @param hatchSectors list of coordinate of each hatch sectors in the map 
 	 */
 
-	public ExagonalMap(Sector[] sectors, Coordinate humanSector, Coordinate alienSector, List<Coordinate> hatchSectors) {
+	public HexagonalMap(Sector[] sectors, Coordinate humanSector, Coordinate alienSector, List<Coordinate> hatchSectors) {
 		super(sectors, humanSector, alienSector, hatchSectors);
 	}
 	

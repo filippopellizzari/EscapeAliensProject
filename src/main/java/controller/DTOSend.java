@@ -1,55 +1,50 @@
 package controller;
 
-import java.io.Serializable;
-
 import model.Coordinate;
 import model.ItemCardType;
 
 /**
  * 
  * @author Nicola
- * this is the DTO passed from server to client
+ * this is the DTO passed from client to server
  *
  */
 
-public class DTOGame implements Serializable{
+public class DTOSend {
+	
 	private Coordinate coordinate;
+	private final int numberGame;
+	private final int numberPlayer;
 	private ItemCardType typeCard;
 	private boolean attack;
-	private boolean move;
-	private boolean useCard;
-	private boolean endTurn;
 	private String chat;
-	private String gameMessage;
-	private boolean error;
-	private boolean notifyAll;
+	private boolean endTurn;
+	private boolean move;
+	private boolean useCard;		//se vero usa la carta se no la scarta
 	
 	/**
-	 * 
 	 * @param coordinate of the sector selected 
 	 * @param numberGame number of game where this action are do
 	 * @param numberPlayer number of player in the game
 	 * @param typeCard	type of card used 
 	 * @param attack if is true the player attack, if it is possible
-	 * @param move if the player has attacked
-	 * @param useCard if the player has used a card
 	 * @param chat	message for the chat
-	 * @param gameMessage	message provide for the game
+	 * @param endTurn if player would pass his turn or draw the one sectorCard
+	 * @param move if player would move
+	 * @param useCard if player has use one card
 	 */
 	
-	public DTOGame(Coordinate coordinate, ItemCardType typeCard, boolean attack, boolean move, boolean useCard, String chat, 
-			String gameMessage, boolean endTurn, boolean error, boolean notifyAll) {
-		super();
+	public DTOSend(Coordinate coordinate, int numberGame, int numberPlayer,
+			ItemCardType typeCard, boolean attack, String chat, boolean endTurn, boolean move, boolean useCard) {
 		this.coordinate = coordinate;
+		this.numberGame = numberGame;
+		this.numberPlayer = numberPlayer;
 		this.typeCard = typeCard;
 		this.attack = attack;
+		this.chat = chat;
+		this.endTurn=endTurn;
 		this.move=move;
 		this.useCard=useCard;
-		this.chat = chat;
-		this.gameMessage=gameMessage;
-		this.endTurn=endTurn;
-		this.error=error;
-		this.notifyAll=notifyAll;
 	}
 
 	/**
@@ -85,11 +80,19 @@ public class DTOGame implements Serializable{
 	}
 
 	/**
-	 * @return the gameMessage
+	 * @return the numberGame
 	 */
 	
-	public String getGameMessage() {
-		return gameMessage;
+	public int getNumberGame() {
+		return numberGame;
+	}
+
+	/**
+	 * @return the numberPlayer
+	 */
+	
+	public int getNumberPlayer() {
+		return numberPlayer;
 	}
 	
 	/**
@@ -117,19 +120,4 @@ public class DTOGame implements Serializable{
 		return useCard;
 	}
 
-	/**
-	 * @return the error
-	 */
-	
-	public boolean isError() {
-		return error;
-	}
-
-	/**
-	 * @return the notifyAll
-	 */
-	
-	public boolean isNotifyAll() {
-		return notifyAll;
-	}
 }

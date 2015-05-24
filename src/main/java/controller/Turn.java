@@ -6,82 +6,39 @@ public class Turn {
 
 	private Player playerPlay;
 	private int numberPlayer;
-	private boolean move;
-	private boolean attack;
-	private boolean drawASectorCard;
-	private boolean discard;
+	private int numberOfPlayer;
+	private boolean move;						//ha mosso
+	private boolean attack;						//ha attaccato
+	private boolean drawASectorCard;			//ha pescato la carta settore pericoloso
+	private boolean discard;					//deve scartare
+	private boolean noiseInAnySector;			//ha pescato la carta noise in any sector
 	private Game game;
 	
 	public Turn(int numberOfPlayers, Game game) {
 		this.game=game;
-		this.playerPlay = game.getPlayers(numberPlayer);	//load the player than has to play
+		this.playerPlay = game.getPlayers(0);	//load the player than has to play
 		this.numberPlayer = 0;
+		this.numberOfPlayer=numberOfPlayers;	//numero di giocatori
 		move=false;
 		attack=false;
 		drawASectorCard=true;
 		discard=false;
 	}
 
-	public String turn(TurnDTO dataTurn) {
+	public String turn(TurnDTO turnDTO2) {
 		String response="";
-		if(ckeckCard(dataTurn.getTypeCard())==false) {
-			response+="You don't have this type of card";
-		}
-		if(dataTurn.getCoordinate()!=null && game.getMap().isNull(dataTurn.getCoordinate())==false) {		//control if the coordinate are correct
-			if(dataTurn.getTypeCard()==ItemCardType.SPOTLIGHT) {	//use spotlight
-				response+="";
-				//ESEGUI LO SPOTLIGHT CHE RESTITUISCE LA STRINGA CON I GIOCATORI INDIVIDUATI
-			}
-			else {
-				if(move==false) {		//muove
-					//METODO PER VERIFICARE CHE SI POSSA MUOVERE DOVE DICE
-					//SE SI FALLO MUOVERE E RESTITUISCI LA STRINGA, SETTA IL PARAMETRO MOVE A TRUE, NON PESCARE LA CARTA SETTORE PERICOLOSO
-				}
-				else {			//complete the effect noise in any sector
-					response+="";
-				}
-			}
-		}
-		else response+="The sector: "+dataTurn.getCoordinate().getX()+" "+dataTurn.getCoordinate().getY()+" don't exist, please retry";
-		if(dataTurn.isAttack()==true&& move==true && playerPlay.getPlayerType()==PlayerType.ALIEN) {	//attack only if you have already move and you are alien
-			//FAI ATTACCARE AND RESTITUISCI LA STRINGA CON I RISULTATI
-		}
-		if(dataTurn.getTypeCard()!=null) {
-			if(discard==true) {			//discard
-				//VERIFICA E FAI SCARTARE, POI NOTIFICA
-			}
-			else {						//useObject
-				if(dataTurn.getTypeCard()==ItemCardType.SEDATIVES) {
-					drawASectorCard=false;
-					// FAI SCARTARE LA CARTA
-				}
-				if(dataTurn.getTypeCard()==ItemCardType.TELEPORT) {
-					// USA IL TELETRASPORTO E NOTIFICA
-				}
-				if(move==true) {
-					if(dataTurn.getTypeCard()==ItemCardType.ATTACK) {
-						//fallo attaccare e riporta come per l'alieno
-					}
-				}
-				else {
-					if(dataTurn.getTypeCard()==ItemCardType.ADRENALINE) {
-						//USA L'ADRENALINA E NOTIFICA
-					}
-					
-				}
-				return "You can't use that card in this moment";
-			}
-		}
-		if(dataTurn.getEndTurn()==true) {
-			if(move==false) {
-				return "You must move during your turn";
-			}
-			if(move==true && drawASectorCard==true && attack==false) {
-				//FAI PESCARE LA CARTA SETTORE E NOTIFICA
-			}
-			resetTurn();
-		}
-		return response;		//eliminalo non deve esistere alla fine
+		if(attack==false&&move==true&&drawASectorCard==true&&turnDTO2.getTypeCard()==ItemCardType.ATTACK);	//attacco
+		if(turnDTO2.getTypeCard()==ItemCardType.SPOTLIGHT&&turnDTO2.getCoordinate()!=null);	//spotlight
+		if(turnDTO2.getTypeCard()==ItemCardType.SEDATIVES&&turnDTO2.isUseCard()==true);	//sedatives
+		if(turnDTO2.getTypeCard()==ItemCardType.ADRENALINE&&turnDTO2.isUseCard()==true);	//adrenaline
+		if(turnDTO2.getTypeCard()==ItemCardType.TELEPORT&&turnDTO2.isUseCard()==true);	//teletrasporto
+		if(move==false&&turnDTO2.getTypeCard()==null && turnDTO2.getCoordinate()!=null&&turnDTO2.isMove()==true);	//mossa
+		if(move==true&&discard==true&&turnDTO2.getTypeCard()!=null&&turnDTO2.isUseCard()==false);	//scarta carta
+		if(move==true&&attack==false&&turnDTO2.isAttack()==true&&drawASectorCard==true);	//attacco alieno
+		if(move==true&&attack==false&&noiseInAnySector==true&&turnDTO2.isEndTurn()==true&&drawASectorCard==true);   //indica settore per  cartasettore pericoloso
+		if(noiseInAnySector==true&&turnDTO2.getCoordinate()!=null&&turnDTO2.getTypeCard()==null);	//indica il settore del noise in any sector
+		if(move==true&&discard==false&&noiseInAnySector==false&&discard==false&&turnDTO2.isEndTurn()==true);	//fine turno
+		return response;
 	}
 
 	private void resetTurn() {
@@ -89,13 +46,37 @@ public class Turn {
 		attack=false;
 		drawASectorCard=true;
 		discard=false;
+		noiseInAnySector=false;
 	}
 
-	private boolean ckeckCard(ItemCardType typeCard) {				//control if the player has this card or this attributes is null
-		if(typeCard==null) return true;
-		for(int i=0;i<playerPlay.getItemCardPlayer().size();i++) {
-			if(playerPlay.getItemCardPlayer().get(i).getItemCardType()==typeCard) return true;
-		}
-		return false;
+	public String completeTurn() {
+		int condizione;					//se arriva a 4 vuol dire che il turno è finito
+		String s="";
+		do{
+			condizione=0;
+			if(move==false){ //non ha mosso
+				//muovi a caso
+			}
+			else condizione++;
+			if(discard==true) { //non ha scartato
+				//scarta
+			}
+			else condizione++;
+			if(drawASectorCard==true) {		
+				if(playerPlay.getCurrentSector().getSectorType()==SectorType.DANGEROUS) { //verifica che debba pescare la carta settore pericoloso
+					
+				}
+				else condizione++;
+			}
+			else condizione++;
+			if(noiseInAnySector==true) { //non ha usato il rumore
+				//usa il rumore a caso
+			}
+			else condizione++;
+		} while(condizione<=3);
+		return s;
+	}
+	public int getNumberPlayer(){			//number of player
+		return numberPlayer%numberOfPlayer;
 	}
 }
