@@ -6,13 +6,21 @@ import model.Coordinate;
 import model.ItemCardType;
 
 /**
+<<<<<<< HEAD
  * 
+=======
+ * this class is used as DTO between Client and Server, when the game starts
+>>>>>>> branch 'master' of https://bitbucket.org/NicSap/progettoingsoftwgruppo27
  * @author Nicola
  * this is the DTO passed from server to client
  *
  */
 
 public class DTOGame implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Coordinate coordinate;
 	private ItemCardType typeCard;
 	private boolean attack;

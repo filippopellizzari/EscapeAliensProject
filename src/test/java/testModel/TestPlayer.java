@@ -59,7 +59,7 @@ public class TestPlayer {
 		coordinate.add(new Coordinate(-1,-1));
 		sector2=new HatchSector(SectorType.HATCH,false,1,3,coordinate);
 		card=new ItemCard(ItemCardType.ADRENALINE);
-		player.addItemCardPlayer(card);									//use the function addcard, class Player
+		player.addItem(card);									//use the function addcard, class Player
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public class TestPlayer {
 	
 	@Test
 	public void TestSpeedAndSector() {
-		assertTrue(player.getSpeed()==3 && player.getCurrentSector()==start);	//test if the speed is 2 and is sector of Player is the same that i have passed before, classPlayer;
+		assertTrue(player.getSpeed()==3 && player.getSector()==start);	//test if the speed is 2 and is sector of Player is the same that i have passed before, classPlayer;
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class TestPlayer {
 	
 	@Test
 	public void testCorrectTypeOfSector() {
-		assertTrue(start.getSectorType()==SectorType.ALIEN && sector1.getSectorType()==SectorType.SECURE && sector2.getSectorType()==SectorType.HATCH); //test type of sector, class SectorType
+		assertTrue(start.getType()==SectorType.ALIEN && sector1.getType()==SectorType.SECURE && sector2.getType()==SectorType.HATCH); //test type of sector, class SectorType
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class TestPlayer {
 	
 	@Test
 	public void testAliveAndType() {
-		assertTrue(player.getNumberOfPlayer()==1 && player.isAlive()==true && player.getPlayerType()==PlayerType.ALIEN);
+		assertTrue(player.getNumber()==1 && player.isAlive()==true && player.getType() == PlayerType.ALIEN);
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class TestPlayer {
 	
 	@Test
 	public void testNumberCardOfPlayer() {
-		assertTrue(player.getItemCardPlayer().size()==1);				//test number of item card, class Player
+		assertTrue(player.getItem().size()==1);				//test number of item card, class Player
 	}
 
 
@@ -117,8 +117,8 @@ public class TestPlayer {
 	
 	@Test
 	public void testSameCardPassed() {
-		card2=player.removeItemCardPlayer(0);
-		player.addItemCardPlayer(card2);
+		card2=player.removeItem(0);
+		player.addItem(card2);
 		assertEquals(card2,card);										//test if the card pass and the card discarded is the same, class Player
 		
 	}
@@ -132,50 +132,50 @@ public class TestPlayer {
 		int i=0;
 		boolean condition=false;
 		while(i<6 && condition==false) {
-			if(player.getCurrentSector().getAdjacent().get(i).equals(sector1.getCoordinate()))
+			if(player.getSector().getAdjacent().get(i).equals(sector1.getCoordinate()))
 			{
 				if(sector1.isClosed()==false) {						//control if the sector is accessible
 					condition=true;
 					sector1.addPlayer(start.removePlayer());
-					player.setCurrentSector(sector1);
+					player.setSector(sector1);
 				}
 			}
 			i++;
 		}
-		assertEquals(player.getCurrentSector(),sector1);	//test if the sector of player is sector1, classPlayer
+		assertEquals(player.getSector(),sector1);	//test if the sector of player is sector1, classPlayer
 		start.addPlayer(sector1.removePlayer());
-		player.setCurrentSector(start);
+		player.setSector(start);
 	}
 	
 	/**
-	 * I test that the player move correcty from sector 1 to sector 2
+	 * I test that the player move correctly from sector 1 to sector 2
 	 */
 	
 	@Test
 	public void testPlayerMove2() {
 		sector1.addPlayer(start.removePlayer());
-		player.setCurrentSector(sector1);
+		player.setSector(sector1);
 		int i=0;
 		boolean condition=false;
 		while(i<6 && condition==false) {
-			if(player.getCurrentSector().getAdjacent().get(i).equals(sector2.getCoordinate())) {
+			if(player.getSector().getAdjacent().get(i).equals(sector2.getCoordinate())) {
 				if(sector2.isClosed()==false) {						//control if the sector is accessible
 					condition=true;
 					sector2.addPlayer(sector1.removePlayer());
-					player.setCurrentSector(sector2);
+					player.setSector(sector2);
 					player.setAlive(false); 					//player is dead
 				}
 			}
 			i++;
 		}
-		assertEquals(player.getCurrentSector(),sector2);	//test if the sector of player is sector1, classPlayer
+		assertEquals(player.getSector(),sector2);	//test if the sector of player is sector1, classPlayer
 
 		start.addPlayer(sector2.removePlayer());
-		player.setCurrentSector(start);
+		player.setSector(start);
 
 	}
 	/**
-	 * I verify that sector2 (hatch) is close after player enter in it and the player is dead
+	 * I verify that sector2 (hatch) is close after player enter it and the player is dead
 	 */
 	
 	@Test

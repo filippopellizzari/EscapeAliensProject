@@ -7,6 +7,7 @@ import java.util.List;
  * This class define the "cells" that compounds the map, each has a type, the coordinate to adjcent sector to know if player can move there and a 
  * list of player in this sector, the attribute close indicate if it is possible to move in this sector
  * @author Nicola
+ * @author Filippo
  *@see Coordinate to know what it is
  */
 
@@ -41,7 +42,7 @@ public class Sector {
 	 * @see SectorType
 	 */
 	
-	public SectorType getSectorType() {
+	public SectorType getType() {
 		return sectorType;
 	}
 
@@ -83,9 +84,8 @@ public class Sector {
 	
 	/**
 	 * 
-	 * @return is sector is close (not crossable) or not
+	 * @return true se il settore è "chiuso", ossia non attraversabile e non raggiungibile
 	 */
-
 	public boolean isClosed() {
 		return closed;
 	}
@@ -100,6 +100,34 @@ public class Sector {
 		return this.coordinate;
 	}
 	
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((coordinate == null) ? 0 : coordinate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sector other = (Sector) obj;
+		if (coordinate == null) {
+			if (other.coordinate != null)
+				return false;
+		} else if (!coordinate.equals(other.coordinate))
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return "Sector [sectorType=" + sectorType + ", getX()=" + getCoordinate().getX()

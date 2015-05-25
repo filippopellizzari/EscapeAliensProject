@@ -12,40 +12,32 @@ public class UseItem {
 	
 	private Game model;
 	private Player player;
-	private ItemRules itemRules;
-	
 	
 	public UseItem(Game model, Player player) {
-		
 		this.model = model;
 		this.player = player;
-		this.itemRules = new ItemRules(model, player);
 	}
 
 
 	public String teleport(){
-		if(itemRules.teleportCheck()){
+		    discard(ItemCardType.TELEPORT);
 			String s = player + "sta usando una carta oggetto\n";
-			Coordinate humanSector = model.getMap().getHumanSector();
-			model.getMap().getSector(humanSector).addPlayer(player.getCurrentSector().removePlayer());
-			return s;
-		}
-		return null;
-		
+			Coordinate humanSector = model.getMap().getHumanCoord();
+			model.getMap().getSector(humanSector).addPlayer(player.getSector().removePlayer());
+			return s;		
 	}
 	
 	public String sedatives(){
-		if(itemRules.sedativesCheck()){
+		    discard(ItemCardType.SEDATIVES);
 			String s = player + " sta usando una carta oggetto\n";
+			player.setSedated(true);
 			return s;
-		}
-		return null;
 	}
 	
-	
 	public String spotlight(Sector chosen){
-		if(itemRules.spotlightCheck()){
+			discard(ItemCardType.SPOTLIGHT);
 			String s = player + " sta usando una carta oggetto\n";
+			
 			for(int i = 0; i < chosen.getPlayers().size(); i++) {
 				Player declaring = chosen.getPlayers().get(i);
 				s += declaring+" in sector "+chosen.getCoordinate()+"\n";
@@ -60,35 +52,34 @@ public class UseItem {
 						s += declaring+" in sector "+lighted.getCoordinate()+"\n";
 					}		
 			}
-		
-		
-		//ogni giocatore nel settore scelto e in quelli adiacenti devono dichiarare la loro posizione
 			return s;
-		}
-		return null;
-		
 	}
 		
-	
-	
 	public String adrenaline(){
-		if(itemRules.adrenalineCheck()){
+			discard(ItemCardType.ADRENALINE);
 			String s = player + " sta usando una carta oggetto\n";
-			player.setSpeed(2);  //aumento la velocità dell'umano, alla fine del turno torna a 1
+			player.setSpeed(2);  
 			return s;
-		}
-		return null;
-		
 	}
 		
 	public String attack(){
-		if(itemRules.attackCheck()){
+			discard(ItemCardType.ATTACK);
 			String s = player + " sta usando una carta oggetto\n";
 			s += new Attack(model,player).attackMove();
 			return s;
-		}
-		return null;
 	}
+	
+	
+	
+	private void discard(ItemCardType type){
+		for(int i = 0; i < player.getItem().size(); i++){
+			if(player.getItem().get(i).getType().equals(type)){
+				model.getItemCards().discard(player.removeItem(i));
+			}
+		}
+	}
+	
+	
 	
 	
 	

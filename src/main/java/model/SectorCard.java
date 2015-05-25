@@ -39,7 +39,7 @@ public class SectorCard {
 	 * @see SectorCardType
 	 */
 	
-	public SectorCardType getSectorCardType() {
+	public SectorCardType getType() {
 		return sectorCardType;
 	}
 	

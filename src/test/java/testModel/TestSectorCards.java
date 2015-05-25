@@ -60,7 +60,7 @@ public class TestSectorCards {
 	@Test
 	public void testOfCorrectTypeOfCard() {
 		for(int i=0;i<25;i++)
-			assertTrue(listSectorCards.get(i).getSectorCardType()==SectorCardType.NOISEANY|| listSectorCards.get(i).getSectorCardType()==SectorCardType.NOISEYOUR || listSectorCards.get(i).getSectorCardType()==SectorCardType.SILENCE);		//test getName, class SectorCard
+			assertTrue(listSectorCards.get(i).getType()==SectorCardType.NOISEANY|| listSectorCards.get(i).getType()==SectorCardType.NOISEYOUR || listSectorCards.get(i).getType()==SectorCardType.SILENCE);		//test getName, class SectorCard
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class TestSectorCards {
 		int noiseInAnyType1=0;
 		int silence=0;
 		for(int i=0;i<25;i++) {									//test constructor, class SectorCards
-			switch(listSectorCards.get(i).getSectorCardType()){								//test SectorCardType enumeration, 
+			switch(listSectorCards.get(i).getType()){								//test SectorCardType enumeration, 
 				case NOISEYOUR:
 					if(listSectorCards.get(i).isItemIcon()==true) noiseInYourType1++; //use the method isItem, class SectorCard
 					else noiseInYourType0++;

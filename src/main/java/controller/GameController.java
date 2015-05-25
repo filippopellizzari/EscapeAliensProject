@@ -10,7 +10,7 @@ import model.*;
  */
 
 public class GameController {
-	private static int numberOfGames=0;
+	private static int numberOfGames = 0;
 	private final int numberOfThisGame;
 	private Game game;
 	private Turn currentTurn;
@@ -19,8 +19,8 @@ public class GameController {
 		numberOfGames++;
 		this.numberOfThisGame=numberOfGames;
 		GameCreator gameCreator = GameCreator.getinstance();
-		this.game=gameCreator.createGame(mapName, numberOfPlayers, typeMap);
-		currentTurn=new Turn(numberOfPlayers, game);
+		this.game = gameCreator.createGame(mapName, numberOfPlayers, typeMap);
+		currentTurn = new Turn(numberOfPlayers, game);
 	}
 	
 	/**
@@ -30,7 +30,6 @@ public class GameController {
 	public int getNumberOfThisGame() {
 		return numberOfThisGame;
 	}
-	
 	public DTOGame doAnAction(DTOSend dtoSend) {
 		String message="";
 		DTOGame dtoGame;
@@ -55,5 +54,15 @@ public class GameController {
 		dtoGame=controlResponse.control(message);		//analizza la stringa tornata e crea l'oggetto da passare
 		return dtoGame;			//ritorna al thread che lo ha chiamato l'oggetto da ritornare
 	}
-	public static void main(String[] args) { }
+	
+	public static void main(String[] args) {
+		
+		GameCreator gameCreator = GameCreator.getinstance();
+		Game model = gameCreator.createGame("Galilei", 6, "Exagonal");
+		Player player = model.getPlayers(0);
+		Sector currentSector = model.getMap().getSector(new Coordinate (12,3));
+		player.setSector(currentSector);
+		
+		
+	}
 }

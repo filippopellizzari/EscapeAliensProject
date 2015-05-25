@@ -27,7 +27,7 @@ public class Turn {
 
 	public String turn(TurnDTO turnDTO2) {
 		String response="";
-		if(attack==false&&move==true&&drawASectorCard==false&&turnDTO2.getTypeCard()==ItemCardType.ATTACK&&playerPlay.getPlayerType()==PlayerType.HUMAN);	//attacco
+		if(attack==false&&move==true&&drawASectorCard==false&&turnDTO2.getTypeCard()==ItemCardType.ATTACK&&playerPlay.getType()==PlayerType.HUMAN);	//attacco
 		if(turnDTO2.getTypeCard()==ItemCardType.SPOTLIGHT&&turnDTO2.getCoordinate()!=null);	//spotlight
 		if(turnDTO2.getTypeCard()==ItemCardType.SEDATIVES&&turnDTO2.isUseCard()==true);	//sedatives
 		if(turnDTO2.getTypeCard()==ItemCardType.ADRENALINE&&turnDTO2.isUseCard()==true);	//adrenaline
@@ -78,5 +78,13 @@ public class Turn {
 	}
 	public int getNumberPlayer(){			//number of player
 		return numberPlayer%numberOfPlayer;
+=======
+	private boolean ckeckCard(ItemCardType typeCard) {				//control if the player has this card or this attributes is null
+		if(typeCard==null) return true;
+		for(int i=0;i<playerPlay.getItem().size();i++) {
+			if(playerPlay.getItem().get(i).getType()==typeCard) return true;
+		}
+		return false;
+>>>>>>> branch 'master' of https://bitbucket.org/NicSap/progettoingsoftwgruppo27
 	}
 }

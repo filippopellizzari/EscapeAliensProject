@@ -12,14 +12,14 @@ public class ControlDataRiceived {
 				if(game.getMap().isNull(dtoSend.getCoordinate())) return "Le coordinate sono errate";
 			}
 			if(dtoSend.getTypeCard()!=null) {			//controllo carta
-				for(int i=0;i<game.getPlayers(numberPlayer).getItemCardPlayer().size();i++)
+				for(int i=0;i<game.getPlayers(numberPlayer).getItem().size();i++)
 				{
-					if(game.getPlayers(numberPlayer).getItemCardPlayer().get(i).getItemCardType()==dtoSend.getTypeCard())
+					if(game.getPlayers(numberPlayer).getItem().get(i).getType()==dtoSend.getTypeCard())
 						return "OK";
 				}
 				return "Non possiedi questa carta";
 			}
-			if(dtoSend.getTypeCard()!=null&&game.getPlayers(numberPlayer).getPlayerType()==PlayerType.ALIEN) {	//controllo alieno
+			if(dtoSend.getTypeCard()!=null&&game.getPlayers(numberPlayer).getType()==PlayerType.ALIEN) {	//controllo alieno
 				return "Gli alieni non possono usare le carte";
 			}
 			if(dtoSend.getEndTurn()==true) return "OK";	//controllo fine turno
