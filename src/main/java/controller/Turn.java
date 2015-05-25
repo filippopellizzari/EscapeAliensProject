@@ -87,7 +87,7 @@ public class Turn {
 		/**
 		 * player decides to draw a SectorDangerousCard
 		 */
-		if(hasMoved && !hasAttacked && noiseAnySectorDuty && DTOTurn.isEndTurn() && !drawSectorDuty){   //pesca carta settore pericoloso
+		if(hasMoved && !hasAttacked && noiseAnySectorDuty && DTOTurn.isEndTurn() && !drawSectorDuty ){   //pesca carta settore pericoloso
 			drawSectorDuty = true;
 			response += new CardsEffect(model,player).drawSectorCard();
 			if(response.substring(0,11).equals("NOISE IN ANY")){
