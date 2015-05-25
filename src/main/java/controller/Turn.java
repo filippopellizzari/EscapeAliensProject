@@ -1,98 +1,139 @@
 package controller;
 
 import model.*;
-
+/**
+ * La classe interpreta le intenzioni del client, analizzando gli oggetti passati dal DTO del turno;
+ * controlla che l'azione possa essere eseguita in quel particolare momento del turno: se sì, l'azione
+ * viene chiamata, altrimenti viene mandato un messaggio di errore;
+ * 
+ * @author Nicola
+ * @author Filippo
+ *
+ */
 public class Turn {
 
-	private Player playerPlay;
-	private boolean move;						//ha mosso
-	private boolean attack;						//ha attaccato
-	private boolean solveSectorDuty;			//ha pescato la carta settore pericoloso
-	private boolean discardItemDuty;					//deve scartare
-	private boolean noiseInAnySector;			//ha pescato la carta noise in any sector
-	private Game game;
+	private Game model;
+	private Player player;
+	private boolean hasMoved;			//ha già mosso
+	private boolean hasAttacked;		//ha già attaccato
+	private boolean drawSectorDuty;	    //obbligo di pescare una carta settore pericoloso
+	private boolean discardItemDuty;	//obbligo di scartare una carta oggetto, se ne ha pescate 4 e non vuole o non può giocarne una
+	private boolean noiseAnySectorDuty;	//obbligo di scegliere una coordinata per l'effetto NOISE IN ANY SECTOR della carta settore pericoloso
 	
-	public Turn(Game game, int currentPlayer) {
-		this.game=game;
-		this.playerPlay = game.getPlayers(currentPlayer);	//load the player than has to play
-		move=false;
-		attack=false;
-		solveSectorDuty=false;
-		discardItemDuty=false;
-		noiseInAnySector=false;
+
+	
+	public Turn(Game model, int currentPlayer) {
+		this.model = model;
+		this.player = model.getPlayers(currentPlayer);	//load the player that has to play
+		this.hasMoved = false;
+		this.hasAttacked = false;
+		this.drawSectorDuty = false;
+		this.discardItemDuty = false;
+		this.noiseAnySectorDuty = false;
 	}
 
-	public String turn(TurnDTO turnDTO2) {
-		String response="";
-		Attack attackAlien;
-		UseItem useItem;
-		MoveRules moveRules;
-		MoveAction moveAction;
-		if(attack==false&&move==true&&solveSectorDuty==false&&turnDTO2.getTypeCard()==ItemCardType.ATTACK);	//attacco
-		{
-			attack=true;
-			useItem=new UseItem(game,playerPlay);
-			response=useItem.attack();
+	
+	public String turn(DTOTurn DTOTurn) {
+		
+		String response = "";
+		
+		/**
+		 * player wants to use an Item Card (no attack type); he can do it in every moment of the turn
+		 */
+		
+		if(DTOTurn.getItemCardType().equals(ItemCardType.TELEPORT) && DTOTurn.wantsToUseItem()){	
+			return new ItemAction(model, player).teleport();
 		}
-		if(turnDTO2.getTypeCard()==ItemCardType.SPOTLIGHT&&turnDTO2.getCoordinate()!=null&&turnDTO2.isUseCard()==true) {	//spotlight
-			useItem=new UseItem(game,playerPlay);
-			response=useItem.spotlight(game.getMap().getSector(turnDTO2.getCoordinate()));
+		if(DTOTurn.getItemCardType().equals(ItemCardType.SEDATIVES) && DTOTurn.wantsToUseItem()){	
+			return new ItemAction(model, player).sedatives();
+		}	
+		if(DTOTurn.getItemCardType().equals(ItemCardType.SPOTLIGHT) && DTOTurn.getCoordinate()!=null && DTOTurn.wantsToUseItem()){	
+			return new ItemAction(model,player).spotlight(DTOTurn.getCoordinate());
 		}
-		if(turnDTO2.getTypeCard()==ItemCardType.SEDATIVES&&turnDTO2.isUseCard()==true){	//sedatives
-			useItem=new UseItem(game,playerPlay);
-			response=useItem.sedatives();
+		if(DTOTurn.getItemCardType().equals(ItemCardType.ADRENALINE) && DTOTurn.wantsToUseItem()){
+			return new ItemAction(model, player).adrenaline();
+		}	
+		
+		/**
+		 * a human wants to attack
+		 */
+		if(DTOTurn.getItemCardType().equals(ItemCardType.ATTACK) && !hasAttacked && hasMoved && !drawSectorDuty){
+			hasAttacked = true;
+			return new ItemAction(model, player).attack();
 		}
-		if(turnDTO2.getTypeCard()==ItemCardType.ADRENALINE&&turnDTO2.isUseCard()==true){	//adrenaline
-			useItem=new UseItem(game,playerPlay);
-			response=useItem.adrenaline();
+		/**
+		 * an alien wants to attack
+		 */
+		if(hasMoved && !hasAttacked && DTOTurn.isAttack() && drawSectorDuty){	
+			return new Attack(model, player).attackMove();
 		}
-		if(turnDTO2.getTypeCard()==ItemCardType.TELEPORT&&turnDTO2.isUseCard()==true){	//teletrasporto
-			useItem=new UseItem(game,playerPlay);
-			response=useItem.teleport();
-		}
-		if(move==false&&turnDTO2.getTypeCard()==null && turnDTO2.getCoordinate()!=null&&turnDTO2.isMove()==true){	//mossa
-			moveRules=new MoveRules(game, playerPlay);
-			if(moveRules.moveCheck(turnDTO2.getCoordinate())) {
-				move=true;
-				moveAction=new MoveAction(game, playerPlay);
-				moveAction.move(turnDTO2.getCoordinate());
-				if(playerPlay.getSector().getType()!=SectorType.DANGEROUS) solveSectorDuty=true;	//se non sei in set pericolo non devi pescare
+		
+		/**
+		 * player decides to move
+		 */
+		if(!hasMoved && DTOTurn.getItemCardType()==null && DTOTurn.getCoordinate()!=null && DTOTurn.isMove()){	//mossa
+			if(new MoveRules(model, player).moveCheck(DTOTurn.getCoordinate())) {
+				hasMoved = true;
+				response += new MoveAction(model, player).move(DTOTurn.getCoordinate());
+				if(player.getSector().getType() != SectorType.DANGEROUS){
+					drawSectorDuty = true;	//se non finisci in un settore pericoloso, non hai l'obbligo di pescare una carta settore pericoloso
+				}
+				return response;
 			}
 			else
 				return "Non puoi muovere in quel settore";
 		}
-		if(move==true&&discardItemDuty==true&&turnDTO2.getTypeCard()!=null&&turnDTO2.isUseCard()==false){	//scarta carta
-			//discard card
-			//discard=false;
+		
+		/**
+		 * player decides to draw a SectorDangerousCard
+		 */
+		if(hasMoved && !hasAttacked && noiseAnySectorDuty && DTOTurn.isEndTurn() && !drawSectorDuty){   //pesca carta settore pericoloso
+			drawSectorDuty = true;
+			response += new CardsEffect(model,player).drawSectorCard();
+			if(response.substring(0,11).equals("NOISE IN ANY")){
+				noiseAnySectorDuty = true;		//controlla se è un noise any
+			}
+			if(player.getItem().size()==4) {
+				discardItemDuty = true;
+			}
+			return response;
 		}
-		if(move==true&&attack==false&&turnDTO2.isAttack()==true&&solveSectorDuty==true){	//attacco alieno
-			attackAlien=new Attack(game, playerPlay);
-			response=attackAlien.attackMove();
+		/**
+		 * player decides to discard an Item Card, but not to use it
+		 */
+		if(hasMoved && discardItemDuty && DTOTurn.getItemCardType()!=null && !DTOTurn.wantsToUseItem()){
+			discardItemDuty = false;
+			return new CardsEffect(model, player).discardItemDuty(DTOTurn.getItemCardType());
 		}
-		if(move==true&&attack==false&&noiseInAnySector==true&&turnDTO2.isEndTurn()==true&&solveSectorDuty==false){   //pesca carta settore pericoloso
-			solveSectorDuty=true;
-			Draw draw=new Draw(game,playerPlay);
-			response=draw.drawSectorCard();
-			if(response.substring(0,11)=="NOISE IN ANY") noiseInAnySector=true;		//controlla se è un noise
-			if(playerPlay.getItem().size()==4) discardItemDuty=true;
+		/**
+		 * player must choose one "bluff" coordinate
+		 */
+		if(hasMoved && noiseAnySectorDuty && DTOTurn.getCoordinate()!=null && DTOTurn.getItemCardType()==null) {	
+			noiseAnySectorDuty = false;
+			return player +" : NOISE IN SECTOR "+DTOTurn.getCoordinate();
 		}
-		if(move==true&&noiseInAnySector==true&&turnDTO2.getCoordinate()!=null&&turnDTO2.getTypeCard()==null) {	//indica il settore del noise in any sector
-			noiseInAnySector=false;
-			response+=playerPlay +" : NOISE IN SECTOR "+turnDTO2.getCoordinate()+"\n";
-		}
-		if(move==true&&noiseInAnySector==false&&discardItemDuty==false&&solveSectorDuty==true&&turnDTO2.isEndTurn()==true) {	//fine turno
+		
+		/**
+		 * player wants to end turn
+		 */
+		if(hasMoved && !noiseAnySectorDuty && !discardItemDuty && drawSectorDuty && DTOTurn.isEndTurn()) {	
 			resetTurn();
-			response+="Hai finito il turno";	
+			return "Hai finito il turno\n";	
 		}
-		return response;
+		
+		/**
+		 * player makes an action in a wrong moment
+		 */
+		return "Mossa non valida!\n";
 	}
 
+	
 	private void resetTurn() {
-		move=false;
-		attack=false;
-		solveSectorDuty=false;
-		discardItemDuty=false;
-		noiseInAnySector=false;
+		this.hasMoved = false;
+		this.hasAttacked = false;
+		this.drawSectorDuty = false;
+		this.discardItemDuty = false;
+		this.noiseAnySectorDuty = false;
 	}
 
 	public String completeTurn() {
@@ -100,22 +141,22 @@ public class Turn {
 		String s="";
 		do{
 			condizione=0;
-			if(move==false){ //non ha mosso
+			if(!hasMoved){ //non ha mosso
 				//muovi a caso
 			}
 			else condizione++;
-			if(discardItemDuty==true) { //non ha scartato
+			if(discardItemDuty) { //non ha scartato
 				//scarta
 			}
 			else condizione++;
-			if(solveSectorDuty==false) {		
-				if(playerPlay.getSector().getType()==SectorType.DANGEROUS) { //verifica che debba pescare la carta settore pericoloso
+			if(!drawSectorDuty) {		
+				if(player.getSector().getType().equals(SectorType.DANGEROUS)) { //verifica che debba pescare la carta settore pericoloso
 					
 				}
 				else condizione++;
 			}
 			else condizione++;
-			if(noiseInAnySector==true) { //non ha usato il rumore
+			if(noiseAnySectorDuty) { //non ha usato il rumore
 				//usa il rumore a caso
 			}
 			else condizione++;

@@ -15,36 +15,36 @@ public class DTOSend {
 	private Coordinate coordinate;
 	private final int numberGame;
 	private final int numberPlayer;
-	private ItemCardType typeCard;
+	private ItemCardType itemCardType;
 	private boolean attack;
 	private String chat;
 	private boolean endTurn;
 	private boolean move;
-	private boolean useCard;		//se vero usa la carta se no la scarta
+	private boolean useItem;		//se vero usa la carta se no la scarta
 	
 	/**
 	 * @param coordinate of the sector selected 
 	 * @param numberGame number of game where this action are do
 	 * @param numberPlayer number of player in the game
-	 * @param typeCard	type of card used 
+	 * @param itemCardType	type of card used 
 	 * @param attack if is true the player attack, if it is possible
 	 * @param chat	message for the chat
 	 * @param endTurn if player would pass his turn or draw the one sectorCard
-	 * @param move if player would move
-	 * @param useCard if player has use one card
+	 * @param move if player want to move
+	 * @param useItem if player has used one card
 	 */
 	
 	public DTOSend(Coordinate coordinate, int numberGame, int numberPlayer,
-			ItemCardType typeCard, boolean attack, String chat, boolean endTurn, boolean move, boolean useCard) {
+			ItemCardType itemCardType, boolean attack, String chat, boolean endTurn, boolean move, boolean useItem) {
 		this.coordinate = coordinate;
 		this.numberGame = numberGame;
 		this.numberPlayer = numberPlayer;
-		this.typeCard = typeCard;
+		this.itemCardType = itemCardType;
 		this.attack = attack;
 		this.chat = chat;
-		this.endTurn=endTurn;
-		this.move=move;
-		this.useCard=useCard;
+		this.endTurn = endTurn;
+		this.move = move;
+		this.useItem = useItem;
 	}
 
 	/**
@@ -59,8 +59,8 @@ public class DTOSend {
 	 * @return the typeCard
 	 */
 	
-	public ItemCardType getTypeCard() {
-		return typeCard;
+	public ItemCardType getItemCardType() {
+		return itemCardType;
 	}
 
 	/**
@@ -116,8 +116,8 @@ public class DTOSend {
 	 * @return the useCard
 	 */
 	
-	public boolean isUseCard() {
-		return useCard;
+	public boolean wantsToUseItem() {
+		return useItem;
 	}
 
 }

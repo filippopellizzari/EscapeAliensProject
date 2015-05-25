@@ -32,6 +32,7 @@ public class MapCreator {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
+				
 			}
 		}
 			

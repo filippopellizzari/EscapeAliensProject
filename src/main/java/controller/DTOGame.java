@@ -18,42 +18,42 @@ public class DTOGame implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Coordinate coordinate;
-	private ItemCardType typeCard;
+	private ItemCardType itemCardType;
 	private boolean attack;
 	private boolean move;
-	private boolean useCard;
+	private boolean useItem;
 	private boolean endTurn;
-	private String chat;
-	private String gameMessage;
 	private boolean error;
 	private boolean notifyAll;
-	
+	private String chat;
+	private String gameMessage;
 	/**
 	 * 
 	 * @param coordinate of the sector selected 
 	 * @param numberGame number of game where this action are do
 	 * @param numberPlayer number of player in the game
-	 * @param typeCard	type of card used 
+	 * @param itemCardType	type of card used 
 	 * @param attack if is true the player attack, if it is possible
 	 * @param move if the player has attacked
-	 * @param useCard if the player has used a card
+	 * @param useItem if the player has used a card
 	 * @param chat	message for the chat
 	 * @param gameMessage	message provide for the game
+	 * 
 	 */
 	
-	public DTOGame(Coordinate coordinate, ItemCardType typeCard, boolean attack, boolean move, boolean useCard, String chat, 
+	public DTOGame(Coordinate coordinate, ItemCardType itemCardType, boolean attack, boolean move, boolean useItem, String chat, 
 			String gameMessage, boolean endTurn, boolean error, boolean notifyAll) {
 		super();
 		this.coordinate = coordinate;
-		this.typeCard = typeCard;
+		this.itemCardType = itemCardType;
 		this.attack = attack;
-		this.move=move;
-		this.useCard=useCard;
+		this.move = move;
+		this.useItem = useItem;
 		this.chat = chat;
-		this.gameMessage=gameMessage;
-		this.endTurn=endTurn;
-		this.error=error;
-		this.notifyAll=notifyAll;
+		this.gameMessage = gameMessage;
+		this.endTurn = endTurn;
+		this.error = error;
+		this.notifyAll = notifyAll;
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class DTOGame implements Serializable{
 	 */
 	
 	public ItemCardType getTypeCard() {
-		return typeCard;
+		return itemCardType;
 	}
 
 	/**
@@ -117,10 +117,10 @@ public class DTOGame implements Serializable{
 	 * @return the useCard
 	 */
 	
-	public boolean isUseCard() {
-		return useCard;
+	public boolean wantsToUseItem() {
+		return useItem;
 	}
-
+	
 	/**
 	 * @return the error
 	 */

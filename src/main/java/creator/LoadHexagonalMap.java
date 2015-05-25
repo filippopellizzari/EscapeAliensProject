@@ -30,10 +30,12 @@ public class LoadHexagonalMap {
 	
 	/**
 	 * 
-	 * @param fileName, name of file 
-	 * @return exagonal map
-	 * @throws NumberFormatException
-	 * @throws IOException
+	 * @param fileName
+	 * @return a new exagonal map
+	 * @throws NumberFormatException  thrown to indicate that the application has attempted 
+	 * to convert a string to one of the numeric types, 
+	 * but that the string does not have the appropriate format
+	 * @throws IOException  signals that an I/O exception of some sort has occurred
 	 */
 
 	public Map loadMap(String fileName) throws NumberFormatException, IOException {

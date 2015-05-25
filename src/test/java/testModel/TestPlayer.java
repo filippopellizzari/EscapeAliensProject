@@ -13,7 +13,7 @@ import org.junit.Test;
 /**
  * 
  * @author Nicola
- * In these test i create a player and 3 sector link each other, this player has a single card
+ * In this class test I create a player and 3 sector link each other, this player has a single card
  *
  */
 
