@@ -16,25 +16,25 @@ public class TurnDTO implements Serializable{
 	private ItemCardType typeCard;
 	private boolean attack;
 	private boolean endTurn;
-	private String gameMessage;
+	private boolean useCard;
+	private boolean move;
 	
 	/**
 	 * 
 	 * @param coordinate of the sector selected 
-	 * @param numberGame number of game where this action are do
-	 * @param numberPlayer number of player in the game
 	 * @param typeCard	type of card used 
-	 * @param attack if is true the player attack, if it is possible
-	 * @param chat	message for the chat
-	 * @param gameMessage	message provide for the game
+	 * @param attack, the player try to attack
+	 * @param end turn if the player has finish
+	 * @param useCard, the player would use a card
+	 * @param move, the player would move
 	 */
-	
-	public TurnDTO(Coordinate coordinate, ItemCardType typeCard, boolean attack, String gameMessage) {
-		super();
+	public TurnDTO(Coordinate coordinate, ItemCardType typeCard, boolean attack, boolean endTurn, boolean useCard, boolean move) {
 		this.coordinate = coordinate;
 		this.typeCard = typeCard;
 		this.attack = attack;
-		this.gameMessage=gameMessage;
+		this.endTurn=endTurn;
+		this.useCard=useCard;
+		this.move=move;
 	}
 	
 	/**
@@ -69,12 +69,28 @@ public class TurnDTO implements Serializable{
 	public boolean isAttack() {
 		return attack;
 	}
-
+	
 	/**
-	 * @return the gameMessage
+	 * @return the boolean endTurn
 	 */
 	
-	public String getGameMessage() {
-		return gameMessage;
+	public boolean isEndTurn() {
+		return endTurn;
+	}
+	
+	/**
+	 * @return the useCard
+	 */
+	
+	public boolean isUseCard() {
+		return useCard;
+	}
+
+	/**
+	 * @return the move
+	 */
+	
+	public boolean isMove() {
+		return move;
 	}
 }
