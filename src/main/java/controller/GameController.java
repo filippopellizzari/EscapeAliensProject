@@ -16,7 +16,7 @@ public class GameController {
 	private Turn currentTurn;
 	
 	public GameController(String mapName, int numberOfPlayers, String typeMap) {
-		this.numberOfGames ++;
+		numberOfGames ++;
 		this.numberOfThisGame = numberOfGames;
 		GameCreator gameCreator = GameCreator.getinstance();
 		this.game = gameCreator.createGame(mapName, numberOfPlayers, typeMap);

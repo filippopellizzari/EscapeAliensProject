@@ -21,7 +21,7 @@ public class Draw {
 		switch(type){
 			case NOISEANY: 
 				s += "NOISE IN ANY SECTOR: scegli una coordinata\n"; //messaggio privato
-				return s;
+				
 		
 			case NOISEYOUR: 
 				s += player +" : NOISE IN SECTOR "+player.getSector().getCoordinate()+"\n"; //messaggio pubblico
@@ -72,7 +72,10 @@ public class Draw {
 		return s;	
 	}
 	
-	
+	public String discardItemDuty(){
+		String s = "";
+		return s;
+	}
 	
 	
 	
