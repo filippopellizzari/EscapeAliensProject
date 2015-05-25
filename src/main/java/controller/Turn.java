@@ -27,7 +27,7 @@ public class Turn {
 
 	public String turn(TurnDTO turnDTO2) {
 		String response="";
-		if(attack==false&&move==true&&drawASectorCard==true&&turnDTO2.getTypeCard()==ItemCardType.ATTACK);	//attacco
+		if(attack==false&&move==true&&drawASectorCard==false&&turnDTO2.getTypeCard()==ItemCardType.ATTACK&&playerPlay.getPlayerType()==PlayerType.HUMAN);	//attacco
 		if(turnDTO2.getTypeCard()==ItemCardType.SPOTLIGHT&&turnDTO2.getCoordinate()!=null);	//spotlight
 		if(turnDTO2.getTypeCard()==ItemCardType.SEDATIVES&&turnDTO2.isUseCard()==true);	//sedatives
 		if(turnDTO2.getTypeCard()==ItemCardType.ADRENALINE&&turnDTO2.isUseCard()==true);	//adrenaline

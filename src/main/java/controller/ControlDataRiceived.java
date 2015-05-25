@@ -1,6 +1,7 @@
 package controller;
 
 import model.Game;
+import model.PlayerType;
 
 public class ControlDataRiceived {
 
@@ -17,6 +18,9 @@ public class ControlDataRiceived {
 						return "OK";
 				}
 				return "Non possiedi questa carta";
+			}
+			if(dtoSend.getTypeCard()!=null&&game.getPlayers(numberPlayer).getPlayerType()==PlayerType.ALIEN) {	//controllo alieno
+				return "Gli alieni non possono usare le carte";
 			}
 			if(dtoSend.getEndTurn()==true) return "OK";	//controllo fine turno
 			return "Non puoi fare questa azione in questo momento";	
