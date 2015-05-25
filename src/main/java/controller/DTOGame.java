@@ -6,11 +6,7 @@ import model.Coordinate;
 import model.ItemCardType;
 
 /**
-<<<<<<< HEAD
- * 
-=======
  * this class is used as DTO between Client and Server, when the game starts
->>>>>>> branch 'master' of https://bitbucket.org/NicSap/progettoingsoftwgruppo27
  * @author Nicola
  * this is the DTO passed from server to client
  *
