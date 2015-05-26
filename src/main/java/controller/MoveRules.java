@@ -7,15 +7,11 @@ import model.*;
  * @author Filippo
  *
  */
-public class MoveRules {
+public class MoveRules implements TryToDoAnAction{
 	
-	private Game model;
-	private Player player;
-	
-	
-	public MoveRules(Game model, Player player) {
-		this.model = model;
-		this.player = player;
+	private GameStatus gameStatus;
+	public MoveRules(GameStatus gameStatus) {
+		this.gameStatus=gameStatus;
 	}
 
 	/**
@@ -26,7 +22,7 @@ public class MoveRules {
 
 	public boolean moveCheck(Coordinate dest){
 
-		return pathCheck(player.getSector().getCoordinate(), dest, player.getSpeed())
+		return pathCheck(gameStatus.getPlayerPlay().getSector().getCoordinate(), dest, gameStatus.getPlayerPlay().getSpeed())
 				&& destCheck (dest);		
 	}
 
@@ -38,9 +34,9 @@ public class MoveRules {
 	 */
 	
 	private boolean destCheck(Coordinate dest){
-		if(!model.getMap().isNull(dest)){
-			if(player.getType()==PlayerType.ALIEN 
-			   && model.getMap().getSector(dest).getType().equals(SectorType.HATCH)) {
+		if(!gameStatus.getGame().getMap().isNull(dest)){
+			if(gameStatus.getPlayerPlay().getType()==PlayerType.ALIEN 
+			   && gameStatus.getGame().getMap().getSector(dest).getType().equals(SectorType.HATCH)) {
 				return false;
 			}
 			return true;
@@ -57,19 +53,21 @@ public class MoveRules {
 	 * @param speed, velocità del giocatore, ossia di quanti settori può spostarsi
 	 * @return
 	 */
+	
+	
+	//DA CORREGGERE ASSOLUTAMENTE!
+	
 	public boolean pathCheck(Coordinate curr,Coordinate dest, int speed){
 			if (speed==0){
 					return curr.equals(dest);
 			}
-			
 			else{
-				
-				Sector currSector = model.getMap().getSector(curr);
+				Sector currSector = gameStatus.getGame().getMap().getSector(curr);
 				for(int i = 0; i < currSector.getAdjacent().size(); i++){
 					Coordinate adjCoord = currSector.getAdjacent().get(i);
 					
 					if (adjCoord.getX() != -1 && adjCoord.getY() != -1){
-						Sector adjSector = model.getMap().getSector(adjCoord);
+						Sector adjSector = gameStatus.getGame().getMap().getSector(adjCoord);
 						if(!adjSector.isClosed()){
 							speed--;
 							if (pathCheck(adjCoord, dest, speed)){
@@ -80,15 +78,31 @@ public class MoveRules {
 							
 					}
 				}
-					
-					
 				}
-				
-			
 			return false;		
 	}
 	
-
-
-
+	@Override
+	public String doAction(DTOTurn dtoTurn) {
+		if(gameStatus.isMove()==false&&dtoTurn.getTypeCard()==null && dtoTurn.getCoordinate()!=null){	//mossa
+			if(moveCheck(dtoTurn.getCoordinate())) {
+				gameStatus.setMove(true);
+				String response=move(dtoTurn.getCoordinate());
+				if(gameStatus.getPlayerPlay().getSector().getType()!=SectorType.DANGEROUS) 
+					gameStatus.setSolveSectorDuty(true);	//se non sei in set pericolo non devi pescare
+				return response;
+			}
+			else
+				return "Non puoi muovere in quel settore";
+		}
+		else return "Non puoi muovere adesso";
+	}
+	public String move(Coordinate destCoord){
+		Sector destSector = gameStatus.getGame().getMap().getSector(destCoord);
+		destSector.addPlayer(gameStatus.getPlayerPlay().getSector().removePlayer());
+		gameStatus.getPlayerPlay().setSector(destSector);
+		String s = "Ti sei spostato nel settore "+destCoord; //messaggio privato
+		return s;
+		
+	}
 }

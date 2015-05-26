@@ -1,0 +1,5 @@
+package controller;
+
+public enum TypeOfAction {
+	ATTACK, MOVE, DISCARD, DRAWSECTORCARD, ENDTURN, USEITEM, SELECTSECTORFORNOISE
+}

@@ -15,36 +15,27 @@ public class DTOSend {
 	private Coordinate coordinate;
 	private final int numberGame;
 	private final int numberPlayer;
-	private ItemCardType itemCardType;
-	private boolean attack;
+	private ItemCardType typeCard;
 	private String chat;
-	private boolean endTurn;
-	private boolean move;
-	private boolean useItem;		//se vero usa la carta se no la scarta
+	private TypeOfAction typeOfAction;
 	
 	/**
 	 * @param coordinate of the sector selected 
 	 * @param numberGame number of game where this action are do
 	 * @param numberPlayer number of player in the game
-	 * @param itemCardType	type of card used 
-	 * @param attack if is true the player attack, if it is possible
+	 * @param typeCard	type of card used 
 	 * @param chat	message for the chat
-	 * @param endTurn if player would pass his turn or draw the one sectorCard
-	 * @param move if player want to move
-	 * @param useItem if player has used one card
+	 * @param typeOfAction the action that the player would do
 	 */
 	
 	public DTOSend(Coordinate coordinate, int numberGame, int numberPlayer,
-			ItemCardType itemCardType, boolean attack, String chat, boolean endTurn, boolean move, boolean useItem) {
+			ItemCardType typeCard, TypeOfAction typeOfAction) {
 		this.coordinate = coordinate;
 		this.numberGame = numberGame;
 		this.numberPlayer = numberPlayer;
-		this.itemCardType = itemCardType;
-		this.attack = attack;
+		this.typeCard = typeCard;
 		this.chat = chat;
-		this.endTurn = endTurn;
-		this.move = move;
-		this.useItem = useItem;
+		this.typeOfAction=typeOfAction;
 	}
 
 	/**
@@ -59,16 +50,8 @@ public class DTOSend {
 	 * @return the typeCard
 	 */
 	
-	public ItemCardType getItemCardType() {
-		return itemCardType;
-	}
-
-	/**
-	 * @return the attack
-	 */
-	
-	public boolean isAttack() {
-		return attack;
+	public ItemCardType getTypeCard() {
+		return typeCard;
 	}
 
 	/**
@@ -94,30 +77,13 @@ public class DTOSend {
 	public int getNumberPlayer() {
 		return numberPlayer;
 	}
-	
-	/**
-	 * 
-	 * @return the endTurn
-	 */
-	
-	public boolean getEndTurn() {
-		return endTurn;
-	}
 
 	/**
-	 * @return the move
+	 * @return the typeOfAction
 	 */
 	
-	public boolean isMove() {
-		return move;
+	public TypeOfAction getTypeOfAction() {
+		return typeOfAction;
 	}
-
-	/**
-	 * @return the useCard
-	 */
 	
-	public boolean wantsToUseItem() {
-		return useItem;
-	}
-
 }
