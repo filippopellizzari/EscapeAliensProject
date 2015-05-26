@@ -11,10 +11,7 @@ import model.*;
  */
 
 public class GameStatus implements Serializable{
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private Player playerPlay;
 	private boolean move;						//ha mosso
@@ -23,6 +20,11 @@ public class GameStatus implements Serializable{
 	private boolean discardItemDuty;					//deve scartare
 	private boolean noiseInAnySector;			//ha pescato la carta noise in any sector
 	private Game game;
+	
+	/**
+	 * @param game, reference to model
+	 * @param playerPlay, reference at player that has to play
+	 */
 	
 	public GameStatus(Game game, Player playerPlay) {
 		this.playerPlay = playerPlay;

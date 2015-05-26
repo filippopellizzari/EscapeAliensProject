@@ -104,12 +104,15 @@ public class MoveRules implements TryToDoAnAction{
 			case DANGEROUS :
 				s += "Sei finito su un settore pericoloso!\n"; //PRIVATO
 				s += "Puoi decidere se pescare una carta settore pericoloso, attaccare o giocare carta oggetto\n"; //PRIVATO
+				break;
 			case HATCH : 
 				s += "Sei finito su un settore hatch!\n"; //PRIVATO
 				s += gameStatus.getPlayerPlay()+ " si trova nel settore "+destSector+"\n"; //PUBBLICO
 				s+= new CardsEffect(gameStatus.getGame(), gameStatus.getPlayerPlay()).drawHatchCard();
+				break;
 			case SECURE :
 				s += "Sei finito su un settore sicuro!\n";
+				break;
 		default:
 			break;
 		}

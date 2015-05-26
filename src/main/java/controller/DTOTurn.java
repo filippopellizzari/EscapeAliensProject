@@ -2,11 +2,24 @@ package controller;
 
 import model.*;
 
+/**
+ * This class is a small box of data passed from server to gameController to perform a turn of a game
+ * @author Nicola
+ *
+ */
+
 public class DTOTurn {
 
 	private Coordinate coordinate;
 	private ItemCardType typeCard;
 	private TypeOfAction typeOfAction;
+	
+	/**
+	 * 
+	 * @param coordinate, coordinate of a sector
+	 * @param typeCard, type of a item card, players can't use other card
+	 * @param typeOfAction, type of action the player would do
+	 */
 	
 	public DTOTurn(Coordinate coordinate, ItemCardType typeCard, TypeOfAction typeOfAction) {
 		this.coordinate = coordinate;
@@ -37,7 +50,4 @@ public class DTOTurn {
 	public TypeOfAction getTypeOfAction() {
 		return typeOfAction;
 	}
-	
-	
-
 }

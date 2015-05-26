@@ -12,6 +12,12 @@ public class CardsEffect {
 	private Game model;
 	private Player player;
 	
+	/**
+	 * 
+	 * @param model, reference at model
+	 * @param player, reference at player that has to play
+	 */
+	
 	public CardsEffect(Game model, Player player) {
 		this.model = model;
 		this.player = player;

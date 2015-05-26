@@ -2,6 +2,12 @@ package controller;
 
 import model.*;
 
+/**
+ * This class control a player action, if the player can do the action the method change the model and notify at the player/players
+ * @author Nicola
+ *
+ */
+
 public class Turn {
 
 	GameStatus gameStatus;
@@ -9,6 +15,12 @@ public class Turn {
 	public Turn(Game game, Player player) {
 		this.gameStatus = new GameStatus(game, player);
 	}
+	
+	/**
+	 * 
+	 * @param dtoTurn, collection of element used to explain an action
+	 * @return the message with the response about the actions executed
+	 */
 	
 	public String turn(DTOTurn dtoTurn) {
 		String response="";

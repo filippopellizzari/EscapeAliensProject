@@ -4,12 +4,28 @@ import java.util.Random;
 
 import model.*;
 
+/**
+ * This class complete a turn after the time of a player end and he/she doesn't finish his/her turn
+ * @author Nicola
+ *
+ */
+
 public class CompleteTurn {
 	private GameStatus gameStatus;
+	
+	/**
+	 * 
+	 * @param gameStatus, the status of a turn, reference at model and the player who are playing, now is his turn
+	 */
 
 	public CompleteTurn(GameStatus gameStatus) {
 		this.gameStatus=gameStatus;
 	}
+	
+	/**
+	 * 
+	 * @return the action happen during the actions
+	 */
 
 	public String completeTurn() {
 		TryToDoAnAction actionToDo;
@@ -20,7 +36,9 @@ public class CompleteTurn {
 			condizione=0;
 			if(gameStatus.isMove()==false){ //non ha mosso
 				actionToDo=new MoveRules(gameStatus);
-				response=actionToDo.doAction(new DTOTurn(null,null,null));
+				do {
+					response=actionToDo.doAction(new DTOTurn(gameStatus.getPlayerPlay().getSector().getAdjacent().get(random.nextInt(6)),null,null));
+				}while(response!="OK");
 			}
 			else condizione++;
 			if(gameStatus.isDiscardItemDuty()) { //non ha scartato

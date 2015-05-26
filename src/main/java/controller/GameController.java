@@ -6,8 +6,8 @@ import creator.GameCreator;
 import model.*;
 
 /**
- * 
- * @author Filippo
+ * This class contains the status of game ad has a reference of the model, invoke all the method to do every action and control this actions
+ * @author Nicola
  *
  */
 
@@ -17,6 +17,15 @@ public class GameController {
 	private int turnNumber;
 	private int currentPlayer;
 	
+	/**
+	 * 
+	 * @param mapName, name of the map to create
+	 * @param numberOfPlayers, number of players
+	 * @param typeMap, type of map (standard is hexagonal)
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
+	
 	public GameController(String mapName, int numberOfPlayers, String typeMap) throws NumberFormatException, IOException {
 		GameCreator gameCreator = GameCreator.getinstance();
 		this.game = gameCreator.createGame(mapName, numberOfPlayers, typeMap);
@@ -24,6 +33,13 @@ public class GameController {
 		this.currentPlayer=0;
 		this.turnNumber=1;
 	}
+	
+	/**
+	 * 
+	 * @param dtoSend, a collection of data used to indicate the player's actions
+	 * @return the report of action happen during the move
+	 */
+	
 	public String doAnAction(DTOSend dtoSend) {
 		String message="";
 		ControlDataRiceived control=new ControlDataRiceived();			//controlla validità dati passati
@@ -35,7 +51,11 @@ public class GameController {
 		return message;
 	}
 	
-	public void endTurn() {			//aggiorna il giocatore
+	/**
+	 * This method end a turn and prepare the next turn for an other player
+	 */
+	
+	private void endTurn() {			//aggiorna il giocatore
 		 {
 			ControlEndGame controlEndGame=new ControlEndGame(game,turnNumber);		//controlla la fine della partita, se si la elimina e avvisa i giocatori
 			turnNumber++;		//turno finito
@@ -50,6 +70,10 @@ public class GameController {
 			currentTurn=new Turn(game,game.getPlayers(currentPlayer));
 		}
 	}
+	
+	/**
+	 * This method invoched by a extern thread finish the turn
+	 */
 	
 	public void finishTurn() {
 		CompleteTurn completeTurn=new CompleteTurn(currentTurn.getGameStatus());
