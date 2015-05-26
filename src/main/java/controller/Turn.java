@@ -103,7 +103,7 @@ public class Turn {
 		 */
 		if(hasMoved && discardItemDuty && DTOTurn.getItemCardType()!=null && !DTOTurn.wantsToUseItem()){
 			discardItemDuty = false;
-			return new CardsEffect(model, player).discardItemDuty(DTOTurn.getItemCardType());
+			return new ItemDiscardDuty(model, player).discard(DTOTurn.getItemCardType());
 		}
 		/**
 		 * player must choose one "bluff" coordinate

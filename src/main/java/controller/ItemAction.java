@@ -21,7 +21,7 @@ public class ItemAction {
 
 	public String teleport(){
 		    discard(ItemCardType.TELEPORT);
-			String s = player + "sta usando una carta oggetto\n";
+			String s = player + "sta usando una carta oggetto\n";//pubblico
 			Coordinate humanSector = model.getMap().getHumanCoord();
 			model.getMap().getSector(humanSector).addPlayer(player.getSector().removePlayer());
 			return s;		
@@ -29,14 +29,14 @@ public class ItemAction {
 	
 	public String sedatives(){
 		    discard(ItemCardType.SEDATIVES);
-			String s = player + " sta usando una carta oggetto\n";
+			String s = player + " sta usando una carta oggetto\n";//pubblico
 			player.setSedated(true);
 			return s;
 	}
 	
 	public String spotlight(Coordinate chosenCoord){
 			discard(ItemCardType.SPOTLIGHT);
-			String s = player + " sta usando una carta oggetto\n";
+			String s = player + " sta usando una carta oggetto\n"; //pubblico
 			Sector chosenSector = model.getMap().getSector(chosenCoord);
 			for(int i = 0; i < chosenSector.getPlayers().size(); i++) {
 				Player declaring = chosenSector.getPlayers().get(i);
@@ -49,7 +49,7 @@ public class ItemAction {
 				if(lighted!=null)
 					for(int j = 0; j < lighted.getPlayers().size(); j++){
 						Player declaring = lighted.getPlayers().get(j); 
-						s += declaring+" in sector "+lighted.getCoordinate()+"\n";
+						s += declaring+" in sector "+lighted.getCoordinate()+"\n"; //pubblico
 					}		
 			}
 			return s;
@@ -57,14 +57,14 @@ public class ItemAction {
 		
 	public String adrenaline(){
 			discard(ItemCardType.ADRENALINE);
-			String s = player + " sta usando una carta oggetto\n";
+			String s = player + " sta usando una carta oggetto\n";//pubblico
 			player.setSpeed(2);  
 			return s;
 	}
 		
 	public String attack(){
 			discard(ItemCardType.ATTACK);
-			String s = player + " sta usando una carta oggetto\n";
+			String s = player + " sta usando una carta oggetto\n"; //pubblico
 			s += new Attack(model,player).attackMove();
 			return s;
 	}

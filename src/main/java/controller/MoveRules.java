@@ -57,10 +57,6 @@ public class MoveRules {
 	 * @param speed, velocità del giocatore, ossia di quanti settori può spostarsi
 	 * @return
 	 */
-	
-	
-	//DA CORREGGERE ASSOLUTAMENTE!
-	
 	public boolean pathCheck(Coordinate curr,Coordinate dest, int speed){
 			if (speed==0){
 					return curr.equals(dest);
