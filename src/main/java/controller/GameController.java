@@ -53,6 +53,9 @@ public class GameController {
 		return dtoGame;			//ritorna al thread che lo ha chiamato l'oggetto da ritornare
 	}
 	
+	public void endTurn() {
+	}
+	
 	public static void main(String[] args) {
 	}
 }
