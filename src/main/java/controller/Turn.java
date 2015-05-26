@@ -2,6 +2,14 @@ package controller;
 
 import model.*;
 
+/**
+ * This class control a player action, if the player can do the action the
+ * method changes the model and notifies the player/players
+ * 
+ * @author Nicola
+ *
+ */
+
 public class Turn {
 
 	GameStatus gameStatus;
@@ -10,13 +18,26 @@ public class Turn {
 		this.gameStatus = new GameStatus(game, player);
 	}
 
+	/**
+	 * 
+	 * @param dtoTurn
+	 *            , collection of element used to explain an action
+	 * @return the message with the response about the actions executed
+	 */
+
 	public String turn(DTOTurn dtoTurn) {
 		String response = "";
 		TryToDoAnAction actionToDo;
+
 		switch (dtoTurn.getTypeOfAction()) {
+		case MOVE:
+			actionToDo = new MoveRules(gameStatus);
+			response = actionToDo.doAction(dtoTurn);
+			break;
 		case ATTACK:
 			actionToDo = new Attack(gameStatus);
 			response = actionToDo.doAction(dtoTurn);
+
 			break;
 		case USEITEM:
 			actionToDo = new UseItem(gameStatus);
@@ -42,5 +63,13 @@ public class Turn {
 			break;
 		}
 		return response;
+	}
+
+	/**
+	 * @return the gameStatus
+	 */
+
+	public GameStatus getGameStatus() {
+		return gameStatus;
 	}
 }

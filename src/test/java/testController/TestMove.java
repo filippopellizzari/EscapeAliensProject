@@ -2,6 +2,8 @@ package testController;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -24,7 +26,13 @@ public class TestMove {
 	
 	
 	@BeforeClass public static void onlyOnce() {
-		model = GameCreator.getinstance().createGame("Galilei", 8, "Exagonal");	
+		try {
+			model = GameCreator.getinstance().createGame("Galilei", 8, "Exagonal");
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 		
 		model.getPlayers(0).setPlayerType(PlayerType.HUMAN); 
 		model.getPlayers(0).setSpeed(1);

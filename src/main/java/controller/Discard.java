@@ -2,9 +2,20 @@ package controller;
 
 import model.ItemCardType;
 
+/**
+ * This class provide the methods to discard the item card, if the player has too many card
+ * @author Nicola
+ *
+ */
+
 public class Discard implements TryToDoAnAction {
 
 	private GameStatus gameStatus;
+	
+	/**
+	 * 
+	 * @param gameStatus, the status of a turn, reference at model and the player who are playing, now is his turn
+	 */
 
 	public Discard(GameStatus gameStatus) {
 		this.gameStatus=gameStatus;
@@ -19,6 +30,11 @@ public class Discard implements TryToDoAnAction {
 		else
 			return "Non puoi scartare questa carta adesso";
 	}
+	
+	/**
+	 * 
+	 * @param type, discard the correct type of card passed from the player
+	 */
 	
 	private void discard(ItemCardType type){
 		for(int i = 0; i < gameStatus.getPlayerPlay().getItem().size(); i++){

@@ -6,115 +6,141 @@ import model.*;
 
 /**
  * this class is used as DTO between Client and Server, when the game is start
+ * 
  * @author Nicola
  *
  */
 
-public class GameStatus implements Serializable{
-	
-	/**
-	 * 
-	 */
+public class GameStatus implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private Player playerPlay;
-	private boolean move;						//ha mosso
-	private boolean attack;						//ha attaccato
-	private boolean solveSectorDuty;			//ha pescato la carta settore pericoloso
-	private boolean discardItemDuty;					//deve scartare
-	private boolean noiseInAnySector;			//ha pescato la carta noise in any sector
+	private boolean hasMoved; 
+	private boolean hasAttacked; 
+	private boolean solvedDangerous; // ha pescato la carta settore pericoloso
+	private boolean mustDiscardItem; 
+	private boolean noiseInAnySector; // ha pescato la carta noise in any sector
 	private Game game;
-	
+
+	/**
+	 * @param game
+	 *            , reference to model
+	 * @param playerPlay
+	 *            , reference at player that has to play
+	 */
+
 	public GameStatus(Game game, Player playerPlay) {
 		this.playerPlay = playerPlay;
 		this.game = game;
-		move=false;
-		attack=false;
-		solveSectorDuty=false;
-		discardItemDuty=false;
-		noiseInAnySector=false;
+		hasMoved = false;
+		hasAttacked = false;
+		solvedDangerous = false;
+		mustDiscardItem = false;
+		noiseInAnySector = false;
 	}
+
 	/**
 	 * @return the playerPlay
 	 */
 	public Player getPlayerPlay() {
 		return playerPlay;
 	}
+
 	/**
 	 * @return the move
 	 */
 	public boolean isMove() {
-		return move;
+		return hasMoved;
 	}
+
 	/**
 	 * @return the attack
 	 */
 	public boolean isAttack() {
-		return attack;
+		return hasAttacked;
 	}
+
 	/**
 	 * @return the solveSectorDuty
 	 */
 	public boolean isSolveSectorDuty() {
-		return solveSectorDuty;
+		return solvedDangerous;
 	}
+
 	/**
 	 * @return the discardItemDuty
 	 */
 	public boolean isDiscardItemDuty() {
-		return discardItemDuty;
+		return mustDiscardItem;
 	}
+
 	/**
 	 * @return the noiseInAnySector
 	 */
 	public boolean isNoiseInAnySector() {
 		return noiseInAnySector;
 	}
+
 	/**
 	 * @return the game
 	 */
 	public Game getGame() {
 		return game;
 	}
+
 	/**
-	 * @param playerPlay the playerPlay to set
+	 * @param playerPlay
+	 *            the playerPlay setted
 	 */
 	public void setPlayerPlay(Player playerPlay) {
 		this.playerPlay = playerPlay;
 	}
+
 	/**
-	 * @param move the move to set
+	 * @param move
+	 *            the move setted
 	 */
 	public void setMove(boolean move) {
-		this.move = move;
+		this.hasMoved = move;
 	}
+
 	/**
-	 * @param attack the attack to set
+	 * @param attack
+	 *            the attack setted
 	 */
 	public void setAttack(boolean attack) {
-		this.attack = attack;
+		this.hasAttacked = attack;
 	}
+
 	/**
-	 * @param solveSectorDuty the solveSectorDuty to set
+	 * @param solveSectorDuty
+	 *            the solveSectorDuty setted
 	 */
 	public void setSolveSectorDuty(boolean solveSectorDuty) {
-		this.solveSectorDuty = solveSectorDuty;
+		this.solvedDangerous = solveSectorDuty;
 	}
+
 	/**
-	 * @param discardItemDuty the discardItemDuty to set
+	 * @param discardItemDuty
+	 *            the discardItemDuty setted
 	 */
 	public void setDiscardItemDuty(boolean discardItemDuty) {
-		this.discardItemDuty = discardItemDuty;
+		this.mustDiscardItem = discardItemDuty;
 	}
+
 	/**
-	 * @param noiseInAnySector the noiseInAnySector to set
+	 * @param noiseInAnySector
+	 *            the noiseInAnySector setted
 	 */
 	public void setNoiseInAnySector(boolean noiseInAnySector) {
 		this.noiseInAnySector = noiseInAnySector;
 	}
+
 	/**
-	 * @param game the game to set
+	 * @param game
+	 *            the game setted
 	 */
 	public void setGame(Game game) {
 		this.game = game;
-	}	
+	}
 }

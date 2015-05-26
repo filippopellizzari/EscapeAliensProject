@@ -1,9 +1,10 @@
 package testModel;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
 import model.*;
-
-
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class TestHexagonalMap {
 		
 		static Game fermi;
 		static GameCreator gameCreator;
-		@BeforeClass public static void onlyOnce() {
+		@BeforeClass public static void onlyOnce() throws NumberFormatException, IOException {
 			gameCreator=GameCreator.getinstance();
 			fermi=gameCreator.createGame("Fermi", 3, "Hexagonal"); 
 			

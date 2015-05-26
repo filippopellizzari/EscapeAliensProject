@@ -77,8 +77,10 @@ public class Draw implements TryToDoAnAction{
 		if(gameStatus.isMove()&&gameStatus.isAttack()==false&&gameStatus.isNoiseInAnySector()&&gameStatus.isSolveSectorDuty()==false){   //pesca carta settore pericoloso
 			gameStatus.setSolveSectorDuty(true);
 			String response=drawSectorCard();
-			if(response.substring(0,11)=="NOISE IN ANY") gameStatus.setNoiseInAnySector(true);	//controlla se è un noise
-			if(gameStatus.getPlayerPlay().getItem().size()==4) gameStatus.setDiscardItemDuty(true);
+			if(response.substring(0,11)=="NOISE IN ANY") 
+				gameStatus.setNoiseInAnySector(true);	//controlla se è un noise
+			if(gameStatus.getPlayerPlay().getItem().size()==4) 
+				gameStatus.setDiscardItemDuty(true);
 			return response;
 		}
 		else return "Non puoi pescare in questo momento";

@@ -1,5 +1,7 @@
 package creator;
 
+import java.io.IOException;
+
 import model.*;
 
 /**
@@ -34,18 +36,24 @@ public class GameCreator {
 	 * @param totPlayers	number of player for this game
 	 * @param typeMap		all the map of base game are exagonal, but this allow to create square map or square map in 3D...
 	 * @return	game, the game ready to start(model)
+	 * @throws IOException 
+	 * @throws NumberFormatException 
 	 */
 
 
-	public Game createGame(String mapName, int totPlayers, String typeMap) {
+	public Game createGame(String mapName, int totPlayers, String typeMap) throws NumberFormatException, IOException {
 		
 		CardsCreator cardsCreator = new CardsCreator();
 		HatchCards hatchCards = cardsCreator.createHatchCards();
 		SectorCards sectorCards = cardsCreator.createSectorCards();
 		ItemCards itemCards = cardsCreator.createItemCards();
 		
-		MapCreator mapCreator = new MapCreator();
-		Map map = mapCreator.createMap(mapName,typeMap);
+		Map map = null;
+		switch(typeMap) {
+			default:
+				MapCreator mapCreator = new HexagonalMapCreator();
+				map=mapCreator.loadMap(mapName);
+		}
 		
 		PlayerCreator playerCreator = new PlayerCreator(map);
 		Player[] players = playerCreator.createPlayer(totPlayers);

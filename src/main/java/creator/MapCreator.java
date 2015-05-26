@@ -1,43 +1,33 @@
 package creator;
 
 import java.io.IOException;
+import java.util.List;
 
 import model.*;
 
 /**
- * This class create a map of the type you passed, in this case exagonal map and one of the three available
+ * This class create a map of the type you passed
  * @author Nicola
  * @see Map
  *
  */
 
-public class MapCreator {
+public abstract class MapCreator {
+	
+	protected Sector[] sectors;
+	protected Coordinate alienSector;
+	protected Coordinate humanSector;
+	protected List<Coordinate> hatchSectors;
 	
 	/**
 	 * 
-	 * @param mapName the name of the map: Fermi, Galilei, Galvani
-	 * @param typeMap exagonal in this case but can be different
-	 * @return map
+	 * @param mapName, the name of a map
+	 * @return Map, one type of map
+	 * @throws NumberFormatException
+	 * @throws IOException
 	 */
 	
-	public Map createMap(String mapName, String typeMap) {
-		
-		Map map = null;
-		LoadHexagonalMap loadExagonalmap = new LoadHexagonalMap();
-
-		switch(typeMap) {
-			default: try {
-				map=loadExagonalmap.loadMap(mapName);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-				
-			}
-		}
-			
-		return map;
-	}
+	public abstract Map loadMap(String mapName) throws NumberFormatException, IOException;		
 }
 		
 
