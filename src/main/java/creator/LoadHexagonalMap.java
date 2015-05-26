@@ -38,7 +38,7 @@ public class LoadHexagonalMap extends MapCreator{
 	public Map loadMap(String fileName) throws NumberFormatException, IOException {
 
 		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(fileName+"Map.txt").getFile());
+		File file = new File("rsc"+File.separatorChar+fileName+"Map.txt");
 		
 		FileReader fileRead = new FileReader(file);
 		BufferedReader br = new BufferedReader(fileRead); 

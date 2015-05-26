@@ -14,6 +14,9 @@ public class Turn {
 		String response="";
 		TryToDoAnAction actionToDo;
 		switch(dtoTurn.getTypeOfAction()){
+			case MOVE : actionToDo=new MoveRules(gameStatus);
+			response=actionToDo.doAction(dtoTurn);
+			break;
 			case ATTACK : actionToDo=new Attack(gameStatus);
 			response=actionToDo.doAction(dtoTurn);
 			break;
