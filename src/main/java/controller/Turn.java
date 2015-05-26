@@ -12,6 +12,12 @@ public class Turn {
 
 	GameStatus gameStatus;
 	
+	/**
+	 * 
+	 * @param game, reference at model
+	 * @param player, reference at player that has to play
+	 */
+	
 	public Turn(Game game, Player player) {
 		this.gameStatus = new GameStatus(game, player);
 	}
