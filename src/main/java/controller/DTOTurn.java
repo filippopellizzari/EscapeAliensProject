@@ -11,30 +11,33 @@ import model.ItemCardType;
  *
  */
 
-public class TurnDTO implements Serializable{
+public class DTOTurn implements Serializable{
+	
+
+	private static final long serialVersionUID = 1L;
 	private Coordinate coordinate;
-	private ItemCardType typeCard;
+	private ItemCardType itemCardType;
 	private boolean attack;
 	private boolean endTurn;
-	private boolean useCard;
+	private boolean useItem;
 	private boolean move;
 	
 	/**
 	 * 
-	 * @param coordinate of the sector selected 
-	 * @param typeCard	type of card used 
+	 * @param coordinate coordinate of the sector selected 
+	 * @param itemCardType	type of card used 
 	 * @param attack, the player try to attack
 	 * @param end turn if the player has finish
 	 * @param useCard, the player would use a card
 	 * @param move, the player would move
 	 */
-	public TurnDTO(Coordinate coordinate, ItemCardType typeCard, boolean attack, boolean endTurn, boolean useCard, boolean move) {
+	public DTOTurn(Coordinate coordinate, ItemCardType itemCardType, boolean attack, boolean endTurn, boolean useItem, boolean move) {
 		this.coordinate = coordinate;
-		this.typeCard = typeCard;
+		this.itemCardType = itemCardType;
 		this.attack = attack;
-		this.endTurn=endTurn;
-		this.useCard=useCard;
-		this.move=move;
+		this.endTurn = endTurn;
+		this.useItem = useItem;
+		this.move = move;
 	}
 	
 	/**
@@ -58,8 +61,8 @@ public class TurnDTO implements Serializable{
 	 * @return the typeCard
 	 */
 	
-	public ItemCardType getTypeCard() {
-		return typeCard;
+	public ItemCardType getItemCardType() {
+		return itemCardType;
 	}
 
 	/**
@@ -82,8 +85,8 @@ public class TurnDTO implements Serializable{
 	 * @return the useCard
 	 */
 	
-	public boolean isUseCard() {
-		return useCard;
+	public boolean wantsToUseItem() {
+		return useItem;
 	}
 
 	/**

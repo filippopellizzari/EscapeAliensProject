@@ -15,16 +15,17 @@ public class GameController {
 	private Game game;
 	private Turn currentTurn;
 	private int turnNumber;
-	private int currentPlayer;
+	private int numberOfPlayer;
 	
-	public GameController(String mapName, int numberOfPlayers, String typeMap) {
+
+	public GameController(String mapName, int totPlayers, String typeMap) {
 		numberOfGames++;
-		this.numberOfThisGame=numberOfGames;
+		this.numberOfThisGame = numberOfGames;
 		GameCreator gameCreator = GameCreator.getinstance();
-		this.game = gameCreator.createGame(mapName, numberOfPlayers, typeMap);
-		currentTurn = new Turn(game,currentPlayer);
-		this.currentPlayer=0;
-		this.turnNumber=1;
+		this.game = gameCreator.createGame(mapName, totPlayers, typeMap);
+		this.currentTurn = new Turn(game,numberOfPlayer);
+		this.numberOfPlayer = 0;
+		this.setTurnNumber(1);
 	}
 	
 	/**
@@ -34,31 +35,38 @@ public class GameController {
 	public int getNumberOfThisGame() {
 		return numberOfThisGame;
 	}
+	
+	
+	public int getTurnNumber() {
+		return turnNumber;
+	}
+
+	public void setTurnNumber(int turnNumber) {
+		this.turnNumber = turnNumber;
+	}
+
 	public String doAnAction(DTOSend dtoSend) {
 		String message="";
-		ControlDataRiceived control=new ControlDataRiceived();			//controlla validità dati passati
-		if(control.verify(dtoSend,currentPlayer, game)=="OK") {								//se la risposta è ok fa la verifica del turno
-			TurnDTO turnDTO=new TurnDTO(dtoSend.getCoordinate(),dtoSend.getTypeCard(),dtoSend.isAttack(),
-					dtoSend.getEndTurn(),dtoSend.isUseCard(),dtoSend.isMove());
-			message=currentTurn.turn(turnDTO);							//messaggio di come è stata eseguita l'azione
-			if(message=="Hai finito il turno") {
-				currentPlayer++;
-				if(game.getPlayers().length==currentPlayer) {
-					currentPlayer=0;		//giocatore a cui tocca
-					turnNumber++;
-					currentTurn=new Turn(game,currentPlayer);
+		//controlla validità dati passati
+		if(new ControlDataReceived().verify(dtoSend,numberOfPlayer, game).equals("OK")) {//se la risposta è ok fa la verifica del turno
+			DTOTurn turnDTO = new DTOTurn(dtoSend.getCoordinate(),dtoSend.getItemCardType(),dtoSend.isAttack(),
+					dtoSend.getEndTurn(),dtoSend.wantsToUseItem(),dtoSend.isMove());
+			message = currentTurn.turn(turnDTO);	//messaggio di come è stata eseguita l'azione
+			if(message.equals("Hai finito il turno")) {
+				numberOfPlayer++;
+				if(game.getPlayers().length == numberOfPlayer) {
+					numberOfPlayer=0;		//giocatore a cui tocca
+					setTurnNumber(getTurnNumber() + 1);
+					currentTurn = new Turn(game,numberOfPlayer);
 				}
-				ControlEndTurn controlEndGame=new ControlEndTurn(game,turnNumber);		//controlla la fine della partita, se si la elimina e avvisa i giocatori
+				//ControlEndTurn controlEndGame = new ControlEndTurn(game,turnNumber);		//controlla la fine della partita, se si la elimina e avvisa i giocatori
 			}
 		}
 		return message;
 	}
-	public DTOGame completTurn() {		//chiamato dal Thread che guarda il tempo nel caso non venga avvisato
-		String message="";
-		DTOGame dtoGame;
-		message=currentTurn.completeTurn();
-		ControlResponse controlResponse=new ControlResponse();
-		dtoGame=controlResponse.control(message);		//analizza la stringa tornata e crea l'oggetto da passare
+	public DTOGame completeTurn() {		//chiamato dal Thread che guarda il tempo nel caso non venga avvisato
+		String message = currentTurn.completeTurn();
+		DTOGame dtoGame = new ControlResponse().control(message);		//analizza la stringa tornata e crea l'oggetto da passare
 		return dtoGame;			//ritorna al thread che lo ha chiamato l'oggetto da ritornare
 	}
 	

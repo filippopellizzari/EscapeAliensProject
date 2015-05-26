@@ -28,22 +28,24 @@ public class Attack {
 		String s = "";
 		Sector current = player.getSector();
 		s += player+" : ATTACK in "+current+"\n"; //il giocatore dichiara l'attacco in un settore
-		for(int i = 0; i < current.getPlayers().size()-1; i++){
+		for(int i = 0; i < current.getPlayers().size(); i++){
 			Player attacked = current.getPlayers().get(i);	
-			s += attacked+" è sotto attacco!\n"; //se un giocatore si trova nel settore, dichiara la propria presenza
-			if(isDefendable(attacked)){
-				s += attacked+" : si salva grazie alla carta Difesa!\n";
-			}
-			else{
-				if(player.getType().equals(PlayerType.ALIEN) && attacked.getType().equals(PlayerType.HUMAN)){
-					player.setSpeed(3);                         //alien feeding
+			if(!attacked.equals(player)){
+				s += attacked+" è sotto attacco!\n"; //se un giocatore si trova nel settore, dichiara la propria presenza
+				if(isDefendable(attacked)){
+					s += attacked+" : si salva grazie alla carta Difesa!\n";
 				}
-				s += attacked+" è ucciso e viene eliminato dal gioco: la sua identità era "+
+				else{
+					if(player.getType().equals(PlayerType.ALIEN) && attacked.getType().equals(PlayerType.HUMAN)){
+						player.setSpeed(3);                         //alien feeding
+					}
+					s += attacked+" è ucciso e viene eliminato dal gioco: la sua identità era "+
 							attacked.getType()+"\n";
-				attacked.setAlive(false); //? ha più senso toglierlo dal modello? 
-				for(int j = 0; j < attacked.getItem().size(); j++){ //scarto tutte le carte oggetto del giocatore eliminato
-					model.getItemCards().discard(attacked.removeItem(j));
-				}	
+					attacked.setAlive(false); 
+					for(int j = 0; j < attacked.getItem().size(); j++){ //scarto tutte le carte oggetto del giocatore eliminato
+						model.getItemCards().discard(attacked.removeItem(j));
+					}
+				}
 			}
 		}
 		
