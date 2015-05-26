@@ -35,4 +35,12 @@ public class Turn {
 		}
 		return response;
 	}
+
+	/**
+	 * @return the gameStatus
+	 */
+	
+	public GameStatus getGameStatus() {
+		return gameStatus;
+	}
 }

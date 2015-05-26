@@ -25,7 +25,7 @@ public class TestCreatorGame {
 	static GameCreator gameCreator;
 
 	
-	@BeforeClass public static void onlyOnce() {
+	@BeforeClass public static void onlyOnce() throws NumberFormatException, IOException {
 		 
 		
 		gameCreator=GameCreator.getinstance();

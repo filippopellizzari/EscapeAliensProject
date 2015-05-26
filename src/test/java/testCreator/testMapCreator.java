@@ -2,6 +2,8 @@ package testCreator;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import creator.*;
@@ -11,9 +13,9 @@ import model.*;
 public class testMapCreator {
 
 	@Test
-	public void testGalilei(){
-		MapCreator mc = new MapCreator();
-		Map	m = mc.createMap("Galilei", "Exagonal");
+	public void testGalilei() throws NumberFormatException, IOException{
+		MapCreator mc = new LoadHexagonalMap();
+		Map	m = mc.loadMap("Galilei");
 		
 		
 		assertEquals(m.getAlienCoord().getX(),12);
@@ -47,9 +49,9 @@ public class testMapCreator {
 	}
 	
 	@Test
-	public void testFermi(){
-		MapCreator mc = new MapCreator();
-		Map	m = mc.createMap("Fermi", "Exagonal");
+	public void testFermi() throws NumberFormatException, IOException{
+		MapCreator mc = new LoadHexagonalMap();
+		Map	m = mc.loadMap("Fermi");
 	
 		
 		assertEquals(m.getHumanCoord().getX(),12);
@@ -71,9 +73,9 @@ public class testMapCreator {
 	}
 
 	@Test
-	public void testGalvani(){
-		MapCreator mc = new MapCreator();
-		Map	m = mc.createMap("Galvani", "Exagonal");
+	public void testGalvani() throws NumberFormatException, IOException{
+		MapCreator mc = new LoadHexagonalMap();
+		Map	m = mc.loadMap("Galvani");
 		
 		
 		assertEquals(m.getAlienCoord().getX(),12);

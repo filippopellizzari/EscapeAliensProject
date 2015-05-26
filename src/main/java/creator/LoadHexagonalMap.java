@@ -12,12 +12,9 @@ import java.util.List;
  *
  */
 
-public class LoadHexagonalMap {
+public class LoadHexagonalMap extends MapCreator{
 	
-	private Sector[] sectors;
-	private Coordinate alienSector;
-	private Coordinate humanSector;
-	private List<Coordinate> hatchSectors;
+	
 	
 	/**
 	 * 

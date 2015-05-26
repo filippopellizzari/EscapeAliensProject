@@ -1,6 +1,9 @@
 package testModel;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
 import model.*;
 
 import org.junit.BeforeClass;
@@ -17,7 +20,7 @@ public class TestSector {
 
 	static Game model;
 	
-	@BeforeClass public static void onlyOnce() {
+	@BeforeClass public static void onlyOnce() throws NumberFormatException, IOException {
 		model = GameCreator.getinstance().createGame("Galilei", 8, "Exagonal");	
 		
 	}
