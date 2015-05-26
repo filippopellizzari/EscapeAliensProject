@@ -1,5 +1,6 @@
-package controller;
+package dto;
 
+import controller.TypeOfAction;
 import model.*;
 
 /**

@@ -1,5 +1,7 @@
 package controller;
 
+import dto.DTOTurn;
+
 public class SelectSectorNoise implements TryToDoAnAction {
 
 	private GameStatus gameStatus;

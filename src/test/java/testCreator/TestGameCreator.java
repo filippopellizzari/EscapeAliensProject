@@ -20,7 +20,7 @@ import org.junit.Test;
  * @author Filippo
  *
  */
-public class TestCreatorGame {
+public class TestGameCreator {
 	static Game game;
 	static GameCreator gameCreator;
 

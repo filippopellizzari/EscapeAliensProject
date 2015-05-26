@@ -1,5 +1,7 @@
 package controller;
 
+import dto.DTOTurn;
+
 /**
  * This interface is used to implements the pattern strategy
  * 

@@ -1,7 +1,8 @@
-package controller;
+package dto;
 
 import java.io.Serializable;
 
+import controller.TypeOfAction;
 import model.Coordinate;
 import model.ItemCardType;
 

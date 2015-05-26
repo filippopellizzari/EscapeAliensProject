@@ -1,5 +1,7 @@
 package controller;
 
+import dto.DTOTurn;
+
 /**
  * This class control if the player can pass or there are something else he/she
  * must to do to complete the turn
