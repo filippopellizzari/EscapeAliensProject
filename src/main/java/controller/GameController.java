@@ -22,11 +22,11 @@ public class GameController {
 	/**
 	 * 
 	 * @param mapName
-	 *             name of the map to create
+	 *            name of the map to create
 	 * @param numberOfPlayers
-	 *             number of players
+	 *            number of players
 	 * @param typeMap
-	 *             type of map (standard is hexagonal)
+	 *            type of map (standard is hexagonal)
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
@@ -49,11 +49,12 @@ public class GameController {
 
 	public String doAnAction(DTOSend dtoSend) {
 		String message = "";
-		ControlDataRiceived control = new ControlDataRiceived(); //controllo validità dati
-		if (control.verify(dtoSend, currentNumberPlayer, game) == "OK") { 														
+		ControlDataRiceived control = new ControlDataRiceived(); 
+		if (control.verify(dtoSend, currentNumberPlayer, game) == "OK") {
 			DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),
 					dtoSend.getTypeCard(), dtoSend.getTypeOfAction());
-			message = currentTurn.turn(dtoTurn); // messaggio di come è stata eseguita l'azione
+			message = currentTurn.turn(dtoTurn); // messaggio di come è stata
+													// eseguita l'azione
 			if (message == "Hai finito il turno")
 				endTurn();
 		}
@@ -66,9 +67,10 @@ public class GameController {
 
 	private void endTurn() { // aggiorna il giocatore
 		{
-			ControlEndGame controlEndGame = new ControlEndGame(game, turnNumber); 
+			ControlEndGame controlEndGame = new ControlEndGame(game, turnNumber);
 			turnNumber++; // turno finito
-			boolean nextPlayerDecide = false; //assegna correttamente il prossimo turno
+			boolean nextPlayerDecide = false; // assegna correttamente il
+												// prossimo turno
 			do {
 				currentNumberPlayer++;
 				if (game.getPlayers().length == currentNumberPlayer)
@@ -81,11 +83,12 @@ public class GameController {
 	}
 
 	/**
-	 * This method invoched by a extern thread finishes the turn
+	 * This method invoked by an external thread finishes the turn
 	 */
 
 	public void finishTurn() {
-		CompleteTurn completeTurn = new CompleteTurn(currentTurn.getGameStatus());
+		CompleteTurn completeTurn = new CompleteTurn(
+				currentTurn.getGameStatus());
 		String message = completeTurn.completeTurn(); // completa il turno
 		endTurn(); // crea il prossimo turno
 	}

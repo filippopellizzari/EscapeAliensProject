@@ -3,7 +3,7 @@ package controller;
 import model.*;
 
 /**
- * La classe contiene le regole per lo spostamento all'interno della mappa
+ * This class contains the control of the move and the effective action of move
  * 
  * @author Filippo
  *
@@ -17,7 +17,7 @@ public class Move implements TryToDoAnAction {
 	}
 
 	/**
-	 * controlla che la mossa sia valida
+	 * check the validity of move
 	 * 
 	 * @param dest
 	 * @return
@@ -32,8 +32,8 @@ public class Move implements TryToDoAnAction {
 	}
 
 	/**
-	 * controlla che la destinazione sia dentro la mappa; nel caso degli alieni,
-	 * controlla che non possano accedere ad un settore scialuppa
+	 * check that the destination is within the map ; in the case of aliens ,
+	 * checks that can not access an escape hatch sector
 	 * 
 	 * @param dest
 	 * @return
@@ -52,16 +52,16 @@ public class Move implements TryToDoAnAction {
 	}
 
 	/**
-	 * controlla che la destinazione sia raggiungibile secondo la velocità del
-	 * giocatore e che i settori lungo il percorso siano tutti attraversabili
+	 * 
+	 * Check that the destination is reached according to the speed player and
+	 * that the crossed sectors are valid
 	 * 
 	 * @param curr
-	 *             coordinata di partenza
+	 *            starting coordinate
 	 * @param dest
-	 *             coordinata di destinazione
+	 *            destination coordinate
 	 * @param speed
-	 *             velocità del giocatore, ossia di quanti settori può
-	 *            spostarsi
+	 *            speed of player
 	 * @return
 	 */
 
@@ -91,31 +91,35 @@ public class Move implements TryToDoAnAction {
 	}
 
 	/**
-	 * this is the "action move"; it can be done after a previous check
+	 * this is the effective move
 	 * 
 	 * 
-	 * @param destCoord , coordinates chosen by player
-	 * @return string, which describes what is happened during the action
+	 * @param destCoord
+	 *            , coordinates chosen by player
+	 * @return string, describes destination sector
 	 */
-	
+
 	public String move(Coordinate destCoord) {
 		Sector destSector = gameStatus.getGame().getMap().getSector(destCoord);
 		destSector.addPlayer(gameStatus.getPlayerPlay().getSector()
 				.removePlayer());
 		gameStatus.getPlayerPlay().setSector(destSector);
-		String s = "PR Ti sei spostato nel settore " + destCoord + "\n"; 
+		String s = "PR Ti sei spostato nel settore " + destCoord + "\n";
 		switch (destSector.getType()) {
 		case DANGEROUS:
-			s += "PR Sei finito su un settore pericoloso!\n"; 
-			s += "PR Puoi decidere se pescare una carta settore pericoloso, attaccare o giocare carta oggetto\n"; 
+			s += "PR Sei finito su un settore pericoloso!\n";
+			s += "PR Puoi decidere se pescare una carta settore pericoloso, attaccare o giocare carta oggetto\n";
+			break;
 		case HATCH:
-			s += "PR Sei finito su un settore hatch!\n"; 
+			s += "PR Sei finito su un settore hatch!\n";
 			s += gameStatus.getPlayerPlay() + " si trova nel settore "
-					+ destSector + "\n"; 
+					+ destSector + "\n";
 			s += new CardsEffect(gameStatus.getGame(),
 					gameStatus.getPlayerPlay()).drawHatchCard();
+			break;
 		case SECURE:
 			s += "PR Sei finito su un settore sicuro!\n";
+			break;
 		default:
 			break;
 		}

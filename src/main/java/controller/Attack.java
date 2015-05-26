@@ -3,6 +3,8 @@ package controller;
 import model.*;
 
 /**
+ * This class contains the control of validity of an attack action in the case of alien 
+ * the effective attack can be done also by human
  * 
  * @author Filippo
  *
@@ -17,15 +19,18 @@ public class Attack implements TryToDoAnAction {
 	}
 
 	/**
-	 * mossa di attacco (vale per tutti i tipi di giocatore)
+	 * this method contains the attack action; it invokes the private method
+	 * "isDefendable" to control if the player attacked can use Defense ItemCard
+	 * to not be eliminated;
+	 * it is invoked by control of ItemCards, if the player is human
 	 */
 	public String attackMove() {
 		String s = "";
 		Sector current = gameStatus.getPlayerPlay().getSector();
-		s += gameStatus.getPlayerPlay() + " : ATTACK in " + current + "\n"; //dichiara attacco
+		s += gameStatus.getPlayerPlay() + " : ATTACK in " + current + "\n"; //declares attack
 		for (int i = 0; i < current.getPlayers().size() - 1; i++) {
 			Player attacked = current.getPlayers().get(i);
-			s += attacked + " è sotto attacco!\n"; 
+			s += attacked + " è sotto attacco!\n";
 			if (isDefendable(attacked)) {
 				s += attacked + " : si salva grazie alla carta Difesa!\n";
 			} else {
@@ -37,8 +42,8 @@ public class Attack implements TryToDoAnAction {
 				s += attacked
 						+ " è ucciso e viene eliminato dal gioco: la sua identità era "
 						+ attacked.getType() + "\n";
-				attacked.setAlive(false); 
-				for (int j = 0; j < attacked.getItem().size(); j++) { // scarto le carte del perdente							
+				attacked.setAlive(false);
+				for (int j = 0; j < attacked.getItem().size(); j++) { // discard cards of eliminated player		
 					gameStatus.getGame().getItemCards()
 							.discard(attacked.removeItem(j));
 				}
@@ -48,19 +53,12 @@ public class Attack implements TryToDoAnAction {
 		return s;
 	}
 
-	/**
-	 * 
-	 * @param attacked
-	 *            , il giocatore attaccato
-	 * @return true, se il giocatore attaccato possiede la carta Difesa
-	 */
-
 	private boolean isDefendable(Player attacked) {
 		for (int j = 0; j < attacked.getItem().size(); j++) {
 			if (attacked.getItem().get(j).getType()
 					.equals(ItemCardType.DEFENSE)) {
 				gameStatus.getGame().getItemCards()
-						.discard(attacked.removeItem(j)); // scarto carta difesa
+						.discard(attacked.removeItem(j)); // discard defense and use it
 				return true;
 			}
 		}
@@ -69,7 +67,7 @@ public class Attack implements TryToDoAnAction {
 
 	@Override
 	public String doAction(DTOTurn dtoTurn) {
-		if (gameStatus.isMove() && gameStatus.isAttack() == false
+		if (!gameStatus.isMove() && gameStatus.isAttack()
 				&& gameStatus.isSolveSectorDuty()) { // attacco alieno
 			return attackMove();
 		} else

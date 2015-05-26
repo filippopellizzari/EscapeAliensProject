@@ -19,9 +19,9 @@ import org.junit.Test;
  */
 
 public class TestSectorCards {
-	static CardsCreator cardCreator=new CardsCreator();
-	static SectorCards decksOfCards=cardCreator.createSectorCards();
-	static List<SectorCard> listSectorCards=new ArrayList<SectorCard>();
+	static CardsCreator cardsCreator = new CardsCreator();
+	static SectorCards sectorCards = cardsCreator.createSectorCards();
+	static List<SectorCard> listSectorCards = new ArrayList<SectorCard>();
 	
 	/**
 	 * i draw 25 card and put these in the discard pile
@@ -29,8 +29,8 @@ public class TestSectorCards {
 	
 	@BeforeClass public static void onlyOnce() {
 		for(int i=0;i<25;i++) {									//test constructor, class SectorCards
-			listSectorCards.add(decksOfCards.draw());
-			decksOfCards.discard(listSectorCards.get(i));
+			listSectorCards.add(sectorCards.draw());
+			sectorCards.discard(listSectorCards.get(i));
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class TestSectorCards {
 	
 	@Test
 	public void numberOfCardInDeckAndDiscard() {
-		assertTrue(decksOfCards.getDeck().size()==0 && decksOfCards.getDiscardPile().size()==25);		//test dimension of deck and discard, class SectorCards
+		assertTrue(sectorCards.getDeck().size()==0 && sectorCards.getDiscardPile().size()==25);		//test dimension of deck and discard, class SectorCards
 	}
 	
 	/**
@@ -88,9 +88,12 @@ public class TestSectorCards {
 				case SILENCE: silence++;
 				break;
 			}
-			assertEquals(decksOfCards.getDiscardPile().get(i),listSectorCards.get(i));	//test discardPile, class SectorCards
+			assertEquals(sectorCards.getDiscardPile().get(i),listSectorCards.get(i));	//test discardPile, class SectorCards
 		}
 		assertTrue(noiseInAnyType0==6 && noiseInAnyType1==4 && noiseInYourType0==6 && noiseInYourType1==4 && silence==5); //test the tipe of card in deck, class SectorCards
 		
 	}
+	
+	
+	
 }

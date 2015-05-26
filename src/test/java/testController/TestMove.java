@@ -25,15 +25,9 @@ public class TestMove {
 	static Player alienFed; //alieno che è riuscito ad eliminare almeno un umano
 	
 	
-	@BeforeClass public static void onlyOnce() {
-		try {
-			model = GameCreator.getinstance().createGame("Galilei", 8, "Exagonal");
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
-		
+	@BeforeClass public static void onlyOnce() throws NumberFormatException, IOException {
+		model = GameCreator.getinstance().createGame("Galilei", 8, "Exagonal");
+	
 		model.getPlayers(0).setPlayerType(PlayerType.HUMAN); 
 		model.getPlayers(0).setSpeed(1);
 		human = model.getPlayers(0);

@@ -17,11 +17,11 @@ public class ControlDataRiceived {
 	/**
 	 * 
 	 * @param dtoSend
-	 *            , the object send from client
+	 *             the object send from client
 	 * @param numberPlayer
-	 *            , number of player that has to play
+	 *             number of player that has to play
 	 * @param game
-	 *            , a reference at model
+	 *             a reference at model
 	 * @return string, this explain if the date are correct returning "OK" or
 	 *         incorrect
 	 */

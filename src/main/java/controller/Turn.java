@@ -31,7 +31,7 @@ public class Turn {
 
 		switch (dtoTurn.getTypeOfAction()) {
 		case MOVE:
-			actionToDo = new MoveRules(gameStatus);
+			actionToDo = new Move(gameStatus);
 			response = actionToDo.doAction(dtoTurn);
 			break;
 		case ATTACK:

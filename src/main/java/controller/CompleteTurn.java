@@ -39,7 +39,7 @@ public class CompleteTurn {
 		do {
 			condizione = 0;
 			if (!gameStatus.isMove()) { // non ha mosso
-				actionToDo = new MoveRules(gameStatus);
+				actionToDo = new Move(gameStatus);
 				do {
 					response = actionToDo.doAction(new DTOTurn(gameStatus
 							.getPlayerPlay().getSector().getAdjacent()

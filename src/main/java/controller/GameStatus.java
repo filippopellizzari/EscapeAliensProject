@@ -15,18 +15,18 @@ public class GameStatus implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Player playerPlay;
-	private boolean hasMoved; 
-	private boolean hasAttacked; 
-	private boolean solvedDangerous; // ha pescato la carta settore pericoloso
-	private boolean mustDiscardItem; 
+	private boolean hasMoved;
+	private boolean hasAttacked;
+	private boolean solveSectorDuty; // ha pescato la carta settore pericoloso
+	private boolean discardItemDuty;
 	private boolean noiseInAnySector; // ha pescato la carta noise in any sector
 	private Game game;
 
 	/**
 	 * @param game
-	 *            , reference to model
+	 *             reference to model
 	 * @param playerPlay
-	 *            , reference at player that has to play
+	 *             reference at player that has to play
 	 */
 
 	public GameStatus(Game game, Player playerPlay) {
@@ -34,8 +34,8 @@ public class GameStatus implements Serializable {
 		this.game = game;
 		hasMoved = false;
 		hasAttacked = false;
-		solvedDangerous = false;
-		mustDiscardItem = false;
+		solveSectorDuty = false;
+		discardItemDuty = false;
 		noiseInAnySector = false;
 	}
 
@@ -64,14 +64,14 @@ public class GameStatus implements Serializable {
 	 * @return the solveSectorDuty
 	 */
 	public boolean isSolveSectorDuty() {
-		return solvedDangerous;
+		return solveSectorDuty;
 	}
 
 	/**
 	 * @return the discardItemDuty
 	 */
 	public boolean isDiscardItemDuty() {
-		return mustDiscardItem;
+		return discardItemDuty;
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class GameStatus implements Serializable {
 
 	/**
 	 * @param playerPlay
-	 *            the playerPlay setted
+	 *            the playerPlay set
 	 */
 	public void setPlayerPlay(Player playerPlay) {
 		this.playerPlay = playerPlay;
@@ -98,7 +98,7 @@ public class GameStatus implements Serializable {
 
 	/**
 	 * @param move
-	 *            the move setted
+	 *            the move set
 	 */
 	public void setMove(boolean move) {
 		this.hasMoved = move;
@@ -106,7 +106,7 @@ public class GameStatus implements Serializable {
 
 	/**
 	 * @param attack
-	 *            the attack setted
+	 *            the attack set
 	 */
 	public void setAttack(boolean attack) {
 		this.hasAttacked = attack;
@@ -114,23 +114,23 @@ public class GameStatus implements Serializable {
 
 	/**
 	 * @param solveSectorDuty
-	 *            the solveSectorDuty setted
+	 *            the solveSectorDuty set
 	 */
 	public void setSolveSectorDuty(boolean solveSectorDuty) {
-		this.solvedDangerous = solveSectorDuty;
+		this.solveSectorDuty = solveSectorDuty;
 	}
 
 	/**
 	 * @param discardItemDuty
-	 *            the discardItemDuty setted
+	 *            the discardItemDuty set
 	 */
 	public void setDiscardItemDuty(boolean discardItemDuty) {
-		this.mustDiscardItem = discardItemDuty;
+		this.discardItemDuty = discardItemDuty;
 	}
 
 	/**
 	 * @param noiseInAnySector
-	 *            the noiseInAnySector setted
+	 *            the noiseInAnySector set
 	 */
 	public void setNoiseInAnySector(boolean noiseInAnySector) {
 		this.noiseInAnySector = noiseInAnySector;
@@ -138,7 +138,7 @@ public class GameStatus implements Serializable {
 
 	/**
 	 * @param game
-	 *            the game setted
+	 *            the game set
 	 */
 	public void setGame(Game game) {
 		this.game = game;
