@@ -106,7 +106,7 @@ public class TestiItemCards {
 	}
 	
 	/**
-	 * I verify, after draw 7 card than the first 6 are correct and the seven is null before both discard pile and deck are empty after draw 6 card
+	 * I verify, after draw 7 cards than the first 6 are correct and the seven is null before both discard pile and deck are empty after draw 6 cards
 	 */
 	
 	@Test
