@@ -17,12 +17,12 @@ public class DTOGame implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Coordinate coordinate;
-	private ItemCardType typeCard;
-	private TypeOfAction typeOfAction;
-	private String chat;
-	private String gameMessage;
-	private int numberOfPlayer;
+	private final Coordinate coordinate;
+	private final ItemCardType typeCard;
+	private final TypeOfAction typeOfAction;
+	private final String chat;
+	private final String gameMessage;
+	private final int numberOfPlayer;
 	
 	/**
 	 * 
@@ -42,5 +42,55 @@ public class DTOGame implements Serializable{
 		this.chat = chat;
 		this.gameMessage = gameMessage;
 		this.numberOfPlayer=numberOfPlayer;
-	}	
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	/**
+	 * @return the coordinate
+	 */
+	public Coordinate getCoordinate() {
+		return coordinate;
+	}
+
+	/**
+	 * @return the typeCard
+	 */
+	public ItemCardType getTypeCard() {
+		return typeCard;
+	}
+
+	/**
+	 * @return the typeOfAction
+	 */
+	public TypeOfAction getTypeOfAction() {
+		return typeOfAction;
+	}
+
+	/**
+	 * @return the chat
+	 */
+	public String getChat() {
+		return chat;
+	}
+
+	/**
+	 * @return the gameMessage
+	 */
+	public String getGameMessage() {
+		return gameMessage;
+	}
+
+	/**
+	 * @return the numberOfPlayer
+	 */
+	public int getNumberOfPlayer() {
+		return numberOfPlayer;
+	}
+	
 }

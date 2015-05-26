@@ -54,9 +54,6 @@ public class MoveRules implements TryToDoAnAction{
 	 * @return
 	 */
 	
-	
-	//DA CORREGGERE ASSOLUTAMENTE!
-	
 	public boolean pathCheck(Coordinate curr,Coordinate dest, int speed){
 			if (speed==0){
 					return curr.equals(dest);
@@ -97,12 +94,25 @@ public class MoveRules implements TryToDoAnAction{
 		}
 		else return "Non puoi muovere adesso";
 	}
+	
 	public String move(Coordinate destCoord){
 		Sector destSector = gameStatus.getGame().getMap().getSector(destCoord);
 		destSector.addPlayer(gameStatus.getPlayerPlay().getSector().removePlayer());
 		gameStatus.getPlayerPlay().setSector(destSector);
-		String s = "Ti sei spostato nel settore "+destCoord; //messaggio privato
+		String s = "Ti sei spostato nel settore "+destCoord+"\n"; //PRIVATO
+		switch(destSector.getType()){
+			case DANGEROUS :
+				s += "Sei finito su un settore pericoloso!\n"; //PRIVATO
+				s += "Puoi decidere se pescare una carta settore pericoloso, attaccare o giocare carta oggetto\n"; //PRIVATO
+			case HATCH : 
+				s += "Sei finito su un settore hatch!\n"; //PRIVATO
+				s += gameStatus.getPlayerPlay()+ " si trova nel settore "+destSector+"\n"; //PUBBLICO
+				s+= new CardsEffect(gameStatus.getGame(), gameStatus.getPlayerPlay()).drawHatchCard();
+			case SECURE :
+				s += "Sei finito su un settore sicuro!\n";
+		default:
+			break;
+		}
 		return s;
-		
 	}
 }
