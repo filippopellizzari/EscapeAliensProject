@@ -11,6 +11,16 @@ import java.util.List;
  */
 
 public class HatchSector extends Sector{
+	
+	/**
+	 * 
+	 * @param sectorType indicate the varius tipe each has its own propriety defined in the controller for the game rules
+	 * @param closed indicate if the sector is crossable by player
+	 * @param x		use for indicate the letter of a sector
+	 * @param y		use for indicate the number of a sector
+	 * @param adjacent	list of adjacent sectors's coordinate
+	 */
+	
 	public HatchSector(SectorType sectorType, boolean closed, int x, int y, List<Coordinate> adjacent){
 		super(sectorType, closed, x, y, adjacent);
 	}
