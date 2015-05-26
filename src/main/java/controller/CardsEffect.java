@@ -67,9 +67,11 @@ public class CardsEffect {
 		switch(color){
 		  	case RED :
 		  		s+= player +" ha pescato una carta scialuppa rossa: non può scappare!\n"; //PUBBLICO
+		  		break;
 		  	case GREEN :
 		  		s+= player +" ha pescato una carta scialuppa verde: ha vinto!\n"; //PUBBLICO
 		  		s+= "HAI VINTO!\n"; //PRIVATO
+		  		break;
 		}
 		model.getHatchCards().discard(current);
 		return s;	

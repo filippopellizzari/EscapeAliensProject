@@ -20,10 +20,13 @@ public class Draw implements TryToDoAnAction{
 		
 			case NOISEYOUR: 
 				s += gameStatus.getPlayerPlay() +" : NOISE IN SECTOR "+gameStatus.getPlayerPlay().getSector().getCoordinate()+"\n"; //messaggio pubblico
-				
+			    break;	
 				
 			case SILENCE: 
 				s += gameStatus.getPlayerPlay() +" : SILENCE IN ALL SECTORS\n"; //messaggio pubblico
+				break;
+			default:
+				break;
 						
 		}
 		if (current.isItemIcon()){
@@ -59,9 +62,11 @@ public class Draw implements TryToDoAnAction{
 		switch(color){
 		  	case RED :
 		  		s+= gameStatus.getPlayerPlay() +" ha pescato una carta scialuppa rossa: non può scappare!\n"; //messaggio pubblico
+		  		break;
 		  	case GREEN :
 		  		s+= gameStatus.getGame() +" ha pescato una carta scialuppa verde: ha vinto!\n"; //messaggio pubblico
 		  		s+= "HAI VINTO!\n"; //messaggio privato
+		  		break;
 		}
 		gameStatus.getGame().getHatchCards().discard(current);
 		return s;	
