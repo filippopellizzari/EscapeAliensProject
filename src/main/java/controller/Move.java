@@ -90,24 +90,32 @@ public class Move implements TryToDoAnAction {
 		return false;
 	}
 
+	/**
+	 * this is the "action move"; it can be done after a previous check
+	 * 
+	 * 
+	 * @param destCoord , coordinates chosen by player
+	 * @return string, which describes what is happened during the action
+	 */
+	
 	public String move(Coordinate destCoord) {
 		Sector destSector = gameStatus.getGame().getMap().getSector(destCoord);
 		destSector.addPlayer(gameStatus.getPlayerPlay().getSector()
 				.removePlayer());
 		gameStatus.getPlayerPlay().setSector(destSector);
-		String s = "Ti sei spostato nel settore " + destCoord + "\n"; // PRIVATO
+		String s = "PR Ti sei spostato nel settore " + destCoord + "\n"; 
 		switch (destSector.getType()) {
 		case DANGEROUS:
-			s += "Sei finito su un settore pericoloso!\n"; // PRIVATO
-			s += "Puoi decidere se pescare una carta settore pericoloso, attaccare o giocare carta oggetto\n"; // PRIVATO
+			s += "PR Sei finito su un settore pericoloso!\n"; 
+			s += "PR Puoi decidere se pescare una carta settore pericoloso, attaccare o giocare carta oggetto\n"; 
 		case HATCH:
-			s += "Sei finito su un settore hatch!\n"; // PRIVATO
+			s += "PR Sei finito su un settore hatch!\n"; 
 			s += gameStatus.getPlayerPlay() + " si trova nel settore "
-					+ destSector + "\n"; // PUBBLICO
+					+ destSector + "\n"; 
 			s += new CardsEffect(gameStatus.getGame(),
 					gameStatus.getPlayerPlay()).drawHatchCard();
 		case SECURE:
-			s += "Sei finito su un settore sicuro!\n";
+			s += "PR Sei finito su un settore sicuro!\n";
 		default:
 			break;
 		}
