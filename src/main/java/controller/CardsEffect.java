@@ -75,16 +75,6 @@ public class CardsEffect {
 		return s;	
 	}
 	
-	public String discardItemDuty(ItemCardType itemCardType){
-		for(int i = 0; i < player.getItem().size(); i++ ){
-			if(player.getItem().get(i).getType().equals(itemCardType)){
-				model.getItemCards().discard(player.getItem().remove(i));
-				return "Hai scartato correttamente la carta "+itemCardType+"\n"; //PRIVATO
-			}
-			
-		}
-		return null;
-	}
 	
 	
 	
