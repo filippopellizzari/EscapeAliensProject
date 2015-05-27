@@ -12,7 +12,7 @@ import java.util.List;
  *
  */
 
-public class LoadHexagonalMap extends MapCreator{
+public class HexagonalMapCreator extends MapCreator{
 	
 	
 	
@@ -20,7 +20,7 @@ public class LoadHexagonalMap extends MapCreator{
 	 * 
 	 */
 	
-	public LoadHexagonalMap() {
+	public HexagonalMapCreator() {
 		this.hatchSectors = new ArrayList<Coordinate>();
 		this.sectors = new Sector[322];
 	}
@@ -37,7 +37,6 @@ public class LoadHexagonalMap extends MapCreator{
 
 	public Map loadMap(String fileName) throws NumberFormatException, IOException {
 
-		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File("rsc"+File.separatorChar+fileName+"Map.txt");
 		
 		FileReader fileRead = new FileReader(file);

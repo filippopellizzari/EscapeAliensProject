@@ -16,7 +16,7 @@ public class TestPlayerCreator {
 	public void test() throws NumberFormatException, IOException {
 		
 		
-		MapCreator mc = new LoadHexagonalMap();
+		MapCreator mc = new HexagonalMapCreator();
 		Map m = mc.loadMap("Galilei");
 		PlayerCreator pc = new PlayerCreator(m);
 		Player[] players = pc.createPlayer(6);

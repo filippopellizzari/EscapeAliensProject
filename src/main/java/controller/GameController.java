@@ -3,10 +3,14 @@ package controller;
 import java.io.IOException;
 
 import creator.GameCreator;
+import dto.DTOSend;
+import dto.DTOTurn;
 import model.*;
 
 /**
- * This class contains the status of game ad has a reference of the model, invoke all the method to do every action and control this actions
+ * This class contains the status of game ad has a reference of the model,
+ * invoke all the method to do every action and control this actions
+ * 
  * @author Nicola
  *
  */
@@ -15,72 +19,82 @@ public class GameController {
 	private Game game;
 	private Turn currentTurn;
 	private int turnNumber;
-	private int currentPlayer;
-	
+	private int currentNumberPlayer;
+
 	/**
 	 * 
-	 * @param mapName, name of the map to create
-	 * @param numberOfPlayers, number of players
-	 * @param typeMap, type of map (standard is hexagonal)
+	 * @param mapName
+	 *            name of the map to create
+	 * @param numberOfPlayers
+	 *            number of players
+	 * @param typeMap
+	 *            type of map (standard is hexagonal)
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
-	
-	public GameController(String mapName, int numberOfPlayers, String typeMap) throws NumberFormatException, IOException {
+
+	public GameController(String mapName, int numberOfPlayers, String typeMap)
+			throws NumberFormatException, IOException {
 		GameCreator gameCreator = GameCreator.getinstance();
 		this.game = gameCreator.createGame(mapName, numberOfPlayers, typeMap);
-		currentTurn = new Turn(game,game.getPlayers(currentPlayer));
-		this.currentPlayer=0;
-		this.turnNumber=1;
+		currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
+		this.currentNumberPlayer = 0;
+		this.turnNumber = 1;
 	}
-	
+
 	/**
 	 * 
-	 * @param dtoSend, a collection of data used to indicate the player's actions
+	 * @param dtoSend
+	 *            , a collection of data used to indicate the player's actions
 	 * @return the report of action happen during the move
 	 */
-	
+
 	public String doAnAction(DTOSend dtoSend) {
-		String message="";
-		ControlDataRiceived control=new ControlDataRiceived();			//controlla validità dati passati
-		if(control.verify(dtoSend,currentPlayer, game)=="OK") {								//se la risposta è ok fa la verifica del turno
-			DTOTurn dtoTurn=new DTOTurn(dtoSend.getCoordinate(),dtoSend.getTypeCard(),dtoSend.getTypeOfAction());
-			message=currentTurn.turn(dtoTurn);							//messaggio di come è stata eseguita l'azione
-			if(message=="Hai finito il turno") endTurn();
+		String message = "";
+		ControlDataRiceived control = new ControlDataRiceived(); 
+		if (control.verify(dtoSend, currentNumberPlayer, game) == "OK") {
+			DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),
+					dtoSend.getTypeCard(), dtoSend.getTypeOfAction());
+			message = currentTurn.turn(dtoTurn); // messaggio di come è stata
+													// eseguita l'azione
+			if (message == "Hai finito il turno")
+				endTurn();
 		}
 		return message;
 	}
-	
+
 	/**
-	 * This method end a turn and prepare the next turn for an other player
+	 * This method ends a turn and prepares the next turn for another player
 	 */
-	
-	private void endTurn() {			//aggiorna il giocatore
-		 {
-			ControlEndGame controlEndGame=new ControlEndGame(game,turnNumber);		//controlla la fine della partita, se si la elimina e avvisa i giocatori
-			turnNumber++;		//turno finito
-			boolean nextPlayerDecide=false;			//serve per assegnare correttamente il prossimo giocatore (ci possono essere cadaveri da saltare)
-			do{
-				currentPlayer++;
-				if(game.getPlayers().length==currentPlayer)
-					currentPlayer=0;		//giocatore a cui tocca
-				if(game.getPlayers(currentPlayer).isAlive()==true) 
-					nextPlayerDecide=true;
-			} while(nextPlayerDecide==false);
-			currentTurn=new Turn(game,game.getPlayers(currentPlayer));
+
+	private void endTurn() { // aggiorna il giocatore
+		{
+			ControlEndGame controlEndGame = new ControlEndGame(game, turnNumber);
+			turnNumber++; // turno finito
+			boolean nextPlayerDecide = false; // assegna correttamente il
+												// prossimo turno
+			do {
+				currentNumberPlayer++;
+				if (game.getPlayers().length == currentNumberPlayer)
+					currentNumberPlayer = 0; // giocatore a cui tocca
+				if (game.getPlayers(currentNumberPlayer).isAlive())
+					nextPlayerDecide = true;
+			} while (!nextPlayerDecide);
+			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 		}
 	}
-	
+
 	/**
-	 * This method invoched by a extern thread finish the turn
+	 * This method invoked by an external thread finishes the turn
 	 */
-	
+
 	public void finishTurn() {
-		CompleteTurn completeTurn=new CompleteTurn(currentTurn.getGameStatus());
-		String message=completeTurn.completeTurn();									//completa il turno
-		endTurn();																	//crea il prossimo turno
+		CompleteTurn completeTurn = new CompleteTurn(
+				currentTurn.getGameStatus());
+		String message = completeTurn.completeTurn(); // completa il turno
+		endTurn(); // crea il prossimo turno
 	}
-	
+
 	public static void main(String[] args) {
 	}
 }

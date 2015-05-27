@@ -51,7 +51,7 @@ public class GameCreator {
 		Map map = null;
 		switch(typeMap) {
 			default:
-				MapCreator mapCreator = new LoadHexagonalMap();
+				MapCreator mapCreator = new HexagonalMapCreator();
 				map=mapCreator.loadMap(mapName);
 		}
 		

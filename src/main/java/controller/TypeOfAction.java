@@ -2,6 +2,7 @@ package controller;
 
 /**
  * Type of action that the players can do
+ * 
  * @author Nicola
  *
  */
