@@ -11,7 +11,7 @@ import model.ItemCardType;
  *
  */
 
-public class Discard implements TryToDoAnAction {
+public class DiscardItem implements TryToDoAnAction {
 
 	private GameStatus gameStatus;
 
@@ -22,7 +22,7 @@ public class Discard implements TryToDoAnAction {
 	 *            are playing, now is his turn
 	 */
 
-	public Discard(GameStatus gameStatus) {
+	public DiscardItem(GameStatus gameStatus) {
 		this.gameStatus = gameStatus;
 	}
 
@@ -44,7 +44,7 @@ public class Discard implements TryToDoAnAction {
 
 	@Override
 	public String doAction(DTOTurn dtoTurn) {
-		if (gameStatus.isMove() && gameStatus.isDiscardItemDuty()
+		if (gameStatus.hasMoved() && gameStatus.isDiscardItemDuty()
 				&& dtoTurn.getTypeCard() != null) { // scarta carta
 			discard(dtoTurn.getTypeCard());
 			return "Carta scartata";

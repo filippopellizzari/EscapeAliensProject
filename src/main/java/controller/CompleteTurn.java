@@ -39,7 +39,7 @@ public class CompleteTurn {
 		String response = "";
 		do {
 			condizione = 0;
-			if (!gameStatus.isMove()) { // non ha mosso
+			if (!gameStatus.hasMoved()) { // non ha mosso
 				actionToDo = new Move(gameStatus);
 				do {
 					response = actionToDo.doAction(new DTOTurn(gameStatus
@@ -49,7 +49,7 @@ public class CompleteTurn {
 			} else
 				condizione++;
 			if (gameStatus.isDiscardItemDuty()) { // non ha scartato
-				actionToDo = new Discard(gameStatus);
+				actionToDo = new DiscardItem(gameStatus);
 				response = actionToDo.doAction(new DTOTurn(null, gameStatus
 						.getPlayerPlay().getItem().get(random.nextInt(4))
 						.getType(), null));
@@ -64,7 +64,7 @@ public class CompleteTurn {
 																								// carta
 																								// settore
 																								// pericoloso
-					actionToDo = new Draw(gameStatus);
+					actionToDo = new DrawSectorCard(gameStatus);
 					response = actionToDo
 							.doAction(new DTOTurn(null, null, null));
 				} else

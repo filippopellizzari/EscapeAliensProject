@@ -101,10 +101,11 @@ public class Move implements TryToDoAnAction {
 	 */
 
 	public String move(Coordinate destCoord) {
+		Player player = gameStatus.getPlayerPlay();
 		Sector destSector = gameStatus.getGame().getMap().getSector(destCoord);
-		destSector.addPlayer(gameStatus.getPlayerPlay().getSector()
+		destSector.addPlayer(player.getSector()
 				.removePlayer());
-		gameStatus.getPlayerPlay().setSector(destSector);
+		player.setSector(destSector);
 		String s = "PR Ti sei spostato nel settore " + destCoord + "\n";
 		switch (destSector.getType()) {
 		case DANGEROUS:
@@ -113,10 +114,10 @@ public class Move implements TryToDoAnAction {
 			break;
 		case HATCH:
 			s += "PR Sei finito su un settore hatch!\n";
-			s += gameStatus.getPlayerPlay() + " si trova nel settore "
+			s += player + " si trova nel settore "
 					+ destSector + "\n";
-			s += new CardsEffect(gameStatus.getGame(),
-					gameStatus.getPlayerPlay()).drawHatchCard();
+			s += new DrawHatchCard(gameStatus.getGame(),
+					player).drawHatchCard();
 			break;
 		case SECURE:
 			s += "PR Sei finito su un settore sicuro!\n";
@@ -129,7 +130,7 @@ public class Move implements TryToDoAnAction {
 
 	@Override
 	public String doAction(DTOTurn dtoTurn) {
-		if (gameStatus.isMove() == false && dtoTurn.getTypeCard() == null
+		if (!gameStatus.hasMoved() && dtoTurn.getTypeCard() == null
 				&& dtoTurn.getCoordinate() != null) { // mossa
 			if (moveCheck(dtoTurn.getCoordinate())) {
 				gameStatus.setMove(true);

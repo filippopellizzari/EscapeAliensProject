@@ -59,7 +59,7 @@ public class Attack implements TryToDoAnAction {
 			if (attacked.getItem().get(j).getType()
 					.equals(ItemCardType.DEFENSE)) {
 				gameStatus.getGame().getItemCards()
-						.discard(attacked.removeItem(j)); // discard defense and use it
+						.discard(attacked.removeItem(j)); // discard and use defense card
 				return true;
 			}
 		}
@@ -68,7 +68,7 @@ public class Attack implements TryToDoAnAction {
 
 	@Override
 	public String doAction(DTOTurn dtoTurn) {
-		if (!gameStatus.isMove() && gameStatus.isAttack()
+		if (!gameStatus.hasMoved() && gameStatus.hasAttacked()
 				&& gameStatus.isSolveSectorDuty()) { // attacco alieno
 			return attackMove();
 		} else

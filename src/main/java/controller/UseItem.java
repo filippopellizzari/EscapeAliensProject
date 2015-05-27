@@ -107,7 +107,7 @@ public class UseItem implements TryToDoAnAction {
 		if (dtoTurn.getTypeCard() == ItemCardType.TELEPORT) {
 			response = teleport();
 		}
-		if (!gameStatus.isAttack() && gameStatus.isMove()
+		if (!gameStatus.hasAttacked() && gameStatus.hasMoved()
 				&& !gameStatus.isSolveSectorDuty()
 				&& dtoTurn.getTypeCard() == ItemCardType.ATTACK)
 			;

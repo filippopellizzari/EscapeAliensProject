@@ -45,11 +45,11 @@ public class Turn {
 			response = actionToDo.doAction(dtoTurn);
 			break;
 		case DISCARD:
-			actionToDo = new Discard(gameStatus);
+			actionToDo = new DiscardItem(gameStatus);
 			response = actionToDo.doAction(dtoTurn);
 			break;
 		case DRAWSECTORCARD:
-			actionToDo = new Draw(gameStatus);
+			actionToDo = new DrawSectorCard(gameStatus);
 			response = actionToDo.doAction(dtoTurn);
 			break;
 		case ENDTURN:

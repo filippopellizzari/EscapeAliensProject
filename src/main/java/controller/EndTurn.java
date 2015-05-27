@@ -3,7 +3,7 @@ package controller;
 import dto.DTOTurn;
 
 /**
- * This class control if the player can pass or there are something else he/she
+ * This class controls if the player can pass or there are something else he/she
  * must to do to complete the turn
  * 
  * @author Nicola
@@ -27,7 +27,7 @@ public class EndTurn implements TryToDoAnAction {
 
 	@Override
 	public String doAction(DTOTurn dtoTurn) {
-		if (gameStatus.isMove() && !gameStatus.isNoiseInAnySector()
+		if (gameStatus.hasMoved() && !gameStatus.isNoiseInAnySector()
 				&& !gameStatus.isDiscardItemDuty()
 				&& gameStatus.isSolveSectorDuty()) { // fine turno
 			return "Hai finito il turno";

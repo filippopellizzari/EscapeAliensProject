@@ -12,7 +12,7 @@ public class SelectSectorNoise implements TryToDoAnAction {
 
 	@Override
 	public String doAction(DTOTurn dtoTurn) {
-		if (gameStatus.isMove() && gameStatus.isNoiseInAnySector()
+		if (gameStatus.hasMoved() && gameStatus.isNoiseInAnySector()
 				&& dtoTurn.getCoordinate() != null
 				&& dtoTurn.getTypeCard() == null) { // indica il settore del
 													// noise in any sector
