@@ -1,5 +1,6 @@
 package controller;
 
+import dto.DTOGame;
 import dto.DTOTurn;
 import model.*;
 
@@ -31,8 +32,8 @@ public class Turn {
 	 * @return the message with the response about the actions executed
 	 */
 
-	public String turn(DTOTurn dtoTurn) {
-		String response = "";
+	public DTOGame turn(DTOTurn dtoTurn) {
+		DTOGame response=new DTOGame();
 		TryToDoAnAction actionToDo;
 
 		switch (dtoTurn.getTypeOfAction()) {
@@ -54,7 +55,7 @@ public class Turn {
 			response = actionToDo.doAction(dtoTurn);
 			break;
 		case DRAWSECTORCARD:
-			actionToDo = new Draw(gameStatus);
+			actionToDo = new DrawSectorCard(gameStatus);
 			response = actionToDo.doAction(dtoTurn);
 			break;
 		case ENDTURN:

@@ -3,8 +3,7 @@ package dto;
 import java.io.Serializable;
 
 import controller.TypeOfAction;
-import model.Coordinate;
-import model.ItemCardType;
+import model.*;
 
 /**
  * this class is used as DTO between Client and Server, when the game starts
@@ -14,91 +13,118 @@ import model.ItemCardType;
  */
 
 public class DTOGame implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	private final Coordinate coordinate;
-	private final ItemCardType typeCard;
-	private final TypeOfAction typeOfAction;
-	private final String chat;
-	private final String gameMessage;
-	private final int numberOfPlayer;
-
-	/**
-	 * 
-	 * @param coordinate
-	 *            of the sector selected
-	 * @param typeCard
-	 *            type of card used
-	 * @param typeOfAction
-	 *            action that the player has done
-	 * @param chat
-	 *            message for the chat
-	 * @param gameMessage
-	 *            message provide for the game
-	 * @param numberOfPlayer
-	 *            number of player in the game
-	 */
-
-	public DTOGame(Coordinate coordinate, ItemCardType typeCard,
-			TypeOfAction typeOfAction, String chat, String gameMessage,
-			int numberOfPlayer) {
-		this.coordinate = coordinate;
-		this.typeCard = typeCard;
-		this.typeOfAction = typeOfAction;
-		this.chat = chat;
-		this.gameMessage = gameMessage;
-		this.numberOfPlayer = numberOfPlayer;
-	}
-
+	private Coordinate[] coordinate;
+	private ItemCardType typeItemCard;
+	private HatchCardColor hatchCardColor;
+	private SectorCardType sectorType;
+	private TypeOfAction typeOfAction;
+	private String chat;
+	private String gameMessage;
+	private int destination;
+	
 	/**
 	 * @return the serialversionuid
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 	/**
 	 * @return the coordinate
 	 */
-	public Coordinate getCoordinate() {
+	public Coordinate[] getCoordinate() {
 		return coordinate;
 	}
-
 	/**
-	 * @return the typeCard
+	 * @return the typeItemCard
 	 */
-	public ItemCardType getTypeCard() {
-		return typeCard;
+	public ItemCardType getTypeItemCard() {
+		return typeItemCard;
 	}
-
+	/**
+	 * @return the hatchCardColor
+	 */
+	public HatchCardColor getHatchCardColor() {
+		return hatchCardColor;
+	}
+	/**
+	 * @return the sectorType
+	 */
+	public SectorCardType getSectorType() {
+		return sectorType;
+	}
 	/**
 	 * @return the typeOfAction
 	 */
 	public TypeOfAction getTypeOfAction() {
 		return typeOfAction;
 	}
-
 	/**
 	 * @return the chat
 	 */
 	public String getChat() {
 		return chat;
 	}
-
 	/**
 	 * @return the gameMessage
 	 */
 	public String getGameMessage() {
 		return gameMessage;
 	}
-
 	/**
-	 * @return the numberOfPlayer
+	 * @return the destination
 	 */
-	public int getNumberOfPlayer() {
-		return numberOfPlayer;
+	public int getDestination() {
+		return destination;
 	}
-
+	/**
+	 * @param coordinate of the sector selected, each is for a specific player
+	 * @param number, number of coordinate to set
+	 */
+	public void setCoordinate(Coordinate coordinate, int number) {
+		this.coordinate[number] = coordinate;
+	}
+	/**
+	 * * @param typeItemCard type of item card used/draw
+	 */
+	public void setTypeItemCard(ItemCardType typeItemCard) {
+		this.typeItemCard = typeItemCard;
+	}
+	/**
+	 * @param hatchCardColor the hatchCardColor to set
+	 */
+	public void setHatchCardColor(HatchCardColor hatchCardColor) {
+		this.hatchCardColor = hatchCardColor;
+	}
+	/**
+	 * @param type type of sector card draw
+	 */
+	public void setSectorType(SectorCardType type) {
+		this.sectorType = type;
+	}
+	/**
+	 * @param typeOfAction action that the player has done
+	 */
+	public void setTypeOfAction(TypeOfAction typeOfAction) {
+		this.typeOfAction = typeOfAction;
+	}
+	/**
+	 * @param chat the chat to set
+	 */
+	public void setChat(String chat) {
+		this.chat += chat;
+	}
+	/**
+	 * @param gameMessage, message for the game
+	 */
+	public void setGameMessage(String gameMessage) {
+		this.gameMessage += gameMessage;
+	}
+	/**
+	 * @param destination, 1-8 means for a specific player 9 is broadcast
+	 */
+	public void setDestination(int destination) {
+		this.destination = destination;
+	}
 }

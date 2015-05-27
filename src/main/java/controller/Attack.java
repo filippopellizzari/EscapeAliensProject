@@ -1,6 +1,6 @@
 package controller;
 
-import dto.DTOTurn;
+import dto.*;
 import model.*;
 
 /**
@@ -14,9 +14,11 @@ import model.*;
 public class Attack implements TryToDoAnAction {
 
 	private GameStatus gameStatus;
+	private DTOGame dtoGame;
 
 	public Attack(GameStatus gameStatus) {
 		this.gameStatus = gameStatus;
+		this.dtoGame=new DTOGame();
 	}
 
 	/**
@@ -25,24 +27,21 @@ public class Attack implements TryToDoAnAction {
 	 * to not be eliminated;
 	 * it is invoked by control of ItemCards, if the player is human
 	 */
-	public String attackMove() {
+	
+	public DTOGame attackMove() {
+		dtoGame.setDestination(9);
 		String s = "";
 		Sector current = gameStatus.getPlayerPlay().getSector();
-		s += gameStatus.getPlayerPlay() + " : ATTACK in " + current + "\n"; //declares attack
 		for (int i = 0; i < current.getPlayers().size() - 1; i++) {
 			Player attacked = current.getPlayers().get(i);
-			s += attacked + " è sotto attacco!\n";
 			if (isDefendable(attacked)) {
 				s += attacked + " : si salva grazie alla carta Difesa!\n";
 			} else {
-				if (gameStatus.getPlayerPlay().getType()
-						.equals(PlayerType.ALIEN)
+				dtoGame.setCoordinate(attacked.getSector().getCoordinate(),attacked.getNumber());		//segnala la coordinata dei giocatori eliminati
+				if (gameStatus.getPlayerPlay().getType().equals(PlayerType.ALIEN)
 						&& attacked.getType().equals(PlayerType.HUMAN)) {
 					gameStatus.getPlayerPlay().setSpeed(3); // alien feeding
 				}
-				s += attacked
-						+ " è ucciso e viene eliminato dal gioco: la sua identità era "
-						+ attacked.getType() + "\n";
 				attacked.setAlive(false);
 				for (int j = 0; j < attacked.getItem().size(); j++) { // discard cards of eliminated player		
 					gameStatus.getGame().getItemCards()
@@ -50,8 +49,8 @@ public class Attack implements TryToDoAnAction {
 				}
 			}
 		}
-
-		return s;
+		dtoGame.setGameMessage(s);
+		return dtoGame;
 	}
 
 	private boolean isDefendable(Player attacked) {
@@ -67,11 +66,15 @@ public class Attack implements TryToDoAnAction {
 	}
 
 	@Override
-	public String doAction(DTOTurn dtoTurn) {
+	public DTOGame doAction(DTOTurn dtoTurn) {
 		if (!gameStatus.isMove() && gameStatus.isAttack()
 				&& gameStatus.isSolveSectorDuty()) { // attacco alieno
-			return attackMove();
+			attackMove();
 		}
-		else return "Non puoi attaccare in questo momento";
+		else {
+			dtoGame.setGameMessage("Non puoi attaccare in questo momento\n");
+			dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber()); 	//destinatario solo utente azione
+		}
+		return dtoGame;
 	}
 }

@@ -3,8 +3,7 @@ package controller;
 import java.io.IOException;
 
 import creator.GameCreator;
-import dto.DTOSend;
-import dto.DTOTurn;
+import dto.*;
 import model.*;
 
 /**
@@ -49,15 +48,15 @@ public class GameController {
 	 * @return the report of action happen during the move
 	 */
 
-	public String doAnAction(DTOSend dtoSend) {
-		String message = "";
+	public DTOGame doAnAction(DTOSend dtoSend) {
+		DTOGame message = null;
 		ControlDataRiceived control = new ControlDataRiceived(); 
 		if (control.verify(dtoSend, currentNumberPlayer, game) == "OK") {
 			DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),
 					dtoSend.getTypeCard(), dtoSend.getTypeOfAction());
 			message = currentTurn.turn(dtoTurn); // messaggio di come è stata
 													// eseguita l'azione
-			if (message == "Hai finito il turno")
+			if (message.getGameMessage() == "Hai finito il turno")
 				endTurn();
 		}
 		return message;
@@ -86,13 +85,14 @@ public class GameController {
 
 	/**
 	 * This method invoked by an external thread finishes the turn
+	 * @return 
 	 */
 
-	public void finishTurn() {
-		CompleteTurn completeTurn = new CompleteTurn(
-				currentTurn.getGameStatus());
-		String message = completeTurn.completeTurn(); // completa il turno
+	public DTOGame finishTurn() {
+		CompleteTurn completeTurn = new CompleteTurn(currentTurn.getGameStatus());
+		DTOGame message = completeTurn.completeTurn(); // completa il turno
 		endTurn(); // crea il prossimo turno
+		return message;
 	}
 
 	public static void main(String[] args) {
