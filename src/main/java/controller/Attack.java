@@ -68,11 +68,5 @@ public class Attack implements TryToDoAnAction{
 			return attackMove();
 		}
 		else return "Non puoi attaccare in questo momento";
-	}
-	
-	
-
-			
-			
-			
+	}		
 }
