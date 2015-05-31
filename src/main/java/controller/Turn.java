@@ -1,7 +1,6 @@
 package controller;
 
-import dto.DTOGame;
-import dto.DTOTurn;
+import dto.*;
 import model.*;
 
 /**
@@ -30,12 +29,16 @@ public class Turn {
 	 * 
 	 * @param dtoTurn, collection of element used to explain an action
 	 * @return the message with the response about the actions executed
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
 
-	public DTOGame turn(DTOTurn dtoTurn) {
+	public DTOGame turn(DTOTurn dtoTurn) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		DTOGame response=new DTOGame();
+		//Class genericActionClass = Class.forName("controller."+dtoTurn.getTypeOfAction().toString());  da provare 
+		//TryToDoAnAction actionToDo=(TryToDoAnAction) genericActionClass.newInstance();
 		TryToDoAnAction actionToDo;
-
 		switch (dtoTurn.getTypeOfAction()) {
 		case MOVE:
 			actionToDo = new Move(gameStatus);
@@ -44,7 +47,6 @@ public class Turn {
 		case ATTACK:
 			actionToDo = new Attack(gameStatus);
 			response = actionToDo.doAction(dtoTurn);
-
 			break;
 		case USEITEM:
 			actionToDo = new UseItem(gameStatus);

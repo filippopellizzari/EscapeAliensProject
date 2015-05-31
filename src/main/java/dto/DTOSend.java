@@ -1,8 +1,7 @@
 package dto;
 
 import controller.TypeOfAction;
-import model.Coordinate;
-import model.ItemCardType;
+import model.*;
 
 /**
  * 
@@ -35,7 +34,7 @@ public class DTOSend {
 	 */
 
 	public DTOSend(Coordinate coordinate, int numberGame, int numberPlayer,
-			ItemCardType typeCard, TypeOfAction typeOfAction) {
+			ItemCardType typeCard, TypeOfAction typeOfAction, String chat) {
 		this.coordinate = coordinate;
 		this.numberGame = numberGame;
 		this.numberPlayer = numberPlayer;
