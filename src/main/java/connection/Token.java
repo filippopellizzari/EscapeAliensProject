@@ -1,9 +1,22 @@
 package connection;
 
-public class Token {
+import java.io.Serializable;
+
+public class Token implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int number;
 	private TypeOfConnection typeConnection;
 	private String name;
+	
+	
+	public Token(int number, TypeOfConnection typeConnection, String name) {
+		this.number = number;
+		this.typeConnection = typeConnection;
+		this.name = name;
+	}
 	/**
 	 * @return the number
 	 */

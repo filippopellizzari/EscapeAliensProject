@@ -1,23 +1,44 @@
 package socket;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 import connection.*;
 
 public class ClientHandlerChooseGameSocket extends SocketHandler implements Runnable{
-	private ViewForPlayer game1;
-	ThreadCreateGame reference;
+	
+	private GameAvailable gameAvailable;
+	private ViewForPlayer view;
+	private Token token;
+	private final ThreadCreateGame threadForSubscribe;
+	private String buffer;
+	
+	public ClientHandlerChooseGameSocket(Token token) throws UnknownHostException,
+			IOException {
+		super();
+		threadForSubscribe=ThreadCreateGame.getinstance();		//accesso a thread che accetta le richieste
+	}
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		super.run();
-	}
-	public ViewForPlayer getView() {
-		return game1;
-	}
-	public String subscribeGame(String game) {
-		return null;	
-	}
-	public String resultConnection() {
-		return null;		
+		try {
+			TypeOfMap chooseOfThePlayer=(TypeOfMap)inputStream.readObject();
+			threadForSubscribe.subscribe(chooseOfThePlayer,this);
+			while(buffer.isEmpty()) wait();
+			outputStream.writeObject(buffer);
+			outputStream.flush();
+			buffer=null;						//svuota buffer
+			while(buffer.isEmpty()) wait();
+			outputStream.writeObject(buffer);
+			outputStream.flush();
+			while(view==null) wait();
+			outputStream.writeObject(view); 	//manda la view al client
+			outputStream.flush();
+			outputStream.close();
+			inputStream.close();
+			socket.close();
+		} catch (IOException | ClassNotFoundException | InterruptedException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 }

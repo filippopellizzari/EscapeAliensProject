@@ -1,30 +1,28 @@
 package connection;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IdentifyTypeOfConnection {
 	
-	private Identification[] identification;
+	private List<Identification> identificationList;
 
 	public IdentifyTypeOfConnection(Identification[] identification) {
-		super();
-		this.identification = identification;
+		this.identificationList = new ArrayList<Identification>();
 	}
-
+	
 	/**
 	 * @return the identification
 	 */
-	public Identification[] getIdentification() {
-		return identification;
-	}
-
-	/**
-	 * @param identification the identification to set
-	 */
-	public void setIdentification(Identification[] identification) {
-		this.identification = identification;
+	public List<Identification> getIdentification() {
+		return identificationList;
 	}
 	
-	public Identification getPlayerIdentify(int number) {
-		return identification[number];
+	public int getSize() {
+		return identificationList.size();
 	}
- 
+
+	public void remove(Token token) {
+		identificationList.remove(token.getNumber());
+	}
 }
