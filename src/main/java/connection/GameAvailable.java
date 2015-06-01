@@ -1,10 +1,17 @@
 package connection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameAvailable {
+	private static GameAvailable instance = new GameAvailable();
 	private List<TypeOfMap> mapName;
-	private List<ViewForPlayer> mapView;
+	
+
+	public static GameAvailable getinstance() {
+		return instance;
+	}
+	
 	/**
 	 * @return the mapName
 	 */
@@ -14,9 +21,6 @@ public class GameAvailable {
 	/**
 	 * @return the mapView
 	 */
-	public List<ViewForPlayer> getMapView() {
-		return mapView;
-	}
 	
 
 }

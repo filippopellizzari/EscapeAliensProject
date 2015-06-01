@@ -5,13 +5,18 @@ public class Identification {
 	private TypeOfConnection tipeOfConnection;
 	private StatusClient statusClient;
 	private int numberGame;
+	private int numberPlayer;
+	
 	public Identification(int number, TypeOfConnection tipeOfConnection,
-			StatusClient statusClient, int numberGame) {
+			StatusClient statusClient, int numberGame, int numberPlayer) {
+		super();
 		this.number = number;
 		this.tipeOfConnection = tipeOfConnection;
 		this.statusClient = statusClient;
 		this.numberGame = numberGame;
+		this.numberPlayer = numberPlayer;
 	}
+
 	/**
 	 * @return the number
 	 */
@@ -60,7 +65,11 @@ public class Identification {
 	public void setNumberGame(int numberGame) {
 		this.numberGame = numberGame;
 	}
-	
-	
+	/**
+	 * @param numberPlayer the numberPlayer to set
+	 */
+	public void setNumberPlayer(int numberPlayer) {
+		this.numberPlayer = numberPlayer;
+	}
 	
 }

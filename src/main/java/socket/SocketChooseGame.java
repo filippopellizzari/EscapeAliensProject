@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import connection.*;
+import dto.DTOSend;
 
 public class SocketChooseGame extends SocketBase {
 
@@ -18,7 +19,7 @@ public class SocketChooseGame extends SocketBase {
 	}
 
 	@Override
-	public void startClient() throws IOException {
+	public void startClient() throws IOException, ClassNotFoundException {
 		while (true) {
 			outputStream.writeObject(token);	// sends the token to the server
 			outputStream.flush();
@@ -27,8 +28,9 @@ public class SocketChooseGame extends SocketBase {
 			String s=inputStream.readUTF();		//risposta server
 			//notifica alla grafica che il server ha inviato il riscontro
 			if(s=="Preparazione partita in corso...") {
-				Thread subcriber=new Thread(new SubcriberThread());
+				Thread subcriber=new Thread(new SubcriberThread());		//parte il subscribe
 				subcriber.start();
+				Costrutto costrutto=(Costrutto)inputStream.readObject(); //ecco la view
 				s=inputStream.readUTF();		//risposta server
 			}
 			inputStream.close();	//close all the resource

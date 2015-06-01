@@ -7,15 +7,16 @@ import connection.*;
 
 public class ClientHandlerChooseGameSocket extends SocketHandler implements Runnable{
 	
-	private GameAvailable gameAvailable;
-	private Token token;
+	private IdentifyTypeOfConnection identifyTypeOfConnection;
 	private final ThreadCreateGame threadForSubscribe;
 	private String buffer;
+	private Costrutto costrutto;
 	
 	public ClientHandlerChooseGameSocket(Token token) throws UnknownHostException,
 			IOException {
-		super();
+		super(token);
 		threadForSubscribe=ThreadCreateGame.getinstance();		//accesso a thread che accetta le richieste
+		this.identifyTypeOfConnection=IdentifyTypeOfConnection.getinstance();
 	}
 	
 	@Override
@@ -30,10 +31,17 @@ public class ClientHandlerChooseGameSocket extends SocketHandler implements Runn
 			while(buffer.isEmpty()) wait();
 			outputStream.writeObject(buffer);
 			outputStream.flush();
+			buffer=null;
 			if(buffer=="Preparazione partita in corso...") {
-				buffer=null;
+				while(costrutto==null) wait();	//elaboro il costrutto
+				identifyTypeOfConnection.getIdentification().get(token.getNumber()).setNumberGame(costrutto.getNumberGame);	//numero partita
+				identifyTypeOfConnection.getIdentification().get(token.getNumber()).setNumberPlayer(costrutto.getNumberPlayer); //numero giocatore
+				identifyTypeOfConnection.getIdentification().get(token.getNumber()).setStatusClient(StatusClient.INGAME);	//status
+				//crea un nuovo oggetto da mandare al client
+				outputStream.writeObject(costrutto); 	//manda la view al client
+				outputStream.flush();
 				while(buffer==null) wait();
-				outputStream.writeObject(buffer); 	//manda la view al client
+				outputStream.writeObject(buffer); 	//manda la risposta al client
 				outputStream.flush();
 			}
 			outputStream.close();
@@ -49,5 +57,12 @@ public class ClientHandlerChooseGameSocket extends SocketHandler implements Runn
 	 */
 	public void setBuffer(String buffer) {
 		this.buffer = buffer;
+	}
+
+	/**
+	 * @param costrutto the costrutto to set
+	 */
+	public void setCostrutto(Costrutto costrutto) {
+		this.costrutto = costrutto;
 	}
 }

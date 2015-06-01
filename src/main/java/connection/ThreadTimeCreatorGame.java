@@ -1,5 +1,6 @@
 package connection;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,13 +23,18 @@ public class ThreadTimeCreatorGame implements Runnable {
 	}
 	@Override
 	public void run() {
-		startCountDown();
+		try {
+			startCountDown();
+		} catch (NumberFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	private void startCountDown() {
+	private void startCountDown() throws NumberFormatException, IOException {
 		Timer countDown=new Timer();
 		countDown.schedule(startGame(motherThread), 60);
 	}
-	private TimerTask startGame(ThreadCreateGame motherThread2) {
+	private TimerTask startGame(ThreadCreateGame motherThread2) throws NumberFormatException, IOException {
 		DetailsPlayers details=motherThread.getPlayerWithRelativeConnection(idGame);
 		this.rmiClient=details.getRmiPlayers();
 		this.socketClient=details.getSocketPlayers();
@@ -40,8 +46,10 @@ public class ThreadTimeCreatorGame implements Runnable {
 		else {
 			ResultConnection("Preparazione partita in corso...");
 			createGame=new CreateEntireGame();
-			createGame.createGameController(mapName.getMapName(), details.getNumberOfPlayers()+1,
+			int gameNumber=createGame.createGameController(mapName.getMapName(), details.getNumberOfPlayers()+1,
 					mapName.getTypeMap());	//i giocatori sono da 0 a 7 e devi metterne 1 in più
+			Costrutto costrutto=createGame.getCostrutto();
+			SendView(costrutto);
 			ResultConnection("Partita pronta, Turno Giocatore 1");
 		}
 		return null;
@@ -53,5 +61,13 @@ public class ThreadTimeCreatorGame implements Runnable {
 		}
 		for(int i=0;i<rmiClient.size();i++) {		//notifica ai Rmi per la view
 		}
+	}
+	public void SendView(Costrutto costrutto) {
+		for(int i=0;i<socketClient.size();i++) {		//notifica ai socket
+				socketClient.get(i).setCostrutto(costrutto);
+				socketClient.get(i).notify();
+			}
+			for(int i=0;i<rmiClient.size();i++) {		//notifica ai Rmi per la view
+			}
 	}
 }

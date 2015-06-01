@@ -7,8 +7,13 @@ public class IdentifyTypeOfConnection {
 	
 	private List<Identification> identificationList;
 
-	public IdentifyTypeOfConnection(Identification[] identification) {
+	private static IdentifyTypeOfConnection instance = new IdentifyTypeOfConnection();
+	public IdentifyTypeOfConnection() {
 		this.identificationList = new ArrayList<Identification>();
+	}
+	
+	public static IdentifyTypeOfConnection getinstance() {
+		return instance;
 	}
 	
 	/**
