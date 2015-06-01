@@ -26,11 +26,10 @@ public class SocketChooseGame extends SocketBase {
 			outputStream.flush();
 			String s=inputStream.readUTF();		//risposta server
 			//notifica alla grafica che il server ha inviato il riscontro
-			s=inputStream.readUTF();		//risposta server
-			//notifica alla grafica che il server ha inviato il riscontro
-			if(s=="Caricamento Gioco") {
+			if(s=="Preparazione partita in corso...") {
 				Thread subcriber=new Thread(new SubcriberThread());
 				subcriber.start();
+				s=inputStream.readUTF();		//risposta server
 			}
 			inputStream.close();	//close all the resource
 			outputStream.close();

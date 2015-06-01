@@ -4,25 +4,35 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 import connection.Token;
+import dto.*;
 
 public class SocketGame extends SocketBase implements Runnable{
-
-	public SocketGame(int port, String host, Token token) throws UnknownHostException,
+	
+	DTOSend dtoToSend;
+	DTOGame dtoGame;
+	public SocketGame(int port, String host, Token token, DTOSend dtoToSend) throws UnknownHostException,
 			IOException {
 		super(port, host, token);
-		// TODO Auto-generated constructor stub
+		this.dtoToSend=dtoToSend;
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		try {
+			startClient();
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
 	@Override
-	public void startClient() {
-		// TODO Auto-generated method stub
-		
+	public void startClient() throws IOException, ClassNotFoundException {
+		outputStream.writeObject(token);
+		outputStream.flush();
+		outputStream.writeObject(dtoToSend);
+		outputStream.flush();
+		this.dtoGame=(DTOGame)inputStream.readObject();
 	}
 
 }

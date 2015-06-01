@@ -8,7 +8,6 @@ import connection.*;
 public class ClientHandlerChooseGameSocket extends SocketHandler implements Runnable{
 	
 	private GameAvailable gameAvailable;
-	private ViewForPlayer view;
 	private Token token;
 	private final ThreadCreateGame threadForSubscribe;
 	private String buffer;
@@ -31,14 +30,24 @@ public class ClientHandlerChooseGameSocket extends SocketHandler implements Runn
 			while(buffer.isEmpty()) wait();
 			outputStream.writeObject(buffer);
 			outputStream.flush();
-			while(view==null) wait();
-			outputStream.writeObject(view); 	//manda la view al client
-			outputStream.flush();
+			if(buffer=="Preparazione partita in corso...") {
+				buffer=null;
+				while(buffer==null) wait();
+				outputStream.writeObject(buffer); 	//manda la view al client
+				outputStream.flush();
+			}
 			outputStream.close();
 			inputStream.close();
 			socket.close();
 		} catch (IOException | ClassNotFoundException | InterruptedException e) {
 			System.err.println(e.getMessage());
 		}
+	}
+
+	/**
+	 * @param buffer the buffer to set
+	 */
+	public void setBuffer(String buffer) {
+		this.buffer = buffer;
 	}
 }

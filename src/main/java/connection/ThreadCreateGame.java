@@ -9,17 +9,13 @@ public class ThreadCreateGame {
 	Integer Fermi=0;
 	Integer Galilei=1;
 	Integer Galvani=2;
-	List<Thread> listOfGameWaitForConnection;
-	List<Integer> listOfPlayersWaitForConnection;
-	List<Integer> gameId;
+	List<DetailsPlayers> playerWithRelativeConnection;
 	int counter=0;
 	
 	private static ThreadCreateGame instance = new ThreadCreateGame();
 	
 	private ThreadCreateGame() {
-		listOfGameWaitForConnection=new ArrayList<Thread>();
-		listOfPlayersWaitForConnection=new ArrayList<Integer>(); 
-		gameId=new ArrayList<Integer>();
+		playerWithRelativeConnection=new ArrayList<DetailsPlayers>();
 	}
 	
 	public static ThreadCreateGame getinstance() {
@@ -46,48 +42,63 @@ public class ThreadCreateGame {
 	
 	private synchronized void subscribing(Integer numberOfGameToSubscribe, TypeOfMap typeOfMapChoose,
 			ClientHandlerChooseGameSocket clientHandlerChooseGameSocket) {
-		if(listOfGameWaitForConnection.size()<=numberOfGameToSubscribe) {
-			listOfGameWaitForConnection.add(new Thread(new ThreadTimeCreatorGame(this,typeOfMapChoose,
-					clientHandlerChooseGameSocket,counter+1)));	//crea un nuovo thread
-			listOfGameWaitForConnection.get(numberOfGameToSubscribe).start();		//fallo partire
-			listOfPlayersWaitForConnection.set(numberOfGameToSubscribe, 1);	//nuova iscrizione con 1 giocatore
+		if(playerWithRelativeConnection.size()<=numberOfGameToSubscribe) {
+			numberOfGameToSubscribe=playerWithRelativeConnection.size();	//ora punta alla fine della lista per il nuovo gioco che sarà creato
+			Thread newGame=new Thread(new ThreadTimeCreatorGame(this,typeOfMapChoose,counter+1));	//crea un nuovo thread
+			newGame.start();		//fallo partire
+			playerWithRelativeConnection.add(new DetailsPlayers());
+			playerWithRelativeConnection.get(numberOfGameToSubscribe).setNumberOfPlayers();
 			counter++;
-			gameId.add(counter);
-			numberOfGameToSubscribe=listOfGameWaitForConnection.size()-1;
+			playerWithRelativeConnection.get(numberOfGameToSubscribe).setGameId(counter);
+			playerWithRelativeConnection.get(numberOfGameToSubscribe).setSocketPlayers(clientHandlerChooseGameSocket);
+			numberOfGameToSubscribe=playerWithRelativeConnection.size()-1;
 		}
 		else {
-			int numberBefore=listOfPlayersWaitForConnection.get(numberOfGameToSubscribe);	//numero prima di giocatori
-			listOfPlayersWaitForConnection.set(numberOfGameToSubscribe, numberBefore+1);
-			if(listOfPlayersWaitForConnection.get(numberOfGameToSubscribe)==8) {
-				numberOfGameToSubscribe=listOfGameWaitForConnection.size();		//new number
-				removeThreadToCreateGame(gameId.get(numberOfGameToSubscribe));
+
+			playerWithRelativeConnection.get(numberOfGameToSubscribe).setNumberOfPlayers();	//aggiungi giocatore
+			playerWithRelativeConnection.get(numberOfGameToSubscribe).setSocketPlayers(clientHandlerChooseGameSocket);
+			if(playerWithRelativeConnection.get(numberOfGameToSubscribe).getNumberOfPlayers()==7) {
+				numberOfGameToSubscribe=playerWithRelativeConnection.size();		//new number
+				removeThreadToCreateGame(playerWithRelativeConnection.get(numberOfGameToSubscribe).getGameId());
 			}
 		}
 	}
-	public synchronized void  removeThreadToCreateGame(Integer gameIdentification) {
+	public synchronized void  removeThreadToCreateGame(int gameIdentification) {
 		boolean condizione=false;
 		int count=0;
 		do {
-			if(gameId.get(count)==gameIdentification) 
+			if(playerWithRelativeConnection.get(count).getGameId()==gameIdentification) 
 				condizione=true;
 			else count++;
 		}while(condizione==false);
-		if(count==Fermi) Fermi=listOfGameWaitForConnection.size();
+		if(count==Fermi) Fermi=playerWithRelativeConnection.size();
 		else {
 			if(Fermi==0) Fermi=0;
 			else Fermi--;
 		}
-		if(count==Galilei) Galilei=listOfGameWaitForConnection.size();
+		if(count==Galilei) Galilei=playerWithRelativeConnection.size();
 		else {
 			if(Galilei==0) Galilei=0;
 			else Galilei--;
 		}
-		if(count==Galvani) Galvani=listOfGameWaitForConnection.size();
+		if(count==Galvani) Galvani=playerWithRelativeConnection.size();
 		else {
 			if(Galvani==0) Galvani=0;
 			else Galvani--;
 		}
-		listOfGameWaitForConnection.remove(count);	//cancella il gioco pronto
-		listOfPlayersWaitForConnection.remove(count);
+		playerWithRelativeConnection.remove(count);	//cancella il gioco pronto
 	}
+
+	/**
+	 * @return the playerWithRelativeConnection
+	 */
+	public DetailsPlayers getPlayerWithRelativeConnection(int gameId) {
+		for(int i=0;i<playerWithRelativeConnection.size();i++) {
+			if(playerWithRelativeConnection.get(i).getGameId()==gameId)
+				return playerWithRelativeConnection.get(i);
+		}
+		return null;
+	}
+	
+	
 }
