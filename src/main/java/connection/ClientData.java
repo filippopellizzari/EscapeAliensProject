@@ -18,7 +18,7 @@ public class ClientData {
 	private ViewForPlayer view;
 	private DTOGame dtoGame;
 	public ClientData(String name, TypeOfConnection typeConnection) {
-		this.token=new Token(0,typeConnection,name);
+		this.token=new Token(-1,typeConnection,name);
 	}
 	private void clickOnConnection() throws UnknownHostException, IOException, ClassNotFoundException{
 		if(token.getTypeConnection()==TypeOfConnection.SOCKET) {

@@ -24,6 +24,7 @@ public class ClientHandlerChooseGameSocket extends SocketHandler implements Runn
 		try {
 			TypeOfMap chooseOfThePlayer=(TypeOfMap)inputStream.readObject();
 			threadForSubscribe.subscribe(chooseOfThePlayer,this);
+			identifyTypeOfConnection.getIdentification(token.getNumber()).setStatusClient(StatusClient.WAITINGFORGAME);
 			while(buffer.isEmpty()) wait();
 			outputStream.writeObject(buffer);
 			outputStream.flush();
@@ -34,9 +35,9 @@ public class ClientHandlerChooseGameSocket extends SocketHandler implements Runn
 			buffer=null;
 			if(buffer=="Preparazione partita in corso...") {
 				while(costrutto==null) wait();	//elaboro il costrutto
-				identifyTypeOfConnection.getIdentification().get(token.getNumber()).setNumberGame(costrutto.getNumberGame);	//numero partita
-				identifyTypeOfConnection.getIdentification().get(token.getNumber()).setNumberPlayer(costrutto.getNumberPlayer); //numero giocatore
-				identifyTypeOfConnection.getIdentification().get(token.getNumber()).setStatusClient(StatusClient.INGAME);	//status
+				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(costrutto.getNumberGame);	//numero partita
+				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(costrutto.getNumberPlayer); //numero giocatore
+				identifyTypeOfConnection.getIdentification(token.getNumber()).setStatusClient(StatusClient.INGAME);		//status
 				//crea un nuovo oggetto da mandare al client
 				outputStream.writeObject(costrutto); 	//manda la view al client
 				outputStream.flush();

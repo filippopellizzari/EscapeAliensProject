@@ -5,6 +5,10 @@ import connection.*;
 public class ClientHandlerChooseGameRmi extends RmiHandler implements Runnable, ConnectionResult, GetView{
 
 	private ThreadCreateGame instance;
+	public ClientHandlerChooseGameRmi(Token token) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String subscribeGame(String gameMap) {
 		// TODO Auto-generated method stub

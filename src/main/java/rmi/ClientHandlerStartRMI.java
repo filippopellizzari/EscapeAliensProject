@@ -7,6 +7,9 @@ import connection.*;
 public class ClientHandlerStartRMI extends RmiHandler implements Runnable, GetGameList, GetToken{
 	private IdentifyTypeOfConnection tokens;
 	private List<TypeOfMap> gameMaps;
+	public ClientHandlerStartRMI(Token token) {
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub

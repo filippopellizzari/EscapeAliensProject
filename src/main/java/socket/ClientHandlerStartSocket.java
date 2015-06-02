@@ -9,11 +9,13 @@ import connection.*;
 public class ClientHandlerStartSocket extends SocketHandler implements Runnable{
 	
 	private IdentifyTypeOfConnection identifyConnection;
+	private GameAvailable gameAvailable;
 	private List<TypeOfMap> mapName;
 	
 	public ClientHandlerStartSocket(Token token) throws UnknownHostException, IOException {
 		super(token);
-		GameAvailable gameAvailable=GameAvailable.getinstance();
+		gameAvailable=GameAvailable.getinstance();
+		identifyConnection=IdentifyTypeOfConnection.getinstance();
 		mapName=gameAvailable.getMapName();		//get the type of map
 	}
 	
@@ -21,13 +23,22 @@ public class ClientHandlerStartSocket extends SocketHandler implements Runnable{
 	public void run() {
 		try {
 			token=(Token)inputStream.readObject();
-			Identification identification=new Identification(identifyConnection.getSize(),token.getTypeConnection(),StatusClient.CHOOSEGAME,0,0);
-			token=new Token(identification.getNumber(),identification.getTipeOfConnection(),token.getName());
-			outputStream.writeObject(token);		//send the new token
-			for(int i=0;i<mapName.size();i++) {	//send the maps
-				outputStream.writeObject(mapName.get(i));
+			boolean numberFound=false;
+			int i=0;
+			Identification identificationToBeWrite;
+			do{
+				identificationToBeWrite=identifyConnection.getIdentification(i);
+				if(identificationToBeWrite==null) {
+					identificationToBeWrite=new Identification(i,token.getTypeConnection(),StatusClient.LOADINGMAPS,0,0);
+					token=new Token(i,identificationToBeWrite.getTipeOfConnection(),token.getName());
+				}
+				outputStream.writeObject(token);		//send the new token
+			}while(numberFound==false&&i<10000);
+			for(int j=0;j<mapName.size();j++) {		//send the maps
+				outputStream.writeObject(mapName.get(j));
 				outputStream.flush();
 			}
+			identifyConnection.getIdentification(token.getNumber()).setStatusClient(StatusClient.CHOOSEGAME);
 			outputStream.writeObject(null);		//finita la send
 			outputStream.flush();
 			outputStream.close();

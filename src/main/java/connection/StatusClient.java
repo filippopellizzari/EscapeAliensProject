@@ -1,5 +1,5 @@
 package connection;
 
 public enum StatusClient {
-	CHOOSEGAME, INGAME
+	LOADINGMAPS, CHOOSEGAME, WAITINGFORGAME, INGAME
 }

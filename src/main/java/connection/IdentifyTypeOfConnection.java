@@ -1,15 +1,12 @@
 package connection;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class IdentifyTypeOfConnection {
 	
-	private List<Identification> identificationList;
+	private Identification[] identificationList;
 
 	private static IdentifyTypeOfConnection instance = new IdentifyTypeOfConnection();
 	public IdentifyTypeOfConnection() {
-		this.identificationList = new ArrayList<Identification>();
+		this.identificationList = new Identification[10000];
 	}
 	
 	public static IdentifyTypeOfConnection getinstance() {
@@ -19,15 +16,15 @@ public class IdentifyTypeOfConnection {
 	/**
 	 * @return the identification
 	 */
-	public List<Identification> getIdentification() {
-		return identificationList;
+	public Identification getIdentification(int number) {
+		return identificationList[number];
 	}
 	
 	public int getSize() {
-		return identificationList.size();
+		return identificationList.length;
 	}
 
 	public void remove(Token token) {
-		identificationList.remove(token.getNumber());
+		identificationList[token.getNumber()]=null;
 	}
 }
