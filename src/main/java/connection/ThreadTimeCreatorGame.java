@@ -46,7 +46,7 @@ public class ThreadTimeCreatorGame implements Runnable {
 			int gameNumber=createGame.createGameController(mapName.getMapName(), details.getNumberOfPlayers()+1,
 					mapName.getTypeMap());	//i giocatori sono da 0 a 7 e devi metterne 1 in più
 			details.setGameId(gameNumber);  //ora ha il numero di gioco
-			if(details.getNumberOfPlayers()!=-1) wait();		//aspetto che tutti i giocatori abbiano recuperato il loro numero
+			while(details.getNumberOfPlayers()!=-1) this.wait();		//aspetto che tutti i giocatori abbiano recuperato il loro numero
 			details.setBuffer("Partita pronta, Turno Giocatore 1");
 		}
 		return null;
