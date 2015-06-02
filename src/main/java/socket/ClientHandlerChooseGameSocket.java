@@ -26,9 +26,7 @@ public class ClientHandlerChooseGameSocket extends SocketHandler implements Runn
 			outputStream.writeObject("Iscrizione Ricevuta");
 			outputStream.flush();	//svuota buffer
 			getBuffer(detailsYourGame);
-			while(detailsYourGame.getBuffer().isEmpty()) this.wait();
-			outputStream.writeObject(detailsYourGame.getBuffer());
-			outputStream.flush();
+			while(detailsYourGame.getBuffer()!="Iscrizione Ricevuta") putInWait();
 			if(detailsYourGame.getBuffer()=="Preparazione partita in corso...") {
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(detailsYourGame.getGameId());	//numero partita
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setStatusClient(StatusClient.INGAME);		//status
@@ -36,7 +34,7 @@ public class ClientHandlerChooseGameSocket extends SocketHandler implements Runn
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(myNumber); //numero giocatore
 				outputStream.writeObject(detailsYourGame.getView(myNumber)); 	//manda la view al client
 				outputStream.flush();
-				while(detailsYourGame.getBuffer().isEmpty()) this.wait();
+				while(detailsYourGame.getBuffer().isEmpty()) putInWait();
 				outputStream.writeObject(detailsYourGame.getBuffer()); 	//manda la risposta al client
 				outputStream.flush();
 			}
@@ -48,7 +46,12 @@ public class ClientHandlerChooseGameSocket extends SocketHandler implements Runn
 		}
 	}
 
+	private synchronized void putInWait() throws InterruptedException {
+		this.wait();
+	}
+
 	private void getBuffer(DetailsPlayers detailsYourGame) throws InterruptedException, IOException {
-		
+		outputStream.writeObject(detailsYourGame.getBuffer());
+		outputStream.flush();
 	}
 }

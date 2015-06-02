@@ -35,17 +35,19 @@ public class SocketGame extends SocketBase implements Runnable{
 		outputStream.flush();
 		outputStream.writeObject(dtoToSend);
 		outputStream.flush();
-		while(dtoGame==null)
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			while(dtoGame==null) putInLock();
+		} catch (InterruptedException e) {
+			System.err.println(e.getMessage());
+		}
 		this.dtoGame=(DTOGame)inputStream.readObject();
 		inputStream.close();	//close all the resource
 		outputStream.close();
 		socket.close();
+	}
+
+	private void putInLock() throws InterruptedException {
+		this.wait();
 	}
 
 }
