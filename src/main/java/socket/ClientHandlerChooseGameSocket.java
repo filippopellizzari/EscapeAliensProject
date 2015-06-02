@@ -8,14 +8,12 @@ import connection.*;
 public class ClientHandlerChooseGameSocket extends SocketHandler implements Runnable{
 	
 	private IdentifyTypeOfConnection identifyTypeOfConnection;
-	private final ThreadCreateGame threadForSubscribe;
-	private String buffer;
-	private Costrutto costrutto;
+	private final DatabaseCreateGame dataBaseForSubscribe;
 	
 	public ClientHandlerChooseGameSocket(Token token) throws UnknownHostException,
 			IOException {
 		super(token);
-		threadForSubscribe=ThreadCreateGame.getinstance();		//accesso a thread che accetta le richieste
+		dataBaseForSubscribe=DatabaseCreateGame.getinstance();		//accesso a thread che accetta le richieste
 		this.identifyTypeOfConnection=IdentifyTypeOfConnection.getinstance();
 	}
 	
@@ -23,26 +21,22 @@ public class ClientHandlerChooseGameSocket extends SocketHandler implements Runn
 	public void run() {
 		try {
 			TypeOfMap chooseOfThePlayer=(TypeOfMap)inputStream.readObject();
-			threadForSubscribe.subscribe(chooseOfThePlayer,this);
-			identifyTypeOfConnection.getIdentification(token.getNumber()).setStatusClient(StatusClient.WAITINGFORGAME);
-			while(buffer.isEmpty()) wait();
-			outputStream.writeObject(buffer);
+			DetailsPlayers detailsYourGame=dataBaseForSubscribe.subscribe(chooseOfThePlayer);		//hai i dettagli della partita in corso
+			identifyTypeOfConnection.getIdentification(token.getNumber()).setStatusClient(StatusClient.WAITINGFORGAME);		//mi sono iscritto e cambio stato
+			outputStream.writeObject("Iscrizione Ricevuta");
+			outputStream.flush();	//svuota buffer
+			if(detailsYourGame.getBuffer().isEmpty()) wait();
+			outputStream.writeObject(detailsYourGame.getBuffer());
 			outputStream.flush();
-			buffer=null;						//svuota buffer
-			while(buffer.isEmpty()) wait();
-			outputStream.writeObject(buffer);
-			outputStream.flush();
-			buffer=null;
-			if(buffer=="Preparazione partita in corso...") {
-				while(costrutto==null) wait();	//elaboro il costrutto
-				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(costrutto.getNumberGame);	//numero partita
-				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(costrutto.getNumberPlayer); //numero giocatore
+			if(detailsYourGame.getBuffer()=="Preparazione partita in corso...") {
+				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(detailsYourGame.getGameId());	//numero partita
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setStatusClient(StatusClient.INGAME);		//status
-				//crea un nuovo oggetto da mandare al client
-				outputStream.writeObject(costrutto); 	//manda la view al client
+				int myNumber=detailsYourGame.takeNumberOfPlayer();
+				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(myNumber); //numero giocatore
+				outputStream.writeObject(detailsYourGame.getView(myNumber)); 	//manda la view al client
 				outputStream.flush();
-				while(buffer==null) wait();
-				outputStream.writeObject(buffer); 	//manda la risposta al client
+				if(detailsYourGame.getBuffer().isEmpty()) wait();
+				outputStream.writeObject(detailsYourGame.getBuffer()); 	//manda la risposta al client
 				outputStream.flush();
 			}
 			outputStream.close();
@@ -51,19 +45,5 @@ public class ClientHandlerChooseGameSocket extends SocketHandler implements Runn
 		} catch (IOException | ClassNotFoundException | InterruptedException e) {
 			System.err.println(e.getMessage());
 		}
-	}
-
-	/**
-	 * @param buffer the buffer to set
-	 */
-	public void setBuffer(String buffer) {
-		this.buffer = buffer;
-	}
-
-	/**
-	 * @param costrutto the costrutto to set
-	 */
-	public void setCostrutto(Costrutto costrutto) {
-		this.costrutto = costrutto;
 	}
 }

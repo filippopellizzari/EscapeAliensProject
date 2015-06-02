@@ -10,13 +10,11 @@ import socket.ClientHandlerChooseGameSocket;
 
 public class ThreadTimeCreatorGame implements Runnable {
 	private CreateEntireGame createGame;
-	private List<ClientHandlerChooseGameRmi> rmiClient;
-	private List<ClientHandlerChooseGameSocket> socketClient;
-	private final ThreadCreateGame motherThread;
+	private final DatabaseCreateGame motherThread;
 	private final int idGame;
 	private TypeOfMap mapName;
 	
-	public ThreadTimeCreatorGame(ThreadCreateGame threadCreateGame, TypeOfMap mapName,int idGame) {
+	public ThreadTimeCreatorGame(DatabaseCreateGame threadCreateGame, TypeOfMap mapName,int idGame) {
 		this.motherThread=threadCreateGame;
 		this.mapName=mapName;
 		this.idGame=idGame;
@@ -25,49 +23,32 @@ public class ThreadTimeCreatorGame implements Runnable {
 	public void run() {
 		try {
 			startCountDown();
-		} catch (NumberFormatException | IOException e) {
+		} catch (NumberFormatException | IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	private void startCountDown() throws NumberFormatException, IOException {
+	private void startCountDown() throws NumberFormatException, IOException, InterruptedException {
 		Timer countDown=new Timer();
 		countDown.schedule(startGame(motherThread), 60);
 	}
-	private TimerTask startGame(ThreadCreateGame motherThread2) throws NumberFormatException, IOException {
-		DetailsPlayers details=motherThread.getPlayerWithRelativeConnection(idGame);
-		this.rmiClient=details.getRmiPlayers();
-		this.socketClient=details.getSocketPlayers();
+	private TimerTask startGame(DatabaseCreateGame motherThread2) throws NumberFormatException, IOException, InterruptedException {
+		DetailsPlayers details=motherThread.getPlayerWithRelativeConnection(idGame);		//dettagli partita
 		motherThread2.removeThreadToCreateGame(idGame);   		//rimuovi il thread se è scaduto il tempo
-		if(rmiClient.size()+socketClient.size()==1) {
-			ResultConnection("Tempo Scaduto e 1 solo giocatore, partita annullata");
+		if(details.getNumberOfPlayers()==0) {
+			details.setBuffer("Tempo Scaduto e 1 solo giocatore, partita annullata");
 			return null;
 		}
 		else {
-			ResultConnection("Preparazione partita in corso...");
+			details.setBuffer("Preparazione partita in corso...");
 			createGame=new CreateEntireGame();
+			details.setView(createGame.getViews()); 		//metto le view accessibili ai players
 			int gameNumber=createGame.createGameController(mapName.getMapName(), details.getNumberOfPlayers()+1,
 					mapName.getTypeMap());	//i giocatori sono da 0 a 7 e devi metterne 1 in più
-			Costrutto costrutto=createGame.getCostrutto();
-			SendView(costrutto);
-			ResultConnection("Partita pronta, Turno Giocatore 1");
+			details.setGameId(gameNumber);  //ora ha il numero di gioco
+			if(details.getNumberOfPlayers()!=-1) wait();		//aspetto che tutti i giocatori abbiano recuperato il loro numero
+			details.setBuffer("Partita pronta, Turno Giocatore 1");
 		}
 		return null;
-	}
-	public void ResultConnection(String s) {
-		for(int i=0;i<socketClient.size();i++) {		//notifica ai socket
-			socketClient.get(i).setBuffer(s);
-			socketClient.get(i).notify();
-		}
-		for(int i=0;i<rmiClient.size();i++) {		//notifica ai Rmi per la view
-		}
-	}
-	public void SendView(Costrutto costrutto) {
-		for(int i=0;i<socketClient.size();i++) {		//notifica ai socket
-				socketClient.get(i).setCostrutto(costrutto);
-				socketClient.get(i).notify();
-			}
-			for(int i=0;i<rmiClient.size();i++) {		//notifica ai Rmi per la view
-			}
 	}
 }

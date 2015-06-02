@@ -30,7 +30,7 @@ public class SocketChooseGame extends SocketBase {
 			if(s=="Preparazione partita in corso...") {
 				Thread subcriber=new Thread(new SubcriberThread());		//parte il subscribe
 				subcriber.start();
-				Costrutto costrutto=(Costrutto)inputStream.readObject(); //ecco la view
+				ViewForPlayer costrutto=(ViewForPlayer)inputStream.readObject(); //ecco la view
 				s=inputStream.readUTF();		//risposta server
 			}
 			inputStream.close();	//close all the resource

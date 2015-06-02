@@ -6,20 +6,18 @@ import controller.GameController;
 
 public class CreateEntireGame {
 	
-	ListOfStartedGame listOfStartedGame;
-	GameAvailable gameAvailable;
-	Costrutto costrutto;
+	private ListOfStartedGame listOfStartedGame;
+	private ViewForPlayer[] views;
 	
 	public CreateEntireGame() {
 		this.listOfStartedGame = ListOfStartedGame.getinstance();
-		this.gameAvailable=GameAvailable.getinstance();
 	}
 	
 	public int createGameController(String mapName, int numberOfPlayers, String typeOfMap) throws NumberFormatException, IOException{
 		GameController gameController=new GameController(mapName, numberOfPlayers, typeOfMap);
+		views=gameController.getViews();
 		GameDescription newGameReadyToBeRegistred=new GameDescription(mapName, numberOfPlayers, gameController);
 		int gameNumber=listOfStartedGame.addGameDescription(newGameReadyToBeRegistred);
-		this.costrutto=new Costrutto(gameNumber);		//da modificare
 		createThreadTemporize(gameController);
 		return gameNumber;
 	}
@@ -27,7 +25,11 @@ public class CreateEntireGame {
 		Thread temporize=new Thread(new TemporizeThread(gameController));
 		temporize.start();
 	}
-	public Costrutto getCostrutto() {
-		return costrutto;
+
+	/**
+	 * @return the views
+	 */
+	public ViewForPlayer[] getViews() {
+		return views;
 	}
 }

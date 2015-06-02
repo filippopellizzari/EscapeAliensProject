@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import connection.ViewForPlayer;
 import creator.GameCreator;
 import dto.*;
 import model.*;
@@ -100,6 +101,11 @@ public class GameController {
 		DTOGame message = completeTurn.completeTurn(); // completa il turno
 		endTurn(message); // crea il prossimo turno
 		return message;
+	}
+	
+	public ViewForPlayer[] getViews() {
+		return null;
+		
 	}
 
 	public static void main(String[] args) {

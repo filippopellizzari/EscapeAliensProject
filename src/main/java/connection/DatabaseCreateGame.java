@@ -5,43 +5,33 @@ import java.util.List;
 
 import socket.ClientHandlerChooseGameSocket;
 
-public class ThreadCreateGame {
+public class DatabaseCreateGame {
 	Integer Fermi=0;
 	Integer Galilei=1;
 	Integer Galvani=2;
 	List<DetailsPlayers> playerWithRelativeConnection;
 	int counter=0;
 	
-	private static ThreadCreateGame instance = new ThreadCreateGame();
+	private static DatabaseCreateGame instance = new DatabaseCreateGame();
 	
-	private ThreadCreateGame() {
+	private DatabaseCreateGame() {
 		playerWithRelativeConnection=new ArrayList<DetailsPlayers>();
 	}
 	
-	public static ThreadCreateGame getinstance() {
+	public static DatabaseCreateGame getinstance() {
 		return instance;
 	}
 	
-	public synchronized String subscribe(TypeOfMap typeOfMapChoose, ClientHandlerChooseGameSocket clientHandlerChooseGameSocket) {
-		int numberOfGameToSubscribe;
+	public synchronized DetailsPlayers subscribe(TypeOfMap typeOfMapChoose) {
 		switch(typeOfMapChoose.getMapName()) {
-			case "Fermi" : numberOfGameToSubscribe=Fermi;
-			subscribing(Fermi,typeOfMapChoose,clientHandlerChooseGameSocket);
-			break;
-			case "Galilei" : numberOfGameToSubscribe=Galilei;
-			subscribing(Galilei,typeOfMapChoose,clientHandlerChooseGameSocket);
-			break;
-			case "Galvani" : numberOfGameToSubscribe=Galvani;
-			subscribing(Galvani,typeOfMapChoose,clientHandlerChooseGameSocket);
-			break;
-			default : numberOfGameToSubscribe=0;
-			break;
+			case "Fermi" :  return subscribing(Fermi,typeOfMapChoose);
+			case "Galilei" : return subscribing(Galilei,typeOfMapChoose);
+			case "Galvani" : return subscribing(Galvani,typeOfMapChoose);
+			default : return subscribing(Galilei,typeOfMapChoose);
 		}
-		return "Iscrizione Ricevuta";
 	}
 	
-	private synchronized void subscribing(Integer numberOfGameToSubscribe, TypeOfMap typeOfMapChoose,
-			ClientHandlerChooseGameSocket clientHandlerChooseGameSocket) {
+	private synchronized DetailsPlayers subscribing(Integer numberOfGameToSubscribe, TypeOfMap typeOfMapChoose) {
 		if(playerWithRelativeConnection.size()<=numberOfGameToSubscribe) {
 			numberOfGameToSubscribe=playerWithRelativeConnection.size();	//ora punta alla fine della lista per il nuovo gioco che sarà creato
 			Thread newGame=new Thread(new ThreadTimeCreatorGame(this,typeOfMapChoose,counter+1));	//crea un nuovo thread
@@ -50,18 +40,16 @@ public class ThreadCreateGame {
 			playerWithRelativeConnection.get(numberOfGameToSubscribe).setNumberOfPlayers();
 			counter++;
 			playerWithRelativeConnection.get(numberOfGameToSubscribe).setGameId(counter);
-			playerWithRelativeConnection.get(numberOfGameToSubscribe).setSocketPlayers(clientHandlerChooseGameSocket);
 			numberOfGameToSubscribe=playerWithRelativeConnection.size()-1;
 		}
 		else {
-
 			playerWithRelativeConnection.get(numberOfGameToSubscribe).setNumberOfPlayers();	//aggiungi giocatore
-			playerWithRelativeConnection.get(numberOfGameToSubscribe).setSocketPlayers(clientHandlerChooseGameSocket);
 			if(playerWithRelativeConnection.get(numberOfGameToSubscribe).getNumberOfPlayers()==7) {
 				numberOfGameToSubscribe=playerWithRelativeConnection.size();		//new number
 				removeThreadToCreateGame(playerWithRelativeConnection.get(numberOfGameToSubscribe).getGameId());
 			}
 		}
+		return playerWithRelativeConnection.get(numberOfGameToSubscribe);	//ritorna riferimento a partita in corso
 	}
 	public synchronized void  removeThreadToCreateGame(int gameIdentification) {
 		boolean condizione=false;
@@ -99,6 +87,4 @@ public class ThreadCreateGame {
 		}
 		return null;
 	}
-	
-	
 }

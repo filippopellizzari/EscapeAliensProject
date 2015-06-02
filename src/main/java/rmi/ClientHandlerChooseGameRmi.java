@@ -4,7 +4,7 @@ import connection.*;
 
 public class ClientHandlerChooseGameRmi extends RmiHandler implements Runnable, ConnectionResult, GetView{
 
-	private ThreadCreateGame instance;
+	private DatabaseCreateGame instance;
 	public ClientHandlerChooseGameRmi(Token token) {
 		// TODO Auto-generated constructor stub
 	}
