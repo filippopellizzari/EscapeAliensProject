@@ -6,10 +6,12 @@ public class DetailsPlayers {
 	private ViewForPlayer[] view;
 	private TypeOfMap mapType;
 	private int gameId;
+	private StatusCreation status;
 	
 	public DetailsPlayers(TypeOfMap typeOfMapChoose) {
 		this.mapType=typeOfMapChoose;
 		this.numberOfPlayers = 0;
+		this.status=StatusCreation.OPEN;
 		
 	}
 	/**
@@ -28,13 +30,17 @@ public class DetailsPlayers {
 	public synchronized int takeNumberOfPlayer() {
 		int number=numberOfPlayers;
 		numberOfPlayers--;
-		if(numberOfPlayers==-1) notifyAll();	//notifica che tutti i giocatori hanno preso il loro numero
+		if(numberOfPlayers==-1) 
+			this.notifyAll();	//notifica che tutti i giocatori hanno preso il loro numero
 		return number;
 	}
 	/**
 	 * @return the buffer
+	 * @throws InterruptedException 
 	 */
-	public String getBuffer() {
+	public synchronized String getBuffer() throws InterruptedException {	//se è vuoto fermati
+		while(buffer==null) 
+			this.wait();
 		return buffer;
 	}
 	/**
@@ -43,7 +49,7 @@ public class DetailsPlayers {
 	public synchronized void setBuffer(String buffer) {		//notifica a tutti i thread in attesa di messaggio
 		this.buffer=null;
 		this.buffer = buffer;
-		notifyAll();
+		this.notifyAll();
 	}
 	/**
 	 * @return the view
@@ -75,6 +81,21 @@ public class DetailsPlayers {
 	public TypeOfMap getMapType() {
 		return mapType;
 	}
-	
-	
+	/**
+	 * @return the status
+	 */
+	public StatusCreation getStatus() {
+		return status;
+	}
+	/**
+	 * @param status the status to set
+	 */
+	public synchronized void setStatus(StatusCreation status) {
+		this.status = status;
+		this.notifyAll();
+	}
+	public synchronized void deleteGame() throws InterruptedException {		//mette in wait il temporize che vuole eliminare la partita
+		while(status==StatusCreation.CLOSED) 
+			this.wait();
+	}	
 }

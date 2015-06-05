@@ -19,31 +19,34 @@ public class DatabaseCreateGame {
 	
 	public synchronized DetailsPlayers subscribe(TypeOfMap typeOfMapChoose) {
 		for(int i=0;i<playerWithRelativeConnection.size();i++) {
-			if(playerWithRelativeConnection.get(i).getMapType()==typeOfMapChoose) {	//iscrizione già in corso
+			if(playerWithRelativeConnection.get(i).getMapType()==typeOfMapChoose 
+					&& playerWithRelativeConnection.get(i).getStatus()==StatusCreation.OPEN) {	//iscrizione già in corso
+				System.out.println("aggiunto giocatore a una partita");
 				playerWithRelativeConnection.get(i).setNumberOfPlayers();
-				DetailsPlayers gameToBeCreated=playerWithRelativeConnection.get(i);
-				if(playerWithRelativeConnection.get(i).getNumberOfPlayers()==7) {
-					removeGame(i);		//rimuovi il gioco
-					for(int j=0;j<list.size();j++) {					//rimuovi il temporize assegnato
-						if(list.get(j).getName()==typeOfMapChoose.getMapName()) {	
-							Thread toRemove=list.remove(j);				//rimuovi in thread temporize dalla lista e fermalo
-							toRemove.stop();
-						}
-					}
-				}
-				return gameToBeCreated;		//torna riferimento a dati gioco in creazione
+				if(playerWithRelativeConnection.get(i).getNumberOfPlayers()==7) 	//blocca il gioco
+					blockGame(i);	//iscrizione chiusa
+				return playerWithRelativeConnection.get(i);			//passa il gioco
 			}
 		}
 		playerWithRelativeConnection.add(new DetailsPlayers(typeOfMapChoose));		//nuovo gioco
-		Thread temporize=new Thread(new Temporize(60,this,typeOfMapChoose),typeOfMapChoose.getMapName());		//temporize con nome
-		list.add(temporize);
+		Thread temporize=new Thread(new Temporize(10,this,typeOfMapChoose));		//temporize con nome
+		list.add(temporize);		//genera il thread che lo crea
 		temporize.start();
-		return playerWithRelativeConnection.get(2);
+		return playerWithRelativeConnection.get(playerWithRelativeConnection.size()-1);		//dagli il details player appena creato
 	}
 	
-	public synchronized void  removeGame(int numberGameToCreate) {
-		Thread newGame=new Thread(new ThreadTimeCreatorGame(playerWithRelativeConnection.remove(numberGameToCreate)));
-		newGame.start();
+	public synchronized void blockGame(int numberGame) {
+		if(playerWithRelativeConnection.get(numberGame).getStatus()==StatusCreation.OPEN) {	//controlla che sia aperto
+			playerWithRelativeConnection.get(numberGame).setStatus(StatusCreation.CLOSED);
+			Thread newGame=new Thread(new ThreadTimeCreatorGame(playerWithRelativeConnection.get(numberGame)));
+			newGame.start();
+		}
+	}
+	
+	public synchronized void  removeGame(int numberGame) { //rimuovi il temporize assegnato
+		playerWithRelativeConnection.remove(numberGame);		//rimuovi i dati
+		Thread toRemove=list.remove(numberGame);				//rimuovi in thread temporize dalla lista e fermalo
+		System.out.println("Remove effettuata");
 	}
 
 	/**

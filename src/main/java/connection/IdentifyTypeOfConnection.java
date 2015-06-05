@@ -28,4 +28,11 @@ public class IdentifyTypeOfConnection {
 	public void remove(Token token) {
 		identificationList[token.getNumber()]=null;
 	}
+
+	/**
+	 * @param identificationList the identificationList to set
+	 */
+	public void setIdentificationList(Identification identification, int number) {
+		this.identificationList[number] = identification;
+	}
 }

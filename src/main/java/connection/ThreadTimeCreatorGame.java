@@ -10,14 +10,21 @@ public class ThreadTimeCreatorGame implements Runnable {
 	
 	public ThreadTimeCreatorGame(DetailsPlayers details) {	//dati con mappa da creare
 		this.details=details;
+		System.out.println("creazione di una nuova partita");
+		System.out.println(details.getMapType().getMapName());
+		System.out.println(details.getStatus());
+		System.out.println(details.getNumberOfPlayers());
 	}
+	
 	@Override
 	public void run() {
 		try {
 			if(details.getNumberOfPlayers()==0) {
+				System.out.println("partita senza 2 giocatori");
 				details.setBuffer("Tempo Scaduto e 1 solo giocatore, partita annullata");
 			}
 			else {
+				System.out.println("start creazine");
 				details.setBuffer("Preparazione partita in corso...");
 				CreateEntireGame createGame=new CreateEntireGame();		//crea gioco
 				details.setView(createGame.getViews()); 		//metto le view accessibili ai players
@@ -25,6 +32,7 @@ public class ThreadTimeCreatorGame implements Runnable {
 				putInLock(details);		//i giocatori sono da 0 a 7 e devi metterne 1 in più
 				details.setBuffer("Partita pronta, Turno Giocatore 1");
 			}
+			details.setStatus(StatusCreation.TERMINATED);  		//il gioco è pronto e si può eliminare da quelli in creazione
 		} catch (IOException | InterruptedException e) {
 			System.err.println(e.getMessage());
 		}

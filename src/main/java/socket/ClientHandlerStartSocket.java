@@ -29,6 +29,7 @@ public class ClientHandlerStartSocket implements Processing{
 				identificationToBeWrite=identifyConnection.getIdentification(i);
 				if(identificationToBeWrite==null) {
 					identificationToBeWrite=new Identification(i,-1,0);
+					identifyConnection.setIdentificationList(identificationToBeWrite, i);  //aggiorna il database
 					token=new Token(i);
 					out.writeObject(token);		//send the new token
 					numberFound=true;		//trovata posizione

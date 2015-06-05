@@ -29,19 +29,22 @@ public class ClientHandlerChooseGameSocket implements Processing{
 		try {
 			TypeOfMap chooseOfThePlayer=(TypeOfMap)in.readObject();
 			DetailsPlayers detailsYourGame=dataBaseForSubscribe.subscribe(chooseOfThePlayer);		//hai i dettagli della partita in corso
-			out.writeObject("Iscrizione Ricevuta");
+			Message message=new Message("Iscrizione Ricevuta");
+			out.writeObject(message);
 			out.flush();	//svuota buffer
 			putInWait(detailsYourGame);
-			out.writeObject(detailsYourGame.getBuffer());
+			message=new Message(detailsYourGame.getBuffer());
+			out.writeObject(message);
 			out.flush();
-			if(detailsYourGame.getBuffer()=="Preparazione partita in corso...") {
+			if(message.getMessage()=="Preparazione partita in corso...") {
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(detailsYourGame.getGameId());	//numero partita
 				int myNumber=detailsYourGame.takeNumberOfPlayer();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(myNumber); //numero giocatore
 				out.writeObject(detailsYourGame.getView(myNumber)); 	//manda la view al client
 				out.flush();
-				putInWait2(detailsYourGame);
-				out.writeObject(detailsYourGame.getBuffer()); 	//manda la risposta al client
+				putInWait(detailsYourGame);
+				message=new Message(detailsYourGame.getBuffer());
+				out.writeObject(message);	//manda la risposta al client
 				out.flush();
 			}
 		} catch (IOException | ClassNotFoundException | InterruptedException e) {
@@ -49,13 +52,9 @@ public class ClientHandlerChooseGameSocket implements Processing{
 		}
 	}
 
-	private void putInWait2(DetailsPlayers detailsYourGame) throws InterruptedException {
-		while(detailsYourGame.getBuffer().isEmpty()) 
-			this.wait();
-	}
-
 	private synchronized void putInWait(DetailsPlayers detailsYourGame) throws InterruptedException {
-		while(detailsYourGame.getBuffer()!="Iscrizione Ricevuta")
-			this.wait();
+		System.out.println("Sono il thread connessione mi metto in wait");
+		detailsYourGame.getBuffer();		//se è vuoto fermati e aspetta
+		System.out.println("Sono il thread connessione mi sveglio dallo wait");
 	}
 }

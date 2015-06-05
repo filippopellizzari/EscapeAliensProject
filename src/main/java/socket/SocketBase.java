@@ -10,15 +10,17 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import connection.ClientData;
 import connection.Token;
 
 public abstract class SocketBase {
 	private final static int PORT = 29999;
 	private final static String IP="127.0.0.1";
 	protected Socket socket;
+	protected ClientData clientData;
 	
-	public SocketBase() throws UnknownHostException, IOException {
+	public SocketBase(ClientData clientData) throws UnknownHostException, IOException {
 		this.socket=new Socket(IP,PORT);
-		System.out.println("Client connesso");
+		this.clientData=clientData;
 	}
 }
