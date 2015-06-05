@@ -1,51 +1,42 @@
 package socket;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.List;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import connection.*;
 
-public class ClientHandlerStartSocket extends SocketHandler implements Runnable{
+public class ClientHandlerStartSocket implements Processing{
 	
 	private IdentifyTypeOfConnection identifyConnection;
-	private GameAvailable gameAvailable;
-	private List<TypeOfMap> mapName;
+	private Token token;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
 	
-	public ClientHandlerStartSocket(Token token) throws UnknownHostException, IOException {
-		super(token);
-		gameAvailable=GameAvailable.getinstance();
+	public ClientHandlerStartSocket(Token token, ObjectOutputStream socketOut, ObjectInputStream socketIn) {
 		identifyConnection=IdentifyTypeOfConnection.getinstance();
-		mapName=gameAvailable.getMapName();		//get the type of map
+		this.token=token;
+		this.out=socketOut;
+		this.in=socketIn;
 	}
-	
-	@Override
-	public void run() {
+
+	public void start() {
 		try {
-			token=(Token)inputStream.readObject();
 			boolean numberFound=false;
 			int i=0;
 			Identification identificationToBeWrite;
 			do{
 				identificationToBeWrite=identifyConnection.getIdentification(i);
 				if(identificationToBeWrite==null) {
-					identificationToBeWrite=new Identification(i,token.getTypeConnection(),StatusClient.LOADINGMAPS,0,0);
-					token=new Token(i,identificationToBeWrite.getTipeOfConnection(),token.getName());
+					identificationToBeWrite=new Identification(i,-1,0);
+					token=new Token(i);
+					out.writeObject(token);		//send the new token
+					numberFound=true;		//trovata posizione
 				}
-				outputStream.writeObject(token);		//send the new token
+				i++;
 			}while(numberFound==false&&i<10000);
-			for(int j=0;j<mapName.size();j++) {		//send the maps
-				outputStream.writeObject(mapName.get(j));
-				outputStream.flush();
-			}
-			identifyConnection.getIdentification(token.getNumber()).setStatusClient(StatusClient.CHOOSEGAME);
-			outputStream.writeObject(null);		//finita la send
-			outputStream.flush();
-			outputStream.close();
-			inputStream.close();
-			socket.close();
-		} catch (IOException | ClassNotFoundException e) {
-			System.err.println(e.getMessage());
+		} catch (IOException e) {
+			System.err.println("ImpallatoClientStartSocket");
 		}
 	}	
 }

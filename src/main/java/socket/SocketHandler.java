@@ -15,14 +15,13 @@ public abstract class SocketHandler implements Runnable{
 	protected ObjectOutputStream outputStream;
 	protected Socket socket;
 	protected Token token;
-	private int port=27777;
-	private String host="127.0.0.1";
 	
-	public SocketHandler(Token token) throws UnknownHostException, IOException {
-		this.socket=new Socket(host, port);
+	public SocketHandler(Token token, Socket socket) throws UnknownHostException, IOException {
+		this.socket=socket;
 		this.token=token;
-		inputStream = new ObjectInputStream(socket.getInputStream());
 		outputStream = new ObjectOutputStream(socket.getOutputStream());
+		outputStream.flush();
+		inputStream = new ObjectInputStream(socket.getInputStream());
 	}
 
 	@Override

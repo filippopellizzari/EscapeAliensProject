@@ -13,10 +13,10 @@ public class CreateEntireGame {
 		this.listOfStartedGame = ListOfStartedGame.getinstance();
 	}
 	
-	public int createGameController(String mapName, int numberOfPlayers, String typeOfMap) throws NumberFormatException, IOException{
-		GameController gameController=new GameController(mapName, numberOfPlayers, typeOfMap);
+	public int createGameController(TypeOfMap typeOfMap, int numberOfPlayers) throws NumberFormatException, IOException{
+		GameController gameController=new GameController(typeOfMap.getMapName(), numberOfPlayers, typeOfMap.getTypeMap());
 		views=gameController.getViews();
-		GameDescription newGameReadyToBeRegistred=new GameDescription(mapName, numberOfPlayers, gameController);
+		GameDescription newGameReadyToBeRegistred=new GameDescription(typeOfMap.getMapName(), numberOfPlayers, gameController);
 		int gameNumber=listOfStartedGame.addGameDescription(newGameReadyToBeRegistred);
 		createThreadTemporize(gameController);
 		return gameNumber;

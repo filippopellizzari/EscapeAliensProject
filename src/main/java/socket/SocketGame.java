@@ -1,6 +1,8 @@
 package socket;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
 
 import connection.Token;
@@ -11,43 +13,37 @@ public class SocketGame extends SocketBase implements Runnable{
 	
 	DTOSend dtoToSend;
 	DTOGame dtoGame;			//se viene aggiunto azione finita
-	public SocketGame(int port, String host, Token token, ViewForPlayer view, 
-			DTOSend dtoToSend, DTOGame dtoGame) throws UnknownHostException,
-			IOException {
-		super(port, host, token);
-		this.dtoToSend=dtoToSend;
-		this.dtoGame=dtoGame;
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+	private Token token;
+	public SocketGame(Token token, DTOSend dtoToSend, DTOGame dtoGame) throws UnknownHostException, IOException {
+		super();
+		try {
+			this.dtoToSend=dtoToSend;
+			this.dtoGame=dtoGame;
+			out = new ObjectOutputStream(socket.getOutputStream());
+			out.flush();
+			in = new ObjectInputStream(socket.getInputStream());
+			this.token=token;
+		} catch (IOException e) {
+			System.out.print("Errore");
+		}
 	}
 
 	@Override
 	public void run() {
 		try {
-			startClient();
+			out.writeObject(token);
+			out.flush();
+			out.writeObject(dtoToSend);
+			out.flush();
+			this.dtoGame=(DTOGame)in.readObject();
+			in.close();	//close all the resource
+			out.close();
+			socket.close();
 		} catch (IOException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
-
-	@Override
-	public void startClient() throws IOException, ClassNotFoundException {
-		outputStream.writeObject(token);
-		outputStream.flush();
-		outputStream.writeObject(dtoToSend);
-		outputStream.flush();
-		try {
-			while(dtoGame==null) putInLock();
-		} catch (InterruptedException e) {
-			System.err.println(e.getMessage());
-		}
-		this.dtoGame=(DTOGame)inputStream.readObject();
-		inputStream.close();	//close all the resource
-		outputStream.close();
-		socket.close();
-	}
-
-	private void putInLock() throws InterruptedException {
-		this.wait();
+			System.err.println("ImpallatoSocketGame");
+		} 
 	}
 
 }

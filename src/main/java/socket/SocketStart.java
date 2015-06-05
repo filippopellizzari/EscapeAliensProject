@@ -1,37 +1,50 @@
 package socket;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
-import java.util.List;
 
-import connection.Token;
-import connection.TypeOfMap;
+import connection.*;
 
-public class SocketStart extends SocketBase{
+public class SocketStart extends SocketBase implements Runnable{
 	
-	private List<TypeOfMap> typeOfMap;
-	public SocketStart(int port, String host, Token token,
-			List<TypeOfMap> typeOfMap) throws UnknownHostException, IOException {
-		super(port, host, token);
-		this.typeOfMap=typeOfMap;
-	}
-
-	@Override
-	public void startClient() throws IOException, ClassNotFoundException {
-		while (true) {
-			outputStream.writeObject(token);	// sends the token to the server
-			outputStream.flush();
-			token=(Token) inputStream.readObject();	//save the token passed by server
-			TypeOfMap typeOnInput;
-			typeOnInput=(TypeOfMap)inputStream.readObject();
-			while(typeOnInput!=null); {
-				typeOfMap.add(typeOnInput);		//receive game mapName					//save the game in List
-				typeOnInput=(TypeOfMap)inputStream.readObject();
-			} 
-			inputStream.close();	//close all the resource
-			outputStream.close();
-			socket.close();
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+	private Token token;
+	
+	public SocketStart(Token token) throws UnknownHostException, IOException {
+		super();
+		try {
+			out = new ObjectOutputStream(socket.getOutputStream());
+			out.flush();
+			in = new ObjectInputStream(socket.getInputStream());
+			this.token=token;
+		} catch (IOException e) {
+			System.out.print("Errore");
 		}
 	}
-
+	@Override
+	public void run() {
+		try {
+			System.out.println("Connection Established");
+	        out.writeObject(token);
+	        out.flush();
+			token = (Token)in.readObject();
+			System.out.println(token.getNumber());
+	        in.close();
+	        out.close();
+        } catch (ClassNotFoundException | IOException e) {
+			System.err.println("errore");
+		}
+	}
+	public static void main(String[] args) {
+		try {
+			Token token=new Token(-1);
+			Thread inizio=new Thread(new SocketStart(token));
+			inizio.start();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
 }

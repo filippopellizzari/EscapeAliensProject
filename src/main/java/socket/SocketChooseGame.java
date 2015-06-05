@@ -1,42 +1,59 @@
 package socket;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import connection.*;
-import dto.DTOSend;
 
-public class SocketChooseGame extends SocketBase {
+public class SocketChooseGame extends SocketBase implements Runnable{
 
-	private Scanner in;
+	private Scanner output;
 	private ViewForPlayer view;
 	private TypeOfMap typeOfMapChoose;
-	public SocketChooseGame(int port, String host, Token token, ViewForPlayer view, TypeOfMap typeOfMap) throws UnknownHostException,
-			IOException {
-		super(port, host,token);
-		this.view=view;
-	}
-
-	@Override
-	public void startClient() throws IOException, ClassNotFoundException {
-		while (true) {
-			outputStream.writeObject(token);	// sends the token to the server
-			outputStream.flush();
-			outputStream.writeObject(typeOfMapChoose);	//send the map
-			outputStream.flush();
-			String s=inputStream.readUTF();		//risposta server
-			//notifica alla grafica che il server ha inviato il riscontro
-			if(s=="Preparazione partita in corso...") {
-				Thread subcriber=new Thread(new SubcriberThread());		//parte il subscribe
-				subcriber.start();
-				ViewForPlayer costrutto=(ViewForPlayer)inputStream.readObject(); //ecco la view
-				s=inputStream.readUTF();		//risposta server
-			}
-			inputStream.close();	//close all the resource
-			outputStream.close();
-			socket.close();
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+	private Token token;
+	
+	public SocketChooseGame(Token token, ViewForPlayer view, TypeOfMap typeOfMap) throws UnknownHostException, IOException {
+		super();
+		try {
+			this.view=view;
+			out = new ObjectOutputStream(socket.getOutputStream());
+			out.flush();
+			in = new ObjectInputStream(socket.getInputStream());
+			this.token=token;
+		} catch (IOException e) {
+			System.out.print("Errore");
 		}
 	}
 
+	@Override
+	public void run() {
+		try {
+			out.writeObject(token);	// sends the token to the server
+			out.flush();
+			out.writeObject(typeOfMapChoose);	//send the map
+			out.flush();
+			String s=(String) in.readObject();		//risposta server
+			//notifica alla grafica che il server ha inviato il riscontro
+			s=(String) in.readObject();		//risposta server
+			//notifica alla grafica che il server ha inviato il riscontro
+			if(s=="Preparazione partita in corso...") {
+				Thread subcriber=new Thread(new SubcriberThread(token));		//parte il subscribe
+				subcriber.start();
+				view=(ViewForPlayer)in.readObject(); //ecco la view
+				//visualizza la view
+				s=in.readUTF();		//risposta server
+				//notifica alla grafica che il server ha inviato il riscontro
+			}
+			in.close();	//close all the resource
+			out.close();
+			socket.close();
+		}catch (IOException | ClassNotFoundException e) {
+				System.err.println("ImpallatoSocketChooseGame");
+		} 
+	}
 }

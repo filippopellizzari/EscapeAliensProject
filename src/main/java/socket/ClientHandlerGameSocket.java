@@ -1,26 +1,31 @@
 package socket;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-import connection.Broker;
-import connection.GameDescription;
-import connection.ListOfStartedGame;
-import connection.Token;
+import connection.*;
 import dto.*;
 
-public class ClientHandlerGameSocket extends SocketHandler implements Runnable{
+public class ClientHandlerGameSocket implements Processing{
 	
 	private GameDescription gameDescription;
 	private DTOSend dtoSend;
-	public ClientHandlerGameSocket(Token token) throws UnknownHostException, IOException {
-		super(token);
+	private Token token;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
+	
+	public ClientHandlerGameSocket(Token token, ObjectOutputStream socketOut,
+			ObjectInputStream socketIn) {
+		super();
+		this.token=token;
+		this.out=socketOut;
+		this.in=socketIn;
 		this.dtoSend=dtoSend;
 		ListOfStartedGame listOfStartedGame=ListOfStartedGame.getinstance();
 		gameDescription=listOfStartedGame.getNumberGameDescription(token.getNumber());
 	}
 	@Override
-	public void run() {
+	public void start() {
 		try {
 			doAnAction(dtoSend);
 		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {

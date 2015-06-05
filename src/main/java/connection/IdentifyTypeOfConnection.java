@@ -17,6 +17,7 @@ public class IdentifyTypeOfConnection {
 	 * @return the identification
 	 */
 	public Identification getIdentification(int number) {
+		if(identificationList[number]==null) return null;
 		return identificationList[number];
 	}
 	

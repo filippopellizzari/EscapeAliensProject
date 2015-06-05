@@ -1,24 +1,16 @@
 package connection;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import rmi.ClientHandlerChooseGameRmi;
-import socket.ClientHandlerChooseGameSocket;
-
 public class DetailsPlayers {
-
-	private List<ClientHandlerChooseGameSocket> socketPlayers;
-	private List<ClientHandlerChooseGameRmi> rmiPlayers;
-	private int gameId;			//id della sua creazione non quello di quando è in gioco
 	private int numberOfPlayers;
 	private String buffer;
 	private ViewForPlayer[] view;
+	private TypeOfMap mapType;
+	private int gameId;
 	
-	public DetailsPlayers() {
-		this.socketPlayers = new ArrayList<ClientHandlerChooseGameSocket>();
-		this.rmiPlayers = new ArrayList<ClientHandlerChooseGameRmi>();
+	public DetailsPlayers(TypeOfMap typeOfMapChoose) {
+		this.mapType=typeOfMapChoose;
 		this.numberOfPlayers = 0;
+		
 	}
 	/**
 	 * @return the numberOfPlayers
@@ -38,42 +30,6 @@ public class DetailsPlayers {
 		numberOfPlayers--;
 		if(numberOfPlayers==-1) notifyAll();	//notifica che tutti i giocatori hanno preso il loro numero
 		return number;
-	}
-	/**
-	 * @return the gameId
-	 */
-	public int getGameId() {
-		return gameId;
-	}
-	/**
-	 * @param gameId the gameId to set
-	 */
-	public void setGameId(int gameId) {
-		this.gameId = gameId;
-	}
-	/**
-	 * @return the socketPlayers
-	 */
-	public List<ClientHandlerChooseGameSocket> getSocketPlayers() {
-		return socketPlayers;
-	}
-	/**
-	 * @param socketPlayers the socketPlayers to set
-	 */
-	public void setSocketPlayers(ClientHandlerChooseGameSocket socketPlayers) {
-		this.socketPlayers.add(socketPlayers);
-	}
-	/**
-	 * @return the rmiPlayers
-	 */
-	public List<ClientHandlerChooseGameRmi> getRmiPlayers() {
-		return rmiPlayers;
-	}
-	/**
-	 * @param rmiPlayers the rmiPlayers to set
-	 */
-	public void setRmiPlayers(ClientHandlerChooseGameRmi rmiPlayers) {
-		this.rmiPlayers.add(rmiPlayers);
 	}
 	/**
 	 * @return the buffer
@@ -101,4 +57,24 @@ public class DetailsPlayers {
 	public void setView(ViewForPlayer[] view) {
 		this.view = view;
 	}
+	/**
+	 * @return the gameId
+	 */
+	public int getGameId() {
+		return gameId;
+	}
+	/**
+	 * @param gameId the gameId to set
+	 */
+	public void setGameId(int gameId) {
+		this.gameId = gameId;
+	}
+	/**
+	 * @return the mapType
+	 */
+	public TypeOfMap getMapType() {
+		return mapType;
+	}
+	
+	
 }
