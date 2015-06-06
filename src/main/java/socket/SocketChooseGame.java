@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 import connection.*;
 
@@ -38,14 +37,15 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 			System.out.println(message.getMessage());
 			clientData.setBuffer(message.getMessage());		//risposta server ricezione richiesta
 			message=(Message)in.readObject();
-			System.out.println(message.getMessage());
+			System.out.println(message.getMessage());				//il primo carattere serve per capire la risposta
 			clientData.setBuffer(message.getMessage());		//risposta server su partita
-			if(clientData.getBuffer()=="Preparazione partita in corso...") {
+			if(message.getMessage()!="Tempo Scaduto e 1 solo giocatore, partita annullata") {
 				Thread subcriber=new Thread(new SubcriberThread(clientData.getToken()));		//parte il subscribe
 				subcriber.start();
 				clientData.setView((ViewForPlayer)in.readObject()); //ecco la view
-				message=(Message)in.readObject();
-				clientData.setBuffer(message.getMessage());		//risposta server su inizio partita
+				System.out.println(clientData.getView().getNumberPlayer());
+				System.out.println(clientData.getView().getCoordinate());
+				System.out.println(clientData.getView().getPlayerType());
 			}
 			in.close();	//close all the resource
 			out.close();

@@ -27,13 +27,6 @@ public class DetailsPlayers {
 		this.numberOfPlayers++;
 	}
 	
-	public synchronized int takeNumberOfPlayer() {
-		int number=numberOfPlayers;
-		numberOfPlayers--;
-		if(numberOfPlayers==-1) 
-			this.notifyAll();	//notifica che tutti i giocatori hanno preso il loro numero
-		return number;
-	}
 	/**
 	 * @return the buffer
 	 * @throws InterruptedException 
@@ -54,8 +47,12 @@ public class DetailsPlayers {
 	/**
 	 * @return the view
 	 */
-	public ViewForPlayer getView(int number) {
-		return view[number];
+	public synchronized ViewForPlayer getView() {
+		ViewForPlayer viewToSend= view[numberOfPlayers]; //il primo è il giocatore più alto e così via
+		numberOfPlayers--;
+		if(numberOfPlayers==-1) 
+			this.notifyAll();	//notifica che tutti i giocatori hanno preso il loro numero
+		return viewToSend;		//ritorna la view
 	}
 	/**
 	 * @param view the view to set
@@ -97,5 +94,10 @@ public class DetailsPlayers {
 	public synchronized void deleteGame() throws InterruptedException {		//mette in wait il temporize che vuole eliminare la partita
 		while(status==StatusCreation.CLOSED) 
 			this.wait();
+	}
+	public synchronized void allPlayersHaveTakeView() throws InterruptedException {
+		while(numberOfPlayers!=-1) 
+			this.wait();
+		
 	}	
 }

@@ -12,7 +12,6 @@ import model.*;
 public class DTOSend {
 
 	private Coordinate coordinate;
-	private final int numberGame;
 	private final int numberPlayer;
 	private ItemCardType typeCard;
 	private String chat;
@@ -21,8 +20,6 @@ public class DTOSend {
 	/**
 	 * @param coordinate
 	 *            of the sector selected
-	 * @param numberGame
-	 *            number of game where this action are do
 	 * @param numberPlayer
 	 *            number of player in the game
 	 * @param typeCard
@@ -33,10 +30,9 @@ public class DTOSend {
 	 *            the action that the player would do
 	 */
 
-	public DTOSend(Coordinate coordinate, int numberGame, int numberPlayer,
+	public DTOSend(Coordinate coordinate, int numberPlayer,
 			ItemCardType typeCard, TypeOfAction typeOfAction, String chat) {
 		this.coordinate = coordinate;
-		this.numberGame = numberGame;
 		this.numberPlayer = numberPlayer;
 		this.typeCard = typeCard;
 		this.chat = chat;
@@ -65,14 +61,6 @@ public class DTOSend {
 
 	public String getChat() {
 		return chat;
-	}
-
-	/**
-	 * @return the numberGame
-	 */
-
-	public int getNumberGame() {
-		return numberGame;
 	}
 
 	/**

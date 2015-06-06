@@ -3,11 +3,9 @@ package connection;
 import java.io.Serializable;
 
 public class TypeOfMap implements Serializable{
-	/**
-	 * 
-	 */
 	private String mapName;
 	private String typeMap;
+	
 	public TypeOfMap(String mapName, String typeMap) {
 		super();
 		this.mapName = mapName;

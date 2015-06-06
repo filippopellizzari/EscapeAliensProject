@@ -44,8 +44,7 @@ public class GameController {
 
 	/**
 	 * 
-	 * @param dtoSend
-	 *            , a collection of data used to indicate the player's actions
+	 * @param dtoSend, a collection of data used to indicate the player's actions
 	 * @return the report of action happen during the move
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
@@ -104,10 +103,10 @@ public class GameController {
 	}
 	
 	public ViewForPlayer[] getViews() {
-		return null;
-		
-	}
-
-	public static void main(String[] args) {
+		ViewForPlayer[] views=new ViewForPlayer[game.getPlayers().length];
+		for(int i=0;i<views.length;i++) {
+			views[i]=new ViewForPlayer(game.getPlayers(i).getSector().getCoordinate(), game.getPlayers(i).getType(),i);
+		}
+		return views;
 	}
 }

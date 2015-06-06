@@ -20,7 +20,6 @@ public class ClientHandlerGameSocket implements Processing{
 		this.token=token;
 		this.out=socketOut;
 		this.in=socketIn;
-		this.dtoSend=dtoSend;
 		ListOfStartedGame listOfStartedGame=ListOfStartedGame.getinstance();
 		gameDescription=listOfStartedGame.getNumberGameDescription(token.getNumber());
 	}

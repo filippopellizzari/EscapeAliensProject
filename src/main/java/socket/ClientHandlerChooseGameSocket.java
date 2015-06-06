@@ -3,8 +3,6 @@ package socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 import connection.*;
 
@@ -34,18 +32,15 @@ public class ClientHandlerChooseGameSocket implements Processing{
 			out.flush();	//svuota buffer
 			putInWait(detailsYourGame);
 			message=new Message(detailsYourGame.getBuffer());
-			out.writeObject(message);
-			out.flush();
-			if(message.getMessage()=="Preparazione partita in corso...") {
+			if(message.getMessage()=="Partita pronta, Turno Giocatore 1") {
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(detailsYourGame.getGameId());	//numero partita
-				int myNumber=detailsYourGame.takeNumberOfPlayer();
-				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(myNumber); //numero giocatore
-				out.writeObject(detailsYourGame.getView(myNumber)); 	//manda la view al client
+				ViewForPlayer myView=detailsYourGame.getView();
+				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(myView.getNumberPlayer()); //numero giocatore
+				out.writeObject(message);								//manda il messaggio
 				out.flush();
-				putInWait(detailsYourGame);
-				message=new Message(detailsYourGame.getBuffer());
-				out.writeObject(message);	//manda la risposta al client
+				out.writeObject(myView); 	//manda la view al client
 				out.flush();
+				System.out.println("Scritto view");
 			}
 		} catch (IOException | ClassNotFoundException | InterruptedException e) {
 			System.err.println(e.getMessage());

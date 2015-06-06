@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
 
-import connection.*;
 import dto.*;
 
 public class SocketGame extends SocketBase implements Runnable{

@@ -1,10 +1,12 @@
-package connection;
+package socket;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 
+import model.Coordinate;
+import connection.*;
+import controller.TypeOfAction;
 import dto.*;
-import socket.*;
 
 public class ClientData {
 	private Token token;
@@ -81,9 +83,11 @@ public class ClientData {
 			ClientData cd=new ClientData();
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnConnectionSocket();
-			Thread.sleep(1000);
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnStartGame(new TypeOfMap("Fermi", "Hexagonal"));
+			Thread.sleep(60000);
+			DTOSend send=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
+			cd.clickOnDoMove(send);
 			
 		} catch (IOException | ClassNotFoundException | InterruptedException e1) {
 			e1.printStackTrace();

@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import connection.DatabaseCreateGame;
-import connection.IdentifyTypeOfConnection;
-
 public class ServerForSocket {
 	private final static int PORT = 29999;
 	

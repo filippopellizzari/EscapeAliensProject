@@ -6,11 +6,9 @@ import java.util.List;
 public class DatabaseCreateGame {
 	List<DetailsPlayers> playerWithRelativeConnection;
 	private static DatabaseCreateGame instance = new DatabaseCreateGame();
-	private List<Thread> list;
 	
 	private DatabaseCreateGame() {
 		playerWithRelativeConnection=new ArrayList<DetailsPlayers>();
-		list=new ArrayList<Thread>();
 	}
 	
 	public static DatabaseCreateGame getinstance() {
@@ -18,9 +16,10 @@ public class DatabaseCreateGame {
 	}
 	
 	public synchronized DetailsPlayers subscribe(TypeOfMap typeOfMapChoose) {
+		System.out.println("Iscrizione in corso");
 		for(int i=0;i<playerWithRelativeConnection.size();i++) {
-			if(playerWithRelativeConnection.get(i).getMapType()==typeOfMapChoose 
-					&& playerWithRelativeConnection.get(i).getStatus()==StatusCreation.OPEN) {	//iscrizione già in corso
+			if(playerWithRelativeConnection.get(i).getStatus()==StatusCreation.OPEN &&
+					playerWithRelativeConnection.get(i).getMapType().equals(typeOfMapChoose)) {	//iscrizione già in corso
 				System.out.println("aggiunto giocatore a una partita");
 				playerWithRelativeConnection.get(i).setNumberOfPlayers();
 				if(playerWithRelativeConnection.get(i).getNumberOfPlayers()==7) 	//blocca il gioco
@@ -29,13 +28,13 @@ public class DatabaseCreateGame {
 			}
 		}
 		playerWithRelativeConnection.add(new DetailsPlayers(typeOfMapChoose));		//nuovo gioco
-		Thread temporize=new Thread(new Temporize(10,this,typeOfMapChoose));		//temporize con nome
-		list.add(temporize);		//genera il thread che lo crea
+		Thread temporize=new Thread(new Temporize(20,this,typeOfMapChoose));		//temporize con nome
 		temporize.start();
 		return playerWithRelativeConnection.get(playerWithRelativeConnection.size()-1);		//dagli il details player appena creato
 	}
 	
 	public synchronized void blockGame(int numberGame) {
+		System.out.println("Chiusura iscrizione partita");
 		if(playerWithRelativeConnection.get(numberGame).getStatus()==StatusCreation.OPEN) {	//controlla che sia aperto
 			playerWithRelativeConnection.get(numberGame).setStatus(StatusCreation.CLOSED);
 			Thread newGame=new Thread(new ThreadTimeCreatorGame(playerWithRelativeConnection.get(numberGame)));
@@ -45,7 +44,6 @@ public class DatabaseCreateGame {
 	
 	public synchronized void  removeGame(int numberGame) { //rimuovi il temporize assegnato
 		playerWithRelativeConnection.remove(numberGame);		//rimuovi i dati
-		Thread toRemove=list.remove(numberGame);				//rimuovi in thread temporize dalla lista e fermalo
 		System.out.println("Remove effettuata");
 	}
 
@@ -56,3 +54,6 @@ public class DatabaseCreateGame {
 		return playerWithRelativeConnection;
 	}
 }
+
+
+/*&& */
