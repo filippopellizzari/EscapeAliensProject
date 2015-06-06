@@ -7,6 +7,7 @@ public class GameAvailable {
 	private static GameAvailable instance = new GameAvailable();
 	private List<TypeOfMap> mapName;
 	public GameAvailable() {
+		mapName=new ArrayList<TypeOfMap>();
 		mapName.add(new TypeOfMap("Fermi", "Hexagonal"));
 		mapName.add(new TypeOfMap("Galilei", "Hexagonal"));
 		mapName.add(new TypeOfMap("Galvani", "Hexagonal"));

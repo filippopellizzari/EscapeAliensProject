@@ -1,5 +1,7 @@
 package dto;
 
+import java.io.Serializable;
+
 import controller.TypeOfAction;
 import model.*;
 
@@ -9,7 +11,7 @@ import model.*;
  *
  */
 
-public class DTOSend {
+public class DTOSend implements Serializable{
 
 	private Coordinate coordinate;
 	private final int numberPlayer;

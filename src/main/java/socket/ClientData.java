@@ -83,9 +83,10 @@ public class ClientData {
 			ClientData cd=new ClientData();
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnConnectionSocket();
+			Thread.sleep(2000);
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnStartGame(new TypeOfMap("Fermi", "Hexagonal"));
-			Thread.sleep(60000);
+			Thread.sleep(70000);
 			DTOSend send=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
 			cd.clickOnDoMove(send);
 			

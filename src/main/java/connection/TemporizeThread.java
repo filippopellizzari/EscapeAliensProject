@@ -3,16 +3,22 @@ package connection;
 import controller.GameController;
 
 public class TemporizeThread implements Runnable {
-	GameController gameController;
+	private GameController gameController;
+	private int time;
 
 	public TemporizeThread(GameController gameController) {
 		this.gameController=gameController;
+		this.time=150;
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-
+		try {
+			Thread.sleep(time*1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

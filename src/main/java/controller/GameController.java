@@ -51,7 +51,7 @@ public class GameController {
 	 * @throws ClassNotFoundException 
 	 */
 
-	public DTOGame doAnAction(DTOSend dtoSend) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public synchronized DTOGame doAnAction(DTOSend dtoSend) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		DTOGame message = null;
 		ControlDataRiceived control = new ControlDataRiceived(); 
 		message.setGameMessage(control.verify(dtoSend, currentNumberPlayer, game));

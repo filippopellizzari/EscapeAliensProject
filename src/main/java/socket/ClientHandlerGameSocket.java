@@ -1,5 +1,6 @@
 package socket;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -26,8 +27,9 @@ public class ClientHandlerGameSocket implements Processing{
 	@Override
 	public void start() {
 		try {
-			doAnAction(dtoSend);
-		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			out.writeObject((DTOGame)doAnAction(dtoSend));
+			out.flush();
+		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e) {
 			System.err.println(e.getMessage());
 		}
 	}

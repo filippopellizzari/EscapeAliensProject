@@ -16,12 +16,6 @@ public class ListOfStartedGame {
 	public GameDescription getNumberGameDescription(int number) {
 		return gameDescriptionList[number];
 	}
-	/**
-	 * @return the gameDescriptionList
-	 */
-	public synchronized GameDescription[] getGameDescriptionList() {
-		return gameDescriptionList;
-	}
 
 	/**
 	 * @param gameDescriptionList the gameDescriptionList to set
@@ -29,6 +23,7 @@ public class ListOfStartedGame {
 	public synchronized int addGameDescription(GameDescription gameDescription) {
 		for(int i=0;i<1000;i++) {
 			if(gameDescriptionList[i]==null) {
+				System.out.println("Aggiunto il gioco: "+i+" hai giochi esistenti");
 				gameDescriptionList[i]=gameDescription;
 				return i;		//ritorna numero del gioco
 			}
