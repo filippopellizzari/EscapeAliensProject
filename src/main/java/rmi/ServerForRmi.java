@@ -1,33 +1,26 @@
 package rmi;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.nio.channels.AlreadyBoundException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class ServerForRmi {
 	private final static int PORT = 39999;
-	public void startServer() throws IOException {
-		ServerSocket serverSocket = new ServerSocket(PORT);
-		System.out.println("Server rmi ready on port: " + PORT);
-		System.out.println("Server ready");
-		while (true) {
-			try {
-				Socket socket = serverSocket.accept();
-				Thread client=new Thread(new ClientHandlerRmi(socket));
-				client.start();
-			} catch (IOException e) {
-				break;
-			}
-		}
-		serverSocket.close();
+	private final Registry registry;
+	private static final String NAME = "room";
+	
+	public ServerForRmi() throws IOException {
+		registry = LocateRegistry.createRegistry(PORT);
+		System.out.println("Constructing server implementation");
+		RMIRoom game = new RMIRoom();
+		Actions gameStub = (Actions) UnicastRemoteObject.exportObject(game, 0);
+		System.out.println("Binding server implementation to registry...");
+		registry.rebind(NAME, gameStub);
+		System.out.println("Waiting for invocations from clients...");
 	}
-	public static void main(String[] args) {
-		ServerForRmi server = new ServerForRmi();
-		try {
-			server.startServer();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static final void main(String[] args) throws AlreadyBoundException, IOException {
+		ServerForRmi server2=new ServerForRmi();
 	}
 }

@@ -23,7 +23,7 @@ public class ListOfStartedGame {
 	public synchronized int addGameDescription(GameDescription gameDescription) {
 		for(int i=0;i<1000;i++) {
 			if(gameDescriptionList[i]==null) {
-				System.out.println("Aggiunto il gioco: "+i+" hai giochi esistenti");
+				System.out.println("Aggiunto il gioco: "+i+" ai giochi esistenti");
 				gameDescriptionList[i]=gameDescription;
 				return i;		//ritorna numero del gioco
 			}

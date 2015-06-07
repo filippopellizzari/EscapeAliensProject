@@ -86,7 +86,7 @@ public class ClientData {
 			Thread.sleep(2000);
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnStartGame(new TypeOfMap("Fermi", "Hexagonal"));
-			Thread.sleep(70000);
+			Thread.sleep(40000);
 			DTOSend send=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
 			cd.clickOnDoMove(send);
 			

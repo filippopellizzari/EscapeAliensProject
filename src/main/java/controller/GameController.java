@@ -52,17 +52,17 @@ public class GameController {
 	 */
 
 	public synchronized DTOGame doAnAction(DTOSend dtoSend) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		DTOGame message = null;
+		DTOGame dtoGame=new DTOGame();
 		ControlDataRiceived control = new ControlDataRiceived(); 
-		message.setGameMessage(control.verify(dtoSend, currentNumberPlayer, game));
-		if(message.getGameMessage()==null){
+		dtoGame.setGameMessage(control.verify(dtoSend, currentNumberPlayer, game));
+		if(dtoGame.getGameMessage()==null){
 			DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),
 					dtoSend.getTypeCard(), dtoSend.getTypeOfAction());
-			message = currentTurn.turn(dtoTurn); // messaggio di come è stata eseguita l'azione
-			if (message.getGameMessage() == "Hai finito il turno")
-				endTurn(message);
+			dtoGame = currentTurn.turn(dtoTurn); // messaggio di come è stata eseguita l'azione
+			if (dtoGame.getGameMessage() == "Hai finito il turno")
+				endTurn(dtoGame);
 		}
-		return message;
+		return dtoGame;
 	}
 
 	/**

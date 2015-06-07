@@ -27,13 +27,14 @@ public class ClientHandlerGameSocket implements Processing{
 	@Override
 	public void start() {
 		try {
-			out.writeObject((DTOGame)doAnAction(dtoSend));
+			this.dtoSend=(DTOSend)in.readObject();				//ricevo i dati
+			out.writeObject((DTOGame)doAnAction());
 			out.flush();
 		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IOException e) {
 			System.err.println(e.getMessage());
 		}
 	}
-	public DTOGame doAnAction(DTOSend dtoSend) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public DTOGame doAnAction() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		DTOGame dtoGame = gameDescription.getController().doAnAction(dtoSend);
 		if(dtoGame.getDestination()==9) {
 			//aggiungere la parte di invio al broker

@@ -14,22 +14,15 @@ import model.*;
 
 public class DTOGame implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
 	private Coordinate[] coordinate;
 	private ItemCardType typeItemCard;
 	private HatchCardColor hatchCardColor;
 	private SectorCardType sectorType;
 	private TypeOfAction typeOfAction;
-	private String chat;
-	private String gameMessage;
+	private String chat="";
+	private String gameMessage="";
 	private int destination;
 	
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	/**
 	 * @return the coordinate
 	 */

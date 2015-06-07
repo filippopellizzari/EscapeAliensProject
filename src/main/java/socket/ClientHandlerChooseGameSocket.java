@@ -18,7 +18,7 @@ public class ClientHandlerChooseGameSocket implements Processing{
 		this.token=token;
 		this.out=socketOut;
 		this.in=socketIn;
-		dataBaseForSubscribe=DatabaseCreateGame.getinstance();		//accesso a thread che accetta le richieste
+		this.dataBaseForSubscribe=DatabaseCreateGame.getinstance();		//accesso a thread che accetta le richieste
 		this.identifyTypeOfConnection=IdentifyTypeOfConnection.getinstance();
 	}
 
@@ -47,7 +47,7 @@ public class ClientHandlerChooseGameSocket implements Processing{
 		}
 	}
 
-	private synchronized void putInWait(DetailsPlayers detailsYourGame) throws InterruptedException {
+	private void putInWait(DetailsPlayers detailsYourGame) throws InterruptedException {
 		System.out.println("Sono il thread connessione mi metto in wait");
 		detailsYourGame.getBuffer();		//se è vuoto fermati e aspetta
 		System.out.println("Sono il thread connessione mi sveglio dallo wait");
