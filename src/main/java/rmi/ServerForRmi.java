@@ -15,7 +15,7 @@ public class ServerForRmi {
 		registry = LocateRegistry.createRegistry(PORT);
 		System.out.println("Constructing server implementation");
 		RMIRoom game = new RMIRoom();
-		Actions gameStub = (Actions) UnicastRemoteObject.exportObject(game, 0);
+		Actions gameStub = (Actions) UnicastRemoteObject.exportObject(game, PORT);
 		System.out.println("Binding server implementation to registry...");
 		registry.rebind(NAME, gameStub);
 		System.out.println("Waiting for invocations from clients...");

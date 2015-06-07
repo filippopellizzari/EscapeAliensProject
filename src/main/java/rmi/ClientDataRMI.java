@@ -25,9 +25,10 @@ public class ClientDataRMI {
 	private final static int PORT=39999;
 	private final String NAME = "room";
 	private final Actions game;
+	private final Registry registry;
 	
 	public ClientDataRMI() throws RemoteException, NotBoundException {
-		Registry registry = LocateRegistry.getRegistry(HOST,PORT);
+		registry = LocateRegistry.getRegistry(HOST,PORT);
 		game = (Actions) registry.lookup(NAME);
 		System.out.println("Invoking remote object...");
 		this.token=new Token(-1);
@@ -40,8 +41,12 @@ public class ClientDataRMI {
 		view=game.subscribeGame(typeOfMap,token);
 		if(view==null)
 			this.buffer="Partita pronta, Turno Giocatore 1";
-		else
+		else {
 			this.buffer="Tempo Scaduto e 1 solo giocatore, partita annullata";
+			System.out.println(view.getNumberPlayer());
+			System.out.println(view.getCoordinate());
+			System.out.println(view.getPlayerType());
+		}
 	}
 	public void clickOnDoMove(DTOSend dtoSend) throws UnknownHostException, IOException {
 		dtoGame=game.doAnAction(dtoSend, token);
@@ -68,9 +73,6 @@ public class ClientDataRMI {
 			Thread.sleep(2000);
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnStartGame(new TypeOfMap("Fermi", "Hexagonal"));
-			Thread.sleep(40000);
-			DTOSend send=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
-			cd.clickOnDoMove(send);
 		} catch (IOException | ClassNotFoundException | InterruptedException e1) {
 			System.err.println("Errore in clientData");
 		}

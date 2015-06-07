@@ -1,5 +1,7 @@
 package rmi;
 
+import java.rmi.RemoteException;
+
 import connection.*;
 import dto.DTOGame;
 import dto.DTOSend;
@@ -7,7 +9,7 @@ import dto.DTOSend;
 public class RMIRoom implements Actions{
 	
 	@Override
-	public Token getToken() {
+	public Token getToken() throws RemoteException{
 		IdentifyTypeOfConnection identifyConnection;
 		identifyConnection=IdentifyTypeOfConnection.getinstance();
 		int i=0;
@@ -25,7 +27,7 @@ public class RMIRoom implements Actions{
 	}
 
 	@Override
-	public ViewForPlayer subscribeGame(TypeOfMap typeOfMap, Token token) {
+	public ViewForPlayer subscribeGame(TypeOfMap typeOfMap, Token token) throws RemoteException{
 		ViewForPlayer myView=null;
 		try {
 			DatabaseCreateGame dataBaseForSubscribe;
@@ -47,7 +49,7 @@ public class RMIRoom implements Actions{
 	}
 	
 	@Override
-	public DTOGame doAnAction(DTOSend dtoSend, Token token) {
+	public DTOGame doAnAction(DTOSend dtoSend, Token token) throws RemoteException{
 		DTOGame dtoGame=null;
 		try {
 			GameDescription gameDescription;
