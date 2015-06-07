@@ -7,10 +7,12 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import model.Coordinate;
 import socket.SocketChooseGame;
 import socket.SocketGame;
 import socket.SocketStart;
 import connection.*;
+import controller.TypeOfAction;
 import dto.*;
 
 
@@ -44,8 +46,34 @@ public class ClientDataRMI {
 	public void clickOnDoMove(DTOSend dtoSend) throws UnknownHostException, IOException {
 		dtoGame=game.doAnAction(dtoSend, token);
 	}
+	
+	/**
+	 * @return the token
+	 */
+	public Token getToken() {
+		return token;
+	}
+	/**
+	 * @return the view
+	 */
+	public ViewForPlayer getView() {
+		return view;
+	}
+	
 	public static void main(String[] args) throws RemoteException, NotBoundException{
-		ClientDataRMI cd=new ClientDataRMI();
+		try {
+			ClientDataRMI cd=new ClientDataRMI();
+			System.out.println(cd.getToken().getNumber());
+			cd.clickOnConnectionRMI();
+			Thread.sleep(2000);
+			System.out.println(cd.getToken().getNumber());
+			cd.clickOnStartGame(new TypeOfMap("Fermi", "Hexagonal"));
+			Thread.sleep(40000);
+			DTOSend send=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
+			cd.clickOnDoMove(send);
+		} catch (IOException | ClassNotFoundException | InterruptedException e1) {
+			System.err.println("Errore in clientData");
+		}
 	}
 	
 }

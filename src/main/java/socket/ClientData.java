@@ -91,7 +91,7 @@ public class ClientData {
 			cd.clickOnDoMove(send);
 			
 		} catch (IOException | ClassNotFoundException | InterruptedException e1) {
-			e1.printStackTrace();
+			System.err.println("Errore in clientData");
 		}
 	}
 	

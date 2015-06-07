@@ -1,7 +1,5 @@
 package rmi;
 
-import java.io.IOException;
-
 import connection.*;
 import dto.DTOGame;
 import dto.DTOSend;
