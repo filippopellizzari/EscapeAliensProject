@@ -1,5 +1,6 @@
 package controller;
 
+import dto.DTOGame;
 import dto.DTOTurn;
 
 /**
@@ -17,5 +18,5 @@ public interface TryToDoAnAction {
 	 *            box with the action the player would do
 	 * @return a string of action
 	 */
-	public String doAction(DTOTurn dtoTurn);
+	public DTOGame doAction(DTOTurn dtoTurn);
 }

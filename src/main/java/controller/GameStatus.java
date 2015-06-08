@@ -49,14 +49,14 @@ public class GameStatus implements Serializable {
 	/**
 	 * @return the move
 	 */
-	public boolean hasMoved() {
+	public boolean isMove() {
 		return hasMoved;
 	}
 
 	/**
 	 * @return the attack
 	 */
-	public boolean hasAttacked() {
+	public boolean isAttack() {
 		return hasAttacked;
 	}
 

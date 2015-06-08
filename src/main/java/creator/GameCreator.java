@@ -59,16 +59,5 @@ public class GameCreator {
 		Player[] players = playerCreator.createPlayer(totPlayers);
 		
 		return new Game(hatchCards, sectorCards, itemCards, map, players);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

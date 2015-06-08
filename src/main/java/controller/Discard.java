@@ -1,6 +1,6 @@
 package controller;
 
-import dto.DTOTurn;
+import dto.*;
 import model.ItemCardType;
 
 /**
@@ -11,9 +11,10 @@ import model.ItemCardType;
  *
  */
 
-public class DiscardItem implements TryToDoAnAction {
+public class Discard implements TryToDoAnAction {
 
 	private GameStatus gameStatus;
+	private DTOGame dtoGame;
 
 	/**
 	 * 
@@ -22,8 +23,9 @@ public class DiscardItem implements TryToDoAnAction {
 	 *            are playing, now is his turn
 	 */
 
-	public DiscardItem(GameStatus gameStatus) {
+	public Discard(GameStatus gameStatus) {
 		this.gameStatus = gameStatus;
+		this.dtoGame=new DTOGame();
 	}
 
 	/**
@@ -43,13 +45,16 @@ public class DiscardItem implements TryToDoAnAction {
 	}
 
 	@Override
-	public String doAction(DTOTurn dtoTurn) {
-		if (gameStatus.hasMoved() && gameStatus.isDiscardItemDuty()
+	public DTOGame doAction(DTOTurn dtoTurn) {
+		if (gameStatus.isMove() && gameStatus.isDiscardItemDuty()
 				&& dtoTurn.getTypeCard() != null) { // scarta carta
 			discard(dtoTurn.getTypeCard());
-			return "Carta scartata";
-		} else
-			return "Non puoi scartare questa carta adesso";
+			dtoGame.setDestination(9);	//destinatari messaggio
+		} else {
+			dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber());		//destinatario messaggio
+			dtoGame.setGameMessage("Non puoi scartare questa carta adesso");
+		}
+		return dtoGame;
 	}
 
 }

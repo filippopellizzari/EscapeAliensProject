@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * This class is used to find a sector, x is the letter A-W, y is the number 1-14, is
  * used in class sector 
@@ -9,7 +11,7 @@ package model;
  *
  */
 
-public class Coordinate {
+public class Coordinate implements Serializable{
 	
 	private int x;
 	private int y;

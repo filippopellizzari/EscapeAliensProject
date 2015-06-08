@@ -2,9 +2,9 @@ package controller;
 
 import java.io.IOException;
 
+import connection.ViewForPlayer;
 import creator.GameCreator;
-import dto.DTOSend;
-import dto.DTOTurn;
+import dto.*;
 import model.*;
 
 /**
@@ -44,57 +44,69 @@ public class GameController {
 
 	/**
 	 * 
-	 * @param dtoSend
-	 *            , a collection of data used to indicate the player's actions
+	 * @param dtoSend, a collection of data used to indicate the player's actions
 	 * @return the report of action happen during the move
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
 	 */
 
-	public String doAnAction(DTOSend dtoSend) {
-		String message = "";
+	public synchronized DTOGame doAnAction(DTOSend dtoSend) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		DTOGame dtoGame=new DTOGame();
 		ControlDataRiceived control = new ControlDataRiceived(); 
-		if (control.verify(dtoSend, currentNumberPlayer, game) == "OK") {
+		dtoGame.setGameMessage(control.verify(dtoSend, currentNumberPlayer, game));
+		if(dtoGame.getGameMessage()==null){
 			DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),
 					dtoSend.getTypeCard(), dtoSend.getTypeOfAction());
-			message = currentTurn.turn(dtoTurn); // messaggio di come è stata
-													// eseguita l'azione
-			if (message == "Hai finito il turno")
-				endTurn();
+			dtoGame = currentTurn.turn(dtoTurn); // messaggio di come è stata eseguita l'azione
+			if (dtoGame.getGameMessage() == "Hai finito il turno")
+				endTurn(dtoGame);
 		}
-		return message;
+		return dtoGame;
 	}
 
 	/**
 	 * This method ends a turn and prepares the next turn for another player
+	 * @param message 
 	 */
 
-	private void endTurn() { // aggiorna il giocatore
+	private DTOGame endTurn(DTOGame message) { // aggiorna il giocatore
 		{
-			ControlEndGame controlEndGame = new ControlEndGame(game, turnNumber);
-			turnNumber++; // turno finito
+			if(game.getPlayers().length==currentNumberPlayer) turnNumber++;		//turno finito
+			ControlEndGame controlEndGame = new ControlEndGame();
+			if(controlEndGame.control(game, turnNumber)) message.setGameMessage("Partita conclusa");
 			boolean nextPlayerDecide = false; // assegna correttamente il
 												// prossimo turno
 			do {
 				currentNumberPlayer++;
-				if (game.getPlayers().length == currentNumberPlayer)
+				if (game.getPlayers().length == currentNumberPlayer) 
 					currentNumberPlayer = 0; // giocatore a cui tocca
 				if (game.getPlayers(currentNumberPlayer).isAlive())
 					nextPlayerDecide = true;
 			} while (!nextPlayerDecide);
 			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
+			message.setGameMessage("Turno giocatore: "+currentNumberPlayer);
+			return message;
 		}
 	}
 
 	/**
 	 * This method invoked by an external thread finishes the turn
+	 * @return 
 	 */
 
-	public void finishTurn() {
-		CompleteTurn completeTurn = new CompleteTurn(
-				currentTurn.getGameStatus());
-		String message = completeTurn.completeTurn(); // completa il turno
-		endTurn(); // crea il prossimo turno
+	public DTOGame finishTurn() {
+		CompleteTurn completeTurn = new CompleteTurn(currentTurn.getGameStatus());
+		DTOGame message = completeTurn.completeTurn(); // completa il turno
+		endTurn(message); // crea il prossimo turno
+		return message;
 	}
-
-	public static void main(String[] args) {
+	
+	public ViewForPlayer[] getViews() {
+		ViewForPlayer[] views=new ViewForPlayer[game.getPlayers().length];
+		for(int i=0;i<views.length;i++) {
+			views[i]=new ViewForPlayer(game.getPlayers(i).getSector().getCoordinate(), game.getPlayers(i).getType(),i);
+		}
+		return views;
 	}
 }

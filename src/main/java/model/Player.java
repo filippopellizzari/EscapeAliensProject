@@ -19,7 +19,6 @@ public class Player {
 	private int speed;
 	private final int numberOfPlayer;
 	private boolean alive;
-	private boolean sedated;
 	private final List<ItemCard> itemCardPlayer;
 	
 	/**
@@ -36,7 +35,6 @@ public class Player {
 		this.speed = speed;
 		this.numberOfPlayer = numberOfPlayer;
 		this.alive = true;
-		this.sedated = false;
 		this.itemCardPlayer = new ArrayList<ItemCard>();
 		
 	}
@@ -120,21 +118,6 @@ public class Player {
 
 	public void setAlive(boolean alive) {
 		this.alive = alive;
-	}
-
-	/**
-	 * 
-	 * @return true, se il giocatore è sedato
-	 */
-	public boolean isSedated() {
-		return sedated;
-	}
-	/**
-	 * 
-	 * @param sedated
-	 */
-	public void setSedated(boolean sedated) {
-		this.sedated = sedated;
 	}
 
 	/**

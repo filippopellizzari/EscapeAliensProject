@@ -48,10 +48,7 @@ public class ControlDataRiceived {
 			if (!findCard){
 				return "Non possiedi questa carta";
 			}
-			
 		}
-		
-		return "OK";
-
+		return null;
 	}
 }

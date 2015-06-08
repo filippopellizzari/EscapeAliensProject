@@ -1,5 +1,6 @@
 package controller;
 
+import dto.DTOGame;
 import dto.DTOTurn;
 import model.*;
 
@@ -12,9 +13,11 @@ import model.*;
 public class Move implements TryToDoAnAction {
 
 	private GameStatus gameStatus;
+	private DTOGame dtoGame;
 
 	public Move(GameStatus gameStatus) {
 		this.gameStatus = gameStatus;
+		this.dtoGame=new DTOGame();
 	}
 
 	/**
@@ -100,50 +103,60 @@ public class Move implements TryToDoAnAction {
 	 * @return string, describes destination sector
 	 */
 
-	public String move(Coordinate destCoord) {
-		Player player = gameStatus.getPlayerPlay();
+
+	public void move(Coordinate destCoord) {
 		Sector destSector = gameStatus.getGame().getMap().getSector(destCoord);
-		destSector.addPlayer(player.getSector()
+		destSector.addPlayer(gameStatus.getPlayerPlay().getSector()
 				.removePlayer());
-		player.setSector(destSector);
-		String s = "PR Ti sei spostato nel settore " + destCoord + "\n";
+		gameStatus.getPlayerPlay().setSector(destSector);
+		if(gameStatus.getGame().getPlayers(gameStatus.getPlayerPlay().getNumber()).getType()==PlayerType.HUMAN)
+			gameStatus.getPlayerPlay().setSpeed(1);
+		dtoGame.setCoordinate(destCoord, gameStatus.getPlayerPlay().getNumber());
 		switch (destSector.getType()) {
-		case DANGEROUS:
-			s += "PR Sei finito su un settore pericoloso!\n";
-			s += "PR Puoi decidere se pescare una carta settore pericoloso, attaccare o giocare carta oggetto\n";
+		case DANGEROUS: case SECURE:
 			break;
 		case HATCH:
-			s += "PR Sei finito su un settore hatch!\n";
-			s += player + " si trova nel settore "
-					+ destSector + "\n";
-			s += new DrawHatchCard(gameStatus.getGame(),
-					player).drawHatchCard();
-			break;
-		case SECURE:
-			s += "PR Sei finito su un settore sicuro!\n";
+			drawHatchCard();
 			break;
 		default:
 			break;
 		}
-		return s;
+	}
+	
+	public void drawHatchCard(){
+		HatchCard current = gameStatus.getGame().getHatchCards().draw();
+		HatchCardColor color = current.getColor();
+		dtoGame.setHatchCardColor(color);
+		dtoGame.setDestination(9);
+		switch(color){
+		  	case RED :
+		  		break;
+		  	case GREEN :
+		  		gameStatus.getGame().getPlayers(gameStatus.getPlayerPlay().getNumber()).setAlive(false); //partita conclusa per lui
+		  		break;
+		}
+		gameStatus.getGame().getHatchCards().discard(current);
 	}
 
 	@Override
-	public String doAction(DTOTurn dtoTurn) {
-		if (!gameStatus.hasMoved() && dtoTurn.getTypeCard() == null
+	public DTOGame doAction(DTOTurn dtoTurn) {
+		if (gameStatus.isMove() == false && dtoTurn.getTypeCard() == null
 				&& dtoTurn.getCoordinate() != null) { // mossa
 			if (moveCheck(dtoTurn.getCoordinate())) {
 				gameStatus.setMove(true);
-				String response = move(dtoTurn.getCoordinate());
+				move(dtoTurn.getCoordinate());
 				if (gameStatus.getPlayerPlay().getSector().getType() != SectorType.DANGEROUS)
-					gameStatus.setSolveSectorDuty(true); // se non sei in set
-															// pericolo non devi
-															// pescare
-				return response;
-			} else
-				return "Non puoi muovere in quel settore";
-		} else
-			return "Non puoi muovere adesso";
+					gameStatus.setSolveSectorDuty(true); // se non sei in set pericolo non devi pescare
+			} 
+			else {
+				dtoGame.setGameMessage("Non puoi muovere in quel settore");
+			}
+		} 
+		else {
+			dtoGame.setGameMessage("Non puoi muovere adesso");
+		}
+		dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber());
+		return dtoGame;
 	}
 
 }

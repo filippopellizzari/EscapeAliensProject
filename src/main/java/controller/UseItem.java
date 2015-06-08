@@ -1,5 +1,6 @@
 package controller;
 
+import dto.DTOGame;
 import dto.DTOTurn;
 import model.*;
 
@@ -13,71 +14,50 @@ import model.*;
 public class UseItem implements TryToDoAnAction {
 
 	private GameStatus gameStatus;
+	private DTOGame dtoGame;
 
 	public UseItem(GameStatus gameStatus) {
 		this.gameStatus = gameStatus;
+		this.dtoGame=new DTOGame();
 	}
 
-	public String teleport() {
+	public void teleport() {
 		discard(ItemCardType.TELEPORT);
-		String s = gameStatus.getPlayerPlay()
-				+ "sta usando una carta oggetto\n";
 		Coordinate humanSector = gameStatus.getGame().getMap().getHumanCoord();
-		gameStatus
-				.getGame()
-				.getMap()
-				.getSector(humanSector)
-				.addPlayer(
+		gameStatus.getGame().getMap().getSector(humanSector).addPlayer(
 						gameStatus.getPlayerPlay().getSector().removePlayer());
-		return s;
+		dtoGame.setCoordinate(humanSector, gameStatus.getPlayerPlay().getNumber());
 	}
 
-	public String sedatives() {
+	public void sedatives() {
 		discard(ItemCardType.SEDATIVES);
-		String s = gameStatus.getPlayerPlay()
-				+ " sta usando una carta oggetto\n";
-		gameStatus.getPlayerPlay().setSedated(true);
-		return s;
+		gameStatus.setSolveSectorDuty(true); 		//come se avessi pescato la carta settore pericoloso
 	}
 
-	public String spotlight(Sector chosen) {
+	public void spotlight(Sector chosen) {
 		discard(ItemCardType.SPOTLIGHT);
-		String s = gameStatus.getPlayerPlay()
-				+ " sta usando una carta oggetto\n";
-
 		for (int i = 0; i < chosen.getPlayers().size(); i++) {
 			Player declaring = chosen.getPlayers().get(i);
-			s += declaring + " in sector " + chosen.getCoordinate() + "\n";
-
+			dtoGame.setCoordinate(chosen.getCoordinate(), declaring.getNumber());
 		}
-
 		for (int i = 0; i < 6; i++) {
-			Sector lighted = gameStatus.getGame().getMap()
-					.getSector(chosen.getAdjacent().get(i));
+			Sector lighted = gameStatus.getGame().getMap().getSector(chosen.getAdjacent().get(i));
 			if (lighted != null)
 				for (int j = 0; j < lighted.getPlayers().size(); j++) {
 					Player declaring = lighted.getPlayers().get(j);
-					s += declaring + " in sector " + lighted.getCoordinate()
-							+ "\n";
+					dtoGame.setCoordinate(lighted.getCoordinate(), declaring.getNumber());
 				}
 		}
-		return s;
 	}
 
-	public String adrenaline() {
+	public void adrenaline() {
 		discard(ItemCardType.ADRENALINE);
-		String s = gameStatus.getPlayerPlay()
-				+ " sta usando una carta oggetto\n";
 		gameStatus.getPlayerPlay().setSpeed(2);
-		return s;
 	}
 
-	public String attack() {
+	public void attack() {
 		discard(ItemCardType.ATTACK);
-		String s = gameStatus.getPlayerPlay()
-				+ " sta usando una carta oggetto\n";
-		s += new Attack(gameStatus).attackMove();
-		return s;
+		this.dtoGame=new Attack(gameStatus).attackMove();
 	}
 
 	private void discard(ItemCardType type) {
@@ -91,30 +71,40 @@ public class UseItem implements TryToDoAnAction {
 	}
 
 	@Override
-	public String doAction(DTOTurn dtoTurn) {
-		String response;
+	public DTOGame doAction(DTOTurn dtoTurn) {
+		boolean useCard=false;
+		if (!gameStatus.isAttack() && gameStatus.isMove()&& !gameStatus.isSolveSectorDuty()
+				&& dtoTurn.getTypeCard() == ItemCardType.ATTACK) {
+			gameStatus.setAttack(true);
+			useCard=true;
+			attack();
+		}
 		if (dtoTurn.getTypeCard() == ItemCardType.SPOTLIGHT
 				&& dtoTurn.getCoordinate() != null) {
-			response = spotlight(gameStatus.getGame().getMap()
-					.getSector(dtoTurn.getCoordinate()));
+			spotlight(gameStatus.getGame().getMap().getSector(dtoTurn.getCoordinate()));
+			useCard=true;
 		}
 		if (dtoTurn.getTypeCard() == ItemCardType.SEDATIVES) {
-			response = sedatives();
+			sedatives();
+			useCard=true;
 		}
 		if (dtoTurn.getTypeCard() == ItemCardType.ADRENALINE) {
-			response = adrenaline();
+			adrenaline();
+			useCard=true;
 		}
 		if (dtoTurn.getTypeCard() == ItemCardType.TELEPORT) {
-			response = teleport();
+			teleport();
+			useCard=true;
 		}
-		if (!gameStatus.hasAttacked() && gameStatus.hasMoved()
-				&& !gameStatus.isSolveSectorDuty()
-				&& dtoTurn.getTypeCard() == ItemCardType.ATTACK)
-			;
-		{
-			gameStatus.setAttack(true);
-			response = attack();
+
+		if(useCard) {
+			dtoGame.setDestination(9);
+			dtoGame.setTypeItemCard(dtoTurn.getTypeCard());
 		}
-		return response;
+		else {
+			dtoGame.setGameMessage("Non puoi usare questo oggetto in questo momento");
+			dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber());
+		}
+		return dtoGame;
 	}
 }
