@@ -44,7 +44,8 @@ public class ClientSocket {
 			switch(azione){
 			case 1:
 				System.out.println("Inserisci le coordinate di destinazione:\n Lettera:\n");
-				int x = in.nextInt();//devo trasformare lettera in numero!
+				char lettera = in.next().charAt(0);
+				int x = (int)lettera - 96; //converto char in intero
 				System.out.println("Numero:\n");
 				int y = in.nextInt();
 				Coordinate coord = new Coordinate (x,y);
@@ -54,8 +55,8 @@ public class ClientSocket {
 				
 			}
 				
-			cd.getDtoGame().getGameMessage();
-			
+			System.out.println(cd.getDtoGame().getGameMessage()); //da mettere in thread a parte
+			System.out.println(cd.getDtoGame().getChat()); //da mettere in thread a parte
 			
 			}
 		
