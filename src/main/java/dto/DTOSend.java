@@ -11,7 +11,7 @@ import model.*;
  *
  */
 
-public class DTOSend implements Serializable{
+public class DTOSend implements Serializable {
 
 	private Coordinate coordinate;
 	private final int numberPlayer;
@@ -79,6 +79,38 @@ public class DTOSend implements Serializable{
 
 	public TypeOfAction getTypeOfAction() {
 		return typeOfAction;
+	}
+
+	/**
+	 * 
+	 * @param coordinate
+	 */
+	public void setCoordinate(Coordinate coordinate) {
+		this.coordinate = coordinate;
+	}
+
+	/**
+	 * 
+	 * @param typeCard
+	 */
+	public void setTypeCard(ItemCardType typeCard) {
+		this.typeCard = typeCard;
+	}
+
+	/**
+	 * 
+	 * @param chat
+	 */
+	public void setChat(String chat) {
+		this.chat = chat;
+	}
+
+	/**
+	 * 
+	 * @param typeOfAction
+	 */
+	public void setTypeOfAction(TypeOfAction typeOfAction) {
+		this.typeOfAction = typeOfAction;
 	}
 
 }
