@@ -3,8 +3,8 @@ package connection;
 public class IdentifyTypeOfConnection {
 	
 	private Identification[] identificationList;
-
 	private static IdentifyTypeOfConnection instance = new IdentifyTypeOfConnection();
+	
 	public IdentifyTypeOfConnection() {
 		this.identificationList = new Identification[10000];
 	}

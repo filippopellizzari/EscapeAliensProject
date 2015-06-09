@@ -12,7 +12,8 @@ import model.*;
  */
 
 public class DTOSend implements Serializable{
-
+	private static final long serialVersionUID = 1L;
+	
 	private Coordinate coordinate;
 	private final int numberPlayer;
 	private ItemCardType typeCard;

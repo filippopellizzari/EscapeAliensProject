@@ -8,9 +8,9 @@ public class GameAvailable {
 	private List<TypeOfMap> mapName;
 	public GameAvailable() {
 		mapName=new ArrayList<TypeOfMap>();
-		mapName.add(new TypeOfMap("Fermi", "Hexagonal"));
-		mapName.add(new TypeOfMap("Galilei", "Hexagonal"));
-		mapName.add(new TypeOfMap("Galvani", "Hexagonal"));
+		mapName.add(new TypeOfMap(MapName.Fermi,MapType.HEXAGONAL));
+		mapName.add(new TypeOfMap(MapName.Galilei,MapType.HEXAGONAL));
+		mapName.add(new TypeOfMap(MapName.Galvani,MapType.HEXAGONAL));
 	}
 
 	public static GameAvailable getinstance() {

@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
 
+import pubSub.SubscriberThread;
 import connection.*;
 
 public class SocketChooseGame extends SocketBase implements Runnable{
@@ -40,7 +41,7 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 			System.out.println(message.getMessage());				//il primo carattere serve per capire la risposta
 			clientData.setBuffer(message.getMessage());		//risposta server su partita
 			if(message.getMessage()!="Tempo Scaduto e 1 solo giocatore, partita annullata") {
-				Thread subcriber=new Thread(new SubcriberThread(clientData.getToken()));		//parte il subscribe
+				Thread subcriber=new Thread(new SubscriberThread(clientData.getToken()));		//parte il subscribe
 				subcriber.start();
 				clientData.setView((ViewForPlayer)in.readObject()); //ecco la view
 				System.out.println(clientData.getView().getNumberPlayer());

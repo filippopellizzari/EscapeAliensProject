@@ -85,11 +85,12 @@ public class ClientData {
 			cd.clickOnConnectionSocket();
 			Thread.sleep(2000);
 			System.out.println(cd.getToken().getNumber());
-			cd.clickOnStartGame(new TypeOfMap("Fermi", "Hexagonal"));
+			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
 			Thread.sleep(40000);
-			DTOSend send=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
-			cd.clickOnDoMove(send);
-			
+			DTOSend dtoSend=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
+			cd.clickOnDoMove(dtoSend);
+			Thread.sleep(10000);
+			System.out.println(cd.dtoGame.getGameMessage());
 		} catch (IOException | ClassNotFoundException | InterruptedException e1) {
 			System.err.println("Errore in clientData");
 		}

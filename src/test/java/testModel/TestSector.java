@@ -9,6 +9,8 @@ import model.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import connection.MapName;
+import connection.MapType;
 import creator.GameCreator;
 
 /**
@@ -21,7 +23,7 @@ public class TestSector {
 	static Game model;
 	
 	@BeforeClass public static void onlyOnce() throws NumberFormatException, IOException {
-		model = GameCreator.getinstance().createGame("Galilei", 8, "Exagonal");	
+		model = GameCreator.getinstance().createGame(MapName.Galilei, 8, MapType.HEXAGONAL);	
 		
 	}
 	

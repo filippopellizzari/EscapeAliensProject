@@ -11,7 +11,7 @@ public class ClientHandlerChooseGameSocket implements Processing{
 	private Token token;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-	private IdentifyTypeOfConnection identifyTypeOfConnection;
+	private IdentifyTypeOfConnection identifyTypeOfConnection;		//serve per settare i dettagli del giocatore
 	private final DatabaseCreateGame dataBaseForSubscribe;
 	
 	public ClientHandlerChooseGameSocket(Token token, ObjectOutputStream socketOut, ObjectInputStream socketIn) {

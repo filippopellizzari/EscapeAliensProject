@@ -9,6 +9,8 @@ import model.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import connection.MapName;
+import connection.MapType;
 import creator.GameCreator;
 /**
  * Test sulle funzionalità di una generica mappa a settori esagonali (es. Fermi)
@@ -22,7 +24,7 @@ public class TestHexagonalMap {
 		static GameCreator gameCreator;
 		@BeforeClass public static void onlyOnce() throws NumberFormatException, IOException {
 			gameCreator=GameCreator.getinstance();
-			fermi=gameCreator.createGame("Fermi", 3, "Hexagonal"); 
+			fermi=gameCreator.createGame(MapName.Fermi, 3, MapType.HEXAGONAL); 
 			
 		}
 	/**

@@ -3,6 +3,7 @@ package creator;
 import java.io.IOException;
 import java.util.List;
 
+import connection.MapName;
 import model.*;
 
 /**
@@ -27,7 +28,7 @@ public abstract class MapCreator {
 	 * @throws IOException
 	 */
 	
-	public abstract Map loadMap(String mapName) throws NumberFormatException, IOException;		
+	public abstract Map loadMap(MapName mapName) throws NumberFormatException, IOException;		
 }
 		
 

@@ -15,6 +15,9 @@ import creator.*;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import connection.MapName;
+import connection.MapType;
 /**
  * @author Nicola
  * @author Filippo
@@ -29,7 +32,7 @@ public class TestGameCreator {
 		 
 		
 		gameCreator=GameCreator.getinstance();
-		game=gameCreator.createGame("Fermi", 3, "Hexagonal"); 
+		game=gameCreator.createGame(MapName.Fermi, 3, MapType.HEXAGONAL); 
 		
 	}
 	

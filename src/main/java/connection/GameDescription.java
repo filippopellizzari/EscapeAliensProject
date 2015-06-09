@@ -1,23 +1,26 @@
 package connection;
 
+import pubSub.Broker1;
 import controller.GameController;
 
 public class GameDescription {
-	private String mapName;
+	private MapName mapName;
 	private int numberOfPlayers;
 	private GameController controller;
-	private Broker broker;
+	private Broker1 broker;
+	private StatusController statusController;
 	
-	public GameDescription(String mapName, int numberOfPlayers,
+	public GameDescription(MapName mapName, int numberOfPlayers,
 			GameController controller) {
 		this.mapName = mapName;
 		this.numberOfPlayers = numberOfPlayers;
 		this.controller = controller;
+		this.statusController=StatusController.FREE;
 	}
 	/**
 	 * @return the mapName
 	 */
-	public String getMapName() {
+	public MapName getMapName() {
 		return mapName;
 	}
 	/**
@@ -35,15 +38,22 @@ public class GameDescription {
 	/**
 	 * @return the broker
 	 */
-	public Broker getBroker() {
+	public Broker1 getBroker() {
 		return broker;
 	}
 	/**
 	 * @param broker the broker to set
 	 */
-	public void setBroker(Broker broker) {
+	public void setBroker(Broker1 broker) {
 		this.broker = broker;
 	}
-	
-	
+	public synchronized void getStatus() throws InterruptedException {		//se il controller è impegnato aspetta fino a che non si libera
+		while(statusController==StatusController.BUSY) 
+			this.wait();
+		
+	}
+	public synchronized void setStatus() {					//libera la risorsa e avvisa tutti
+		this.statusController=StatusController.FREE;
+		this.notifyAll();
+	}
 }
