@@ -40,6 +40,7 @@ public class ClientHandlerChooseGameSocket implements Processing{
 				out.flush();
 				out.writeObject(myView); 	//manda la view al client
 				out.flush();
+				//aggiungere la parte di pub-sub
 				System.out.println("Scritto view");
 			}
 		} catch (IOException | ClassNotFoundException | InterruptedException e) {

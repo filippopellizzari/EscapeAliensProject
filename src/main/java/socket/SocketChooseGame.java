@@ -47,6 +47,7 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 				System.out.println(clientData.getView().getNumberPlayer());
 				System.out.println(clientData.getView().getCoordinate());
 				System.out.println(clientData.getView().getPlayerType());
+				//aggiungi la parte di mantenimento connessione per pub-sub
 			}
 			in.close();	//close all the resource
 			out.close();

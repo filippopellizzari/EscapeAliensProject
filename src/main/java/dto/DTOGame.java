@@ -14,6 +14,10 @@ import model.*;
 
 public class DTOGame implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Coordinate[] coordinate;
 	private ItemCardType typeItemCard;
 	private HatchCardColor hatchCardColor;
@@ -22,6 +26,8 @@ public class DTOGame implements Serializable {
 	private String chat="";
 	private String gameMessage="";
 	private int destination;
+	private int player;
+	private PlayerType[] typePlayer;
 	
 	/**
 	 * @return the coordinate
@@ -120,4 +126,37 @@ public class DTOGame implements Serializable {
 	public void setDestination(int destination) {
 		this.destination = destination;
 	}
+	/**
+	 * @return the player
+	 */
+	public int getPlayer() {
+		return player;
+	}
+	/**
+	 * @param player the player to set
+	 */
+	public void setPlayer(int player) {
+		this.player = player;
+	}
+	/**
+	 * @return the typePlayer
+	 */
+	public PlayerType[] getTypePlayer() {
+		return typePlayer;
+	}
+	/**
+	 * @param coordinate the coordinate to set
+	 */
+	public void setCoordinate(Coordinate[] coordinate) {
+		this.coordinate = coordinate;
+	}
+	/**
+	 * 
+	 * @param type, type of player
+	 * @param number of player
+	 */
+	public void setTypePlayer(PlayerType type, int number) {
+		typePlayer[number]=type;
+	}
+	
 }

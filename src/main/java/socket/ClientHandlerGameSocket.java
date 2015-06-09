@@ -10,6 +10,7 @@ import dto.*;
 
 public class ClientHandlerGameSocket implements Processing{
 
+	private int numberPlayer;
 	private GameDescription gameDescription;
 	private DTOSend dtoSend;
 	private Token token;
@@ -26,11 +27,13 @@ public class ClientHandlerGameSocket implements Processing{
 		Identification identification=identifyTypeOfConnection.getIdentification(token.getNumber());	//prendo l'identificatore del giocatore per avere il gioco
 		ListOfStartedGame listOfStartedGame=ListOfStartedGame.getinstance();
 		gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());		//prendo il gioco associato al giocatore
+		this.numberPlayer=identification.getNumberPlayer();
 	}
 	@Override
 	public void start() {
 		try {
 			this.dtoSend=(DTOSend)in.readObject();				//ricevo i dati
+			dtoSend.setNumberPlayer(numberPlayer);  			//metto il tuo numero
 			System.out.println("Azione dto: "+dtoSend.getTypeOfAction());
 			DTOGame dtoGame=new DTOGame();
 			putInWait();

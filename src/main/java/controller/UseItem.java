@@ -28,6 +28,10 @@ public class UseItem implements TryToDoAnAction {
 						gameStatus.getPlayerPlay().getSector().removePlayer());
 		dtoGame.setCoordinate(humanSector, gameStatus.getPlayerPlay().getNumber());
 	}
+	
+	/**
+	 * Use the sedatives no secondary effects
+	 */
 
 	public void sedatives() {
 		discard(ItemCardType.SEDATIVES);
@@ -49,23 +53,35 @@ public class UseItem implements TryToDoAnAction {
 				}
 		}
 	}
+	
+	/**
+	 * Use the adrenaline no secondary effects
+	 */
 
 	public void adrenaline() {
-		discard(ItemCardType.ADRENALINE);
+		discard(ItemCardType.ADRENALINE);		//imposto la nuova velocità
 		gameStatus.getPlayerPlay().setSpeed(2);
 	}
+	
+	/**
+	 * Use the same methods of alie to attack
+	 */
 
 	public void attack() {
 		discard(ItemCardType.ATTACK);
-		this.dtoGame=new Attack(gameStatus).attackMove();
+		this.dtoGame=new Attack(gameStatus).attackMove();		//passo il dto così che possa essere settato
 	}
+	
+	/**
+	 * 
+	 * @param type, type of card that has to be discarded
+	 */
 
 	private void discard(ItemCardType type) {
 		for (int i = 0; i < gameStatus.getPlayerPlay().getItem().size(); i++) {
-			if (gameStatus.getPlayerPlay().getItem().get(i).getType()
-					.equals(type)) {
-				gameStatus.getGame().getItemCards()
-						.discard(gameStatus.getPlayerPlay().removeItem(i));
+			if (gameStatus.getPlayerPlay().getItem().get(i).getType().equals(type)) {
+				gameStatus.getGame().getItemCards().discard(gameStatus.getPlayerPlay().removeItem(i));
+				return;		//se omesso scarto tutte le carte uguali
 			}
 		}
 	}
@@ -96,11 +112,11 @@ public class UseItem implements TryToDoAnAction {
 			teleport();
 			useCard=true;
 		}
-		if(useCard) {
+		if(useCard) {		//se ha usato la carta scartala e mostrala a tutti i giocatori
 			dtoGame.setDestination(9);
 			dtoGame.setTypeItemCard(dtoTurn.getTypeCard());
 		}
-		else {
+		else {			//se non può usarla solo lui viene avvisato
 			dtoGame.setGameMessage("Non puoi usare questo oggetto in questo momento");
 			dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber());
 		}

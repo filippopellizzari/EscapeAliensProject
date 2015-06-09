@@ -18,9 +18,8 @@ public class CompleteTurn {
 	private DTOGame dtoGame;
 	/**
 	 * 
-	 * @param gameStatus
-	 *            , the status of a turn, reference at model and the player who
-	 *            are playing, now is his turn
+	 * @param gameStatus, the status of a turn, reference at model and the player who
+	 * are playing, now is his turn
 	 */
 
 	public CompleteTurn(GameStatus gameStatus) {
@@ -30,7 +29,7 @@ public class CompleteTurn {
 
 	/**
 	 * 
-	 * @return the action happen during the actions
+	 * @return the action happen during the actions, this means that can be returned more than 1 action
 	 */
 
 	public DTOGame completeTurn() {

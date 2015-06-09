@@ -5,53 +5,35 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Broker implements Runnable{
+import dto.DTOGame;
 
-	private final int portNumber = 37777;
-	private boolean listening = true;
+public class Broker implements Runnable{
+	private PlayersBuffers[] playersBuffer;
+	private DTOGame messageToBeDispatched;
 	private ArrayList<BrokerThread> subscribers = new ArrayList<BrokerThread>();
 	private String topic;
-	
+	private int numberOfPlayers;
+
+	public Broker(int numberOfPlayers) {
+		this.numberOfPlayers=numberOfPlayers;
+		playersBuffer=new PlayersBuffers[numberOfPlayers];
+		for(int i=0;i<numberOfPlayers;i++) {
+			playersBuffer[i]=new PlayersBuffers();
+			this.messageToBeDispatched=null;
+		}
+	}	
+
+	private void publish(DTOGame dtoGame){
+		if(dtoGame.getDestination()==9) {
+			for(int i=0;i<numberOfPlayers;i++) {
+				if(i==dtoGame.getPlayer()) continue;
+			}
+		}
+	}
+
 	@Override
 	public void run() {
-		try(ServerSocket brokerSocket = new ServerSocket(portNumber)){
-			while(listening){
-				BrokerThread brokerThread = new BrokerThread(brokerSocket.accept());
-				brokerThread.start();
-				System.out.println("Adding new subscriber");
-				subscribers.add(brokerThread);
-			}
-		}catch(IOException e){
-			System.err.println("Cannot listen on port: "+portNumber);
-			System.exit(-1);
-		}
-	}
-	
-	public Broker(String topic) {
-		this.topic=topic;
-	}
-	
-	public static void main(String[] args) {
-		System.out.println("Starting the Broker Service");
-		Broker broker = new Broker("Game 1");
-		broker.run();
-		System.out.println("Write something to publish on topic "+broker.topic+": ");
-		Scanner stdin = new Scanner(System.in);
-			while (true) {
-				String inputLine = stdin.nextLine();
-				broker.publish(inputLine);
-			}
+		// TODO Auto-generated method stub
 		
-	}
-	
-	private void publish(String msg){
-		if(!subscribers.isEmpty()){
-			System.out.println("Publishing message");
-			for (BrokerThread sub : subscribers) {
-				sub.dispatchMessage(msg);
-			}
-		}else{
-			System.err.println("No subscribers!!");
-		}
 	}
 }

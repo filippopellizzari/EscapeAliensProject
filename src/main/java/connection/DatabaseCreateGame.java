@@ -17,6 +17,7 @@ public class DatabaseCreateGame {
 	
 	public synchronized DetailsPlayers subscribe(TypeOfMap typeOfMapChoose) {
 		System.out.println("Iscrizione in corso");
+		System.out.println(playerWithRelativeConnection.size());
 		for(int i=0;i<playerWithRelativeConnection.size();i++) {
 			if(playerWithRelativeConnection.get(i).getStatus()==StatusCreation.OPEN &&
 					playerWithRelativeConnection.get(i).getMapType().equals(typeOfMapChoose)) {	//iscrizione già in corso

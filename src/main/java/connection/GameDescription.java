@@ -1,13 +1,13 @@
 package connection;
 
-import pubSub.Broker1;
+import pubSub.*;
 import controller.GameController;
 
 public class GameDescription {
 	private MapName mapName;
 	private int numberOfPlayers;
 	private GameController controller;
-	private Broker1 broker;
+	private Broker broker;
 	private StatusController statusController;
 	
 	public GameDescription(MapName mapName, int numberOfPlayers,
@@ -16,6 +16,7 @@ public class GameDescription {
 		this.numberOfPlayers = numberOfPlayers;
 		this.controller = controller;
 		this.statusController=StatusController.FREE;
+		broker=new Broker(numberOfPlayers);		//
 	}
 	/**
 	 * @return the mapName
@@ -38,13 +39,13 @@ public class GameDescription {
 	/**
 	 * @return the broker
 	 */
-	public Broker1 getBroker() {
+	public Broker getBroker() {
 		return broker;
 	}
 	/**
 	 * @param broker the broker to set
 	 */
-	public void setBroker(Broker1 broker) {
+	public void setBroker(Broker broker) {
 		this.broker = broker;
 	}
 	public synchronized void getStatus() throws InterruptedException {		//se il controller è impegnato aspetta fino a che non si libera
