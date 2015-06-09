@@ -36,22 +36,23 @@ public class ClientDataRMI implements Serializable{
 		this.token=new Token(-1);
 		this.dtoGameList=new ArrayList<DTOGame>();
 		this.buffer=new ArrayList<String>();
-		this.setClientParameter=new ClientStub(token, view,dtoGameList,buffer);
+		this.setClientParameter=new ClientStub(dtoGameList,buffer);
 		registry.bind(NAME, setClientParameter);
 	}
 	public void clickOnConnectionRMI(SetClientParameter setClientParameter) throws UnknownHostException, IOException, ClassNotFoundException{
-		game.getToken(setClientParameter);
+		token=game.getToken();
 	}
 	public void clickOnStartGame(TypeOfMap typeOfMap,SetClientParameter setClientParameter) throws UnknownHostException, IOException, ClassNotFoundException {
-		game.subscribeGame(typeOfMap,token,setClientParameter);
-		if(view==null)
+		view=game.subscribeGame(typeOfMap, token, setClientParameter);
+		if(view!=null) {
 			this.buffer.add("Partita pronta, Turno Giocatore 1");
-		else {
-			this.buffer.add("Tempo Scaduto e 1 solo giocatore, partita annullata");
 			System.out.println(view.getNumberPlayer());
 			System.out.println(view.getCoordinate());
 			System.out.println(view.getPlayerType());
+			game.subscribe(setClientParameter);
 		}
+		else 
+			this.buffer.add("Tempo Scaduto e 1 solo giocatore, partita annullata");
 	}
 	public void clickOnDoMove(DTOSend dtoSend,SetClientParameter setClientParameter) throws UnknownHostException, IOException {
 		game.doAnAction(dtoSend, token,setClientParameter);

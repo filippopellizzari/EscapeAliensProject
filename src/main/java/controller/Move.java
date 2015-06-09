@@ -15,6 +15,12 @@ public class Move implements TryToDoAnAction {
 	private GameStatus gameStatus;
 	private DTOGame dtoGame;
 
+	/**
+	 * 
+	 * @param gameStatus, the status of a turn, reference at model and the player who
+	 * are playing, now is his turn
+	 */
+	
 	public Move(GameStatus gameStatus) {
 		this.gameStatus = gameStatus;
 		this.dtoGame=new DTOGame();
@@ -60,12 +66,9 @@ public class Move implements TryToDoAnAction {
 	 * Check that the destination is reached according to the speed player and
 	 * that the crossed sectors are valid
 	 * 
-	 * @param curr
-	 *            starting coordinate
-	 * @param dest
-	 *            destination coordinate
-	 * @param speed
-	 *            speed of player
+	 * @param curr, starting coordinate
+	 * @param dest, destination coordinate
+	 * @param speed, speed of player
 	 * @return
 	 */
 
@@ -98,8 +101,7 @@ public class Move implements TryToDoAnAction {
 	 * this is the effective move
 	 * 
 	 * 
-	 * @param destCoord
-	 *            , coordinates chosen by player
+	 * @param destCoord, coordinates chosen by player
 	 * @return string, describes destination sector
 	 */
 
@@ -123,11 +125,15 @@ public class Move implements TryToDoAnAction {
 		}
 	}
 	
+	/**
+	 * If player is on a HatchSector, a HatchCard is draw and solved, everyone is advised by the result
+	 */
+	
 	public void drawHatchCard(){
 		HatchCard current = gameStatus.getGame().getHatchCards().draw();
 		HatchCardColor color = current.getColor();
 		dtoGame.setHatchCardColor(color);
-		dtoGame.setDestination(9);
+		dtoGame.setDestination(9);		//notifica a tutti
 		switch(color){
 		  	case RED :
 		  		break;
@@ -141,8 +147,8 @@ public class Move implements TryToDoAnAction {
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
 		if (gameStatus.isMove() == false && dtoTurn.getTypeCard() == null
-				&& dtoTurn.getCoordinate() != null) { // mossa
-			if (moveCheck(dtoTurn.getCoordinate())) {
+				&& dtoTurn.getCoordinate() != null) { 		// mossa
+			if (moveCheck(dtoTurn.getCoordinate())) {		//controllo se posso fare la mossa
 				gameStatus.setMove(true);
 				move(dtoTurn.getCoordinate());
 				if (gameStatus.getPlayerPlay().getSector().getType() != SectorType.DANGEROUS)
