@@ -112,7 +112,8 @@ public class UseItem implements TryToDoAnAction {
 			teleport();
 			useCard=true;
 		}
-		if(useCard) {		//se ha usato la carta scartala e mostrala a tutti i giocatori
+		
+		if(useCard) {
 			dtoGame.setDestination(9);
 			dtoGame.setTypeItemCard(dtoTurn.getTypeCard());
 		}

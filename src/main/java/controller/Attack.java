@@ -73,7 +73,7 @@ public class Attack implements TryToDoAnAction {
 			if (attacked.getItem().get(j).getType()
 					.equals(ItemCardType.DEFENSE)) {
 				gameStatus.getGame().getItemCards()
-						.discard(attacked.removeItem(j)); // discard defense and use it
+						.discard(attacked.removeItem(j)); // discard and use defense card
 				return true;
 			}
 		}

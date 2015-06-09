@@ -4,7 +4,7 @@ import dto.DTOGame;
 import dto.DTOTurn;
 
 /**
- * This class control if the player can pass or there are something else he/she
+ * This class controls if the player can pass or there are something else he/she
  * must to do to complete the turn
  * 
  * @author Nicola
@@ -28,6 +28,7 @@ public class EndTurn implements TryToDoAnAction {
 	}
 
 	@Override
+
 	public DTOGame doAction(DTOTurn dtoTurn) {
 		if (gameStatus.isMove() && !gameStatus.isNoiseInAnySector()
 				&& !gameStatus.isDiscardItemDuty()

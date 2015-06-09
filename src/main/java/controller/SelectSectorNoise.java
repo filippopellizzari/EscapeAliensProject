@@ -25,6 +25,7 @@ public class SelectSectorNoise implements TryToDoAnAction {
 	}
 
 	@Override
+
 	public DTOGame doAction(DTOTurn dtoTurn) {
 		if (gameStatus.isMove() && gameStatus.isNoiseInAnySector()
 				&& dtoTurn.getCoordinate() != null

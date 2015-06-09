@@ -103,6 +103,7 @@ public class Move implements TryToDoAnAction {
 	 * @return string, describes destination sector
 	 */
 
+
 	public void move(Coordinate destCoord) {
 		Sector destSector = gameStatus.getGame().getMap().getSector(destCoord);
 		destSector.addPlayer(gameStatus.getPlayerPlay().getSector()

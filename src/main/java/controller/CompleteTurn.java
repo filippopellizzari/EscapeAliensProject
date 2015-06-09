@@ -48,6 +48,7 @@ public class CompleteTurn {
 			} else
 			condizione++;
 			if (gameStatus.isDiscardItemDuty()) { // non ha scartato
+
 				actionToDo = new Discard(gameStatus);
 				dtoGame = actionToDo.doAction(new DTOTurn(null, gameStatus
 						.getPlayerPlay().getItem().get(random.nextInt(4))
@@ -55,6 +56,7 @@ public class CompleteTurn {
 			} else
 			condizione++;
 			if (gameStatus.isSolveSectorDuty() == false) {
+
 				if (gameStatus.getPlayerPlay().getSector().getType() == SectorType.DANGEROUS) 
 				{ // verifica che debba pescare la carta settore pericoloso
 					actionToDo = new DrawSectorCard(gameStatus);
