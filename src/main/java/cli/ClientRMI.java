@@ -11,6 +11,13 @@ import dto.DTOGame;
 import dto.DTOSend;
 import rmi.ClientDataRMI;
 
+/**
+ *  this class is a client who choosed connection RMI
+ * 
+ * @author filippopellizzari
+ *
+ */
+
 public class ClientRMI {
 	
 	private ClientDataRMI cdr;
@@ -42,12 +49,13 @@ public class ClientRMI {
 		switch(azione){
 		case 1:
 			System.out.println("Inserisci le coordinate di destinazione:\n Lettera:\n");
-			int x = in.nextInt();//devo trasformare lettera in numero!
+			char lettera = in.next().charAt(0);
+			int x = (int)lettera - 96; //converto char in intero
 			System.out.println("Numero:\n");
 			int y = in.nextInt();
 			Coordinate coord = new Coordinate (x,y);
-			DTOSend dtoSend = new DTOSend(coord, 1, null, TypeOfAction.MOVE, null);
-			cdr.clickOnDoMove(dtoSend); //il DTO game??
+			DTOSend dtoSend = new DTOSend(coord, cdr.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
+			cdr.clickOnDoMove(dtoSend); 
 			
 			
 		}

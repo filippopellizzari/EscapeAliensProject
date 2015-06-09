@@ -7,10 +7,24 @@ import java.util.Scanner;
 
 import rmi.ClientDataRMI;
 import socket.ClientData;
-
+/**
+ * this class starts Client and the user can choose the connection type (RMI or Socket)
+ * 
+ * @author filippopellizzari
+ *
+ */
 public class Client {
 	
-
+/**
+ * user can choose connection (RMI or Socket)
+ * 
+ * @param args
+ * @throws UnknownHostException 
+ * @throws ClassNotFoundException 
+ * @throws IOException
+ * @throws InterruptedException
+ * @throws NotBoundException
+ */
 	public static void main(String[] args) throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException, NotBoundException{
 		
 		Scanner in = new Scanner(System.in);
