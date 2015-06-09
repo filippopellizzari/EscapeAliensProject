@@ -5,6 +5,8 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import model.Coordinate;
+import connection.MapName;
+import connection.MapType;
 import connection.TypeOfMap;
 import controller.TypeOfAction;
 import dto.DTOSend;
@@ -35,13 +37,13 @@ public class ClientSocket {
 		int mappa = in.nextInt();
 		switch(mappa){
 		case 1:
-			cd.clickOnStartGame(new TypeOfMap("Fermi", "Hexagonal"));
+			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
 			break;
 		case 2:
-			cd.clickOnStartGame(new TypeOfMap("Galilei", "Hexagonal"));
+			cd.clickOnStartGame(new TypeOfMap(MapName.Galilei, MapType.HEXAGONAL));
 			break;
 		case 3:
-			cd.clickOnStartGame(new TypeOfMap("Galvani", "Hexagonal"));
+			cd.clickOnStartGame(new TypeOfMap(MapName.Galvani, MapType.HEXAGONAL));
 			break;
 		}
 		

@@ -50,7 +50,7 @@ public class DrawSectorCard implements TryToDoAnAction{
 			ItemCardType type = current.getType();
 			dtoGame.setTypeItemCard(type);
 			if(gameStatus.getPlayerPlay().getItem().size() == 4){
-				dtoGame.setGameMessage("Hai 4 carte oggetto: devi giocarne una subito o scartarne una\n"); //messaggio privato
+				dtoGame.setGameMessage("Hai 4 carte oggetto: devi giocarne una subito o scartarne una\n"); 
 				gameStatus.setDiscardItemDuty(true);
 			}
 		}

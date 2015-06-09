@@ -6,6 +6,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import connection.MapName;
+
 /**
  * This class load an exagonal map from the corresponding file
  * @author Nicola
@@ -13,8 +15,6 @@ import java.util.List;
  */
 
 public class HexagonalMapCreator extends MapCreator{
-	
-	
 	
 	/**
 	 * 
@@ -34,10 +34,10 @@ public class HexagonalMapCreator extends MapCreator{
 	 * but that the string does not have the appropriate format
 	 * @throws IOException  signals that an I/O exception of some sort has occurred
 	 */
+	@Override
+	public Map loadMap(MapName mapName) throws NumberFormatException, IOException {
 
-	public Map loadMap(String fileName) throws NumberFormatException, IOException {
-
-		File file = new File("rsc"+File.separatorChar+fileName+"Map.txt");
+		File file = new File("rsc"+File.separatorChar+mapName+"Map.txt");
 		
 		FileReader fileRead = new FileReader(file);
 		BufferedReader br = new BufferedReader(fileRead); 

@@ -1,28 +1,17 @@
 package connection;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.DTOGame;
+
 public class Identification {
-	private int number;
 	private int numberGame;
 	private int numberPlayer;
 	
-	public Identification(int number, int numberGame, int numberPlayer) {
-		super();
-		this.number = number;
+	public Identification(int numberGame, int numberPlayer) {
 		this.numberGame = numberGame;
-		this.numberPlayer = numberPlayer;
-	}
-
-	/**
-	 * @return the number
-	 */
-	public int getNumber() {
-		return number;
-	}
-	/**
-	 * @param number the number to set
-	 */
-	public void setNumber(int number) {
-		this.number = number;
+		this.numberPlayer=numberPlayer;
 	}
 	
 	/**
@@ -40,9 +29,6 @@ public class Identification {
 	/**
 	 * @param numberPlayer the numberPlayer to set
 	 */
-	public void setNumberPlayer(int numberPlayer) {
-		this.numberPlayer = numberPlayer;
-	}
 
 	/**
 	 * @return the numberPlayer
@@ -50,5 +36,11 @@ public class Identification {
 	public int getNumberPlayer() {
 		return numberPlayer;
 	}
-	
+
+	/**
+	 * @param numberPlayer the numberPlayer to set
+	 */
+	public void setNumberPlayer(int numberPlayer) {
+		this.numberPlayer = numberPlayer;
+	}
 }

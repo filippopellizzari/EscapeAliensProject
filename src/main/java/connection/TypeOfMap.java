@@ -3,10 +3,9 @@ package connection;
 import java.io.Serializable;
 
 public class TypeOfMap implements Serializable{
-	private String mapName;
-	private String typeMap;
-	
-	public TypeOfMap(String mapName, String typeMap) {
+	private MapName mapName;
+	private MapType typeMap;
+	public TypeOfMap(MapName mapName, MapType typeMap) {
 		super();
 		this.mapName = mapName;
 		this.typeMap = typeMap;
@@ -14,13 +13,13 @@ public class TypeOfMap implements Serializable{
 	/**
 	 * @return the mapName
 	 */
-	public String getMapName() {
+	public MapName getMapName() {
 		return mapName;
 	}
 	/**
 	 * @return the typeMap
 	 */
-	public String getTypeMap() {
+	public MapType getTypeMap() {
 		return typeMap;
 	}
 	/* (non-Javadoc)
@@ -46,18 +45,13 @@ public class TypeOfMap implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		TypeOfMap other = (TypeOfMap) obj;
-		if (mapName == null) {
-			if (other.mapName != null)
-				return false;
-		} else if (!mapName.equals(other.mapName))
+		if (mapName != other.mapName)
 			return false;
-		if (typeMap == null) {
-			if (other.typeMap != null)
-				return false;
-		} else if (!typeMap.equals(other.typeMap))
+		if (typeMap != other.typeMap)
 			return false;
 		return true;
 	}
+	
 	
 	
 }

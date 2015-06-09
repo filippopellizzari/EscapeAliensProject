@@ -36,8 +36,6 @@ public class Turn {
 
 	public DTOGame turn(DTOTurn dtoTurn) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		DTOGame response=new DTOGame();
-		//Class genericActionClass = Class.forName("controller."+dtoTurn.getTypeOfAction().toString());  da provare 
-		//TryToDoAnAction actionToDo=(TryToDoAnAction) genericActionClass.newInstance();
 		TryToDoAnAction actionToDo;
 		switch (dtoTurn.getTypeOfAction()) {
 		case MOVE:

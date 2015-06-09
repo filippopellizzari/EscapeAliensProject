@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 
+import connection.MapName;
+import connection.MapType;
 import connection.ViewForPlayer;
 import creator.GameCreator;
 import dto.*;
@@ -27,16 +29,16 @@ public class GameController {
 	 *            name of the map to create
 	 * @param numberOfPlayers
 	 *            number of players
-	 * @param typeMap
+	 * @param mapType
 	 *            type of map (standard is hexagonal)
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
 
-	public GameController(String mapName, int numberOfPlayers, String typeMap)
+	public GameController(MapName mapName, int numberOfPlayers, MapType mapType)
 			throws NumberFormatException, IOException {
 		GameCreator gameCreator = GameCreator.getinstance();
-		this.game = gameCreator.createGame(mapName, numberOfPlayers, typeMap);
+		this.game = gameCreator.createGame(mapName, numberOfPlayers, mapType);
 		currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 		this.currentNumberPlayer = 0;
 		this.turnNumber = 1;
@@ -51,7 +53,7 @@ public class GameController {
 	 * @throws ClassNotFoundException 
 	 */
 
-	public synchronized DTOGame doAnAction(DTOSend dtoSend) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public DTOGame doAnAction(DTOSend dtoSend) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		DTOGame dtoGame=new DTOGame();
 		ControlDataRiceived control = new ControlDataRiceived(); 
 		dtoGame.setGameMessage(control.verify(dtoSend, currentNumberPlayer, game));

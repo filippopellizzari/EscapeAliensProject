@@ -11,7 +11,7 @@ public class ClientHandlerChooseGameSocket implements Processing{
 	private Token token;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-	private IdentifyTypeOfConnection identifyTypeOfConnection;
+	private IdentifyTypeOfConnection identifyTypeOfConnection;		//serve per settare i dettagli del giocatore
 	private final DatabaseCreateGame dataBaseForSubscribe;
 	
 	public ClientHandlerChooseGameSocket(Token token, ObjectOutputStream socketOut, ObjectInputStream socketIn) {
@@ -40,6 +40,7 @@ public class ClientHandlerChooseGameSocket implements Processing{
 				out.flush();
 				out.writeObject(myView); 	//manda la view al client
 				out.flush();
+				//aggiungere la parte di pub-sub
 				System.out.println("Scritto view");
 			}
 		} catch (IOException | ClassNotFoundException | InterruptedException e) {

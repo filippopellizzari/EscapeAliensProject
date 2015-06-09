@@ -11,10 +11,12 @@ import model.*;
  *
  */
 
-public class DTOSend implements Serializable {
+
+public class DTOSend implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	private Coordinate coordinate;
-	private final int numberPlayer;
+	private int numberPlayer;
 	private ItemCardType typeCard;
 	private String chat;
 	private TypeOfAction typeOfAction;
@@ -82,35 +84,41 @@ public class DTOSend implements Serializable {
 	}
 
 	/**
-	 * 
-	 * @param coordinate
+
+	 * @param coordinate the coordinate to set
 	 */
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
 	}
 
 	/**
-	 * 
-	 * @param typeCard
+	 * @param typeCard the typeCard to set
 	 */
 	public void setTypeCard(ItemCardType typeCard) {
 		this.typeCard = typeCard;
 	}
 
 	/**
-	 * 
-	 * @param chat
+	 * @param chat the chat to set
 	 */
 	public void setChat(String chat) {
 		this.chat = chat;
 	}
 
 	/**
-	 * 
-	 * @param typeOfAction
+	 * @param typeOfAction the typeOfAction to set
 	 */
 	public void setTypeOfAction(TypeOfAction typeOfAction) {
 		this.typeOfAction = typeOfAction;
 	}
+
+	/**
+	 * @param numberPlayer the numberPlayer to set
+	 */
+	public void setNumberPlayer(int numberPlayer) {
+		this.numberPlayer = numberPlayer;
+	}
+	
+
 
 }
