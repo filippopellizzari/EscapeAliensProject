@@ -38,7 +38,7 @@ public class ClientHandlerGameSocket implements Processing{
 			DTOGame dtoGame=new DTOGame();
 			putInWait();
 			dtoGame=gameDescription.getController().doAnAction(dtoSend);
-			gameDescription.setStatus();	//ho finito
+			gameDescription.setStatus(StatusController.FREE);	//ho finito
 			if(dtoGame.getDestination()==9) {
 				//aggiungere la parte di invio al broker
 			}
@@ -52,6 +52,7 @@ public class ClientHandlerGameSocket implements Processing{
 	private void putInWait() throws InterruptedException {
 		System.out.println("Sono il thread connessione mi metto in wait");
 		gameDescription.getStatus();		//se è vuoto fermati e aspetta
+		gameDescription.setStatus(StatusController.BUSY);
 		System.out.println("Sono il thread connessione mi sveglio dallo wait");
 	}
 }
