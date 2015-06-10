@@ -1,5 +1,6 @@
 package rmi;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import connection.Token;
 import connection.ViewForPlayer;
 import dto.DTOGame;
 
-public class ClientStub implements SetClientParameter{
+public class ClientStub implements SetClientParameter, Serializable{
 	/**
 	 * 
 	 */
@@ -15,36 +16,22 @@ public class ClientStub implements SetClientParameter{
 	/**
 	 * 
 	 */
-	private ClientDataRMI client;
+	private List<DTOGame> dtoGameList;
+	private List<String> buffer;
 	
-	public ClientStub(ClientDataRMI clientDataRMI) {
-		this.client=clientDataRMI;
-	}
-
-	public ClientStub(Token token, ViewForPlayer view,
-			List<DTOGame> dtoGameList, List<String> buffer) {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void setToken(Token token) throws RemoteException {
-		client.setToken(token);
-		
-	}
-
-	@Override
-	public void setView(ViewForPlayer view) throws RemoteException {
-		client.setView(view);
+	public ClientStub(List<DTOGame> dtoGameList, List<String> buffer) {
+		this.dtoGameList=dtoGameList;
+		this.buffer=buffer;
 	}
 
 	@Override
 	public void setBuffer(String string) throws RemoteException {
-		client.setBuffer(string);
+		buffer.add(string);
 	}
 
 	@Override
 	public void setDTOGameList(DTOGame dtoGame) throws RemoteException {
-		client.setDtoGameList(dtoGame);
+		dtoGameList.add(dtoGame);
 		
 	}
 

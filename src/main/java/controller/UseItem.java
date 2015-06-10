@@ -16,17 +16,27 @@ public class UseItem implements TryToDoAnAction {
 	private GameStatus gameStatus;
 	private DTOGame dtoGame;
 
+	/**
+	 * 
+	 * @param gameStatus, the status of a turn, reference at model and the player who
+	 * are playing, now is his turn
+	 */
+	
 	public UseItem(GameStatus gameStatus) {
 		this.gameStatus = gameStatus;
 		this.dtoGame=new DTOGame();
 	}
+	
+	/**
+	 * Use the teletransport no secondary effects
+	 */
 
 	public void teleport() {
 		discard(ItemCardType.TELEPORT);
 		Coordinate humanSector = gameStatus.getGame().getMap().getHumanCoord();
 		gameStatus.getGame().getMap().getSector(humanSector).addPlayer(
 						gameStatus.getPlayerPlay().getSector().removePlayer());
-		dtoGame.setCoordinate(humanSector, gameStatus.getPlayerPlay().getNumber());
+		dtoGame.setCoordinate(humanSector, gameStatus.getPlayerPlay().getNumber());		//settore dove si trova ora il giocatore
 	}
 	
 	/**

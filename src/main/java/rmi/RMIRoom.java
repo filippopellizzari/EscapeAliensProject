@@ -19,28 +19,23 @@ public class RMIRoom implements Actions{
 	}
 
 	@Override
-	public void getToken(SetClientParameter setClientParameter) {
+	public Token getToken() {
 		int i=0;
-		boolean findFreeSpace=false;
 		Identification identificationToBeWrite;
 		do{
 			identificationToBeWrite=identifyConnection.getIdentification(i);
 			if(identificationToBeWrite==null) {
 				identificationToBeWrite=new Identification(-1,0);
 				identifyConnection.setIdentificationList(identificationToBeWrite, i);  //aggiorna il database
-				findFreeSpace=true;
-				try {
-					setClientParameter.setToken(new Token(i));
-				} catch (RemoteException e) {
-					System.err.println("Errore nella connessione");
-				}
+				return new Token(i);
 			}
 			i++;
-		}while(i<10000&& findFreeSpace==false);
+		}while(i<10000);
+		return null;
 	}
 	
 	@Override
-	public void subscribeGame(TypeOfMap typeOfMap, Token token,
+	public ViewForPlayer subscribeGame(TypeOfMap typeOfMap, Token token,
 			SetClientParameter setClientParameter) throws RemoteException {
 		ViewForPlayer myView=null;
 		try {
@@ -54,11 +49,12 @@ public class RMIRoom implements Actions{
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(detailsYourGame.getGameId());	//numero partita
 				myView=detailsYourGame.getView();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(myView.getNumberPlayer()); //numero giocatore
-				setClientParameter.setView(myView);
+				return myView;
 			}
 		} catch (InterruptedException e) {
 			System.err.println(e.getMessage());
 		}
+		return myView;
 	}
 
 	@Override
@@ -93,6 +89,13 @@ public class RMIRoom implements Actions{
 		System.out.println("Sono il thread connessione mi metto in wait");
 		gameDescription.getStatus();		//se è vuoto fermati e aspetta
 		System.out.println("Sono il thread connessione mi sveglio dallo wait");
+	}
+
+	@Override
+	public void subscribe(SetClientParameter setClientParameter)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

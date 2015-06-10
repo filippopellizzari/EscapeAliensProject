@@ -3,16 +3,31 @@ package controller;
 import dto.*;
 import model.*;
 
+/**
+ * This class is used when a player is in a dangerous sector and wants to draw a card
+ * @author Nicola
+ *
+ */
 
 public class DrawSectorCard implements TryToDoAnAction{
 	
 	private GameStatus gameStatus;
 	private DTOGame dtoGame;
 	
+	/**
+	 * 
+	 * @param gameStatus, the status of a turn, reference at model and the player who
+	 * are playing, now is his turn
+	 */
+	
 	public DrawSectorCard(GameStatus gameStatus) {
 		this.gameStatus=gameStatus;
 		this.dtoGame=new DTOGame();
 	}
+	
+	/**
+	 * Draw a dangerous sector card and solve the effect immediatly if possible
+	 */
 
 	public void drawSectorCard(){
 		SectorCard current = gameStatus.getGame().getSectorCards().draw();
@@ -21,8 +36,8 @@ public class DrawSectorCard implements TryToDoAnAction{
 		switch(type){
 			case NOISEANY: 
 			dtoGame.setGameMessage("NOISE IN ANY SECTOR: scegli una coordinata\n"); //messaggio privato
-			dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber());
-			break;
+			dtoGame.setDestination(10);		//unica volta che il messaggio è privato ma parte di esso va messo nel buffer per essere poi
+			break;							//dato a tutti i giocatori
 			case NOISEYOUR:  
 			dtoGame.setDestination(9);
 			dtoGame.setCoordinate(gameStatus.getPlayerPlay().getSector().getCoordinate(),
@@ -34,11 +49,15 @@ public class DrawSectorCard implements TryToDoAnAction{
 			default:
 			break;		
 		}
-		if (current.isItemIcon()){
+		if (current.isItemIcon()){		//vedi se devi pescare la carta
 			drawItemCard();
 		}
-		gameStatus.getGame().getSectorCards().discard(current);
+		gameStatus.getGame().getSectorCards().discard(current);			//scarta la carta settore nel mazzo scarti
 	}
+	
+	/**
+	 * If with the sector card there is a object card add this if possible at player's hand 
+	 */
 	
 	private void drawItemCard(){
 		ItemCard current = gameStatus.getGame().getItemCards().draw();
@@ -46,9 +65,9 @@ public class DrawSectorCard implements TryToDoAnAction{
 			dtoGame.setGameMessage("Sono finite le carte oggetto da pescare!\n");
 		}
 		else {
-			gameStatus.getPlayerPlay().addItem(current);
+			gameStatus.getPlayerPlay().addItem(current);		//aggiungi la carta
 			ItemCardType type = current.getType();
-			dtoGame.setTypeItemCard(type);
+			dtoGame.setTypeItemCard(type);						//setta la carta da passare al giocatore così che sappia cosa ha pescato
 			if(gameStatus.getPlayerPlay().getItem().size() == 4){
 				dtoGame.setGameMessage("Hai 4 carte oggetto: devi giocarne una subito o scartarne una\n"); 
 				gameStatus.setDiscardItemDuty(true);
@@ -62,7 +81,7 @@ public class DrawSectorCard implements TryToDoAnAction{
 		if(gameStatus.isMove()&&gameStatus.isAttack()==false&&gameStatus.isNoiseInAnySector()&&gameStatus.isSolveSectorDuty()==false){   //pesca carta settore pericoloso
 			gameStatus.setSolveSectorDuty(true);
 			drawSectorCard();
-			if(gameStatus.getPlayerPlay().getItem().size()==4) 
+			if(gameStatus.getPlayerPlay().getItem().size()==4) //dovrà scartare
 				gameStatus.setDiscardItemDuty(true);
 		}
 		else {
