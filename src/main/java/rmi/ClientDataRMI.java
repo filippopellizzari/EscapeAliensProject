@@ -44,14 +44,14 @@ public class ClientDataRMI{
 		token=game.getToken();
 	}
 	
-	public void clickOnStartGame(TypeOfMap typeOfMap) throws UnknownHostException, IOException, ClassNotFoundException {
+	public void clickOnStartGame(TypeOfMap typeOfMap) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 		game.subscribeGame(typeOfMap, token,setParameter);
 		if(view!=null) {
 			this.buffer.add("Partita pronta, Turno Giocatore 1");
 			System.out.println(view.getNumberPlayer());
 			System.out.println(view.getCoordinate());
 			System.out.println(view.getPlayerType());
-			game.subscribe(setParameter);
+			game.subscribe(setParameter,token);
 		}
 		else 
 			this.buffer.add("Tempo Scaduto e 1 solo giocatore, partita annullata");

@@ -68,9 +68,9 @@ public class RMIRoom implements Actions{
 			gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());
 			putInWait2(gameDescription);
 			dtoGame = gameDescription.getController().doAnAction(dtoSend);
-			//metti il dto nella lista del client
-			if(dtoGame.getDestination()==9) {
-				//aggiungere la parte di invio al broker
+			gameDescription.setStatus(StatusController.FREE);
+			if(dtoGame.getDestination()==9|| dtoGame.getDestination()==10) {
+				gameDescription.getBroker().publish(dtoGame);
 			}
 		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException | InterruptedException e) {
 			System.err.println(e.getMessage());
@@ -88,13 +88,20 @@ public class RMIRoom implements Actions{
 	private void putInWait2(GameDescription gameDescription) throws InterruptedException {
 		System.out.println("Sono il thread connessione mi metto in wait");
 		gameDescription.getStatus();		//se è vuoto fermati e aspetta
+		gameDescription.setStatus(StatusController.BUSY);
 		System.out.println("Sono il thread connessione mi sveglio dallo wait");
 	}
 
 	@Override
-	public void subscribe(SetClientParameter setParameter) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void subscribe(SetClientParameter setParameter, Token token) throws RemoteException, InterruptedException {
+		Identification identification=identifyConnection.getIdentification(token.getNumber());
+		GameDescription gameDescription;
+		gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());
+		DTOGame dtoGame=new DTOGame();
+		do {
+			dtoGame=gameDescription.getBroker().getPlayersBuffer(identification.getNumberPlayer()).getBuffer();
+			setParameter.setDTOGameList(dtoGame);
+		}while(dtoGame.getGameMessage()!="Partita conclusa");
 	}
 
 }
