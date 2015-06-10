@@ -16,7 +16,7 @@ public class GameDescription {
 		this.numberOfPlayers = numberOfPlayers;
 		this.controller = controller;
 		this.statusController=StatusController.FREE;
-		broker=new Broker(numberOfPlayers);		//
+		this.broker=new Broker(numberOfPlayers);
 	}
 	/**
 	 * @return the mapName
@@ -53,8 +53,9 @@ public class GameDescription {
 			this.wait();
 		
 	}
-	public synchronized void setStatus() {					//libera la risorsa e avvisa tutti
-		this.statusController=StatusController.FREE;
-		this.notifyAll();
+	public synchronized void setStatus(StatusController status) {					//libera la risorsa e avvisa tutti
+		this.statusController=status;
+		if(status==StatusController.FREE)
+			this.notifyAll();
 	}
 }

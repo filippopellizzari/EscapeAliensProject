@@ -1,10 +1,5 @@
 package pubSub;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import dto.DTOGame;
 
 public class Broker {
@@ -32,4 +27,12 @@ public class Broker {
 		else
 			message=dtoGame.getGameMessage(); 	//aggiungi il messaggio di gioco
 	}
+
+	/**
+	 * @return the playersBuffer
+	 */
+	public PlayersBuffers getPlayersBuffer(int numberPlayer) {
+		return playersBuffer[numberPlayer];
+	}
+	
 }

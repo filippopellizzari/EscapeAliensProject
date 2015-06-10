@@ -3,7 +3,7 @@ package connection;
 import java.io.IOException;
 
 import controller.GameController;
-import controller.ThreadTemporize;
+import controller.ThreadEndTurn;
 
 public class CreateEntireGame {
 	
@@ -23,7 +23,7 @@ public class CreateEntireGame {
 		return gameNumber;
 	}
 	public void createThreadTemporize(GameDescription gameDescription) {
-		Thread temporize=new Thread(new ThreadTemporize(gameDescription));
+		Thread temporize=new Thread(new ThreadEndTurn(gameDescription));
 		temporize.start();
 	}
 

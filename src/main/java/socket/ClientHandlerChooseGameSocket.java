@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import connection.*;
+import dto.DTOGame;
 
 public class ClientHandlerChooseGameSocket implements Processing{
 	
@@ -33,15 +34,24 @@ public class ClientHandlerChooseGameSocket implements Processing{
 			putInWait(detailsYourGame);
 			message=new Message(detailsYourGame.getBuffer());
 			if(message.getMessage()=="Partita pronta, Turno Giocatore 1") {
-				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(detailsYourGame.getGameId());	//numero partita
+				int numberGame=detailsYourGame.getGameId();
+				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(numberGame);	//numero partita
 				ViewForPlayer myView=detailsYourGame.getView();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(myView.getNumberPlayer()); //numero giocatore
 				out.writeObject(message);								//manda il messaggio
 				out.flush();
 				out.writeObject(myView); 	//manda la view al client
 				out.flush();
-				//aggiungere la parte di pub-sub
 				System.out.println("Scritto view");
+				ListOfStartedGame list=ListOfStartedGame.getinstance();
+				int numberOfPlayer=myView.getNumberPlayer();
+				DTOGame dtoGame=new DTOGame();
+				GameDescription description=list.getNumberGameDescription(numberGame);
+				do {
+					dtoGame=description.getBroker().getPlayersBuffer(numberOfPlayer).getBuffer();
+					out.writeObject(dtoGame);
+					out.flush();
+				}while(dtoGame.getGameMessage()!="Partita conclusa");
 			}
 		} catch (IOException | ClassNotFoundException | InterruptedException e) {
 			System.err.println(e.getMessage());

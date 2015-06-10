@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import connection.ListOfStartedGame;
 import connection.MapName;
 import connection.MapType;
 import connection.ViewForPlayer;
@@ -27,12 +28,9 @@ public class GameController {
 
 	/**
 	 * 
-	 * @param mapName
-	 *            name of the map to create
-	 * @param numberOfPlayers
-	 *            number of players
-	 * @param mapType
-	 *            type of map (standard is hexagonal)
+	 * @param mapName, name of the map to create
+	 * @param numberOfPlayers, number of players
+	 * @param mapType, type of map (standard is hexagonal)
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
@@ -74,11 +72,11 @@ public class GameController {
 	 * @param message 
 	 */
 
-	private DTOGame endTurn(DTOGame message) { // aggiorna il giocatore
+	private synchronized DTOGame endTurn(DTOGame message) { // aggiorna il giocatore
 		{
 			if(game.getPlayers().length==currentNumberPlayer) turnNumber++;		//turno finito
 			ControlEndGame controlEndGame = new ControlEndGame();
-			if(controlEndGame.control(game, turnNumber)) 
+			if(controlEndGame.control(game, turnNumber))
 				message.setGameMessage("Partita conclusa");
 			else {
 				boolean nextPlayerDecide = false; // assegna correttamente il prossimo turno
@@ -89,11 +87,17 @@ public class GameController {
 					if (game.getPlayers(currentNumberPlayer).isAlive())
 						nextPlayerDecide = true;
 				} while (!nextPlayerDecide);
+				setChangeTurn();
 				currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 				message.setGameMessage("Turno giocatore: "+currentNumberPlayer);
 			}
 			return message;
 		}
+	}
+
+	public synchronized void setChangeTurn() {
+		this.notifyAll();	//notifica al thread che segue i giocatori che il turno è finito
+		
 	}
 
 	/**
@@ -116,4 +120,30 @@ public class GameController {
 		}
 		return views;
 	}
+
+	/**
+	 * @return the turnNumber
+	 * @throws InterruptedException 
+	 */
+	public synchronized void getChangeTurn(int turnPreviousNumber, int playerPreviousNumber) throws InterruptedException {
+		if(turnPreviousNumber!=turnNumber||playerPreviousNumber!=currentNumberPlayer)
+			this.wait();
+	}
+
+	/**
+	 * @return the turnNumber
+	 */
+	public int getTurnNumber() {
+		return turnNumber;
+	}
+
+	/**
+	 * @return the currentNumberPlayer
+	 */
+	public int getCurrentNumberPlayer() {
+		return currentNumberPlayer;
+	}
+	
+	
+	
 }
