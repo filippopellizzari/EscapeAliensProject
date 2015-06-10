@@ -7,11 +7,9 @@ import java.util.Scanner;
 
 import dto.DTOGame;
 
-public class Broker implements Runnable{
+public class Broker {
 	private PlayersBuffers[] playersBuffer;
-	private DTOGame messageToBeDispatched;
-	private ArrayList<BrokerThread> subscribers = new ArrayList<BrokerThread>();
-	private String topic;
+	private String message;
 	private int numberOfPlayers;
 
 	public Broker(int numberOfPlayers) {
@@ -19,21 +17,19 @@ public class Broker implements Runnable{
 		playersBuffer=new PlayersBuffers[numberOfPlayers];
 		for(int i=0;i<numberOfPlayers;i++) {
 			playersBuffer[i]=new PlayersBuffers();
-			this.messageToBeDispatched=null;
+			this.message=null;
 		}
 	}	
 
-	private void publish(DTOGame dtoGame){
+	public void publish(DTOGame dtoGame){
+		dtoGame.setGameMessage(message);
 		if(dtoGame.getDestination()==9) {
 			for(int i=0;i<numberOfPlayers;i++) {
 				if(i==dtoGame.getPlayer()) continue;
+				playersBuffer[i].setBuffer(dtoGame);
 			}
 		}
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
+		else
+			message=dtoGame.getGameMessage(); 	//aggiungi il messaggio di gioco
 	}
 }

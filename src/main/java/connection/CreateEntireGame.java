@@ -3,6 +3,7 @@ package connection;
 import java.io.IOException;
 
 import controller.GameController;
+import controller.ThreadTemporize;
 
 public class CreateEntireGame {
 	
@@ -18,11 +19,11 @@ public class CreateEntireGame {
 		views=gameController.getViews();
 		GameDescription newGameReadyToBeRegistred=new GameDescription(typeOfMap.getMapName(), numberOfPlayers, gameController);
 		int gameNumber=listOfStartedGame.addGameDescription(newGameReadyToBeRegistred);
-		createThreadTemporize(gameController);
+		createThreadTemporize(listOfStartedGame.getNumberGameDescription(gameNumber));
 		return gameNumber;
 	}
-	public void createThreadTemporize(GameController gameController) {
-		Thread temporize=new Thread(new TemporizeThread(gameController));
+	public void createThreadTemporize(GameDescription gameDescription) {
+		Thread temporize=new Thread(new ThreadTemporize(gameDescription));
 		temporize.start();
 	}
 

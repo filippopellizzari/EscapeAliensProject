@@ -10,7 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 import rmi.*;
 import socket.ClientHandler;
 
-public class ServerForSocket {
+public class Server {
 	private final static int PORT = 29999;
 	private final static int Port = 39999;
 	private Registry registry;
@@ -45,7 +45,7 @@ public class ServerForSocket {
 	}
 	
 	public static void main(String[] args) {
-		ServerForSocket server = new ServerForSocket();
+		Server server = new Server();
 		server.startServer();
 	}
 }

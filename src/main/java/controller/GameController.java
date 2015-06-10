@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import connection.MapName;
 import connection.MapType;
@@ -76,18 +78,20 @@ public class GameController {
 		{
 			if(game.getPlayers().length==currentNumberPlayer) turnNumber++;		//turno finito
 			ControlEndGame controlEndGame = new ControlEndGame();
-			if(controlEndGame.control(game, turnNumber)) message.setGameMessage("Partita conclusa");
-			boolean nextPlayerDecide = false; // assegna correttamente il
-												// prossimo turno
-			do {
-				currentNumberPlayer++;
-				if (game.getPlayers().length == currentNumberPlayer) 
-					currentNumberPlayer = 0; // giocatore a cui tocca
-				if (game.getPlayers(currentNumberPlayer).isAlive())
-					nextPlayerDecide = true;
-			} while (!nextPlayerDecide);
-			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
-			message.setGameMessage("Turno giocatore: "+currentNumberPlayer);
+			if(controlEndGame.control(game, turnNumber)) 
+				message.setGameMessage("Partita conclusa");
+			else {
+				boolean nextPlayerDecide = false; // assegna correttamente il prossimo turno
+				do {
+					currentNumberPlayer++;
+					if (game.getPlayers().length == currentNumberPlayer) 
+						currentNumberPlayer = 0; // giocatore a cui tocca
+					if (game.getPlayers(currentNumberPlayer).isAlive())
+						nextPlayerDecide = true;
+				} while (!nextPlayerDecide);
+				currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
+				message.setGameMessage("Turno giocatore: "+currentNumberPlayer);
+			}
 			return message;
 		}
 	}
@@ -97,11 +101,12 @@ public class GameController {
 	 * @return 
 	 */
 
-	public DTOGame finishTurn() {
+	public List<DTOGame> finishTurn() {
 		CompleteTurn completeTurn = new CompleteTurn(currentTurn.getGameStatus());
-		DTOGame message = completeTurn.completeTurn(); // completa il turno
-		endTurn(message); // crea il prossimo turno
-		return message;
+		List<DTOGame> dtoGameList=new ArrayList<DTOGame>();
+		dtoGameList = completeTurn.completeTurn(dtoGameList); // completa il turno
+		dtoGameList.add(endTurn(new DTOGame())); // crea il prossimo turno oppure la partita finisce
+		return dtoGameList;
 	}
 	
 	public ViewForPlayer[] getViews() {

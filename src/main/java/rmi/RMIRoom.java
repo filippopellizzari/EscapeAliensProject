@@ -1,6 +1,7 @@
 package rmi;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 import pubSub.Broker;
 import connection.*;
@@ -35,31 +36,29 @@ public class RMIRoom implements Actions{
 	}
 	
 	@Override
-	public ViewForPlayer subscribeGame(TypeOfMap typeOfMap, Token token,
-			SetClientParameter setClientParameter) throws RemoteException {
+	public void subscribeGame(TypeOfMap typeOfMap, Token token, SetClientParameter setParameter) throws RemoteException {
 		ViewForPlayer myView=null;
 		try {
 			DetailsPlayers detailsYourGame;
 			detailsYourGame=dataBaseForSubscribe.subscribe(typeOfMap);		//hai i dettagli della partita in corso
-			setClientParameter.setBuffer("Iscrizione ricevuta");
+			setParameter.setBuffer("Iscrizione ricevuta");
 			putInWait(detailsYourGame);
+			setParameter.setBuffer(detailsYourGame.getBuffer());
 			if(detailsYourGame.getBuffer()=="Partita pronta, Turno Giocatore 1") {
 				IdentifyTypeOfConnection identifyTypeOfConnection;
 				identifyTypeOfConnection=IdentifyTypeOfConnection.getinstance();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(detailsYourGame.getGameId());	//numero partita
 				myView=detailsYourGame.getView();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(myView.getNumberPlayer()); //numero giocatore
-				return myView;
+				setParameter.setView(myView);
 			}
 		} catch (InterruptedException e) {
 			System.err.println(e.getMessage());
 		}
-		return myView;
 	}
-
+	
 	@Override
-	public void doAnAction(DTOSend dtoSend, Token token,
-			SetClientParameter setClientParameter) throws RemoteException {
+	public DTOGame doAnAction(DTOSend dtoSend, Token token) throws RemoteException {
 		DTOGame dtoGame=null;
 		try {
 			Identification identification=identifyConnection.getIdentification(token.getNumber());	//prendo l'identificatore del giocatore per avere il gioco
@@ -69,13 +68,14 @@ public class RMIRoom implements Actions{
 			gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());
 			putInWait2(gameDescription);
 			dtoGame = gameDescription.getController().doAnAction(dtoSend);
-			setClientParameter.setDTOGameList(dtoGame);
+			//metti il dto nella lista del client
 			if(dtoGame.getDestination()==9) {
 				//aggiungere la parte di invio al broker
 			}
 		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException | InterruptedException e) {
 			System.err.println(e.getMessage());
 		}
+		return dtoGame;
 	}
 
 	
@@ -92,8 +92,7 @@ public class RMIRoom implements Actions{
 	}
 
 	@Override
-	public void subscribe(SetClientParameter setClientParameter)
-			throws RemoteException {
+	public void subscribe(SetClientParameter setParameter) throws RemoteException {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,23 +1,24 @@
 package rmi;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.UnknownHostException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import socket.SocketStart;
 import model.Coordinate;
 import connection.*;
 import controller.TypeOfAction;
 import dto.*;
 
 
-public class ClientDataRMI implements Serializable{
+public class ClientDataRMI{
 	private Token token;
 	private ViewForPlayer view;
 	private List<DTOGame> dtoGameList;
@@ -27,7 +28,7 @@ public class ClientDataRMI implements Serializable{
 	private final String NAME = "room";
 	private final Actions game;
 	private final Registry registry;
-	private final SetClientParameter setClientParameter;
+	private SetClientParameter setParameter;
 	
 	public ClientDataRMI() throws RemoteException, NotBoundException, AlreadyBoundException {
 		registry = LocateRegistry.getRegistry(HOST,PORT);
@@ -36,28 +37,30 @@ public class ClientDataRMI implements Serializable{
 		this.token=new Token(-1);
 		this.dtoGameList=new ArrayList<DTOGame>();
 		this.buffer=new ArrayList<String>();
-		this.setClientParameter=new ClientStub(dtoGameList,buffer);
-		registry.bind(NAME, setClientParameter);
+		setParameter=new ClientStub(dtoGameList, buffer, view);
 	}
-	public void clickOnConnectionRMI(SetClientParameter setClientParameter) throws UnknownHostException, IOException, ClassNotFoundException{
+	
+	public void clickOnConnectionRMI() throws UnknownHostException, IOException, ClassNotFoundException{
 		token=game.getToken();
 	}
-	public void clickOnStartGame(TypeOfMap typeOfMap,SetClientParameter setClientParameter) throws UnknownHostException, IOException, ClassNotFoundException {
-		view=game.subscribeGame(typeOfMap, token, setClientParameter);
+	
+	public void clickOnStartGame(TypeOfMap typeOfMap) throws UnknownHostException, IOException, ClassNotFoundException {
+		game.subscribeGame(typeOfMap, token,setParameter);
 		if(view!=null) {
 			this.buffer.add("Partita pronta, Turno Giocatore 1");
 			System.out.println(view.getNumberPlayer());
 			System.out.println(view.getCoordinate());
 			System.out.println(view.getPlayerType());
-			game.subscribe(setClientParameter);
+			game.subscribe(setParameter);
 		}
 		else 
 			this.buffer.add("Tempo Scaduto e 1 solo giocatore, partita annullata");
 	}
-	public void clickOnDoMove(DTOSend dtoSend,SetClientParameter setClientParameter) throws UnknownHostException, IOException {
-		game.doAnAction(dtoSend, token,setClientParameter);
-	}
 	
+	public void clickOnDoMove(DTOSend dtoSend) throws UnknownHostException, IOException {
+		Thread rmiGame=new Thread(new RmiGame(this,dtoSend));
+		rmiGame.start();
+	}
 	/**
 	 * @return the token
 	 */
@@ -108,24 +111,32 @@ public class ClientDataRMI implements Serializable{
 		this.view = view;
 	}
 	
+	/**
+	 * @return the game
+	 */
+	public Actions getGame() {
+		return game;
+	}
 	
 	/**
-	 * @return the setClientParameter
+	 * @return the setParameter
 	 */
-	public SetClientParameter getSetClientParameter() {
-		return setClientParameter;
+	public SetClientParameter getSetParameter() {
+		return setParameter;
 	}
 	public static void main(String[] args) throws NotBoundException, UnknownHostException, ClassNotFoundException, IOException, InterruptedException, AlreadyBoundException{
 			ClientDataRMI cd=new ClientDataRMI();
 			System.out.println(cd.getToken().getNumber());
-			cd.clickOnConnectionRMI(cd.getSetClientParameter());
+			cd.clickOnConnectionRMI();
 			Thread.sleep(2000);
 			System.out.println(cd.getToken().getNumber());
-			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL),cd.getSetClientParameter());
+			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
 			Thread.sleep(40000);
+			System.out.println(cd.getBuffer());
 			DTOSend dtoSend=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
-			cd.clickOnDoMove(dtoSend,cd.getSetClientParameter());
+			cd.clickOnDoMove(dtoSend);
 			Thread.sleep(10000);
+			System.out.println(cd.getDtoGameList().size());
 	}
 	
 }
