@@ -9,7 +9,7 @@ import dto.*;
  *
  */
 
-public class SelectSectorNoise implements TryToDoAnAction {
+public class SelectSectorNoise implements ChooseAnAction {
 
 	private GameStatus gameStatus;
 	private DTOGame dtoGame;
@@ -27,15 +27,13 @@ public class SelectSectorNoise implements TryToDoAnAction {
 	@Override
 
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		if (gameStatus.isMove() && gameStatus.isNoiseInAnySector()
-				&& dtoTurn.getCoordinate() != null
-				&& dtoTurn.getTypeCard() == null) { // indica il settore del noise in any sector
-			gameStatus.setNoiseInAnySector(true);	//hai usato il noise
-			dtoGame.setDestination(9);				//non passo la carta poichè i giocatori non devono saperla
-			dtoGame.setCoordinate(dtoTurn.getCoordinate(), gameStatus.getPlayerPlay().getNumber());		//settore del noise nella casella del giocatore
+		if (gameStatus.isMoved() && gameStatus.isMustNoise()){ 
+			gameStatus.setMustNoise(false);	
+			dtoGame.setReceiver(9);			
+			dtoGame.setCoordinate(dtoTurn.getCoordinate(), gameStatus.getPlayer().getNumber());	//notifica noise
 		} else {
 			dtoGame.setGameMessage("Non puoi usare in questo momento il Noise in Any Sector");
-			dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber());		//solo lui deve ricevere il messaggio
+			dtoGame.setReceiver(gameStatus.getPlayer().getNumber());	//notifica privata
 		}
 		return dtoGame;
 	}

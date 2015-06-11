@@ -9,9 +9,9 @@ import model.*;
  *
  */
 
-public class DrawSectorCard implements TryToDoAnAction{
+public class DrawSectorCard implements ChooseAnAction{
 	
-	private GameStatus gameStatus;
+	private GameStatus status;
 	private DTOGame dtoGame;
 	
 	/**
@@ -20,31 +20,31 @@ public class DrawSectorCard implements TryToDoAnAction{
 	 * are playing, now is his turn
 	 */
 	
-	public DrawSectorCard(GameStatus gameStatus) {
-		this.gameStatus=gameStatus;
-		this.dtoGame=new DTOGame();
+	public DrawSectorCard(GameStatus status) {
+		this.status = status;
+		this.dtoGame = new DTOGame();
 	}
 	
 	/**
-	 * Draw a dangerous sector card and solve the effect immediatly if possible
+	 * Draw a dangerous sector card and solve the effect immediately if possible
 	 */
 
 	public void drawSectorCard(){
-		SectorCard current = gameStatus.getGame().getSectorCards().draw();
+		SectorCard current = status.getGame().getSectorCards().draw();
 		SectorCardType type = current.getType();
-		dtoGame.setSectorType(type);
+		dtoGame.setSectorCardType(type);
 		switch(type){
 			case NOISEANY: 
 			dtoGame.setGameMessage("NOISE IN ANY SECTOR: scegli una coordinata\n"); //messaggio privato
-			dtoGame.setDestination(10);		//unica volta che il messaggio è privato ma parte di esso va messo nel buffer per essere poi
-			break;							//dato a tutti i giocatori
+			dtoGame.setReceiver(10);		//unica volta che il messaggio è privato ma parte di esso va messo nel buffer per essere poi
+			break;	//dato a tutti i giocatori
 			case NOISEYOUR:  
-			dtoGame.setDestination(9);
-			dtoGame.setCoordinate(gameStatus.getPlayerPlay().getSector().getCoordinate(),
-					gameStatus.getPlayerPlay().getNumber());
+			dtoGame.setReceiver(9);
+			dtoGame.setCoordinate(status.getPlayer().getSector().getCoordinate(),
+					status.getPlayer().getNumber());
 			break;
 			case SILENCE:
-			dtoGame.setDestination(9);
+			dtoGame.setReceiver(9);
 			break;
 			default:
 			break;		
@@ -52,25 +52,22 @@ public class DrawSectorCard implements TryToDoAnAction{
 		if (current.isItemIcon()){		//vedi se devi pescare la carta
 			drawItemCard();
 		}
-		gameStatus.getGame().getSectorCards().discard(current);			//scarta la carta settore nel mazzo scarti
+		status.getGame().getSectorCards().discard(current);	//scarta la carta settore nel mazzo scarti
 	}
 	
-	/**
-	 * If with the sector card there is a object card add this if possible at player's hand 
-	 */
-	
-	private void drawItemCard(){
-		ItemCard current = gameStatus.getGame().getItemCards().draw();
+
+	public void drawItemCard(){
+		ItemCard current = status.getGame().getItemCards().draw();
 		if(current == null){
 			dtoGame.setGameMessage("Sono finite le carte oggetto da pescare!\n");
 		}
 		else {
-			gameStatus.getPlayerPlay().addItem(current);		//aggiungi la carta
+			status.getPlayer().addItem(current);//aggiungi la carta oggetto nel mazzo privato del giocatore
 			ItemCardType type = current.getType();
-			dtoGame.setTypeItemCard(type);						//setta la carta da passare al giocatore così che sappia cosa ha pescato
-			if(gameStatus.getPlayerPlay().getItem().size() == 4){
-				dtoGame.setGameMessage("Hai 4 carte oggetto: devi giocarne una subito o scartarne una\n"); //messaggio privato
-				gameStatus.setDiscardItemDuty(true);
+			dtoGame.setItemCardType(type);			//il giocatore deve conoscere 
+			if(status.getPlayer().getItem().size() == 4){
+				dtoGame.setGameMessage("Hai 4 carte oggetto: devi giocarne una subito o scartarne una\n"); 
+				status.setMustDiscardItem(true); //è obbligato a scartarne una (fino a che non la scarta o la usa)
 			}
 		}
 	}
@@ -78,15 +75,13 @@ public class DrawSectorCard implements TryToDoAnAction{
 
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		if(gameStatus.isMove()&&gameStatus.isAttack()==false&&gameStatus.isNoiseInAnySector()&&gameStatus.isSolveSectorDuty()==false){   //pesca carta settore pericoloso
-			gameStatus.setSolveSectorDuty(true);
+		if(status.isMustDraw() && !status.isSedated()){   
 			drawSectorCard();
-			if(gameStatus.getPlayerPlay().getItem().size()==4) //dovrà scartare
-				gameStatus.setDiscardItemDuty(true);
+			status.setMustDraw(false);
 		}
 		else {
-			dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber());
 			dtoGame.setGameMessage("Non puoi pescare in questo momento");
+			dtoGame.setReceiver(status.getPlayer().getNumber());
 		}
 		return dtoGame;
 	}

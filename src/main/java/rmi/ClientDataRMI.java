@@ -12,7 +12,7 @@ import java.util.List;
 
 import model.Coordinate;
 import connection.*;
-import controller.TypeOfAction;
+import controller.ActionType;
 import dto.*;
 
 
@@ -21,8 +21,8 @@ public class ClientDataRMI{
 	private ViewForPlayer view;
 	private List<DTOGame> dtoGameList;
 	private List<String> buffer;
-	private final static String HOST="127.0.0.1";
-	private final static int PORT=39999;
+	private final static String HOST = "127.0.0.1";
+	private final static int PORT = 39999;
 	private final String NAME = "room";
 	private final Actions game;
 	private final Registry registry;
@@ -35,7 +35,6 @@ public class ClientDataRMI{
 		this.dtoGameList=new ArrayList<DTOGame>();
 		this.buffer=new ArrayList<String>();
 	}
-	
 	public void clickOnConnectionRMI() throws UnknownHostException, IOException, ClassNotFoundException{
 		token=game.getToken();
 	}
@@ -43,15 +42,16 @@ public class ClientDataRMI{
 	public void clickOnStartGame(TypeOfMap typeOfMap) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 		buffer.add("Iscrizione inviata");
 		view=game.subscribeGame(typeOfMap, token);
-		if(view!=null) {
+		view = game.subscribeGame(typeOfMap, token);
+		if (view != null) {
 			this.buffer.add("Partita pronta, Turno Giocatore 1");
 			System.out.println(view.getNumberPlayer());
 			System.out.println(view.getCoordinate());
 			System.out.println(view.getPlayerType());
 			Thread subscribe=new Thread(new subscribeRMI(this));
 			subscribe.start();
-		}
-		else 
+		} 
+		else
 			this.buffer.add("Tempo Scaduto e 1 solo giocatore, partita annullata");
 	}
 	
@@ -59,27 +59,58 @@ public class ClientDataRMI{
 		Thread rmiGame=new Thread(new RmiGame(this,dtoSend));
 		rmiGame.start();
 	}
+
 	/**
 	 * @return the token
 	 */
 	public Token getToken() {
 		return token;
 	}
-	
+
 	/**
 	 * @return the game
 	 */
 	public Actions getGame() {
 		return game;
 	}
-	
 	/**
-	 * @param dtoGameList the dtoGameList to set
+	 * @param dtoGameList
+	 *            the dtoGameList to set
 	 */
 	public void setDtoGameList(DTOGame dtoGame) {
 		this.dtoGameList.add(dtoGame);
 	}
-	
+
+	/**
+	 * @return the buffer
+	 */
+	public List<String> getBuffer() {
+		return buffer;
+	}
+
+	/**
+	 * @param buffer
+	 *            the buffer to set
+	 */
+	public void setBuffer(String buffer) {
+		this.buffer.add(buffer);
+	}
+
+	/**
+	 * @param token
+	 *            the token to set
+	 */
+	public void setToken(Token token) {
+		this.token = token;
+	}
+
+	/**
+	 * @param view
+	 *            the view to set
+	 */
+	public void setView(ViewForPlayer view) {
+		this.view = view;
+	}
 
 	/**
 	 * @return the view
@@ -96,9 +127,9 @@ public class ClientDataRMI{
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
 			Thread.sleep(40000);
-			DTOSend dtoSend=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
+			DTOSend dtoSend=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, ActionType.MOVE, null);
 			cd.clickOnDoMove(dtoSend);
 			Thread.sleep(10000);
 	}
-	
+
 }

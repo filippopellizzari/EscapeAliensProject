@@ -16,6 +16,8 @@ import model.*;
 
 public class CompleteTurn {
 	private GameStatus gameStatus;
+	private DTOGame dtoGame;
+
 	/**
 	 * 
 	 * @param gameStatus, the status of a turn, reference at model and the player who
@@ -33,55 +35,55 @@ public class CompleteTurn {
 	 */
 
 	public List<DTOGame> completeTurn(List<DTOGame> dtoGameList) {
-		TryToDoAnAction actionToDo;
+		ChooseAnAction actionToDo;
 		Random random = new Random();
-		DTOGame dtoGame;
 		int condizione; // se arriva a 4 vuol dire che il turno è finito
 		do {
 			condizione = 0;
-			if (!gameStatus.isMove()) { // non ha mosso
+			//obbligo di muovere
+			if (!gameStatus.isMoved()) { 
 				actionToDo = new Move(gameStatus);
 				do {
 					dtoGame=new DTOGame();
-					dtoGame = actionToDo.doAction(new DTOTurn(gameStatus
-							.getPlayerPlay().getSector().getAdjacent()
-							.get(random.nextInt(6)), null, TypeOfAction.MOVE));
+					dtoGame = actionToDo.doAction(new DTOTurn(gameStatus.getPlayer().getSector().getAdjacent()
+							.get(random.nextInt(6)), null, ActionType.MOVE));
+					dtoGame = actionToDo.doAction(new DTOTurn(gameStatus.getPlayer().getSector().getAdjacent()
+							.get(random.nextInt(6)), null, null));
 				} while (dtoGame.getGameMessage() != "OK");
-				gameStatus.setMove(true);
+				gameStatus.setMoved(true);
 				dtoGameList.add(dtoGame);
 			} else
 				condizione++;
-			if (gameStatus.isDiscardItemDuty()) { // non ha scartato
+			if (gameStatus.isMustDiscardItem()) { // non ha scartato
 				dtoGame=new DTOGame();
-				actionToDo = new Discard(gameStatus);
-				dtoGame = actionToDo.doAction(new DTOTurn(null, gameStatus
-				.getPlayerPlay().getItem().get(random.nextInt(4)).getType(), TypeOfAction.DISCARD));
-				gameStatus.setDiscardItemDuty(true);
+				actionToDo = new DiscardItem(gameStatus);
+				dtoGame = actionToDo.doAction(new DTOTurn(null, gameStatus.getPlayer().getItem().get(random.nextInt(4)).getType(), ActionType.DISCARDITEM));
+				gameStatus.setMustDiscardItem(true);
 				dtoGameList.add(dtoGame);
 			} else
 				condizione++;
-			if (gameStatus.isSolveSectorDuty() == false) {
+			if (gameStatus.isMustDraw()) {
 				dtoGame=new DTOGame();
-				if (gameStatus.getPlayerPlay().getSector().getType() == SectorType.DANGEROUS) 
+				if (gameStatus.getPlayer().getSector().getType() == SectorType.DANGEROUS) 
 				{ // verifica che debba pescare la carta settore pericoloso
 					actionToDo = new DrawSectorCard(gameStatus);
-					dtoGame = actionToDo.doAction(new DTOTurn(null, null, TypeOfAction.DRAWSECTORCARD));
-					gameStatus.setSolveSectorDuty(true);
+					dtoGame = actionToDo.doAction(new DTOTurn(null, null, ActionType.DRAWSECTORCARD));
+					gameStatus.setMustDraw(false);
 					dtoGameList.add(dtoGame);
-				} else
-					condizione++;
-			} else
+				} 
+			}
+			else
 				condizione++;
-			if (gameStatus.isNoiseInAnySector()) { // non ha usato il rumore
-				Coordinate coordinateRandom;
-				dtoGame=new DTOGame();
+			//obbligo di scegliere settore per noise any sector
+			if (gameStatus.isMustNoise()) { 
+				Coordinate coordRandom;
 				do {
-					coordinateRandom = new Coordinate(random.nextInt(22) + 1,
+					coordRandom = new Coordinate(random.nextInt(22) + 1,
 					random.nextInt(13) + 1); // sorteggio coordinata a caso
-				} while (gameStatus.getGame().getMap().isNull(coordinateRandom) == false);
+				} while (gameStatus.getGame().getMap().isNull(coordRandom) == false);
 				actionToDo = new SelectSectorNoise(gameStatus);
-				dtoGame = actionToDo.doAction(new DTOTurn(coordinateRandom,null, TypeOfAction.SELECTSECTORFORNOISE));	// usa il rumore a casodto
-				dtoGameList.add(dtoGame);
+				dtoGame = actionToDo.doAction(new DTOTurn(coordRandom,null, ActionType.SELECTSECTORNOISE));	// usa il rumore a casodto
+				dtoGameList.add(dtoGame); 
 			} else
 				condizione++;
 		} while (condizione <= 3);

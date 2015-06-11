@@ -18,9 +18,9 @@ public class Broker {
 
 	public void publish(DTOGame dtoGame){
 		dtoGame.setGameMessage(message);
-		if(dtoGame.getDestination()==9) {
+		if(dtoGame.getReceiver()==9) {
 			for(int i=0;i<numberOfPlayers;i++) {
-				if(i==dtoGame.getPlayer()) continue;
+				if(i==dtoGame.getPlayerNumber()) continue;
 				playersBuffer[i].setBuffer(dtoGame);
 			}
 		}

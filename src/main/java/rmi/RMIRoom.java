@@ -64,7 +64,7 @@ public class RMIRoom implements Actions{
 			putInWait2(gameDescription);
 			dtoGame = gameDescription.getController().doAnAction(dtoSend);
 			gameDescription.setStatus(StatusController.FREE);
-			if(dtoGame.getDestination()==9|| dtoGame.getDestination()==10) {
+			if(dtoGame.getReceiver()==9|| dtoGame.getReceiver()==10) {
 				gameDescription.getBroker().publish(dtoGame);
 			}
 		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException | InterruptedException e) {

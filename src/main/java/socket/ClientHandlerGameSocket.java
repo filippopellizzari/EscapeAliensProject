@@ -34,13 +34,15 @@ public class ClientHandlerGameSocket implements Processing{
 		try {
 			this.dtoSend=(DTOSend)in.readObject();				//ricevo i dati
 			dtoSend.setNumberPlayer(numberPlayer);  			//metto il tuo numero
-			System.out.println("Azione dto: "+dtoSend.getTypeOfAction());
+			System.out.println("Azione dto: "+dtoSend.getActionType());
 			DTOGame dtoGame=new DTOGame();
 			putInWait();
+			gameDescription.getStatus();
+			gameDescription.setStatus(StatusController.BUSY);
 			dtoGame=gameDescription.getController().doAnAction(dtoSend);
 			gameDescription.setStatus(StatusController.FREE);	//ho finito
-			if(dtoGame.getDestination()==9) {
-				//aggiungere la parte di invio al broker
+			if(dtoGame.getReceiver()==9) {
+				gameDescription.getBroker().publish(dtoGame);
 			}
 			out.writeObject((DTOGame)dtoGame);
 			out.flush();
