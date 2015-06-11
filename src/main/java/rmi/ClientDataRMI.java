@@ -13,7 +13,7 @@ import java.util.List;
 
 import model.Coordinate;
 import connection.*;
-import controller.TypeOfAction;
+import controller.ActionType;
 import dto.*;
 
 public class ClientDataRMI implements Serializable {
@@ -146,7 +146,7 @@ public class ClientDataRMI implements Serializable {
 				cd.getSetClientParameter());
 		Thread.sleep(40000);
 		DTOSend dtoSend = new DTOSend(new Coordinate(12, 123), cd.getView()
-				.getNumberPlayer(), null, TypeOfAction.MOVE, null);
+				.getNumberPlayer(), null, ActionType.MOVE, null);
 		cd.clickOnDoMove(dtoSend, cd.getSetClientParameter());
 		Thread.sleep(10000);
 	}

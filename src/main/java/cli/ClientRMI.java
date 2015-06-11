@@ -8,7 +8,7 @@ import model.Coordinate;
 import connection.MapName;
 import connection.MapType;
 import connection.TypeOfMap;
-import controller.TypeOfAction;
+import controller.ActionType;
 import dto.DTOGame;
 import dto.DTOSend;
 import rmi.ClientDataRMI;
@@ -64,7 +64,7 @@ public class ClientRMI {
 				int y = in.nextInt();
 				Coordinate coord = new Coordinate(x, y);
 				DTOSend dtoSend = new DTOSend(coord, cdr.getView()
-						.getNumberPlayer(), null, TypeOfAction.MOVE, null);
+						.getNumberPlayer(), null, ActionType.MOVE, null);
 				cdr.clickOnDoMove(dtoSend, cdr.getSetClientParameter());
 
 			}

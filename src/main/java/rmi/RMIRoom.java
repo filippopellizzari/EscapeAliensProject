@@ -70,7 +70,7 @@ public class RMIRoom implements Actions{
 			putInWait2(gameDescription);
 			dtoGame = gameDescription.getController().doAnAction(dtoSend);
 			setClientParameter.setDTOGameList(dtoGame);
-			if(dtoGame.getDestination()==9) {
+			if(dtoGame.getReceiver()==9) {
 				//aggiungere la parte di invio al broker
 			}
 		}catch (ClassNotFoundException | InstantiationException | IllegalAccessException | InterruptedException e) {

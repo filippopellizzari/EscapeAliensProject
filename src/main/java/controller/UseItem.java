@@ -11,9 +11,9 @@ import model.*;
  * @author Filippo
  *
  */
-public class UseItem implements TryToDoAnAction {
+public class UseItem implements ChooseAnAction {
 
-	private GameStatus gameStatus;
+	private GameStatus status;
 	private DTOGame dtoGame;
 
 	/**
@@ -22,45 +22,52 @@ public class UseItem implements TryToDoAnAction {
 	 * are playing, now is his turn
 	 */
 	
-	public UseItem(GameStatus gameStatus) {
-		this.gameStatus = gameStatus;
-		this.dtoGame=new DTOGame();
+	public UseItem(GameStatus status) {
+		this.status = status;
+		this.dtoGame = new DTOGame();
 	}
 	
 	/**
-	 * Use the teletransport no secondary effects
+	 * Use the teleport no secondary effects
 	 */
 
 	public void teleport() {
-		discard(ItemCardType.TELEPORT);
-		Coordinate humanSector = gameStatus.getGame().getMap().getHumanCoord();
-		gameStatus.getGame().getMap().getSector(humanSector).addPlayer(
-						gameStatus.getPlayerPlay().getSector().removePlayer());
-		dtoGame.setCoordinate(humanSector, gameStatus.getPlayerPlay().getNumber());		//settore dove si trova ora il giocatore
+		Coordinate humanSector = status.getGame().getMap().getHumanCoord();
+		status.getGame().getMap().getSector(humanSector).addPlayer(status.getPlayer().getSector().removePlayer());
 	}
 	
 	/**
-	 * Use the sedatives no secondary effects
+	 * Use sedatives; player is sedated for all the turn; if he was in a 
+	 * dangerous sector, he is not more obliged to draw a dangerous sector card
+	 *  
 	 */
 
 	public void sedatives() {
-		discard(ItemCardType.SEDATIVES);
-		gameStatus.setSolveSectorDuty(true); 		//come se avessi pescato la carta settore pericoloso
+		status.setSedated(true); 	
+		status.setMustDraw(false);
 	}
-
-	public void spotlight(Sector chosen) {
-		discard(ItemCardType.SPOTLIGHT);
+/**
+ * use spotlight; any player(included user) in the chosen sector must immediately announce his position
+ * 
+ * @param coord, the coordinate of the chosen sector
+ */
+	public void spotlight(Coordinate coord) {
+		Sector chosen = status.getGame().getMap().getSector(coord);
+		//notifica posizione giocatori nel settore scelto
 		for (int i = 0; i < chosen.getPlayers().size(); i++) {
 			Player declaring = chosen.getPlayers().get(i);
-			dtoGame.setCoordinate(chosen.getCoordinate(), declaring.getNumber());
+			dtoGame.setCoordinate(chosen.getCoordinate(), declaring.getNumber());  
 		}
-		for (int i = 0; i < 6; i++) {
-			Sector lighted = gameStatus.getGame().getMap().getSector(chosen.getAdjacent().get(i));
-			if (lighted != null)
+		//notifica posizione giocatori nei settori attorno a quello scelto
+		for (int i = 0; i < chosen.getAdjacent().size(); i++) {
+			Coordinate adjCoord = chosen.getAdjacent().get(i);
+			if(adjCoord.getX() != -1 && adjCoord.getY()!= -1){
+				Sector lighted = status.getGame().getMap().getSector(adjCoord);
 				for (int j = 0; j < lighted.getPlayers().size(); j++) {
 					Player declaring = lighted.getPlayers().get(j);
 					dtoGame.setCoordinate(lighted.getCoordinate(), declaring.getNumber());
 				}
+			}
 		}
 	}
 	
@@ -69,68 +76,48 @@ public class UseItem implements TryToDoAnAction {
 	 */
 
 	public void adrenaline() {
-		discard(ItemCardType.ADRENALINE);		//imposto la nuova velocità
-		gameStatus.getPlayerPlay().setSpeed(2);
+		status.getPlayer().setSpeed(2);
 	}
 	
 	/**
-	 * Use the same methods of alie to attack
+	 * Use the same methods of alien to attack
 	 */
 
 	public void attack() {
-		discard(ItemCardType.ATTACK);
-		this.dtoGame=new Attack(gameStatus).attackMove();		//passo il dto così che possa essere settato
+		this.dtoGame = new Attack(status).attackMove();		
 	}
 	
-	/**
-	 * 
-	 * @param type, type of card that has to be discarded
-	 */
-
-	private void discard(ItemCardType type) {
-		for (int i = 0; i < gameStatus.getPlayerPlay().getItem().size(); i++) {
-			if (gameStatus.getPlayerPlay().getItem().get(i).getType().equals(type)) {
-				gameStatus.getGame().getItemCards().discard(gameStatus.getPlayerPlay().removeItem(i));
-				return;		//se omesso scarto tutte le carte uguali
-			}
-		}
-	}
 
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		boolean useCard=false;
-		if (!gameStatus.isAttack() && gameStatus.isMove()&& !gameStatus.isSolveSectorDuty()
+		if (!status.isAttacked() && status.isMoved()
 				&& dtoTurn.getTypeCard() == ItemCardType.ATTACK) {
-			gameStatus.setAttack(true);
-			useCard=true;
 			attack();
+			status.setAttacked(true);
+			status.setMustDraw(false);
 		}
-		if (dtoTurn.getTypeCard() == ItemCardType.SPOTLIGHT
-				&& dtoTurn.getCoordinate() != null) {
-			spotlight(gameStatus.getGame().getMap().getSector(dtoTurn.getCoordinate()));
-			useCard=true;
-		}
-		if (dtoTurn.getTypeCard() == ItemCardType.SEDATIVES) {
-			sedatives();
-			useCard=true;
-		}
-		if (dtoTurn.getTypeCard() == ItemCardType.ADRENALINE) {
-			adrenaline();
-			useCard=true;
-		}
-		if (dtoTurn.getTypeCard() == ItemCardType.TELEPORT) {
-			teleport();
-			useCard=true;
+		else{
+			dtoGame.setGameMessage("Non puoi usare questo oggetto in questo momento");
+			dtoGame.setReceiver(status.getPlayer().getNumber()); //notifica privata	
 		}
 		
-		if(useCard) {
-			dtoGame.setDestination(9);
-			dtoGame.setTypeItemCard(dtoTurn.getTypeCard());
+		if (dtoTurn.getTypeCard().equals(ItemCardType.SPOTLIGHT)) {
+			spotlight(dtoTurn.getCoordinate());
 		}
-		else {			//se non può usarla solo lui viene avvisato
-			dtoGame.setGameMessage("Non puoi usare questo oggetto in questo momento");
-			dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber());
+		if (dtoTurn.getTypeCard().equals(ItemCardType.SEDATIVES)) {
+			sedatives();
 		}
+		if (dtoTurn.getTypeCard().equals(ItemCardType.ADRENALINE)) {
+			adrenaline();
+		}
+		if (dtoTurn.getTypeCard().equals(ItemCardType.TELEPORT)) {
+			teleport();
+		}
+		
+		new DiscardItem(status).discardItem(dtoTurn.getTypeCard()); //scarto la carta oggetto usata(qualunque sia)
+		dtoGame.setReceiver(9);
+		dtoGame.setItemCardType(dtoTurn.getTypeCard());
+		
 		return dtoGame;
 	}
 }

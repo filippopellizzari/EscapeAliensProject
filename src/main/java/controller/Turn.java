@@ -13,7 +13,7 @@ import model.*;
 
 public class Turn {
 
-	GameStatus gameStatus;
+	private GameStatus status;
 	
 	/**
 	 * 
@@ -22,7 +22,7 @@ public class Turn {
 	 */
 	
 	public Turn(Game game, Player player) {
-		this.gameStatus = new GameStatus(game, player);
+		this.status = new GameStatus(game, player);
 	}
 
 	/**
@@ -35,37 +35,38 @@ public class Turn {
 	 */
 
 	public DTOGame turn(DTOTurn dtoTurn) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		DTOGame response=new DTOGame();
-		TryToDoAnAction actionToDo;
-		switch (dtoTurn.getTypeOfAction()) {
+		DTOGame response = new DTOGame();
+		ChooseAnAction actionToDo;
+		switch (dtoTurn.getActionType()) {
 		case MOVE:
-			actionToDo = new Move(gameStatus);
+			actionToDo = new Move(status);
 			response = actionToDo.doAction(dtoTurn);
 			break;
 		case ATTACK:
-			actionToDo = new Attack(gameStatus);
+			actionToDo = new Attack(status);
 			response = actionToDo.doAction(dtoTurn);
 			break;
 		case USEITEM:
-			actionToDo = new UseItem(gameStatus);
+			actionToDo = new UseItem(status);
 			response = actionToDo.doAction(dtoTurn);
 			break;
-		case DISCARD:
-			actionToDo = new Discard(gameStatus);
+		case DISCARDITEM:
+			actionToDo = new DiscardItem(status);
 			response = actionToDo.doAction(dtoTurn);
 			break;
 		case DRAWSECTORCARD:
-			actionToDo = new DrawSectorCard(gameStatus);
+			actionToDo = new DrawSectorCard(status);
 			response = actionToDo.doAction(dtoTurn);
 			break;
+		case SELECTSECTORNOISE:
+			actionToDo = new SelectSectorNoise(status);
+			response = actionToDo.doAction(dtoTurn);
+			break;	
 		case ENDTURN:
-			actionToDo = new EndTurn(gameStatus);
+			actionToDo = new EndTurn(status);
 			response = actionToDo.doAction(dtoTurn);
 			break;
-		case SELECTSECTORFORNOISE:
-			actionToDo = new SelectSectorNoise(gameStatus);
-			response = actionToDo.doAction(dtoTurn);
-			break;
+		
 		default:
 			break;
 		}
@@ -77,6 +78,6 @@ public class Turn {
 	 */
 
 	public GameStatus getGameStatus() {
-		return gameStatus;
+		return status;
 	}
 }

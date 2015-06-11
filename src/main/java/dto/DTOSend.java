@@ -2,7 +2,7 @@ package dto;
 
 import java.io.Serializable;
 
-import controller.TypeOfAction;
+import controller.ActionType;
 import model.*;
 
 /**
@@ -17,30 +17,30 @@ public class DTOSend implements Serializable{
 
 	private Coordinate coordinate;
 	private int numberPlayer;
-	private ItemCardType typeCard;
+	private ItemCardType itemCardType;
 	private String chat;
-	private TypeOfAction typeOfAction;
+	private ActionType actionType;
 
 	/**
 	 * @param coordinate
 	 *            of the sector selected
 	 * @param numberPlayer
 	 *            number of player in the game
-	 * @param typeCard
+	 * @param itemCardType
 	 *            type of card used
 	 * @param chat
 	 *            message for the chat
-	 * @param typeOfAction
+	 * @param actionType
 	 *            the action that the player would do
 	 */
 
 	public DTOSend(Coordinate coordinate, int numberPlayer,
-			ItemCardType typeCard, TypeOfAction typeOfAction, String chat) {
+			ItemCardType itemCardType, ActionType actionType, String chat) {
 		this.coordinate = coordinate;
 		this.numberPlayer = numberPlayer;
-		this.typeCard = typeCard;
+		this.itemCardType = itemCardType;
 		this.chat = chat;
-		this.typeOfAction = typeOfAction;
+		this.actionType = actionType;
 	}
 
 	/**
@@ -55,8 +55,8 @@ public class DTOSend implements Serializable{
 	 * @return the typeCard
 	 */
 
-	public ItemCardType getTypeCard() {
-		return typeCard;
+	public ItemCardType getItemCardType() {
+		return itemCardType;
 	}
 
 	/**
@@ -79,8 +79,8 @@ public class DTOSend implements Serializable{
 	 * @return the typeOfAction
 	 */
 
-	public TypeOfAction getTypeOfAction() {
-		return typeOfAction;
+	public ActionType getActionType() {
+		return actionType;
 	}
 
 	/**
@@ -94,8 +94,8 @@ public class DTOSend implements Serializable{
 	/**
 	 * @param typeCard the typeCard to set
 	 */
-	public void setTypeCard(ItemCardType typeCard) {
-		this.typeCard = typeCard;
+	public void setItemCardType(ItemCardType itemCardType) {
+		this.itemCardType = itemCardType;
 	}
 
 	/**
@@ -108,8 +108,8 @@ public class DTOSend implements Serializable{
 	/**
 	 * @param typeOfAction the typeOfAction to set
 	 */
-	public void setTypeOfAction(TypeOfAction typeOfAction) {
-		this.typeOfAction = typeOfAction;
+	public void setActionType(ActionType actionType) {
+		this.actionType = actionType;
 	}
 
 	/**

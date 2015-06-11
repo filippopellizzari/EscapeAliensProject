@@ -10,8 +10,8 @@ import dto.*;
 import model.*;
 
 /**
- * This class contains the status of game ad has a reference of the model,
- * invoke all the method to do every action and control this actions
+ * This class contains the controller of the game turns and
+ * controls the end of the game
  * 
  * @author Nicola
  *
@@ -20,7 +20,7 @@ import model.*;
 public class GameController {
 	private Game game;
 	private Turn currentTurn;
-	private int turnNumber;
+	private int round;
 	private int currentNumberPlayer;
 
 	/**
@@ -37,11 +37,13 @@ public class GameController {
 
 	public GameController(MapName mapName, int numberOfPlayers, MapType mapType)
 			throws NumberFormatException, IOException {
+		
 		GameCreator gameCreator = GameCreator.getinstance();
 		this.game = gameCreator.createGame(mapName, numberOfPlayers, mapType);
-		currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 		this.currentNumberPlayer = 0;
-		this.turnNumber = 1;
+		this.round = 1;
+		currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
+		
 	}
 
 	/**
@@ -54,42 +56,48 @@ public class GameController {
 	 */
 
 	public DTOGame doAnAction(DTOSend dtoSend) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		DTOGame dtoGame=new DTOGame();
-		ControlDataRiceived control = new ControlDataRiceived(); 
-		dtoGame.setGameMessage(control.verify(dtoSend, currentNumberPlayer, game));
-		if(dtoGame.getGameMessage()==null){
-			DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),
-					dtoSend.getTypeCard(), dtoSend.getTypeOfAction());
-			dtoGame = currentTurn.turn(dtoTurn); // messaggio di come è stata eseguita l'azione
-			if (dtoGame.getGameMessage() == "Hai finito il turno")
-				endTurn(dtoGame);
+		DTOGame dtoGame = new DTOGame();
+		String error = new ControlDataReceived(dtoSend, game,currentNumberPlayer).verify(); 
+		if(error != null){ //se ci sono errori sui dati ricevuti, notifico subito al client
+			dtoGame.setGameMessage(error);
+			return dtoGame;
 		}
+		DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),dtoSend.getItemCardType(), dtoSend.getActionType());
+		dtoGame = currentTurn.turn(dtoTurn);
+		if (dtoGame.getGameMessage() == "Hai finito il turno"){
+			endTurn(dtoGame);
+		}		
 		return dtoGame;
 	}
 
 	/**
-	 * This method ends a turn and prepares the next turn for another player
-	 * @param message 
+	 * This method ends a turn; prepares the next turn for another player,
+	 * if the game is not finished
+	 * 
+	 * @param dtoGame 
 	 */
 
-	private DTOGame endTurn(DTOGame message) { // aggiorna il giocatore
-		{
-			if(game.getPlayers().length==currentNumberPlayer) turnNumber++;		//turno finito
-			ControlEndGame controlEndGame = new ControlEndGame();
-			if(controlEndGame.control(game, turnNumber)) message.setGameMessage("Partita conclusa");
+	private DTOGame endTurn(DTOGame dtoGame) { 
 			boolean nextPlayerDecide = false; // assegna correttamente il
 												// prossimo turno
 			do {
 				currentNumberPlayer++;
-				if (game.getPlayers().length == currentNumberPlayer) 
-					currentNumberPlayer = 0; // giocatore a cui tocca
+				if (game.getPlayers().length == currentNumberPlayer) {
+					currentNumberPlayer = 0;
+					round++; //quando si riparte dal primo giocatore, si va al round successivo
+				}
 				if (game.getPlayers(currentNumberPlayer).isAlive())
 					nextPlayerDecide = true;
 			} while (!nextPlayerDecide);
+			
+			if(new EndGame(game, round).control()){
+				dtoGame.setGameMessage("Partita conclusa");
+				return dtoGame;
+			}
 			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
-			message.setGameMessage("Turno giocatore: "+currentNumberPlayer);
-			return message;
-		}
+			dtoGame.setGameMessage("Turno giocatore: "+currentNumberPlayer);
+			return dtoGame;
+		
 	}
 
 	/**

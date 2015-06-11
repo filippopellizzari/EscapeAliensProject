@@ -11,7 +11,7 @@ import dto.DTOTurn;
  *
  */
 
-public class EndTurn implements TryToDoAnAction {
+public class EndTurn implements ChooseAnAction {
 
 	private GameStatus gameStatus;
 	private DTOGame dtoGame;
@@ -30,11 +30,11 @@ public class EndTurn implements TryToDoAnAction {
 	@Override
 
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		if (gameStatus.isMove() && !gameStatus.isNoiseInAnySector()
-				&& !gameStatus.isDiscardItemDuty()
-				&& gameStatus.isSolveSectorDuty()) { // fine turno
+		if (gameStatus.isMoved() && !gameStatus.isMustDraw()
+				&& !gameStatus.isMustDiscardItem()
+				&& !gameStatus.isMustNoise()) { // fine turno
 			dtoGame.setGameMessage("Hai finito il turno");
-			dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber());
+			dtoGame.setReceiver(gameStatus.getPlayer().getNumber());
 		}
 		dtoGame.setGameMessage("Non hai completato tutte le azioni obbligatorie per finire il turno");
 		return dtoGame;

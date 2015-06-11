@@ -10,7 +10,7 @@ import dto.DTOTurn;
  *
  */
 
-public interface TryToDoAnAction {
+public interface ChooseAnAction {
 
 	/**
 	 * 

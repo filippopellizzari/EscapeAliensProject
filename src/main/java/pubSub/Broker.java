@@ -24,9 +24,9 @@ public class Broker implements Runnable{
 	}	
 
 	private void publish(DTOGame dtoGame){
-		if(dtoGame.getDestination()==9) {
+		if(dtoGame.getReceiver()==9) {
 			for(int i=0;i<numberOfPlayers;i++) {
-				if(i==dtoGame.getPlayer()) continue;
+				if(i==dtoGame.getPlayerNumber()) continue;
 			}
 		}
 	}

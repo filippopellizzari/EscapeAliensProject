@@ -2,7 +2,7 @@ package dto;
 
 import java.io.Serializable;
 
-import controller.TypeOfAction;
+import controller.ActionType;
 import model.*;
 
 /**
@@ -13,150 +13,107 @@ import model.*;
  */
 
 public class DTOGame implements Serializable {
-	
-	/**
-	 * 
-	 */
+
+
 	private static final long serialVersionUID = 1L;
-	private Coordinate[] coordinate;
-	private ItemCardType typeItemCard;
+	private final Coordinate[] coordinate;
+	private final PlayerType[] playerType;
+	private ItemCardType itemCardType;
+	private SectorCardType sectorCardType;
 	private HatchCardColor hatchCardColor;
-	private SectorCardType sectorType;
-	private TypeOfAction typeOfAction;
-	private String chat="";
-	private String gameMessage="";
-	private int destination;
-	private int player;
-	private PlayerType[] typePlayer;
-	
-	/**
-	 * @return the coordinate
-	 */
+	private ActionType actionType;
+	private String chat;
+	private String gameMessage;
+	private int receiver; //1-8 for single player, 9 broadcast, 10 caso particolare
+	private int playerNumber;
+
+	public DTOGame() {
+		this.coordinate = new Coordinate[8];
+		this.playerType = new PlayerType[8];
+	}
+
 	public Coordinate[] getCoordinate() {
 		return coordinate;
 	}
-	/**
-	 * @return the typeItemCard
-	 */
-	public ItemCardType getTypeItemCard() {
-		return typeItemCard;
-	}
-	/**
-	 * @return the hatchCardColor
-	 */
-	public HatchCardColor getHatchCardColor() {
-		return hatchCardColor;
-	}
-	/**
-	 * @return the sectorType
-	 */
-	public SectorCardType getSectorType() {
-		return sectorType;
-	}
-	/**
-	 * @return the typeOfAction
-	 */
-	public TypeOfAction getTypeOfAction() {
-		return typeOfAction;
-	}
-	/**
-	 * @return the chat
-	 */
-	public String getChat() {
-		return chat;
-	}
-	/**
-	 * @return the gameMessage
-	 */
-	public String getGameMessage() {
-		return gameMessage;
-	}
-	/**
-	 * @return the destination
-	 */
-	public int getDestination() {
-		return destination;
-	}
-	/**
-	 * @param coordinate of the sector selected, each is for a specific player
-	 * @param number, number of coordinate to set
-	 */
+
 	public void setCoordinate(Coordinate coordinate, int number) {
 		this.coordinate[number] = coordinate;
 	}
-	/**
-	 * * @param typeItemCard type of item card used/draw
-	 */
-	public void setTypeItemCard(ItemCardType typeItemCard) {
-		this.typeItemCard = typeItemCard;
+
+
+	public PlayerType[] getPlayerType() {
+		return playerType;
 	}
-	/**
-	 * @param hatchCardColor the hatchCardColor to set
-	 */
+
+	public void setPlayerType(PlayerType type, int number) {
+		playerType[number] = type;
+	}
+
+	public ItemCardType getItemCardType() {
+		return itemCardType;
+	}
+
+	public void setItemCardType(ItemCardType itemCardType) {
+		this.itemCardType = itemCardType;
+	}
+
+	public SectorCardType getSectorCardType() {
+		return sectorCardType;
+	}
+
+	public void setSectorCardType(SectorCardType sectorCardType) {
+		this.sectorCardType = sectorCardType;
+	}
+
+	public HatchCardColor getHatchCardColor() {
+		return hatchCardColor;
+	}
+
 	public void setHatchCardColor(HatchCardColor hatchCardColor) {
 		this.hatchCardColor = hatchCardColor;
 	}
-	/**
-	 * @param type type of sector card draw
-	 */
-	public void setSectorType(SectorCardType type) {
-		this.sectorType = type;
+
+	public ActionType getActionType() {
+		return actionType;
 	}
-	/**
-	 * @param typeOfAction action that the player has done
-	 */
-	public void setTypeOfAction(TypeOfAction typeOfAction) {
-		this.typeOfAction = typeOfAction;
+
+	public void setActionType(ActionType actionType) {
+		this.actionType = actionType;
 	}
-	/**
-	 * @param chat the chat to set
-	 */
+
+	public String getChat() {
+		return chat;
+	}
+
 	public void setChat(String chat) {
-		this.chat += chat;
+		this.chat = chat;
 	}
-	/**
-	 * @param gameMessage, message for the game
-	 */
+
+	public String getGameMessage() {
+		return gameMessage;
+	}
+
 	public void setGameMessage(String gameMessage) {
-		this.gameMessage += gameMessage;
+		this.gameMessage = gameMessage;
 	}
-	/**
-	 * @param destination, 1-8 means for a specific player 9 is broadcast
-	 */
-	public void setDestination(int destination) {
-		this.destination = destination;
+
+	public int getReceiver() {
+		return receiver;
 	}
-	/**
-	 * @return the player
-	 */
-	public int getPlayer() {
-		return player;
+
+	public void setReceiver(int receiver) {
+		this.receiver = receiver;
 	}
-	/**
-	 * @param player the player to set
-	 */
-	public void setPlayer(int player) {
-		this.player = player;
+
+	public int getPlayerNumber() {
+		return playerNumber;
 	}
-	/**
-	 * @return the typePlayer
-	 */
-	public PlayerType[] getTypePlayer() {
-		return typePlayer;
-	}
-	/**
-	 * @param coordinate the coordinate to set
-	 */
-	public void setCoordinate(Coordinate[] coordinate) {
-		this.coordinate = coordinate;
-	}
-	/**
-	 * 
-	 * @param type, type of player
-	 * @param number of player
-	 */
-	public void setTypePlayer(PlayerType type, int number) {
-		typePlayer[number]=type;
+
+	public void setPlayerNumber(int playerNumber) {
+		this.playerNumber = playerNumber;
 	}
 	
+	
+
+
 }

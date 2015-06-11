@@ -10,9 +10,9 @@ import model.*;
  * @author Filippo
  *
  */
-public class Move implements TryToDoAnAction {
+public class Move implements ChooseAnAction {
 
-	private GameStatus gameStatus;
+	private GameStatus status;
 	private DTOGame dtoGame;
 
 	/**
@@ -21,9 +21,9 @@ public class Move implements TryToDoAnAction {
 	 * are playing, now is his turn
 	 */
 	
-	public Move(GameStatus gameStatus) {
-		this.gameStatus = gameStatus;
-		this.dtoGame=new DTOGame();
+	public Move(GameStatus status) {
+		this.status = status;
+		this.dtoGame = new DTOGame();
 	}
 
 	/**
@@ -36,8 +36,8 @@ public class Move implements TryToDoAnAction {
 	public boolean moveCheck(Coordinate dest) {
 
 		return pathCheck(
-				gameStatus.getPlayerPlay().getSector().getCoordinate(), dest,
-				gameStatus.getPlayerPlay().getSpeed())
+				status.getPlayer().getSector().getCoordinate(), dest,
+				status.getPlayer().getSpeed())
 				&& destCheck(dest);
 	}
 
@@ -50,11 +50,10 @@ public class Move implements TryToDoAnAction {
 	 */
 
 	private boolean destCheck(Coordinate dest) {
-		if (!gameStatus.getGame().getMap().isNull(dest)) {
-			if (gameStatus.getPlayerPlay().getType() == PlayerType.ALIEN
-					&& gameStatus.getGame().getMap().getSector(dest).getType()
-							.equals(SectorType.HATCH)) {
-				return false;
+		if (!status.getGame().getMap().isNull(dest)) {
+			if (status.getPlayer().getType().equals(PlayerType.ALIEN)
+				&& status.getGame().getMap().getSector(dest).getType().equals(SectorType.HATCH)){
+						return false;
 			}
 			return true;
 		}
@@ -64,7 +63,7 @@ public class Move implements TryToDoAnAction {
 	/**
 	 * 
 	 * Check that the destination is reached according to the speed player and
-	 * that the crossed sectors are valid
+	 * that the crossed sectors are valid; it's a classic algorithm of Depth Search
 	 * 
 	 * @param curr, starting coordinate
 	 * @param dest, destination coordinate
@@ -76,13 +75,11 @@ public class Move implements TryToDoAnAction {
 		if (speed == 0) {
 			return curr.equals(dest);
 		} else {
-			Sector currSector = gameStatus.getGame().getMap().getSector(curr);
+			Sector currSector = status.getGame().getMap().getSector(curr);
 			for (int i = 0; i < currSector.getAdjacent().size(); i++) {
 				Coordinate adjCoord = currSector.getAdjacent().get(i);
-
 				if (adjCoord.getX() != -1 && adjCoord.getY() != -1) {
-					Sector adjSector = gameStatus.getGame().getMap()
-							.getSector(adjCoord);
+					Sector adjSector = status.getGame().getMap().getSector(adjCoord);
 					if (!adjSector.isClosed()) {
 						speed--;
 						if (pathCheck(adjCoord, dest, speed)) {
@@ -107,18 +104,27 @@ public class Move implements TryToDoAnAction {
 
 
 	public void move(Coordinate destCoord) {
-		Sector destSector = gameStatus.getGame().getMap().getSector(destCoord);
-		destSector.addPlayer(gameStatus.getPlayerPlay().getSector()
-				.removePlayer());
-		gameStatus.getPlayerPlay().setSector(destSector);
-		if(gameStatus.getGame().getPlayers(gameStatus.getPlayerPlay().getNumber()).getType()==PlayerType.HUMAN)
-			gameStatus.getPlayerPlay().setSpeed(1);
-		dtoGame.setCoordinate(destCoord, gameStatus.getPlayerPlay().getNumber());
+		Player player = status.getPlayer();
+		Sector destSector = status.getGame().getMap().getSector(destCoord);
+		destSector.addPlayer(player.getSector().removePlayer());
+		player.setSector(destSector);
+		if(player.getType().equals(PlayerType.HUMAN)){ //nel caso avesse preso adrenalina
+			player.setSpeed(1);
+		}
+		dtoGame.setCoordinate(destCoord, player.getNumber()); //mossa avvenuta con successo
 		switch (destSector.getType()) {
-		case DANGEROUS: case SECURE:
+		case DANGEROUS: 
+			if(!status.isSedated()){     
+				status.setMustDraw(true); //ha l'obbligo di pescare(fino a che non decide di attaccare o pescare)
+				//se è già stato sedato, non ha obbligo di pescare
+			}
+			dtoGame.setReceiver(status.getPlayer().getNumber());
+		case SECURE:
+			dtoGame.setReceiver(status.getPlayer().getNumber());
 			break;
 		case HATCH:
 			drawHatchCard();
+			dtoGame.setReceiver(9);	//mostra a tutti carta hatch e posizione giocatore
 			break;
 		default:
 			break;
@@ -130,39 +136,39 @@ public class Move implements TryToDoAnAction {
 	 */
 	
 	public void drawHatchCard(){
-		HatchCard current = gameStatus.getGame().getHatchCards().draw();
-		HatchCardColor color = current.getColor();
+		HatchCard current = status.getGame().getHatchCards().draw();//pesco carta hatch
+		HatchCardColor color = current.getColor(); 
 		dtoGame.setHatchCardColor(color);
-		dtoGame.setDestination(9);		//notifica a tutti
 		switch(color){
 		  	case RED :
 		  		break;
 		  	case GREEN :
-		  		gameStatus.getGame().getPlayers(gameStatus.getPlayerPlay().getNumber()).setAlive(false); //partita conclusa per lui
+		  		status.getPlayer().setAlive(false); //partita conclusa per lui
 		  		break;
 		}
-		gameStatus.getGame().getHatchCards().discard(current);
+		status.getGame().getHatchCards().discard(current);
 	}
 
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		if (gameStatus.isMove() == false && dtoTurn.getTypeCard() == null
-				&& dtoTurn.getCoordinate() != null) { 		// mossa
-			if (moveCheck(dtoTurn.getCoordinate())) {		//controllo se posso fare la mossa
-				gameStatus.setMove(true);
+		if (!status.isMoved()) { 	//controllo stato del turno
+			if (moveCheck(dtoTurn.getCoordinate())) {//controllo se la mossa è valida
 				move(dtoTurn.getCoordinate());
-				if (gameStatus.getPlayerPlay().getSector().getType() != SectorType.DANGEROUS)
-					gameStatus.setSolveSectorDuty(true); // se non sei in set pericolo non devi pescare
+				status.setMoved(true);
 			} 
 			else {
 				dtoGame.setGameMessage("Non puoi muovere in quel settore");
+				dtoGame.setReceiver(status.getPlayer().getNumber()); //notifica privata
 			}
 		} 
 		else {
 			dtoGame.setGameMessage("Non puoi muovere adesso");
+			dtoGame.setReceiver(status.getPlayer().getNumber());  //notifica privata
 		}
-		dtoGame.setDestination(gameStatus.getPlayerPlay().getNumber());
+		
 		return dtoGame;
 	}
+	
+	
 
 }

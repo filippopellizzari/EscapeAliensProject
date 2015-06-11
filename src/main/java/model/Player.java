@@ -95,7 +95,7 @@ public class Player {
 	
 	/**
 	 * 
-	 * @return number of player, each player is a client and play with one playere identify by number
+	 * @return number of player, each player is a client and plays with one number identifier
 	 */
 	
 	public int getNumber() {

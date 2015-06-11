@@ -5,142 +5,113 @@ import java.io.Serializable;
 import model.*;
 
 /**
- * this class is used as DTO between Client and Server, when the game is start
+ * this class contains the status of a player during his turn; booleans attributes indicate
+ * if a player has already do a type of action or if a player must do something
  * 
- * @author Nicola
+ * @author filippopellizzari
  *
  */
 
 public class GameStatus implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Player playerPlay;
-	private boolean hasMoved;
-	private boolean hasAttacked;
-	private boolean solveSectorDuty; // ha pescato la carta settore pericoloso
-	private boolean discardItemDuty;
-	private boolean noiseInAnySector; // ha pescato la carta noise in any sector
+	private Player player;
 	private Game game;
+	private boolean moved;
+	private boolean attacked;
+	private boolean sedated;
+	private boolean mustDraw; //must draw dangerous sector card
+	private boolean mustDiscardItem;//must discard fourth itemcard
+	private boolean mustNoise; //must select random coordinate for "noise in any sector"
+	
 
-	/**
-	 * @param game
-	 *             reference to model
-	 * @param playerPlay
-	 *             reference at player that has to play
-	 */
-
-	public GameStatus(Game game, Player playerPlay) {
-		this.playerPlay = playerPlay;
+	public GameStatus(Game game, Player player) {
+		this.player = player;
 		this.game = game;
-		hasMoved = false;
-		hasAttacked = false;
-		solveSectorDuty = false;
-		discardItemDuty = false;
-		noiseInAnySector = false;
+		moved = false;
+		attacked = false;
+		mustDraw = false;
+		mustDiscardItem = false;
+		mustNoise = false;
 	}
 
-	/**
-	 * @return the playerPlay
-	 */
-	public Player getPlayerPlay() {
-		return playerPlay;
+
+	public Player getPlayer() {
+		return player;
 	}
 
-	/**
-	 * @return the move
-	 */
-	public boolean isMove() {
-		return hasMoved;
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
-	/**
-	 * @return the attack
-	 */
-	public boolean isAttack() {
-		return hasAttacked;
-	}
 
-	/**
-	 * @return the solveSectorDuty
-	 */
-	public boolean isSolveSectorDuty() {
-		return solveSectorDuty;
-	}
-
-	/**
-	 * @return the discardItemDuty
-	 */
-	public boolean isDiscardItemDuty() {
-		return discardItemDuty;
-	}
-
-	/**
-	 * @return the noiseInAnySector
-	 */
-	public boolean isNoiseInAnySector() {
-		return noiseInAnySector;
-	}
-
-	/**
-	 * @return the game
-	 */
 	public Game getGame() {
 		return game;
 	}
 
-	/**
-	 * @param playerPlay
-	 *            the playerPlay set
-	 */
-	public void setPlayerPlay(Player playerPlay) {
-		this.playerPlay = playerPlay;
-	}
 
-	/**
-	 * @param move
-	 *            the move set
-	 */
-	public void setMove(boolean move) {
-		this.hasMoved = move;
-	}
-
-	/**
-	 * @param attack
-	 *            the attack set
-	 */
-	public void setAttack(boolean attack) {
-		this.hasAttacked = attack;
-	}
-
-	/**
-	 * @param solveSectorDuty
-	 *            the solveSectorDuty set
-	 */
-	public void setSolveSectorDuty(boolean solveSectorDuty) {
-		this.solveSectorDuty = solveSectorDuty;
-	}
-
-	/**
-	 * @param discardItemDuty
-	 *            the discardItemDuty set
-	 */
-	public void setDiscardItemDuty(boolean discardItemDuty) {
-		this.discardItemDuty = discardItemDuty;
-	}
-
-	/**
-	 * @param noiseInAnySector
-	 *            the noiseInAnySector set
-	 */
-	public void setNoiseInAnySector(boolean noiseInAnySector) {
-		this.noiseInAnySector = noiseInAnySector;
-	}
-
-	/**
-	 * @param game
-	 *            the game set
-	 */
 	public void setGame(Game game) {
 		this.game = game;
 	}
+
+
+	public boolean isMoved() {
+		return moved;
+	}
+
+
+	public void setMoved(boolean moved) {
+		this.moved = moved;
+	}
+
+
+	public boolean isAttacked() {
+		return attacked;
+	}
+
+
+	public void setAttacked(boolean attacked) {
+		this.attacked = attacked;
+	}
+
+
+	public boolean isSedated(){
+		return sedated;
+	}
+	
+	public void setSedated(boolean sedated){
+		this.sedated = sedated;
+	}
+	
+	public boolean isMustDraw() {
+		return mustDraw;
+	}
+
+
+	public void setMustDraw(boolean mustDraw) {
+		this.mustDraw = mustDraw;
+	}
+
+
+	public boolean isMustDiscardItem() {
+		return mustDiscardItem;
+	}
+
+
+	public void setMustDiscardItem(boolean mustDiscardItem) {
+		this.mustDiscardItem = mustDiscardItem;
+	}
+
+
+	public boolean isMustNoise() {
+		return mustNoise;
+	}
+
+
+	public void setMustNoise(boolean mustNoise) {
+		this.mustNoise = mustNoise;
+	}
+
+	
 }

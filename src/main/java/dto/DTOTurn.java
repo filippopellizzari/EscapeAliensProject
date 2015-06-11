@@ -1,6 +1,6 @@
 package dto;
 
-import controller.TypeOfAction;
+import controller.ActionType;
 import model.*;
 
 /**
@@ -14,24 +14,24 @@ import model.*;
 public class DTOTurn {
 
 	private Coordinate coordinate;
-	private ItemCardType typeCard;
-	private TypeOfAction typeOfAction;
+	private ItemCardType itemCardType;
+	private ActionType actionType;
 
 	/**
 	 * 
 	 * @param coordinate
 	 *            , coordinate of a sector
-	 * @param typeCard
+	 * @param itemCardType
 	 *            , type of a item card, players can't use other card
-	 * @param typeOfAction
+	 * @param actionType
 	 *            , type of action the player would do
 	 */
 
-	public DTOTurn(Coordinate coordinate, ItemCardType typeCard,
-			TypeOfAction typeOfAction) {
+	public DTOTurn(Coordinate coordinate, ItemCardType itemCardType,
+			ActionType actionType) {
 		this.coordinate = coordinate;
-		this.typeCard = typeCard;
-		this.typeOfAction = typeOfAction;
+		this.itemCardType = itemCardType;
+		this.actionType = actionType;
 	}
 
 	/**
@@ -47,14 +47,14 @@ public class DTOTurn {
 	 */
 
 	public ItemCardType getTypeCard() {
-		return typeCard;
+		return itemCardType;
 	}
 
 	/**
 	 * @return the typeOfAction
 	 */
 
-	public TypeOfAction getTypeOfAction() {
-		return typeOfAction;
+	public ActionType getActionType() {
+		return actionType;
 	}
 }

@@ -8,7 +8,7 @@ import model.Coordinate;
 import connection.MapName;
 import connection.MapType;
 import connection.TypeOfMap;
-import controller.TypeOfAction;
+import controller.ActionType;
 import dto.DTOSend;
 import socket.ClientData;
 /**
@@ -61,7 +61,7 @@ public class ClientSocket {
 				System.out.println("Numero:\n");
 				int y = in.nextInt();
 				Coordinate coord = new Coordinate (x,y);
-				DTOSend dtoSend = new DTOSend(coord, cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
+				DTOSend dtoSend = new DTOSend(coord, cd.getView().getNumberPlayer(), null, ActionType.MOVE, null);
 				cd.clickOnDoMove(dtoSend);
 				break;
 			case 2: 
