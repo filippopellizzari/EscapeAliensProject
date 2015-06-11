@@ -29,24 +29,20 @@ public class ClientRMI {
 	}
 
 	public void play() throws UnknownHostException, ClassNotFoundException,
-			IOException {
+			IOException, InterruptedException {
 		Scanner in = new Scanner(System.in);
 		System.out
 				.println("Scegli la mappa di gioco:\n 1: Fermi\n 2: Galilei\n 3: Galvani\n");
 		int mappa = in.nextInt();
 		switch (mappa) {
 		case 1:
-			cdr.clickOnStartGame(
-					new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL),
-					cdr.getSetClientParameter());
+			cdr.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
 			break;
 		case 2:
-			cdr.clickOnStartGame(new TypeOfMap(MapName.Galilei,
-					MapType.HEXAGONAL), cdr.getSetClientParameter());
+			cdr.clickOnStartGame(new TypeOfMap(MapName.Galilei,	MapType.HEXAGONAL));
 			break;
 		case 3:
-			cdr.clickOnStartGame(new TypeOfMap(MapName.Galvani,
-					MapType.HEXAGONAL), cdr.getSetClientParameter());
+			cdr.clickOnStartGame(new TypeOfMap(MapName.Galvani,	MapType.HEXAGONAL));
 			break;
 		}
 
@@ -65,7 +61,7 @@ public class ClientRMI {
 				Coordinate coord = new Coordinate(x, y);
 				DTOSend dtoSend = new DTOSend(coord, cdr.getView()
 						.getNumberPlayer(), null, ActionType.MOVE, null);
-				cdr.clickOnDoMove(dtoSend, cdr.getSetClientParameter());
+				cdr.clickOnDoMove(dtoSend);
 
 			}
 
