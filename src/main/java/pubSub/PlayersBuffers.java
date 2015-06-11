@@ -17,7 +17,8 @@ public class PlayersBuffers {
 	 * @throws InterruptedException 
 	 */
 	public synchronized DTOGame getBuffer() throws InterruptedException {
-		if(buffer.size()==0) this.wait();
+		while(buffer.size()==0) 
+			this.wait();
 		return buffer.remove(0);
 	}
 

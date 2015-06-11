@@ -1,9 +1,6 @@
 package rmi;
 
 import java.rmi.RemoteException;
-import java.util.List;
-
-import pubSub.Broker;
 import connection.*;
 import dto.*;
 
@@ -36,25 +33,23 @@ public class RMIRoom implements Actions{
 	}
 	
 	@Override
-	public void subscribeGame(TypeOfMap typeOfMap, Token token, SetClientParameter setParameter) throws RemoteException {
+	public ViewForPlayer subscribeGame(TypeOfMap typeOfMap, Token token) throws RemoteException {
 		ViewForPlayer myView=null;
 		try {
 			DetailsPlayers detailsYourGame;
 			detailsYourGame=dataBaseForSubscribe.subscribe(typeOfMap);		//hai i dettagli della partita in corso
-			setParameter.setBuffer("Iscrizione ricevuta");
 			putInWait(detailsYourGame);
-			setParameter.setBuffer(detailsYourGame.getBuffer());
 			if(detailsYourGame.getBuffer()=="Partita pronta, Turno Giocatore 1") {
 				IdentifyTypeOfConnection identifyTypeOfConnection;
 				identifyTypeOfConnection=IdentifyTypeOfConnection.getinstance();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(detailsYourGame.getGameId());	//numero partita
 				myView=detailsYourGame.getView();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(myView.getNumberPlayer()); //numero giocatore
-				setParameter.setView(myView);
 			}
 		} catch (InterruptedException e) {
 			System.err.println(e.getMessage());
 		}
+		return myView;
 	}
 	
 	@Override
@@ -93,15 +88,13 @@ public class RMIRoom implements Actions{
 	}
 
 	@Override
-	public void subscribe(SetClientParameter setParameter, Token token) throws RemoteException, InterruptedException {
+	public DTOGame subscribe(Token token) throws RemoteException, InterruptedException {
 		Identification identification=identifyConnection.getIdentification(token.getNumber());
 		GameDescription gameDescription;
 		gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());
 		DTOGame dtoGame=new DTOGame();
-		do {
-			dtoGame=gameDescription.getBroker().getPlayersBuffer(identification.getNumberPlayer()).getBuffer();
-			setParameter.setDTOGameList(dtoGame);
-		}while(dtoGame.getGameMessage()!="Partita conclusa");
+		dtoGame=gameDescription.getBroker().getPlayersBuffer(identification.getNumberPlayer()).getBuffer();
+		return dtoGame;
 	}
 
 }

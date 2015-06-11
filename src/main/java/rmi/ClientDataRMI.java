@@ -7,11 +7,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import socket.SocketStart;
 import model.Coordinate;
 import connection.*;
 import controller.TypeOfAction;
@@ -28,7 +26,6 @@ public class ClientDataRMI{
 	private final String NAME = "room";
 	private final Actions game;
 	private final Registry registry;
-	private SetClientParameter setParameter;
 	
 	public ClientDataRMI() throws RemoteException, NotBoundException, AlreadyBoundException {
 		registry = LocateRegistry.getRegistry(HOST,PORT);
@@ -37,7 +34,6 @@ public class ClientDataRMI{
 		this.token=new Token(-1);
 		this.dtoGameList=new ArrayList<DTOGame>();
 		this.buffer=new ArrayList<String>();
-		setParameter=new ClientStub(dtoGameList, buffer, view);
 	}
 	
 	public void clickOnConnectionRMI() throws UnknownHostException, IOException, ClassNotFoundException{
@@ -45,13 +41,15 @@ public class ClientDataRMI{
 	}
 	
 	public void clickOnStartGame(TypeOfMap typeOfMap) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
-		game.subscribeGame(typeOfMap, token,setParameter);
+		buffer.add("Iscrizione inviata");
+		view=game.subscribeGame(typeOfMap, token);
 		if(view!=null) {
 			this.buffer.add("Partita pronta, Turno Giocatore 1");
 			System.out.println(view.getNumberPlayer());
 			System.out.println(view.getCoordinate());
 			System.out.println(view.getPlayerType());
-			game.subscribe(setParameter,token);
+			Thread subscribe=new Thread(new subscribeRMI(this));
+			subscribe.start();
 		}
 		else 
 			this.buffer.add("Tempo Scaduto e 1 solo giocatore, partita annullata");
@@ -67,49 +65,6 @@ public class ClientDataRMI{
 	public Token getToken() {
 		return token;
 	}
-	/**
-	 * @return the view
-	 */
-	public ViewForPlayer getView() {
-		return view;
-	}
-	
-	/**
-	 * @return the dtoGameList
-	 */
-	public List<DTOGame> getDtoGameList() {
-		return dtoGameList;
-	}
-	/**
-	 * @param dtoGameList the dtoGameList to set
-	 */
-	public void setDtoGameList(DTOGame dtoGame) {
-		this.dtoGameList.add(dtoGame);
-	}
-	/**
-	 * @return the buffer
-	 */
-	public List<String> getBuffer() {
-		return buffer;
-	}
-	/**
-	 * @param buffer the buffer to set
-	 */
-	public void setBuffer(String buffer) {
-		this.buffer.add(buffer);
-	}
-	/**
-	 * @param token the token to set
-	 */
-	public void setToken(Token token) {
-		this.token = token;
-	}
-	/**
-	 * @param view the view to set
-	 */
-	public void setView(ViewForPlayer view) {
-		this.view = view;
-	}
 	
 	/**
 	 * @return the game
@@ -119,11 +74,20 @@ public class ClientDataRMI{
 	}
 	
 	/**
-	 * @return the setParameter
+	 * @param dtoGameList the dtoGameList to set
 	 */
-	public SetClientParameter getSetParameter() {
-		return setParameter;
+	public void setDtoGameList(DTOGame dtoGame) {
+		this.dtoGameList.add(dtoGame);
 	}
+	
+
+	/**
+	 * @return the view
+	 */
+	public ViewForPlayer getView() {
+		return view;
+	}
+
 	public static void main(String[] args) throws NotBoundException, UnknownHostException, ClassNotFoundException, IOException, InterruptedException, AlreadyBoundException{
 			ClientDataRMI cd=new ClientDataRMI();
 			System.out.println(cd.getToken().getNumber());
@@ -132,11 +96,9 @@ public class ClientDataRMI{
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
 			Thread.sleep(40000);
-			System.out.println(cd.getBuffer());
 			DTOSend dtoSend=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, TypeOfAction.MOVE, null);
 			cd.clickOnDoMove(dtoSend);
 			Thread.sleep(10000);
-			System.out.println(cd.getDtoGameList().size());
 	}
 	
 }
