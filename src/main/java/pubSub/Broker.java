@@ -17,15 +17,20 @@ public class Broker {
 	}	
 
 	public void publish(DTOGame dtoGame){
-		dtoGame.setGameMessage(message);
-		if(dtoGame.getReceiver()==9) {
-			for(int i=0;i<numberOfPlayers;i++) {
-				if(i==dtoGame.getPlayerNumber()) continue;
-				playersBuffer[i].setBuffer(dtoGame);
-			}
+		if(dtoGame.getReceiver()<8)  {			//solo il giocatore deve ricevere il messaggio
+			playersBuffer[dtoGame.getPlayerNumber()].setBuffer(dtoGame);
 		}
-		else
-			message=dtoGame.getGameMessage(); 	//aggiungi il messaggio di gioco
+		else {
+			dtoGame.setGameMessage(message);
+			if(dtoGame.getReceiver()==9) {
+				for(int i=0;i<numberOfPlayers;i++) {
+					if(i==dtoGame.getPlayerNumber()) continue;
+					playersBuffer[i].setBuffer(dtoGame);
+				}
+			}
+			else
+				message=dtoGame.getGameMessage(); 	//aggiungi il messaggio di gioco
+		}
 	}
 
 	/**

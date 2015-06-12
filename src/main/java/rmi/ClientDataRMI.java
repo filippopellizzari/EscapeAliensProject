@@ -42,7 +42,6 @@ public class ClientDataRMI{
 	public void clickOnStartGame(TypeOfMap typeOfMap) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 		buffer.add("Iscrizione inviata");
 		view=game.subscribeGame(typeOfMap, token);
-		view = game.subscribeGame(typeOfMap, token);
 		if (view != null) {
 			this.buffer.add("Partita pronta, Turno Giocatore 1");
 			System.out.println(view.getNumberPlayer());
@@ -126,8 +125,10 @@ public class ClientDataRMI{
 			Thread.sleep(2000);
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
+			System.out.println(cd.getBuffer().remove(0));
 			Thread.sleep(40000);
-			DTOSend dtoSend=new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, ActionType.MOVE, null);
+			System.out.println(cd.getBuffer().remove(0));
+			DTOSend dtoSend=new DTOSend(null , 1, null, ActionType.CHAT, "benvenuti nel gioco");
 			cd.clickOnDoMove(dtoSend);
 			Thread.sleep(10000);
 	}

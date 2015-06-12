@@ -36,13 +36,12 @@ public class ThreadEndTurn implements Runnable{
 				temporize=new Thread(new ThreadTemporize(time, gameDescription));
 				temporize.start();
 				gameDescription.getController().getChangeTurn(turn, numberPlayer);	//finisce il turno
-				if(temporize!=null) temporize.stop();
+				if(temporize!=null) temporize.stop();			//ferma timer
 				gameDescription.getStatus();		
-				gameDescription.setStatus(StatusController.BUSY);	//prendo il controller
 				list=gameDescription.getController().finishTurn();
 				turn=gameDescription.getController().getTurnNumber();			//imposto il nuovo turno e giocatore
 				numberPlayer=gameDescription.getController().getCurrentNumberPlayer();
-				gameDescription.setStatus(StatusController.FREE);		//libera il controller
+				gameDescription.setStatus();		//libera il controller
 				while(list.size()>0) {
 					message=list.get(0).getGameMessage();
 					gameDescription.getBroker().publish(list.remove(0));	//pubblica il primo dto

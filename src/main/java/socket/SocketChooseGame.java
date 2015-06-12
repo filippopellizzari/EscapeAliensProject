@@ -42,12 +42,11 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 			clientData.setBuffer(message.getMessage());		//risposta server su partita
 			if(message.getMessage()!="Tempo Scaduto e 1 solo giocatore, partita annullata") {
 				clientData.setView((ViewForPlayer)in.readObject()); //ecco la view
-				System.out.println(clientData.getView().getNumberPlayer());
-				System.out.println(clientData.getView().getCoordinate());
-				System.out.println(clientData.getView().getPlayerType());
 				DTOGame dtoGame=new DTOGame();
 				do {
+					System.out.println("Aspetto messaggi dal Pub-Sub");
 					dtoGame=(DTOGame)in.readObject();
+					System.out.println("Messaggio arrivato");
 					clientData.setDtoGame(dtoGame);
 				}while(dtoGame.getGameMessage()!="Partita conclusa");
 			}

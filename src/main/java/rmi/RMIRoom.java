@@ -1,7 +1,9 @@
 package rmi;
 
 import java.rmi.RemoteException;
+
 import connection.*;
+import controller.ActionType;
 import dto.*;
 
 public class RMIRoom implements Actions{
@@ -54,16 +56,24 @@ public class RMIRoom implements Actions{
 	
 	@Override
 	public DTOGame doAnAction(DTOSend dtoSend, Token token) throws RemoteException {
-		DTOGame dtoGame=null;
+		DTOGame dtoGame=new DTOGame();
 		try {
 			Identification identification=identifyConnection.getIdentification(token.getNumber());	//prendo l'identificatore del giocatore per avere il gioco
 			int numberPlayer=identification.getNumberPlayer();
-			dtoSend.setNumberPlayer(numberPlayer);
+			dtoSend.setNumberPlayer(numberPlayer);		//metto il numero di giocatore
 			GameDescription gameDescription;
 			gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());
-			putInWait2(gameDescription);
-			dtoGame = gameDescription.getController().doAnAction(dtoSend);
-			gameDescription.setStatus(StatusController.FREE);
+			if(dtoSend.getActionType()==ActionType.CHAT) {
+				dtoGame.setReceiver(9);
+				dtoGame.setActionType(ActionType.CHAT);
+				dtoGame.setChat(dtoSend.getChat());
+				dtoGame.setPlayerNumber(numberPlayer);
+			}
+			else {
+				putInWaitAction(gameDescription);
+				dtoGame = gameDescription.getController().doAnAction(dtoSend);
+				gameDescription.setStatus();
+			}
 			if(dtoGame.getReceiver()==9|| dtoGame.getReceiver()==10) {
 				gameDescription.getBroker().publish(dtoGame);
 			}
@@ -75,16 +85,15 @@ public class RMIRoom implements Actions{
 
 	
 	private void putInWait(DetailsPlayers detailsYourGame) throws InterruptedException {
-		System.out.println("Sono il thread connessione mi metto in wait");
+		System.out.println("Sono il thread connessione aspetto il buffer");
 		detailsYourGame.getBuffer();		//se è vuoto fermati e aspetta
-		System.out.println("Sono il thread connessione mi sveglio dallo wait");
+		System.out.println("Sono il thread connessione ricevuto il buffer");
 	}
 	
-	private void putInWait2(GameDescription gameDescription) throws InterruptedException {
-		System.out.println("Sono il thread connessione mi metto in wait");
+	private void putInWaitAction(GameDescription gameDescription) throws InterruptedException {
+		System.out.println("Sono il thread connessione");
 		gameDescription.getStatus();		//se è vuoto fermati e aspetta
-		gameDescription.setStatus(StatusController.BUSY);
-		System.out.println("Sono il thread connessione mi sveglio dallo wait");
+		System.out.println("Sono il thread connessione mi sveglio");
 	}
 
 	@Override
@@ -93,7 +102,9 @@ public class RMIRoom implements Actions{
 		GameDescription gameDescription;
 		gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());
 		DTOGame dtoGame=new DTOGame();
+		System.out.println("Aspetto messaggi dal Pub-Sub");
 		dtoGame=gameDescription.getBroker().getPlayersBuffer(identification.getNumberPlayer()).getBuffer();
+		System.out.println("Messaggio arrivato");
 		return dtoGame;
 	}
 
