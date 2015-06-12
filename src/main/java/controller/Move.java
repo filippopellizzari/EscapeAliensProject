@@ -140,13 +140,16 @@ public class Move implements ChooseAnAction {
 		HatchCardColor color = current.getColor(); 
 		dtoGame.setHatchCardColor(color);
 		switch(color){
-		  	case RED :
+		  	case RED :	
 		  		break;
 		  	case GREEN :
-		  		status.getPlayer().setAlive(false); //partita conclusa per lui
+		  		status.getPlayer().setAlive(false);//partita conclusa per lui
+		  		break;
+		  	default:
 		  		break;
 		}
 		status.getGame().getHatchCards().discard(current);
+		
 	}
 
 	@Override

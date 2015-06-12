@@ -10,7 +10,7 @@ package model;
 
 public class HatchCard {
 	
-	private final HatchCardColor color;
+	private  HatchCardColor color;
 	
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class HatchCard {
 	public HatchCardColor getColor() {
 		return color;
 	}
-
+	
 
 	
 }

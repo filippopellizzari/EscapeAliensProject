@@ -12,6 +12,7 @@ import model.*;
 import connection.MapName;
 import connection.MapType;
 import controller.*;
+import dto.DTOTurn;
 
 /**
  * Test of move check and action move of players(eg. Galilei Map)
@@ -166,5 +167,47 @@ public class TestMove {
 		Coordinate dest = new Coordinate(11, 9);
 		assertFalse(new Move(status).moveCheck(dest));
 	}
+	
+	/**
+	 * test verifies that a player who draw a green hatch card wins(he is not
+	 * in the game anymore)
+	 */
+	@Test
+	public void  testDrawHatchCardGreen(){
+		model.getHatchCards().getDeck().add(0, new HatchCard(HatchCardColor.GREEN));
+		GameStatus status = new GameStatus(model, alien);
+		new Move(status).drawHatchCard();
+		assertFalse(status.getPlayer().isAlive());
+	}
+	/**
+	 * test verifies that a player who draw a red hatch card does not win
+	 * (he remains in game)
+	 */
+	@Test
+	public void  testDrawHatchCardRed(){
+		model.getHatchCards().getDeck().add(0, new HatchCard(HatchCardColor.RED));
+		GameStatus status = new GameStatus(model, alien);
+		new Move(status).drawHatchCard();
+		assertTrue(status.getPlayer().isAlive());
+	}
+	
+	/**
+	 * test verifies that a player who has already moved can not move,
+	 * even if destination coordinate is right
+	 * (he remains in the same position)
+	 */
+	@Test
+	public void testDoActionMoveAlreadyMoved(){
+		GameStatus status = new GameStatus(model, alien);
+		Coordinate curr = new Coordinate(12, 5);
+		Sector start = model.getMap().getSector(curr);
+		alien.setSector(start);
+		status.setMoved(true);
+
+		DTOTurn dtoTurn = new DTOTurn(new Coordinate(12,3), null, null);
+		new Move(status).doAction(dtoTurn);
+		assertTrue(status.getPlayer().getSector()==start);
+	}
+	
 
 }
