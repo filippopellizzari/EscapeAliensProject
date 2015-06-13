@@ -3,7 +3,6 @@ package socket;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-import model.Coordinate;
 import connection.*;
 import controller.ActionType;
 import dto.*;
@@ -106,10 +105,10 @@ public class ClientData {
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
 			Thread.sleep(40000);
-			DTOSend dtoSend = new DTOSend(new Coordinate(12, 123) , cd.getView().getNumberPlayer(), null, ActionType.MOVE, null);
+			DTOSend dtoSend=new DTOSend(null , 0, null, ActionType.CHAT, "ciao");
 			cd.clickOnDoMove(dtoSend);
 			Thread.sleep(10000);
-			System.out.println(cd.dtoGame.getGameMessage());
+			System.out.println(cd.dtoGame.getChat());
 
 		} catch (IOException | ClassNotFoundException | InterruptedException e1) {
 			System.err.println("Errore in clientData");

@@ -49,13 +49,15 @@ public class GameDescription {
 		this.broker = broker;
 	}
 	public synchronized void getStatus() throws InterruptedException {		//se il controller è impegnato aspetta fino a che non si libera
+		System.out.println("Aspetto che il controller sia libero");
 		while(statusController==StatusController.BUSY) 
 			this.wait();
-		
+		statusController=StatusController.BUSY;
+		System.out.println("Prendo il controller");
 	}
-	public synchronized void setStatus(StatusController status) {					//libera la risorsa e avvisa tutti
-		this.statusController=status;
-		if(status==StatusController.FREE)
-			this.notifyAll();
+	public synchronized void setStatus() {					//libera la risorsa e avvisa tutti
+		statusController=StatusController.FREE;
+		this.notifyAll();
+		System.out.println("Libero il controller");
 	}
 }

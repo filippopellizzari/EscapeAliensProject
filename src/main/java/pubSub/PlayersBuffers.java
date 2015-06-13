@@ -25,7 +25,7 @@ public class PlayersBuffers {
 	/**
 	 * @param buffer the buffer to set
 	 */
-	public void setBuffer(DTOGame dtoGame) {
+	public synchronized void setBuffer(DTOGame dtoGame) {
 		buffer.add(dtoGame);
 		notifyAll();
 	}

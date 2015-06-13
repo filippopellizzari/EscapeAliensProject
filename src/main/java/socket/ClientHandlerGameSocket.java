@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import connection.*;
+import controller.ActionType;
 import controller.GameController;
 import dto.*;
 
@@ -36,12 +37,19 @@ public class ClientHandlerGameSocket implements Processing{
 			dtoSend.setNumberPlayer(numberPlayer);  			//metto il tuo numero
 			System.out.println("Azione dto: "+dtoSend.getActionType());
 			DTOGame dtoGame=new DTOGame();
-			putInWait();
-			gameDescription.getStatus();
-			gameDescription.setStatus(StatusController.BUSY);
-			dtoGame=gameDescription.getController().doAnAction(dtoSend);
-			gameDescription.setStatus(StatusController.FREE);	//ho finito
-			if(dtoGame.getReceiver()==9) {
+			dtoGame.setPlayerNumber(numberPlayer);  			//giocatore che manda il messaggio
+			if(dtoSend.getActionType()==ActionType.CHAT) {
+				dtoGame.setReceiver(9);
+				dtoGame.setActionType(ActionType.CHAT);
+				dtoGame.setChat(dtoSend.getChat());
+				dtoGame.setPlayerNumber(numberPlayer);
+			}
+			else {
+				putInWait();
+				dtoGame=gameDescription.getController().doAnAction(dtoSend);
+				gameDescription.setStatus();	//ho finito
+			}
+			if(dtoGame.getReceiver()==9) {		//usa il publisher
 				gameDescription.getBroker().publish(dtoGame);
 			}
 			out.writeObject((DTOGame)dtoGame);
@@ -52,9 +60,8 @@ public class ClientHandlerGameSocket implements Processing{
 	}
 	
 	private void putInWait() throws InterruptedException {
-		System.out.println("Sono il thread connessione mi metto in wait");
-		gameDescription.getStatus();		//se è vuoto fermati e aspetta
-		gameDescription.setStatus(StatusController.BUSY);
-		System.out.println("Sono il thread connessione mi sveglio dallo wait");
+		System.out.println("Sono il thread connessione aspetto il dto");
+		gameDescription.getStatus();
+		System.out.println("Sono il thread connessione ho il dto");
 	}
 }
