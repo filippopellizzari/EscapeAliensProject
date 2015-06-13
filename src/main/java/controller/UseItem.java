@@ -116,6 +116,9 @@ public class UseItem implements ChooseAnAction {
 		
 		//scarto la carta oggetto usata(qualunque sia)
 		new DiscardItem(status).discardItem(dtoTurn.getTypeCard()); 
+		//se aveva 4 carte, doveva scartarne una o usarla
+		//in questo caso la usa, quindi l'obbligo non c'è più
+		status.setMustDiscardItem(false);
 		dtoGame.setReceiver(9);
 		dtoGame.setItemCardType(dtoTurn.getTypeCard());
 		

@@ -22,20 +22,22 @@ import dto.DTOTurn;
  */
 public class TestMove {
 
-	 Game model;
-	 Player human;
-	 Player alien;
-	 Player alienFed; 
-/**
- * before all the tests, there are a human, an alien, and an alien fed (which has eliminated
- * at least one human), in map Galilei
- * 
- * @throws NumberFormatException
- * @throws IOException
- */
+	Game model;
+	Player human;
+	Player alien;
+	Player alienFed;
+
+	/**
+	 * before all the tests, there are a human, an alien, and an alien fed
+	 * (which has eliminated at least one human), in map Galilei
+	 * 
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	@Before
-	public  void always() throws NumberFormatException, IOException{
-		model = GameCreator.getinstance().createGame(MapName.Galilei, 8, MapType.HEXAGONAL);
+	public void always() throws NumberFormatException, IOException {
+		model = GameCreator.getinstance().createGame(MapName.Galilei, 8,
+				MapType.HEXAGONAL);
 
 		model.getPlayers(0).setPlayerType(PlayerType.HUMAN);
 		model.getPlayers(0).setSpeed(1);
@@ -56,7 +58,7 @@ public class TestMove {
 	 */
 	@Test
 	public void testHumanMove() {
-		
+
 		GameStatus status = new GameStatus(model, human);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector s = model.getMap().getSector(curr);
@@ -65,9 +67,9 @@ public class TestMove {
 		Coordinate dest = new Coordinate(12, 3);
 		assertFalse(new Move(status).moveCheck(dest));
 	}
-	
+
 	/**
-	 * The test verifies that an alien can move across only one sector 
+	 * The test verifies that an alien can move across only one sector
 	 */
 	@Test
 	public void testAlienMoveOne() {
@@ -79,9 +81,9 @@ public class TestMove {
 		Coordinate dest = new Coordinate(12, 4);
 		assertTrue(new Move(status).moveCheck(dest));
 	}
-	
+
 	/**
-	 * The test verifies that an alien can move across two sectors 
+	 * The test verifies that an alien can move across two sectors
 	 */
 	@Test
 	public void testAlienMoveTwo() {
@@ -109,6 +111,7 @@ public class TestMove {
 		assertFalse(new Move(status).moveCheck(dest));
 
 	}
+
 	/**
 	 * test verifies that a human can move to an escape hatch sector
 	 */
@@ -200,203 +203,205 @@ public class TestMove {
 		Coordinate dest = new Coordinate(11, 9);
 		assertFalse(new Move(status).moveCheck(dest));
 	}
-	
+
 	/**
-	 * test verifies that a player who draw a green hatch card wins(he is not
-	 * in the game anymore)
+	 * test verifies that a player who draw a green hatch card wins(he is not in
+	 * the game anymore)
 	 */
 	@Test
-	public void  testDrawHatchCardGreen(){
-		model.getHatchCards().getDeck().add(0, new HatchCard(HatchCardColor.GREEN));
+	public void testDrawHatchCardGreen() {
+		model.getHatchCards().getDeck()
+				.add(0, new HatchCard(HatchCardColor.GREEN));
 		GameStatus status = new GameStatus(model, alien);
 		new Move(status).drawHatchCard();
 		assertFalse(status.getPlayer().isAlive());
 	}
+
 	/**
-	 * test verifies that a player who draw a red hatch card does not win
-	 * (he remains in game)
+	 * test verifies that a player who draw a red hatch card does not win (he
+	 * remains in game)
 	 */
 	@Test
-	public void  testDrawHatchCardRed(){
-		model.getHatchCards().getDeck().add(0, new HatchCard(HatchCardColor.RED));
+	public void testDrawHatchCardRed() {
+		model.getHatchCards().getDeck()
+				.add(0, new HatchCard(HatchCardColor.RED));
 		GameStatus status = new GameStatus(model, alien);
 		new Move(status).drawHatchCard();
 		assertTrue(status.getPlayer().isAlive());
 	}
-	
+
 	/**
-	 * test verifies that a player who has already moved can not move,
-	 * even if destination coordinate is right
-	 * (he remains in the same position)
+	 * test verifies that a player who has already moved can not move, even if
+	 * destination coordinate is right (he remains in the same position)
 	 */
 	@Test
-	public void testDoActionMoveAlreadyMoved(){
+	public void testDoActionMoveAlreadyMoved() {
 		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		status.setMoved(true);
 
-		DTOTurn dtoTurn = new DTOTurn(new Coordinate(12,3), null, null);
+		DTOTurn dtoTurn = new DTOTurn(new Coordinate(12, 3), null, null);
 		new Move(status).doAction(dtoTurn);
-		assertEquals(status.getPlayer().getSector(),start);
+		assertEquals(status.getPlayer().getSector(), start);
 	}
+
 	/**
-	 * test verifies that a player who has not moved can do
-	 * the move action, but it is not valid
+	 * test verifies that a player who has not moved can do the move action, but
+	 * it is not valid
 	 */
 	@Test
-	public void testDoActionMoveNotMovedNotValid(){
+	public void testDoActionMoveNotMovedNotValid() {
 		GameStatus status = new GameStatus(model, human);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		human.setSector(start);
 		start.addPlayer(human);
-		
-		Coordinate destCoord = new Coordinate(12,3);
+
+		Coordinate destCoord = new Coordinate(12, 3);
 		DTOTurn dtoTurn = new DTOTurn(destCoord, null, null);
-		
+
 		new Move(status).doAction(dtoTurn);
-		assertEquals(status.getPlayer().getSector(),start);
+		assertEquals(status.getPlayer().getSector(), start);
 	}
+
 	/**
-	 * test verifies that a player who has not moved can do
-	 * the move action, and it is valid
+	 * test verifies that a player who has not moved can do the move action, and
+	 * it is valid
 	 */
 	@Test
-	public void testDoActionMoveNotMovedValid(){
+	public void testDoActionMoveNotMovedValid() {
 		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
-		
-		Coordinate destCoord = new Coordinate(12,3);
+
+		Coordinate destCoord = new Coordinate(12, 3);
 		Sector dest = model.getMap().getSector(destCoord);
 		DTOTurn dtoTurn = new DTOTurn(destCoord, null, null);
 		new Move(status).doAction(dtoTurn);
-		assertEquals(status.getPlayer().getSector(),dest);
+		assertEquals(status.getPlayer().getSector(), dest);
 	}
-	
+
 	/**
-	 * test verifies that a player move effectively to 
-	 * destination
+	 * test verifies that a player move effectively to destination
 	 *
 	 **/
 	@Test
-	public void testMoveSectorDest(){
+	public void testMoveSectorDest() {
 		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
-		
-	
-		Coordinate destCoord = new Coordinate(12,3);
+
+		Coordinate destCoord = new Coordinate(12, 3);
 		Sector dest = model.getMap().getSector(destCoord);
-		
+
 		new Move(status).move(destCoord);
-		assertTrue(status.getPlayer().getSector()==dest);
-		
+		assertTrue(status.getPlayer().getSector() == dest);
+
 	}
+
 	/**
-	 * test verifies that when an alien moves to a dangerous sector
-	 *  he is obliged to draw
+	 * test verifies that when an alien moves to a dangerous sector he is
+	 * obliged to draw
 	 */
 	@Test
-	public void testMoveToDangerousNotSedated(){
+	public void testMoveToDangerousNotSedated() {
 		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
-		
-		Coordinate destCoord = new Coordinate(12,3);
-		
+
+		Coordinate destCoord = new Coordinate(12, 3);
+
 		new Move(status).move(destCoord);
 		assertTrue(status.isMustDraw());
-		
+
 	}
+
 	/**
-	 * test verifies that when a human moves to a dangerous sector
-	 * and he is sedated, he is not obliged to draw
+	 * test verifies that when a human moves to a dangerous sector and he is
+	 * sedated, he is not obliged to draw
 	 */
 	@Test
-	public void testMoveToDangerousSedated(){
+	public void testMoveToDangerousSedated() {
 		GameStatus status = new GameStatus(model, human);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		human.setSector(start);
 		start.addPlayer(human);
-		
-		Coordinate destCoord = new Coordinate(13,6);
-		
+
+		Coordinate destCoord = new Coordinate(13, 6);
+
 		status.setSedated(true);
-		
+
 		new Move(status).move(destCoord);
 		assertFalse(status.isMustDraw());
-		
+
 	}
-	
+
 	/**
-	 * test verifies that a player who moves to a secure sector
-	 * is not obliged to do nothing
+	 * test verifies that a player who moves to a secure sector is not obliged
+	 * to do nothing
 	 */
 	@Test
-	public void testMoveToSecure(){
+	public void testMoveToSecure() {
 		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
-		
-		Coordinate destCoord = new Coordinate(12,4);
-		
+
+		Coordinate destCoord = new Coordinate(12, 4);
+
 		new Move(status).move(destCoord);
 		assertFalse(status.isMustDraw());
-		
+
 	}
+
 	/**
-	 * test move to hatch sector; verifies that the hatch 
-	 * is closed after passing over
+	 * test move to hatch sector; verifies that the hatch is closed after
+	 * passing over
 	 */
 	@Test
-	public void testMoveToHatch(){
+	public void testMoveToHatch() {
 		GameStatus status = new GameStatus(model, alien);
-		Coordinate curr = new Coordinate(3,3);
+		Coordinate curr = new Coordinate(3, 3);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
-		
-		Coordinate destCoord = new Coordinate(2,2);
+
+		Coordinate destCoord = new Coordinate(2, 2);
 		Sector dest = model.getMap().getSector(destCoord);
-		
+
 		new Move(status).move(destCoord);
 		assertTrue(dest.isClosed());
-		
+
 	}
+
 	/**
-	 * test verifies that a human with adrenaline, after a move action, 
-	 *has not more adrenaline
+	 * test verifies that a human with adrenaline, after a move action, has not
+	 * more adrenaline
 	 */
 	@Test
-	public void testMoveAdrenalineEliminated(){
+	public void testMoveAdrenalineEliminated() {
 		GameStatus status = new GameStatus(model, human);
-		Coordinate curr = new Coordinate(3,3);
+		Coordinate curr = new Coordinate(3, 3);
 		Sector start = model.getMap().getSector(curr);
 		human.setSector(start);
 		start.addPlayer(human);
-		
+
 		human.setSpeed(2);
-		
-		Coordinate destCoord = new Coordinate(5,4);
-		
+
+		Coordinate destCoord = new Coordinate(5, 4);
+
 		new Move(status).move(destCoord);
-		assertEquals(human.getSpeed(),1);
+		assertEquals(human.getSpeed(), 1);
 	}
-	
-	
-	
-	
 
 }

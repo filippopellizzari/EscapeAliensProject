@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import connection.ListOfStartedGame;
 import connection.MapName;
 import connection.MapType;
 import connection.ViewForPlayer;
