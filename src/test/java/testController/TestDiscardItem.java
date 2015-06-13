@@ -13,7 +13,13 @@ import creator.GameCreator;
 import model.*;
 import controller.*;
 import dto.DTOTurn;
-
+/**
+ * this class tests if the action of discard an item card is done correctly
+ * and in the right moment of the turn
+ * 
+ * @author Filippo
+ *
+ */
 public class TestDiscardItem {
 
 	Game model;
