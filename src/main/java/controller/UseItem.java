@@ -114,7 +114,8 @@ public class UseItem implements ChooseAnAction {
 			teleport();
 		}
 		
-		new DiscardItem(status).discardItem(dtoTurn.getTypeCard()); //scarto la carta oggetto usata(qualunque sia)
+		//scarto la carta oggetto usata(qualunque sia)
+		new DiscardItem(status).discardItem(dtoTurn.getTypeCard()); 
 		dtoGame.setReceiver(9);
 		dtoGame.setItemCardType(dtoTurn.getTypeCard());
 		

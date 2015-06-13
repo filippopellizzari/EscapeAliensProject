@@ -19,8 +19,8 @@ public class Attack implements ChooseAnAction {
 	/**
 	 * 
 	 * @param status
-	 *            , status of game, contails all the information about the
-	 *            action that the player has done and has to do
+	 *            status of game, contains all the information about the action
+	 *            that the player has done and has to do
 	 */
 
 	public Attack(GameStatus status) {
@@ -40,39 +40,40 @@ public class Attack implements ChooseAnAction {
 	public DTOGame attackMove() {
 		Player player = status.getPlayer();
 		Sector current = player.getSector();
-		//segnala attacco in coordinata corrente
+		// segnala attacco in coordinata corrente
 		dtoGame.setCoordinate(current.getCoordinate(), player.getNumber());
-		//non considero il giocatore che sta attaccando
-		//(si è appena mosso, quindi è l'ultimo della lista dei giocatori in un settore)
-		int playersAttackable = current.getPlayers().size() - 1; 
+		// non considero il giocatore che sta attaccando
+		// (si è appena mosso, quindi è l'ultimo della lista dei giocatori in un
+		// settore)
+		int playersAttackable = current.getPlayers().size() - 1;
 		for (int i = 0; i < playersAttackable; i++) {
 			Player attacked = current.getPlayers().get(0);
 			if (isDefendable(attacked)) {
 				dtoGame.setGameMessage(attacked
 						+ " : si salva grazie alla carta Difesa\n");
-				//sposto giocatore in fondo alla lista
+				// sposto giocatore in fondo alla lista
 				current.addPlayer(current.removePlayer());
 			} else {
-				// segnala tipo del giocatore eliminato															
+				// segnala tipo del giocatore eliminato
 				dtoGame.setPlayerType(attacked.getType(), attacked.getNumber());
 				alienFeeding(player, attacked);
 				attacked.setAlive(false);
 				removeAllItems(attacked);
 				attacked.setSector(null);
-				//rimuovo giocatore dalla lista 
+				// rimuovo giocatore dalla lista
 				current.removePlayer();
 
 			}
 		}
-		//sposto in fondo alla lista giocatore che ha attaccato
-		//(non è più l'ultimo, se alcuni giocatori si sono salvati)
+		// sposto in fondo alla lista giocatore che ha attaccato
+		// (non è più l'ultimo, se alcuni giocatori si sono salvati)
 		current.addPlayer(current.removePlayer());
 		return dtoGame;
 	}
 
 	private void removeAllItems(Player attacked) {
 		int numItems = attacked.getItem().size();
-		for (int i = 0; i < numItems ; i++) {
+		for (int i = 0; i < numItems; i++) {
 			status.getGame().getItemCards().discard(attacked.removeItem(0));
 		}
 	}
@@ -81,8 +82,8 @@ public class Attack implements ChooseAnAction {
 		for (int j = 0; j < attacked.getItem().size(); j++) {
 			if (attacked.getItem().get(j).getType()
 					.equals(ItemCardType.DEFENSE)) {
-				//discard and use defense ItemCard
-				status.getGame().getItemCards().discard(attacked.removeItem(j)); 
+				// discard and use defense ItemCard
+				status.getGame().getItemCards().discard(attacked.removeItem(j));
 				return true;
 			}
 		}
@@ -98,14 +99,14 @@ public class Attack implements ChooseAnAction {
 
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		if (status.isMoved() && !status.isAttacked()) { 
+		if (status.isMoved() && !status.isAttacked()) {
 			attackMove();
 			status.setAttacked(true);
 			status.setMustDraw(false);
 			dtoGame.setReceiver(9);
 		} else {
 			dtoGame.setGameMessage("Non puoi attaccare in questo momento\n");
-			dtoGame.setReceiver(status.getPlayer().getNumber()); 
+			dtoGame.setReceiver(status.getPlayer().getNumber());
 		}
 		return dtoGame;
 	}

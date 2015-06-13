@@ -140,8 +140,6 @@ public class Move implements ChooseAnAction {
 		  	case GREEN :
 		  		status.getPlayer().setAlive(false);//partita conclusa per lui
 		  		break;
-		  	default:
-		  		break;
 		}
 		status.getGame().getHatchCards().discard(current);
 		
