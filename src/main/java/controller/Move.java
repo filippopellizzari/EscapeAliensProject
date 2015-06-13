@@ -43,8 +43,8 @@ public class Move implements ChooseAnAction {
 	}
 
 	/**
-	 * check that the destination is within the map ; in the case of aliens ,
-	 * checks that can not access an escape hatch sector
+	 * 
+	 * check that an alien can not move to an escape hatch sector
 	 * 
 	 * @param dest
 	 * @return
@@ -73,7 +73,7 @@ public class Move implements ChooseAnAction {
 			Sector currSector = status.getGame().getMap().getSector(curr);
 			for (int i = 0; i < currSector.getAdjacent().size(); i++) {
 				Coordinate adjCoord = currSector.getAdjacent().get(i);
-				if (adjCoord.getX() != -1 && adjCoord.getY() != -1) {
+				if (adjCoord.getX() != -1) {
 					Sector adjSector = status.getGame().getMap().getSector(adjCoord);
 					if (!adjSector.isClosed()) {
 						speed--;
@@ -147,6 +147,8 @@ public class Move implements ChooseAnAction {
 		
 	}
 
+	
+	
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
 		if (!status.isMoved()) { 	//controllo stato del turno

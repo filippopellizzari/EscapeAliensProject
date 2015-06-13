@@ -25,9 +25,14 @@ public class TestMove {
 	 Game model;
 	 Player human;
 	 Player alien;
-	 Player alienFed; // alieno che è riuscito ad eliminare almeno un
-							// umano
-
+	 Player alienFed; 
+/**
+ * before all the tests, there are a human, an alien, and an alien fed (which has eliminated
+ * at least one human), in map Galilei
+ * 
+ * @throws NumberFormatException
+ * @throws IOException
+ */
 	@Before
 	public  void always() throws NumberFormatException, IOException{
 		model = GameCreator.getinstance().createGame(MapName.Galilei, 8, MapType.HEXAGONAL);
@@ -102,6 +107,20 @@ public class TestMove {
 
 		Coordinate dest = new Coordinate(2, 2);
 		assertFalse(new Move(status).moveCheck(dest));
+
+	}
+	/**
+	 * test verifies that a human can move to an escape hatch sector
+	 */
+	@Test
+	public void testHumanMoveToHatch() {
+		GameStatus status = new GameStatus(model, human);
+		Coordinate curr = new Coordinate(3, 3);
+		Sector s = model.getMap().getSector(curr);
+		human.setSector(s);
+
+		Coordinate dest = new Coordinate(2, 2);
+		assertTrue(new Move(status).moveCheck(dest));
 
 	}
 

@@ -14,27 +14,31 @@ import model.*;
 public class Turn {
 
 	private GameStatus status;
-	
+
 	/**
 	 * 
-	 * @param game, reference at model
-	 * @param player, reference at player that has to play
+	 * @param game
+	 *            , reference at model
+	 * @param player
+	 *            , reference at player that has to play
 	 */
-	
+
 	public Turn(Game game, Player player) {
 		this.status = new GameStatus(game, player);
 	}
 
 	/**
 	 * 
-	 * @param dtoTurn, collection of element used to explain an action
+	 * @param dtoTurn
+	 *            , collection of element used to explain an action
 	 * @return the message with the response about the actions executed
-	 * @throws ClassNotFoundException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
 	 */
 
-	public DTOGame turn(DTOTurn dtoTurn) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public DTOGame turn(DTOTurn dtoTurn) throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
 		DTOGame response = new DTOGame();
 		ChooseAnAction actionToDo;
 		switch (dtoTurn.getActionType()) {
@@ -61,12 +65,12 @@ public class Turn {
 		case SELECTSECTORNOISE:
 			actionToDo = new SelectSectorNoise(status);
 			response = actionToDo.doAction(dtoTurn);
-			break;	
+			break;
 		case ENDTURN:
 			actionToDo = new EndTurn(status);
 			response = actionToDo.doAction(dtoTurn);
 			break;
-		
+
 		default:
 			break;
 		}
