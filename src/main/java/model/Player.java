@@ -142,7 +142,7 @@ public class Player {
 	/**
 	 * 
 	 * @param numberOfCard to remove from the player
-	 * @return the card if this exist and null otherwise
+	 * @return the itemCard InstanceObject if exists, null otherwise
 	 */
 	
 	public ItemCard removeItem(int index) {

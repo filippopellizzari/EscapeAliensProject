@@ -27,6 +27,13 @@ public class ItemCard {
 	public ItemCardType getType() {
 		return itemCardType;
 	}
+
+	@Override
+	public String toString() {
+		return "ItemCard [itemCardType=" + itemCardType + "]";
+	}
+	
+	
 	
 	
 	

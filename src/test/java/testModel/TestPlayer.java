@@ -22,8 +22,8 @@ public class TestPlayer {
 	static Player player;
 	static Sector sector1;		//first sector where player has to go
 	static Sector sector2;
-	static ItemCard card;
-	static ItemCard card2;
+	
+
 	
 	/**
 	 * I create the player, the card and the sectors
@@ -38,7 +38,6 @@ public class TestPlayer {
 		coordinate.add(new Coordinate(1,2));
 		coordinate.add(new Coordinate(-1,-1));
 		start=new Sector(SectorType.ALIEN,true,1,1,coordinate);
-		System.out.println(start.toString());					//use the method toString, class Sector
 		player=new Player(PlayerType.ALIEN,start,2,1);
 		player.setSpeed(3); 											//use the method setSpeed, classPlayer
 		start.addPlayer(player);									//use the method addPlayer, class Sector
@@ -49,7 +48,7 @@ public class TestPlayer {
 		coordinate.add(new Coordinate(2,2));
 		coordinate.add(new Coordinate(1,3));
 		coordinate.add(new Coordinate(-1,-1));
-		sector1=new Sector(SectorType.SECURE,false,1,2,coordinate);
+		sector1 = new Sector(SectorType.SECURE,false,1,2,coordinate);
 		coordinate=new ArrayList<Coordinate>();
 		coordinate.add(new Coordinate(-1,-1));
 		coordinate.add(new Coordinate(1,2));
@@ -57,9 +56,7 @@ public class TestPlayer {
 		coordinate.add(new Coordinate(2,3));
 		coordinate.add(new Coordinate(1,4));
 		coordinate.add(new Coordinate(-1,-1));
-		sector2=new HatchSector(SectorType.HATCH,false,1,3,coordinate);
-		card=new ItemCard(ItemCardType.ADRENALINE);
-		player.addItem(card);									//use the function addcard, class Player
+		sector2 = new HatchSector(SectorType.HATCH,false,1,3,coordinate);									
 	}
 	
 	/**
@@ -100,27 +97,33 @@ public class TestPlayer {
 		assertTrue(player.getNumber()==1 && player.isAlive()==true && player.getType() == PlayerType.ALIEN);
 	}
 	
-	/**
-	 * I verify that he has one card
-	 */
 	
-	@Test
-	public void testNumberCardOfPlayer() {
-		assertTrue(player.getItem().size()==1);				//test number of item card, class Player
-	}
 
 
 	/**
-	 * I verify that the card discarded and then draw again by the player is the same
+	 * test verifies that player has 3 ItemCards,
+	 * after adding 3 item cards to his personal deck
 	 */
-
-	
 	@Test
-	public void testSameCardPassed() {
-		card2=player.removeItem(0);
-		player.addItem(card2);
-		assertEquals(card2,card);										//test if the card pass and the card discarded is the same, class Player
+	public void testAddItem() {
+		player.addItem(new ItemCard(ItemCardType.ADRENALINE));
+		player.addItem(new ItemCard(ItemCardType.ATTACK));
+		player.addItem(new ItemCard(ItemCardType.ADRENALINE));
 		
+		assertEquals(player.getItem().size(),3);
+									
+		
+	}
+	/**
+	 * test of removeItem; when an element is removed from the 
+	 * ArrayList of ItemCard, subtracts one from the indices of the
+	 * element in the right
+	 */
+	@Test
+	public void testRemoveItem(){
+		player.removeItem(0);
+		ItemCard itemCard2 = player.removeItem(0);
+		assertEquals(itemCard2.getType(), ItemCardType.ATTACK);
 	}
 	
 	/**

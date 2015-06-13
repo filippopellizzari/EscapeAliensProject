@@ -40,63 +40,65 @@ public class Attack implements ChooseAnAction {
 	public DTOGame attackMove() {
 		Player player = status.getPlayer();
 		Sector current = player.getSector();
-		dtoGame.setCoordinate(current.getCoordinate(), player.getNumber()); //segnala attacco in coordinata
+		//segnala attacco in coordinata corrente
+		dtoGame.setCoordinate(current.getCoordinate(), player.getNumber()); 
 		for (int i = 0; i < current.getPlayers().size() - 1; i++) {
 			Player attacked = current.getPlayers().get(i);
 			if (isDefendable(attacked)) {
 				dtoGame.setGameMessage(attacked
-						+ " : si salva grazie alla carta Difesa\n"); 
+						+ " : si salva grazie alla carta Difesa\n");
 			} else {
-				dtoGame.setPlayerType(attacked.getType(), attacked.getNumber());//segnala tipo del giocatore eliminato 
-				alienFeeding(player,attacked);
+				// segnala tipo del giocatore eliminato															
+				dtoGame.setPlayerType(attacked.getType(), attacked.getNumber());
+				alienFeeding(player, attacked);
 				attacked.setAlive(false);
+				removeAllItems(attacked);
 				attacked.setSector(null);
 				current.getPlayers().remove(i);
-				for (int j = 0; j < attacked.getItem().size(); j++) { 
-					status.getGame().getItemCards().discard(attacked.removeItem(j));
-				}
+
 			}
 		}
 		return dtoGame;
+	}
+
+	private void removeAllItems(Player attacked) {
+		int numItems = attacked.getItem().size();
+		for (int i = 0; i < numItems ; i++) {
+			status.getGame().getItemCards().discard(attacked.removeItem(0));
+		}
 	}
 
 	private boolean isDefendable(Player attacked) {
 		for (int j = 0; j < attacked.getItem().size(); j++) {
 			if (attacked.getItem().get(j).getType()
 					.equals(ItemCardType.DEFENSE)) {
-				status.getGame().getItemCards()
-						.discard(attacked.removeItem(j)); // discard and use
-															// defense card
+				//discard and use defense ItemCard
+				status.getGame().getItemCards().discard(attacked.removeItem(j)); 
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	private void alienFeeding(Player player, Player attacked){
+
+	private void alienFeeding(Player player, Player attacked) {
 		if (player.getType().equals(PlayerType.ALIEN)
 				&& attacked.getType().equals(PlayerType.HUMAN)) {
-			player.setSpeed(3); 
+			player.setSpeed(3);
 		}
-		
 	}
 
 	@Override
-	public DTOGame doAction(DTOTurn dtoTurn) { 
-		if (status.isMoved() && !status.isAttacked()){ //solo per attacco alieno
+	public DTOGame doAction(DTOTurn dtoTurn) {
+		if (status.isMoved() && !status.isAttacked()) { 
 			attackMove();
 			status.setAttacked(true);
 			status.setMustDraw(false);
 			dtoGame.setReceiver(9);
 		} else {
-			dtoGame.setGameMessage("Non puoi attaccare in questo momento\n"); 
-			dtoGame.setReceiver(status.getPlayer().getNumber()); //notifica privata
+			dtoGame.setGameMessage("Non puoi attaccare in questo momento\n");
+			dtoGame.setReceiver(status.getPlayer().getNumber()); 
 		}
 		return dtoGame;
 	}
 
-
-	
-	
-	
 }
