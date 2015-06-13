@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import model.*;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import connection.MapName;
@@ -20,9 +20,9 @@ import creator.GameCreator;
  */
 public class TestSector {
 
-	static Game model;
+	Game model;
 	
-	@BeforeClass public static void onlyOnce() throws NumberFormatException, IOException {
+	@Before public void always() throws NumberFormatException, IOException {
 		model = GameCreator.getinstance().createGame(MapName.Galilei, 8, MapType.HEXAGONAL);	
 		
 	}

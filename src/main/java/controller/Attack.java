@@ -41,12 +41,17 @@ public class Attack implements ChooseAnAction {
 		Player player = status.getPlayer();
 		Sector current = player.getSector();
 		//segnala attacco in coordinata corrente
-		dtoGame.setCoordinate(current.getCoordinate(), player.getNumber()); 
-		for (int i = 0; i < current.getPlayers().size() - 1; i++) {
-			Player attacked = current.getPlayers().get(i);
+		dtoGame.setCoordinate(current.getCoordinate(), player.getNumber());
+		//non considero il giocatore che sta attaccando
+		//(si è appena mosso, quindi è l'ultimo della lista dei giocatori in un settore)
+		int playersAttackable = current.getPlayers().size() - 1; 
+		for (int i = 0; i < playersAttackable; i++) {
+			Player attacked = current.getPlayers().get(0);
 			if (isDefendable(attacked)) {
 				dtoGame.setGameMessage(attacked
 						+ " : si salva grazie alla carta Difesa\n");
+				//sposto giocatore in fondo alla lista
+				current.addPlayer(current.removePlayer());
 			} else {
 				// segnala tipo del giocatore eliminato															
 				dtoGame.setPlayerType(attacked.getType(), attacked.getNumber());
@@ -54,10 +59,14 @@ public class Attack implements ChooseAnAction {
 				attacked.setAlive(false);
 				removeAllItems(attacked);
 				attacked.setSector(null);
-				current.getPlayers().remove(i);
+				//rimuovo giocatore dalla lista 
+				current.removePlayer();
 
 			}
 		}
+		//sposto in fondo alla lista giocatore che ha attaccato
+		//(non è più l'ultimo, se alcuni giocatori si sono salvati)
+		current.addPlayer(current.removePlayer());
 		return dtoGame;
 	}
 

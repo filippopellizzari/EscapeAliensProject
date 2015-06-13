@@ -29,12 +29,6 @@ public class TestAttack {
 	 Player alien;
 	 Player alien2;
 
-/**
- * before all the tests, there are a human and an alien in sector (7,3) of GalileiMap
- * 
- * @throws NumberFormatException
- * @throws IOException
- */
 	@Before
 	public  void always() throws NumberFormatException, IOException {
 		model = GameCreator.getinstance().createGame(MapName.Galilei, 8, MapType.HEXAGONAL);
@@ -64,6 +58,34 @@ public class TestAttack {
 		GameStatus status = new GameStatus(model, alien);
 		new Attack(status).attackMove();
 		assertFalse(human.isAlive());
+	}
+	/**
+	 * test verifies that two player attacked are effectively eliminated
+	 */
+	@Test
+	public void testTwoPlayersKilled(){
+		Sector currentSector = model.getMap().getSector(new Coordinate (7,3));
+		alien2 = model.getPlayers(2);
+		alien2.setPlayerType(PlayerType.ALIEN);
+		alien2.setSpeed(2);
+		alien2.setSector(currentSector);
+		currentSector.addPlayer(alien2);
+		
+		currentSector.addPlayer(currentSector.removePlayer());
+		currentSector.addPlayer(currentSector.removePlayer());
+		
+		GameStatus status = new GameStatus(model, alien);
+		new Attack(status).attackMove();
+		assertFalse(alien2.isAlive());
+	}
+	/**
+	 * test verifies that a player does not attack himself
+	 */
+	@Test
+	public void testNotSuicide(){
+		GameStatus status = new GameStatus(model, alien);
+		new Attack(status).attackMove();
+		assertTrue(alien.isAlive());
 	}
 	
 	/**
@@ -107,15 +129,18 @@ public class TestAttack {
 	 */
 	@Test
 	public void testAlienNotSetFed(){
-		GameStatus status = new GameStatus(model, alien);
-		Sector currentSector = model.getMap().getSector(new Coordinate (8,4));
-		alien.setSector(currentSector);
-		
+		Sector current = model.getMap().getSector(new Coordinate (8,4));
+
 		alien2 = model.getPlayers(2);
 		alien2.setPlayerType(PlayerType.ALIEN);
 		alien2.setSpeed(2);
-		alien2.setSector(currentSector);
-		currentSector.addPlayer(alien2);
+		alien2.setSector(current);
+		current.addPlayer(alien2);
+		
+		alien.setSector(current);
+		current.addPlayer(alien);
+		
+		GameStatus status = new GameStatus(model, alien);
 		
 		new Attack(status).attackMove();
 		assertEquals(alien.getSpeed(),2);	
