@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import creator.*;
@@ -237,7 +235,6 @@ public class TestMove {
 		start.addPlayer(human);
 		
 		Coordinate destCoord = new Coordinate(12,3);
-		Sector dest = model.getMap().getSector(destCoord);
 		DTOTurn dtoTurn = new DTOTurn(destCoord, null, null);
 		
 		new Move(status).doAction(dtoTurn);
@@ -296,7 +293,6 @@ public class TestMove {
 		start.addPlayer(alien);
 		
 		Coordinate destCoord = new Coordinate(12,3);
-		Sector dest = model.getMap().getSector(destCoord);
 		
 		new Move(status).move(destCoord);
 		assertTrue(status.isMustDraw());
@@ -315,7 +311,6 @@ public class TestMove {
 		start.addPlayer(human);
 		
 		Coordinate destCoord = new Coordinate(13,6);
-		Sector dest = model.getMap().getSector(destCoord);
 		
 		status.setSedated(true);
 		
@@ -337,7 +332,6 @@ public class TestMove {
 		start.addPlayer(alien);
 		
 		Coordinate destCoord = new Coordinate(12,4);
-		Sector dest = model.getMap().getSector(destCoord);
 		
 		new Move(status).move(destCoord);
 		assertFalse(status.isMustDraw());
@@ -377,7 +371,6 @@ public class TestMove {
 		human.setSpeed(2);
 		
 		Coordinate destCoord = new Coordinate(5,4);
-		Sector dest = model.getMap().getSector(destCoord);
 		
 		new Move(status).move(destCoord);
 		assertEquals(human.getSpeed(),1);

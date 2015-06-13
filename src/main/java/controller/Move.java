@@ -35,10 +35,11 @@ public class Move implements ChooseAnAction {
 
 	public boolean moveCheck(Coordinate dest) {
 
-		return pathCheck(
-				status.getPlayer().getSector().getCoordinate(), dest,
-				status.getPlayer().getSpeed())
-				&& destCheck(dest);
+		Player player = status.getPlayer();
+		Sector destSector = status.getGame().getMap().getSector(dest);
+		
+		return pathCheck(player.getSector().getCoordinate(), dest, player.getSpeed())
+			&& destCheck(player, destSector);
 	}
 
 	/**
@@ -49,15 +50,9 @@ public class Move implements ChooseAnAction {
 	 * @return
 	 */
 
-	private boolean destCheck(Coordinate dest) {
-		if (!status.getGame().getMap().isNull(dest)) {
-			if (status.getPlayer().getType().equals(PlayerType.ALIEN)
-				&& status.getGame().getMap().getSector(dest).getType().equals(SectorType.HATCH)){
-						return false;
-			}
-			return true;
-		}
-		return false;
+	private boolean destCheck(Player player, Sector destSector) {
+		return  !(player.getType().equals(PlayerType.ALIEN) 
+				&& destSector.getType().equals(SectorType.HATCH));
 	}
 
 	/**
