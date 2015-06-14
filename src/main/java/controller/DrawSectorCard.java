@@ -35,6 +35,7 @@ public class DrawSectorCard implements ChooseAnAction{
 		dtoGame.setSectorCardType(type);
 		switch(type){
 			case NOISEANY: 
+			status.setMustNoise(true);
 			dtoGame.setGameMessage("NOISE IN ANY SECTOR: scegli una coordinata\n"); //messaggio privato
 			dtoGame.setReceiver(10);		//unica volta che il messaggio è privato ma parte di esso va messo nel buffer per essere poi
 			break;	//dato a tutti i giocatori

@@ -65,17 +65,18 @@ public class UseItem implements ChooseAnAction {
 		// notifica posizione giocatori nei settori attorno a quello scelto
 		lightAdjacent(chosen);
 	}
-	
-	private void lightChosen(Sector chosen){
+
+	private void lightChosen(Sector chosen) {
 		for (int i = 0; i < chosen.getPlayers().size(); i++) {
 			Player declaring = chosen.getPlayers().get(i);
 			dtoGame.setCoordinate(chosen.getCoordinate(), declaring.getNumber());
 		}
 	}
-	private void lightAdjacent(Sector chosen){
+
+	private void lightAdjacent(Sector chosen) {
 		for (int i = 0; i < chosen.getAdjacent().size(); i++) {
 			Coordinate adjCoord = chosen.getAdjacent().get(i);
-			if (!status.getGame().getMap().isNull(adjCoord)){
+			if (!status.getGame().getMap().isNull(adjCoord)) {
 				Sector lighted = status.getGame().getMap().getSector(adjCoord);
 				for (int j = 0; j < lighted.getPlayers().size(); j++) {
 					Player declaring = lighted.getPlayers().get(j);
@@ -85,7 +86,6 @@ public class UseItem implements ChooseAnAction {
 			}
 		}
 	}
-	
 
 	/**
 	 * Use the adrenaline no secondary effects
@@ -127,7 +127,7 @@ public class UseItem implements ChooseAnAction {
 		if (dtoTurn.getTypeCard().equals(ItemCardType.ADRENALINE)) {
 			adrenaline();
 		}
-		
+
 		// scarto la carta oggetto usata(qualunque sia)
 		new DiscardItem(status).discardItem(dtoTurn.getTypeCard());
 		// se aveva 4 carte, doveva scartarne una o usarla
@@ -142,8 +142,5 @@ public class UseItem implements ChooseAnAction {
 	public DTOGame getDtoGame() {
 		return dtoGame;
 	}
-	
-	
-	
-	
+
 }

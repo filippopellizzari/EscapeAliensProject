@@ -3,7 +3,6 @@ package connection;
 import java.io.IOException;
 
 import controller.GameController;
-import controller.ThreadEndTurn;
 
 public class CreateEntireGame {
 	

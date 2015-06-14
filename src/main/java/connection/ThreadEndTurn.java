@@ -1,9 +1,8 @@
-package controller;
+package connection;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import connection.GameDescription;
 import dto.DTOGame;
 
 /**
