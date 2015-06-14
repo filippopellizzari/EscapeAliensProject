@@ -8,7 +8,7 @@ import model.*;
  * this class contains the status of a player during his turn; booleans attributes indicate
  * if a player has already do a type of action or if a player must do something
  * 
- * @author filippopellizzari
+ * @author Filippo
  *
  */
 
