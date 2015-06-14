@@ -237,9 +237,10 @@ public class TestUseItem {
 	
 	/**
 	 * test verifies that player does not use attack in a wrong moment of the turn
+	 * (he has not already moved)
 	 */
 	@Test
-	public void testNotUseAttack() {
+	public void testNotMovedAttack() {
 		Coordinate c = new Coordinate(3,6);
 		Sector s = model.getMap().getSector(c);
 		player.setSector(s);
@@ -254,6 +255,28 @@ public class TestUseItem {
 		new UseItem(status).doAction(dtoTurn);
 
 		assertFalse(status.isAttacked());
+	}
+	/**
+	 * test verifies that player does not use attack in a wrong moment of the turn
+	 * (he has already attacked)
+	 */
+	@Test
+	public void testNotItemAttack() {
+		Coordinate c = new Coordinate(3,6);
+		Sector s = model.getMap().getSector(c);
+		player.setSector(s);
+		s.addPlayer(player);
+		
+		status = new GameStatus(model, player);
+		status.setAttacked(true);
+		status.setMoved(true);
+		status.setMustDraw(true);
+
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ATTACK, null);
+
+		new UseItem(status).doAction(dtoTurn);
+
+		assertTrue(status.isMustDraw());
 	}
 	
 
