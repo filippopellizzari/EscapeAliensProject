@@ -128,7 +128,6 @@ public class TestUseItem {
 		assertEquals(ui.getDtoGame().getCoordinate()[4], adj1);
 		assertEquals(ui.getDtoGame().getCoordinate()[6], adj2);
 	}
-	
 
 	/**
 	 * test verifies correct effect of Adrenaline itemCard
@@ -219,11 +218,11 @@ public class TestUseItem {
 	 */
 	@Test
 	public void testUseAttack() {
-		Coordinate c = new Coordinate(3,6);
+		Coordinate c = new Coordinate(3, 6);
 		Sector s = model.getMap().getSector(c);
 		player.setSector(s);
 		s.addPlayer(player);
-		
+
 		status = new GameStatus(model, player);
 		status.setAttacked(false);
 		status.setMoved(true);
@@ -234,18 +233,18 @@ public class TestUseItem {
 
 		assertTrue(status.isAttacked());
 	}
-	
+
 	/**
-	 * test verifies that player does not use attack in a wrong moment of the turn
-	 * (he has not already moved)
+	 * test verifies that player does not use attack in a wrong moment of the
+	 * turn (he has not already moved)
 	 */
 	@Test
 	public void testNotMovedAttack() {
-		Coordinate c = new Coordinate(3,6);
+		Coordinate c = new Coordinate(3, 6);
 		Sector s = model.getMap().getSector(c);
 		player.setSector(s);
 		s.addPlayer(player);
-		
+
 		status = new GameStatus(model, player);
 		status.setAttacked(false);
 		status.setMoved(false);
@@ -256,17 +255,18 @@ public class TestUseItem {
 
 		assertFalse(status.isAttacked());
 	}
+
 	/**
-	 * test verifies that player does not use attack in a wrong moment of the turn
-	 * (he has already attacked)
+	 * test verifies that player does not use attack in a wrong moment of the
+	 * turn (he has already attacked)
 	 */
 	@Test
-	public void testNotItemAttack() {
-		Coordinate c = new Coordinate(3,6);
+	public void testAlreadyAttacked() {
+		Coordinate c = new Coordinate(3, 6);
 		Sector s = model.getMap().getSector(c);
 		player.setSector(s);
 		s.addPlayer(player);
-		
+
 		status = new GameStatus(model, player);
 		status.setAttacked(true);
 		status.setMoved(true);
@@ -278,6 +278,26 @@ public class TestUseItem {
 
 		assertTrue(status.isMustDraw());
 	}
-	
+
+	/**
+	 * test verifies that player can not attack if he has not an Attack itemCard
+	 */
+	@Test
+	public void testNotTypeAttack() {
+		Coordinate c = new Coordinate(3, 6);
+		Sector s = model.getMap().getSector(c);
+		player.setSector(s);
+		s.addPlayer(player);
+
+		status = new GameStatus(model, player);
+		status.setAttacked(false);
+		status.setMoved(true);
+
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ADRENALINE, null);
+
+		new UseItem(status).doAction(dtoTurn);
+
+		assertFalse(status.isAttacked());
+	}
 
 }
