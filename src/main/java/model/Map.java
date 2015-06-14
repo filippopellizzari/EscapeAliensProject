@@ -77,6 +77,7 @@ public abstract class Map {						//abstract because the true Map is Exagonal, mo
 	public List<Coordinate> getHatchSectors() {
 		return hatchSectors;
 	}
+	
 	/**
 	 * 
 	 * @return array of all the sectors;

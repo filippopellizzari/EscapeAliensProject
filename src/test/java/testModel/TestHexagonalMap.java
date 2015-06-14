@@ -12,51 +12,73 @@ import org.junit.Test;
 import connection.MapName;
 import connection.MapType;
 import creator.GameCreator;
+
 /**
- * Test sulle funzionalità di una generica mappa a settori esagonali (es. Fermi)
- * @author filippopellizzari
+ * Test of functions of a generic hexagonal map (e.g Fermi)
+ * 
+ * @author Filippo
  *
  */
 public class TestHexagonalMap {
 
-		
-		static Game fermi;
-		static GameCreator gameCreator;
-		@BeforeClass public static void onlyOnce() throws NumberFormatException, IOException {
-			gameCreator=GameCreator.getinstance();
-			fermi=gameCreator.createGame(MapName.Fermi, 3, MapType.HEXAGONAL); 
-			
-		}
+	static Game fermi;
+	static GameCreator gameCreator;
+
+	@BeforeClass
+	public static void onlyOnce() throws NumberFormatException, IOException {
+		gameCreator = GameCreator.getinstance();
+		fermi = gameCreator.createGame(MapName.Fermi, 3, MapType.HEXAGONAL);
+
+	}
+
 	/**
-	 * il test verifica che un settore presente sulla mappa 
-	 * sia contenuto nell'array di settori della mappa
+	 * test verifies the correspondence between a coordinate and a secto in the
+	 * map
 	 */
 	@Test
 	public void testGetSector() {
-		Coordinate c = new Coordinate(12,9);
-		assertTrue(fermi.getMap().getSector(c).equals(fermi.getMap().getSectors()[11+8*23]));
+		Coordinate c = new Coordinate(12, 9);
+		assertTrue(fermi.getMap().getSector(c)
+				.equals(fermi.getMap().getSectors()[11 + 8 * 23]));
 	}
+
 	/**
-	 * 	il test verifica che un settore non presente sulla mappa sia considerato "nullo"
+	 * test verifies that a coordinate with positive values don't represent a
+	 * sector in the map
 	 */
 	@Test
-	public void testIsSectorNull() {	
+	public void testIsSectorNull() {
 		Coordinate c = new Coordinate(13, 5);
 		assertTrue(fermi.getMap().isNull(c));
 	}
 	/**
-	 * il test verifica che un settore presente sulla mappa non sia considerato "nullo"
+	 * test verifies that the coordinate with x<1
+	 * is never in the map 
 	 */
 	@Test
-	public void testIsSectorNotNull() {	
+	public void testWrongValueX(){
+		Coordinate c = new Coordinate(-1, 2);
+		assertTrue(fermi.getMap().isNull(c));
+		
+	}
+	/**
+	 * test verifies that the coordinate with y<1
+	 * is never in the map 
+	 */
+	@Test
+	public void testWrongValueY(){
+		Coordinate c = new Coordinate(2, 0);
+		assertTrue(fermi.getMap().isNull(c));
+	}
+	/**
+	 * test verifies that a coordinate is not "null" if it represents
+	 * a sector in the map
+	 */
+	@Test
+	public void testIsSectorNotNull() {
 		Coordinate c = new Coordinate(12, 5);
 		assertTrue(!fermi.getMap().isNull(c));
 	}
-	
-	
-	
-	
-	
 	
 	
 

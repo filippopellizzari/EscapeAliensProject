@@ -32,8 +32,10 @@ public class HexagonalMap extends Map{
 	
 	@Override
 	public boolean isNull(Coordinate coordinate) {
-		if(coordinate.getX()>24 || coordinate.getX()<1 || coordinate.getY()>14 || coordinate.getY()<1) return true;
-		return sectors[(coordinate.getX()-1)+(coordinate.getY()-1)*23] == null;
+		if(coordinate.getX() < 1 || coordinate.getY() < 1){
+			return true;
+		}
+		return sectors[(coordinate.getX()-1) + (coordinate.getY()-1)*23] == null;
 	}
 
 }

@@ -164,4 +164,22 @@ public class TestiItemCards {
 													// SectorCard, class
 													// SectorCards
 	}
+	/**
+	 * test verifies correct toString
+	 */
+	@Test
+	public void testToString(){
+		ItemCard ic = new ItemCard(ItemCardType.SEDATIVES);
+		assertEquals(ic.toString(), "ItemCard [itemCardType=SEDATIVES]");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

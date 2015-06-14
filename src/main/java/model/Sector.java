@@ -106,8 +106,8 @@ public class Sector {
 
 	@Override
 	public String toString() {
-		return "Sector [sectorType=" + sectorType + ", getX()=" + getCoordinate().getX()
-				+ ", getY()=" + getCoordinate().getY() + "]";
+		return "Sector [sectorType=" + sectorType + ", coordinate=(" + getCoordinate().getX()
+				+ "," + getCoordinate().getY() + ")]";
 	}
 
 	

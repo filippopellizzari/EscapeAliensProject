@@ -89,16 +89,35 @@ public class TestPlayer {
 	}
 	
 	/**
-	 * I test the number of player, his status and his type
+	 * test if a player is alive
 	 */
-	
 	@Test
-	public void testAliveAndType() {
-		assertTrue(player.getNumber()==1 && player.isAlive()==true && player.getType() == PlayerType.ALIEN);
+	public void testAlive() {
+		assertTrue(player.isAlive());
+	}
+	/**
+	 * test of alien PlayerType
+	 */
+	@Test 
+	public void testAlienType(){
+		assertEquals(player.getType(), PlayerType.ALIEN);
+	}
+	/**
+	 * test of human PlayerType
+	 */
+	@Test
+	public void testHumanType(){
+		player.setPlayerType(PlayerType.HUMAN);
+		assertEquals(player.getType(), PlayerType.HUMAN);
+	}
+	/**
+	 * test of NumberPlayer
+	 */
+	@Test
+	public void testNumber(){
+		assertEquals(player.getNumber(),1);
 	}
 	
-	
-
 
 	/**
 	 * test verifies that player has 3 ItemCards,

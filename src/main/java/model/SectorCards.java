@@ -19,12 +19,12 @@ public class SectorCards {
 	
 	/**
 	 * 
-	 * @param sectorCard called by creator to create the 2 deck, discard pile is void at the beginning
+	 * @param sectorCards called by creator to create the 2 deck, discard pile is void at the beginning
 	 */
 
-	public SectorCards(List<SectorCard> sectorCard) {
+	public SectorCards(List<SectorCard> sectorCards) {
 
-		this.deck = sectorCard;
+		this.deck = sectorCards;
 		this.discardPile = new ArrayList<SectorCard>();
 
 	}

@@ -79,7 +79,7 @@ public class Move implements ChooseAnAction {
 			Sector currSector = status.getGame().getMap().getSector(curr);
 			for (int i = 0; i < currSector.getAdjacent().size(); i++) {
 				Coordinate adjCoord = currSector.getAdjacent().get(i);
-				if (adjCoord.getX() != -1) {
+				if(!status.getGame().getMap().isNull(adjCoord)){
 					Sector adjSector = status.getGame().getMap()
 							.getSector(adjCoord);
 					if (!adjSector.isClosed()) {
