@@ -98,16 +98,16 @@ public class TestUseItem {
 	 */
 	@Test
 	public void testSpotlightAdjacent() {
-		Coordinate coord = new Coordinate(12, 3);
+		Coordinate coord = new Coordinate(6, 6);
 
 		Player p1 = model.getPlayers(2);
 		Player p2 = model.getPlayers(4);
 		Player p3 = model.getPlayers(6);
 
-		Coordinate adj1 = new Coordinate(12, 2);
+		Coordinate adj1 = new Coordinate(6, 5);
 		Sector s1 = model.getMap().getSector(adj1);
 
-		Coordinate adj2 = new Coordinate(12, 4);
+		Coordinate adj2 = new Coordinate(7, 7);
 		Sector s2 = model.getMap().getSector(adj2);
 
 		p1.setSector(s1);
@@ -128,6 +128,7 @@ public class TestUseItem {
 		assertEquals(ui.getDtoGame().getCoordinate()[4], adj1);
 		assertEquals(ui.getDtoGame().getCoordinate()[6], adj2);
 	}
+	
 
 	/**
 	 * test verifies correct effect of Adrenaline itemCard
@@ -214,7 +215,7 @@ public class TestUseItem {
 	}
 
 	/**
-	 * test verifies that player use attack in the right moment of the turn
+	 * test verifies that player uses attack in the right moment of the turn
 	 */
 	@Test
 	public void testUseAttack() {
@@ -233,5 +234,27 @@ public class TestUseItem {
 
 		assertTrue(status.isAttacked());
 	}
+	
+	/**
+	 * test verifies that player does not use attack in a wrong moment of the turn
+	 */
+	@Test
+	public void testNotUseAttack() {
+		Coordinate c = new Coordinate(3,6);
+		Sector s = model.getMap().getSector(c);
+		player.setSector(s);
+		s.addPlayer(player);
+		
+		status = new GameStatus(model, player);
+		status.setAttacked(false);
+		status.setMoved(false);
+
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ATTACK, null);
+
+		new UseItem(status).doAction(dtoTurn);
+
+		assertFalse(status.isAttacked());
+	}
+	
 
 }
