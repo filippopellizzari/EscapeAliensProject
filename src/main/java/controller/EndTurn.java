@@ -13,28 +13,33 @@ import dto.DTOTurn;
 
 public class EndTurn implements ChooseAnAction {
 
-	private GameStatus gameStatus;
+	private GameStatus status;
 	private DTOGame dtoGame;
+
 	/**
 	 * 
-	 * @param gameStatus
+	 * @param status
 	 *            , the status of a turn, reference at model and the player who
 	 *            are playing, now is his turn
 	 */
 
-	public EndTurn(GameStatus gameStatus) {
-		this.gameStatus = gameStatus;
-		this.dtoGame=new DTOGame();
+	public EndTurn(GameStatus status) {
+		this.status = status;
+		this.dtoGame = new DTOGame();
 	}
 
+	public boolean isEndTurn(){
+		return status.isMoved() 
+				&& !status.isMustDraw()
+				&& !status.isMustDiscardItem() 
+				&& !status.isMustNoise();
+	}
+	
 	@Override
-
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		if (gameStatus.isMoved() && !gameStatus.isMustDraw()
-				&& !gameStatus.isMustDiscardItem()
-				&& !gameStatus.isMustNoise()) { // fine turno
+		if (isEndTurn()) { 
 			dtoGame.setGameMessage("Hai finito il turno");
-			dtoGame.setReceiver(gameStatus.getPlayer().getNumber());
+			dtoGame.setReceiver(status.getPlayer().getNumber());
 		}
 		dtoGame.setGameMessage("Non hai completato tutte le azioni obbligatorie per finire il turno");
 		return dtoGame;

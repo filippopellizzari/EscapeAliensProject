@@ -4,8 +4,9 @@ import dto.*;
 import model.*;
 
 /**
- * This class is used when a player is in a dangerous sector and wants to draw a sector dangerous
- * card; a sector card could have an item icon and, in this case, a player must draw an item card
+ * This class is used when a player is in a dangerous sector and wants to draw a
+ * sector dangerous card; a sector card could have an item icon and, in this
+ * case, a player must draw an item card
  * 
  * @author Filippo
  * @author Nicola
@@ -19,9 +20,8 @@ public class DrawSectorCard implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param gameStatus
-	 *            , the status of a turn, reference at model and the player who
-	 *            are playing, now is his turn
+	 * @param status
+	 *            the status of the turn
 	 */
 
 	public DrawSectorCard(GameStatus status) {
@@ -40,10 +40,11 @@ public class DrawSectorCard implements ChooseAnAction {
 		switch (type) {
 		case NOISEANY:
 			status.setMustNoise(true);
-			dtoGame.setReceiver(10); // unica volta che il messaggio è privato
-										// ma parte di esso va messo nel buffer
-										// per essere poi
-			break; // dato a tutti i giocatori
+			// unica volta che il messaggio è privato ma parte 
+			// di esso va messo nel buffer
+			// per essere poi dato a tutti i giocatori
+			dtoGame.setReceiver(10);
+			break;
 		case NOISEYOUR:
 			dtoGame.setReceiver(9);
 			dtoGame.setCoordinate(status.getPlayer().getSector()
@@ -55,17 +56,17 @@ public class DrawSectorCard implements ChooseAnAction {
 		default:
 			break;
 		}
-		if (current.isItemIcon()) { //vedi se devi pescare carta oggetto
+		if (current.isItemIcon()) { // vedi se devi pescare carta oggetto
 			drawItemCard();
 		}
-		status.getGame().getSectorCards().discard(current); // scarta la carta
-															// settore nel mazzo
-															// scarti
+		//scarta carta settore
+		status.getGame().getSectorCards().discard(current); 
 	}
+
 	/**
-	 * draw an item card; if all cards are finished, the player does not draw anything;
-	 * if he draws the fourth itemCard, he is obliged to discard or use one of his items
-	 * before the end of his turn
+	 * draw an item card; if all cards are finished, the player does not draw
+	 * anything; if he draws the fourth itemCard, he is obliged to discard or
+	 * use one of his items before the end of his turn
 	 * 
 	 */
 	public void drawItemCard() {
@@ -76,12 +77,13 @@ public class DrawSectorCard implements ChooseAnAction {
 			Player player = status.getPlayer();
 			ItemCardType type = current.getType();
 			player.addItem(current);
-			dtoGame.setItemCardType(type); //solo chi ha pescato conosce la carta
+			// solo chi ha pescato conosce la carta oggetto
+			dtoGame.setItemCardType(type);
 			if (player.getItem().size() == 4) {
 				dtoGame.setGameMessage("Hai 4 carte oggetto: devi giocarne una subito o scartarne una\n");
-				status.setMustDiscardItem(true); // è obbligato a scartarne una
-													// (fino a che non la scarta
-													// o la usa)
+				// obbligato a scartarne una (finchè non la scarta o ne gioca
+				// una)
+				status.setMustDiscardItem(true);
 			}
 		}
 	}
@@ -102,7 +104,5 @@ public class DrawSectorCard implements ChooseAnAction {
 	public DTOGame getDtoGame() {
 		return dtoGame;
 	}
-	
-	
 
 }
