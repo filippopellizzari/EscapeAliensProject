@@ -9,9 +9,12 @@ import org.junit.Test;
 
 import connection.MapName;
 import connection.MapType;
+import controller.ActionType;
 import controller.EndTurn;
 import controller.GameStatus;
 import creator.GameCreator;
+import dto.DTOGame;
+import dto.DTOTurn;
 import model.*;
 
 /**
@@ -75,7 +78,10 @@ public class TestEndTurn {
 		status = new GameStatus(model, player);
 		status.setMoved(true);
 		status.setMustNoise(true);
-		assertFalse(new EndTurn(status).isEndTurn());	
+		
+		DTOTurn dtoTurn = new DTOTurn(null, null, ActionType.ENDTURN);
+		DTOGame dtoGame = new EndTurn(status).doAction(dtoTurn);
+		assertNotEquals(dtoGame.getGameMessage(),"Hai finito il turno");
 	}
 	/**
 	 * test verifies that a player who has completed all the actions
@@ -88,7 +94,10 @@ public class TestEndTurn {
 		status.setMustDraw(false);
 		status.setMustDiscardItem(false);
 		status.setMustNoise(false);
-		assertTrue(new EndTurn(status).isEndTurn());	
+		
+		DTOTurn dtoTurn = new DTOTurn(null, null, ActionType.ENDTURN);
+		DTOGame dtoGame = new EndTurn(status).doAction(dtoTurn);
+		assertEquals(dtoGame.getGameMessage(),"Hai finito il turno");	
 	}
 	
 	

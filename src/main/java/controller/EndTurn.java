@@ -28,20 +28,19 @@ public class EndTurn implements ChooseAnAction {
 		this.dtoGame = new DTOGame();
 	}
 
-	public boolean isEndTurn(){
-		return status.isMoved() 
-				&& !status.isMustDraw()
-				&& !status.isMustDiscardItem() 
-				&& !status.isMustNoise();
+	public boolean isEndTurn() {
+		return status.isMoved() && !status.isMustDraw()
+				&& !status.isMustDiscardItem() && !status.isMustNoise();
 	}
-	
+
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		if (isEndTurn()) { 
+		if (isEndTurn()) {
 			dtoGame.setGameMessage("Hai finito il turno");
 			dtoGame.setReceiver(status.getPlayer().getNumber());
+		} else {
+			dtoGame.setGameMessage("Non hai completato tutte le azioni obbligatorie per finire il turno");
 		}
-		dtoGame.setGameMessage("Non hai completato tutte le azioni obbligatorie per finire il turno");
 		return dtoGame;
 	}
 
