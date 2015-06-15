@@ -33,7 +33,8 @@ public class SelectSectorNoise implements ChooseAnAction {
 			status.setMustNoise(false);
 			dtoGame.setReceiver(9);
 			dtoGame.setCoordinate(dtoTurn.getCoordinate(), status.getPlayer()
-					.getNumber()); // notifica noise
+					.getNumber());
+			dtoGame.setActionType(ActionType.SELECTSECTORNOISE);// notifica noise
 		} else {
 			dtoGame.setGameMessage("Non puoi usare in questo momento il Noise in Any Sector");
 			dtoGame.setReceiver(status.getPlayer().getNumber());

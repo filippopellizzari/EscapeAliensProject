@@ -8,6 +8,7 @@ import dto.DTOTurn;
  * must to do to complete the turn
  * 
  * @author Nicola
+ * @author Filippo
  *
  */
 
@@ -37,9 +38,9 @@ public class EndTurn implements ChooseAnAction {
 	public DTOGame doAction(DTOTurn dtoTurn) {
 		if (isEndTurn()) {
 			dtoGame.setGameMessage("Hai finito il turno");
-			dtoGame.setReceiver(status.getPlayer().getNumber());
 		} else {
 			dtoGame.setGameMessage("Non hai completato tutte le azioni obbligatorie per finire il turno");
+			dtoGame.setReceiver(status.getPlayer().getNumber());
 		}
 		return dtoGame;
 	}

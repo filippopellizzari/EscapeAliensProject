@@ -79,7 +79,7 @@ public class TestDiscardItem {
 		status = new GameStatus(model, player);
 		status.setMustDiscardItem(true);
 
-		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ADRENALINE, null);
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ADRENALINE, ActionType.DISCARDITEM);
 		new DiscardItem(status).doAction(dtoTurn);
 
 		assertEquals(player.getItem().size(), 1);
@@ -97,7 +97,7 @@ public class TestDiscardItem {
 		status = new GameStatus(model, player);
 		status.setMustDiscardItem(false);
 
-		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ADRENALINE, null);
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ADRENALINE, ActionType.DISCARDITEM);
 		new DiscardItem(status).doAction(dtoTurn);
 
 		assertEquals(player.getItem().size(), 2);

@@ -41,7 +41,7 @@ public class ThreadEndTurn implements Runnable {
 				if (temporize != null)
 					temporize.stop(); // ferma timer
 				gameDescription.getStatus();
-				list = gameDescription.getController().finishTurn();
+				list = gameDescription.getController().completeTurn();
 				//imposto il nuovo turno e giocatore
 				turn = gameDescription.getController().getTurnNumber(); 
 				numberPlayer = gameDescription.getController()
