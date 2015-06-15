@@ -154,7 +154,7 @@ public class TestUseItem {
 		current.addPlayer(player);
 
 		status = new GameStatus(model, player);
-		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.TELEPORT, null);
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.TELEPORT, ActionType.USEITEM);
 
 		new UseItem(status).doAction(dtoTurn);
 
@@ -170,7 +170,7 @@ public class TestUseItem {
 	public void testUseSedatives() {
 		status = new GameStatus(model, player);
 		status.setSedated(false);
-		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.SEDATIVES, null);
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.SEDATIVES, ActionType.USEITEM);
 
 		new UseItem(status).doAction(dtoTurn);
 
@@ -191,7 +191,7 @@ public class TestUseItem {
 
 		status = new GameStatus(model, player);
 		Coordinate coord = new Coordinate(12, 3);
-		DTOTurn dtoTurn = new DTOTurn(coord, ItemCardType.SPOTLIGHT, null);
+		DTOTurn dtoTurn = new DTOTurn(coord, ItemCardType.SPOTLIGHT, ActionType.USEITEM);
 
 		DTOGame dtoGame = new UseItem(status).doAction(dtoTurn);
 
@@ -206,7 +206,7 @@ public class TestUseItem {
 		player.setSpeed(1);
 		status = new GameStatus(model, player);
 
-		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ADRENALINE, null);
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ADRENALINE, ActionType.USEITEM);
 
 		new UseItem(status).doAction(dtoTurn);
 
@@ -227,7 +227,7 @@ public class TestUseItem {
 		status.setAttacked(false);
 		status.setMoved(true);
 
-		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ATTACK, null);
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ATTACK, ActionType.USEITEM);
 
 		new UseItem(status).doAction(dtoTurn);
 
@@ -249,7 +249,7 @@ public class TestUseItem {
 		status.setAttacked(false);
 		status.setMoved(false);
 
-		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ATTACK, null);
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ATTACK, ActionType.USEITEM);
 
 		new UseItem(status).doAction(dtoTurn);
 
@@ -272,7 +272,7 @@ public class TestUseItem {
 		status.setMoved(true);
 		status.setMustDraw(true);
 
-		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ATTACK, null);
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ATTACK, ActionType.USEITEM);
 
 		new UseItem(status).doAction(dtoTurn);
 
@@ -293,11 +293,30 @@ public class TestUseItem {
 		status.setAttacked(false);
 		status.setMoved(true);
 
-		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ADRENALINE, null);
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ADRENALINE, ActionType.USEITEM);
 
 		new UseItem(status).doAction(dtoTurn);
 
 		assertFalse(status.isAttacked());
 	}
+	
+	/**
+	 * test verifies that an alien player can not use itemCards
+	 */
+	
+	@Test
+	public void testAlienType(){
+		Player alien = model.getPlayers(1);
+		alien.setPlayerType(PlayerType.ALIEN);
+		status = new GameStatus(model, alien);
+		status.setMustDiscardItem(true);
+		
+		DTOTurn dtoTurn = new DTOTurn(null, ItemCardType.ADRENALINE, ActionType.USEITEM);
+		
+		new UseItem(status).doAction(dtoTurn);
+		
+		assertTrue(status.isMustDiscardItem());
+	}
+	
 
 }

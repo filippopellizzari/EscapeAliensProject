@@ -31,9 +31,9 @@ public class ClientDataRMI{
 		registry = LocateRegistry.getRegistry(HOST,PORT);
 		game = (Actions) registry.lookup(NAME);
 		System.out.println("Invoking remote object...");
-		this.token=new Token(-1);
-		this.dtoGameList=new ArrayList<DTOGame>();
-		this.buffer=new ArrayList<String>();
+		this.token = new Token(-1);
+		this.dtoGameList = new ArrayList<DTOGame>();
+		this.buffer = new ArrayList<String>();
 	}
 	public void clickOnConnectionRMI() throws UnknownHostException, IOException, ClassNotFoundException{
 		token=game.getToken();
@@ -41,13 +41,10 @@ public class ClientDataRMI{
 	
 	public void clickOnStartGame(TypeOfMap typeOfMap) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 		buffer.add("Iscrizione inviata");
-		view=game.subscribeGame(typeOfMap, token);
+		view = game.subscribeGame(typeOfMap, token);
 		if (view != null) {
 			this.buffer.add("Partita pronta, Turno Giocatore 1");
-			System.out.println(view.getNumberPlayer());
-			System.out.println(view.getCoordinate());
-			System.out.println(view.getPlayerType());
-			Thread subscribe=new Thread(new subscribeRMI(this));
+			Thread subscribe = new Thread(new subscribeRMI(this));
 			subscribe.start();
 		} 
 		else

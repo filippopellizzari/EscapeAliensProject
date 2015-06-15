@@ -79,6 +79,7 @@ public class DrawSectorCard implements ChooseAnAction{
 		if(status.isMustDraw() && !status.isSedated()){   
 			drawSectorCard();
 			status.setMustDraw(false);
+			status.setAttacked(true);//non potrà più attaccare
 		}
 		else {
 			dtoGame.setGameMessage("Non puoi pescare in questo momento");

@@ -123,6 +123,7 @@ public class Move implements ChooseAnAction {
 				status.setMustDraw(true);
 			}
 			dtoGame.setReceiver(status.getPlayer().getNumber());
+			break;
 		case SECURE:
 			dtoGame.setReceiver(status.getPlayer().getNumber());
 			break;
