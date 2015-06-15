@@ -74,10 +74,5 @@ public class ItemCards {
 
 	public List<ItemCard> getDiscardPile() {
 		return discardPile;
-	}
-	
-	
-
-	
-	
+	}	
 }

@@ -6,7 +6,7 @@ import controller.ActionType;
 import model.*;
 
 /**
- * this class is used as DTO between Client and Server, when the game starts
+ * this class is used as a DTO between Client and Server, when the game starts
  * 
  * @author Nicola this is the DTO passed from server to client
  *
@@ -112,8 +112,4 @@ public class DTOGame implements Serializable {
 	public void setPlayerNumber(int playerNumber) {
 		this.playerNumber = playerNumber;
 	}
-	
-	
-
-
 }

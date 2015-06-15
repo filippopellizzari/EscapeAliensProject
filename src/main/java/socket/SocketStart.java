@@ -7,10 +7,24 @@ import java.net.UnknownHostException;
 
 import connection.*;
 
+/**
+ * This class is used to begin the connection, sends the number -1 to the server, then takes its token number
+ * and save this in the client data 
+ * @author Nicola
+ *
+ */
+
 public class SocketStart extends SocketBase implements Runnable{
 	
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
+	
+	/**
+	 * This costructor inizializes the input and output, uses object because transfer dto instead of strings
+	 * @param clientData, to inizialize its parameters
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	
 	public SocketStart(ClientData clientData) throws UnknownHostException, IOException {
 		super(clientData);
@@ -22,6 +36,7 @@ public class SocketStart extends SocketBase implements Runnable{
 			System.out.print("Errore");
 		}
 	}
+	
 	@Override
 	public void run() {
 		try {

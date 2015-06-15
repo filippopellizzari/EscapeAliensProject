@@ -7,6 +7,13 @@ import java.io.ObjectOutputStream;
 import connection.*;
 import dto.DTOGame;
 
+/**
+ * This class receives a type of map from the player, sends a new request for that type of map and wait, when 
+ * the buffer is setted, if the response is positive take the view and sends these at the player, else terminates
+ * @author Nicola
+ *
+ */
+
 public class ClientHandlerChooseGameSocket implements Processing{
 	
 	private Token token;
@@ -14,6 +21,13 @@ public class ClientHandlerChooseGameSocket implements Processing{
 	private ObjectInputStream in;
 	private IdentifyTypeOfConnection identifyTypeOfConnection;		//serve per settare i dettagli del giocatore
 	private final DatabaseCreateGame dataBaseForSubscribe;
+	
+	/**
+	 * This costructor inizialize the input and output, used to read and send objects
+	 * @param token, sended by a player
+	 * @param socketOut, reads the output of the socket
+	 * @param socketIn, reads the input of the socket 
+	 */
 	
 	public ClientHandlerChooseGameSocket(Token token, ObjectOutputStream socketOut, ObjectInputStream socketIn) {
 		this.token=token;
@@ -23,7 +37,11 @@ public class ClientHandlerChooseGameSocket implements Processing{
 		this.identifyTypeOfConnection=IdentifyTypeOfConnection.getinstance();
 	}
 
-	@Override
+	/**
+	 * Send a requesta at the databaseForSubscribe, then wait for the response, if the response is positive sets the
+	 * parameters of the current player, now the player has a game and a number, then send the view at the player
+	 */
+	
 	public void start() {
 		try {
 			TypeOfMap chooseOfThePlayer=(TypeOfMap)in.readObject();
@@ -57,6 +75,12 @@ public class ClientHandlerChooseGameSocket implements Processing{
 			System.err.println(e.getMessage());
 		}
 	}
+	
+	/**
+	 * Puts in wait this thread if the buffer is empty
+	 * @param detailsYourGame
+	 * @throws InterruptedException
+	 */
 
 	private void putInWait(DetailsPlayers detailsYourGame) throws InterruptedException {
 		System.out.println("Sono il thread connessione aspetto il buffer");

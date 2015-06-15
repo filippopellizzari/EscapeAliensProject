@@ -8,12 +8,28 @@ import java.net.UnknownHostException;
 import connection.*;
 import dto.DTOGame;
 
+/**
+ * This class is used when a player chooses a game to play, sends a type of map, the server saves the request and
+ * the response is sended when the timer of the game stop, if the game has at least 2 player the game start, otherwise
+ * the response is negative and the player has to send another request.
+ * @author Nicola
+ *
+ */
+
 public class SocketChooseGame extends SocketBase implements Runnable{
 
 	private TypeOfMap typeOfMapChoose;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 
+	/**
+	 * This costructor inizializes the input and output, uses object because transfer dto instead of strings
+	 * @param clientData, to inizialize its parameters
+	 * @param typeOfMap
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
+	
 	public SocketChooseGame(ClientData clientData, TypeOfMap typeOfMap) throws UnknownHostException, IOException {
 		super(clientData);
 		try {

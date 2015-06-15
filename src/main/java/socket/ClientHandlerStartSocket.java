@@ -6,12 +6,27 @@ import java.io.ObjectOutputStream;
 
 import connection.*;
 
+/**
+ * This class is used by the server for send to a client a new token (id), the class finds a free token and sends it
+ * to the client, this token is used to  create a new record in the class identification that contains all the information
+ * about that player
+ * @author Nicola
+ *
+ */
+
 public class ClientHandlerStartSocket implements Processing{
 	
 	private IdentifyTypeOfConnection identifyConnection;
 	private Token token;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
+	
+	/**
+	 * This costructor inizialize the input and output, used to read and send objects
+	 * @param token, sended by a player
+	 * @param socketOut, reads the output of the socket
+	 * @param socketIn, reads the input of the socket 
+	 */
 	
 	public ClientHandlerStartSocket(Token token, ObjectOutputStream socketOut, ObjectInputStream socketIn) {
 		identifyConnection=IdentifyTypeOfConnection.getinstance();
@@ -20,6 +35,11 @@ public class ClientHandlerStartSocket implements Processing{
 		this.in=socketIn;
 	}
 
+	/**
+	 * This method finds a free token, sends this to the player and create a new record in the class
+	 * identifyConnection, this record contains the information about the player
+	 */
+	
 	public void start() {
 		try {
 			boolean numberFound=false;
