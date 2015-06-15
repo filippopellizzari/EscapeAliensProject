@@ -15,14 +15,11 @@ public class EndGame {
 	
 	private final Game game;
 	private final int round;
-	private final DTOGame dtoGame;
 	private final int TOT_ROUNDS = 39;
 
 	public EndGame(Game game, int round){
 		this.game = game;
-		this.round = round;
-		dtoGame = new DTOGame();
-		
+		this.round = round;	
 	}
 	
 	public boolean control() {
