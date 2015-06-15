@@ -122,27 +122,29 @@ public class Player {
 
 	/**
 	 * 
-	 * @return item of player, used to control the number of the card because none can has more than 3 item card
+	 * @return list of the itemCards of a player
 	 */
 	
 	public List<ItemCard> getItem() {
 		return itemCardPlayer;
 	}
 	
-	/**
+	/**add an item card at the end of the list of player's itemCards 
 	 * 
-	 * @param itemCard, add a card draw by a player, player draw item card when go in a dangerous sector and draw a sectorcard with the correct 
-	 * symbols(item)
+	 * @param itemCard Object 
 	 */
 	
 	public void addItem(ItemCard itemCard) {
 		itemCardPlayer.add(itemCard);
 	}
 	
-	/**
+	/**remove an itemCard from the list;
+	 * the new list size is oldsize-1; 
+	 * new indexes at the right of element removed are
+	 * oldindexes-1;
 	 * 
-	 * @param numberOfCard to remove from the player
-	 * @return the card if this exist and null otherwise
+	 * @param index of the itemCard to remove from the player's deck
+	 * @return itemCard Object if exists, null otherwise
 	 */
 	
 	public ItemCard removeItem(int index) {

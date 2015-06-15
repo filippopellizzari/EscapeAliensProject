@@ -3,7 +3,6 @@ package socket;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-import model.Coordinate;
 import connection.*;
 import controller.ActionType;
 import dto.*;

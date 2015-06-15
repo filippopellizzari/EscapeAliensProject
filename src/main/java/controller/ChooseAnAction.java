@@ -1,10 +1,13 @@
 package controller;
 
+
+//DA SPIEGARE MEGLIO
+
 import dto.DTOGame;
 import dto.DTOTurn;
 
 /**
- * This interface is used to implements the pattern strategy
+ * 
  * 
  * @author Nicola
  *
@@ -15,8 +18,8 @@ public interface ChooseAnAction {
 	/**
 	 * 
 	 * @param dtoTurn
-	 *            box with the action the player would do
-	 * @return a string of action
+	 *       
+	 * @return the response of action
 	 */
 	public DTOGame doAction(DTOTurn dtoTurn);
 }

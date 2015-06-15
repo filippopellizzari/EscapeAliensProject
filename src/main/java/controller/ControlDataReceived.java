@@ -4,11 +4,13 @@ import dto.DTOSend;
 import model.*;
 
 /**
- * In this class there are some controls: 1. the player who send the message is
- * the player that has to do his turn; 2. control of his status (dead or alive);
- * 3. control about the right coordinates send by player; 4. control about the
- * possession of an item card.
+ * This class is used to control if it is the turn of a player trying to do an
+ * action and if he is out of game; and then,control if some data of dtoSend are
+ * right: coordinates exist in the map, a particular type of itemCard is in the
+ * player's deck
  * 
+ * 
+ * @author Filippo
  * @author Nicola
  *
  */
@@ -18,18 +20,20 @@ public class ControlDataReceived {
 	private final DTOSend dtoSend;
 	private final Game game;
 	private final int numberPlayer;
-	
-	public ControlDataReceived(DTOSend dtoSend, Game game, int numberPlayer){
+	private final Player player;
+
+	public ControlDataReceived(DTOSend dtoSend, Game game, int numberPlayer) {
 		this.dtoSend = dtoSend;
 		this.game = game;
 		this.numberPlayer = numberPlayer;
+		this.player = game.getPlayers(numberPlayer);
 	}
-	
+
 	public String verify() {
-		if (numberPlayer != dtoSend.getNumberPlayer()){
+		if (numberPlayer != dtoSend.getNumberPlayer()) {
 			return "Ora non è il tuo turno";
 		}
-		if (!game.getPlayers(numberPlayer).isAlive()){
+		if (!player.isAlive()) {
 			return "Sei fuori dal gioco!";
 		}
 		if (dtoSend.getCoordinate() != null) {
@@ -37,20 +41,19 @@ public class ControlDataReceived {
 				return "Il settore non esiste sulla mappa";
 		}
 		if (dtoSend.getItemCardType() != null) {
-			if(!hasItemCard(dtoSend.getItemCardType()))
+			if (!hasItemCard(dtoSend.getItemCardType()))
 				return "Non possiedi questa carta";
-			
+
 		}
 		return null;
 	}
-	
-	
-	private boolean hasItemCard(ItemCardType type){
-		for (int i = 0; i < game.getPlayers(numberPlayer).getItem().size(); i++){
-			if (game.getPlayers(numberPlayer).getItem().get(i).getType().equals(type)){
+
+	private boolean hasItemCard(ItemCardType type) {
+		for (int i = 0; i < player.getItem().size(); i++) {
+			if (player.getItem().get(i).getType().equals(type)) {
 				return true;
 			}
 		}
-		return false;			
+		return false;
 	}
 }

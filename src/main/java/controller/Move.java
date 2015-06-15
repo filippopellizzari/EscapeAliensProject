@@ -17,10 +17,11 @@ public class Move implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param gameStatus, the status of a turn, reference at model and the player who
-	 * are playing, now is his turn
+	 * @param gameStatus
+	 *            , the status of a turn, reference at model and the player who
+	 *            are playing, now is his turn
 	 */
-	
+
 	public Move(GameStatus status) {
 		this.status = status;
 		this.dtoGame = new DTOGame();
@@ -35,39 +36,39 @@ public class Move implements ChooseAnAction {
 
 	public boolean moveCheck(Coordinate dest) {
 
-		return pathCheck(
-				status.getPlayer().getSector().getCoordinate(), dest,
-				status.getPlayer().getSpeed())
-				&& destCheck(dest);
+		Player player = status.getPlayer();
+		Sector destSector = status.getGame().getMap().getSector(dest);
+
+		return pathCheck(player.getSector().getCoordinate(), dest,
+				player.getSpeed())
+				&& destCheck(player, destSector);
 	}
 
 	/**
-	 * check that the destination is within the map ; in the case of aliens ,
-	 * checks that can not access an escape hatch sector
+	 * 
+	 * check that an alien can not move to an escape hatch sector
 	 * 
 	 * @param dest
 	 * @return
 	 */
 
-	private boolean destCheck(Coordinate dest) {
-		if (!status.getGame().getMap().isNull(dest)) {
-			if (status.getPlayer().getType().equals(PlayerType.ALIEN)
-				&& status.getGame().getMap().getSector(dest).getType().equals(SectorType.HATCH)){
-						return false;
-			}
-			return true;
-		}
-		return false;
+	private boolean destCheck(Player player, Sector destSector) {
+		return !(player.getType().equals(PlayerType.ALIEN) && destSector
+				.getType().equals(SectorType.HATCH));
 	}
 
 	/**
 	 * 
 	 * Check that the destination is reached according to the speed player and
-	 * that the crossed sectors are valid; it's a classic algorithm of Depth Search
+	 * that the crossed sectors are valid; it's a classic algorithm of Depth
+	 * Search
 	 * 
-	 * @param curr, starting coordinate
-	 * @param dest, destination coordinate
-	 * @param speed, speed of player
+	 * @param curr
+	 *            , starting coordinate
+	 * @param dest
+	 *            , destination coordinate
+	 * @param speed
+	 *            , speed of player
 	 * @return
 	 */
 
@@ -78,8 +79,9 @@ public class Move implements ChooseAnAction {
 			Sector currSector = status.getGame().getMap().getSector(curr);
 			for (int i = 0; i < currSector.getAdjacent().size(); i++) {
 				Coordinate adjCoord = currSector.getAdjacent().get(i);
-				if (adjCoord.getX() != -1 && adjCoord.getY() != -1) {
-					Sector adjSector = status.getGame().getMap().getSector(adjCoord);
+				if(!status.getGame().getMap().isNull(adjCoord)){
+					Sector adjSector = status.getGame().getMap()
+							.getSector(adjCoord);
 					if (!adjSector.isClosed()) {
 						speed--;
 						if (pathCheck(adjCoord, dest, speed)) {
@@ -98,25 +100,27 @@ public class Move implements ChooseAnAction {
 	 * this is the effective move
 	 * 
 	 * 
-	 * @param destCoord, coordinates chosen by player
+	 * @param destCoord
+	 *            , coordinates chosen by player
 	 * @return string, describes destination sector
 	 */
-
 
 	public void move(Coordinate destCoord) {
 		Player player = status.getPlayer();
 		Sector destSector = status.getGame().getMap().getSector(destCoord);
 		destSector.addPlayer(player.getSector().removePlayer());
 		player.setSector(destSector);
-		if(player.getType().equals(PlayerType.HUMAN)){ //nel caso avesse preso adrenalina
+		// nel caso un umano avesse preso adrenalina
+		if (player.getType().equals(PlayerType.HUMAN)) {
 			player.setSpeed(1);
 		}
-		dtoGame.setCoordinate(destCoord, player.getNumber()); //mossa avvenuta con successo
+		// mossa avvenuta con successo
+		dtoGame.setCoordinate(destCoord, player.getNumber());
 		switch (destSector.getType()) {
-		case DANGEROUS: 
-			if(!status.isSedated()){     
-				status.setMustDraw(true); //ha l'obbligo di pescare(fino a che non decide di attaccare o pescare)
-				//se è già stato sedato, non ha obbligo di pescare
+		case DANGEROUS:
+			if (!status.isSedated()) {
+				// obbligato a pescare, se non è sedato
+				status.setMustDraw(true);
 			}
 			dtoGame.setReceiver(status.getPlayer().getNumber());
 		case SECURE:
@@ -124,51 +128,52 @@ public class Move implements ChooseAnAction {
 			break;
 		case HATCH:
 			drawHatchCard();
-			dtoGame.setReceiver(9);	//mostra a tutti carta hatch e posizione giocatore
+			// mostro a tutti carta hatch e posizione giocatore
+			dtoGame.setReceiver(9);
 			break;
 		default:
 			break;
 		}
 	}
-	
+
 	/**
-	 * If player is on a HatchSector, a HatchCard is draw and solved, everyone is advised by the result
+	 * If player is on a HatchSector, a HatchCard is draw and solved, everyone
+	 * is advised by the result
 	 */
-	
-	public void drawHatchCard(){
-		HatchCard current = status.getGame().getHatchCards().draw();//pesco carta hatch
-		HatchCardColor color = current.getColor(); 
+
+	public void drawHatchCard() {
+		// pesco carta hatch
+		HatchCard current = status.getGame().getHatchCards().draw();
+		HatchCardColor color = current.getColor();
 		dtoGame.setHatchCardColor(color);
-		switch(color){
-		  	case RED :
-		  		break;
-		  	case GREEN :
-		  		status.getPlayer().setAlive(false); //partita conclusa per lui
-		  		break;
+		switch (color) {
+		case RED:
+			break;
+		case GREEN:
+			status.getPlayer().setAlive(false);// partita conclusa per lui
+			break;
 		}
 		status.getGame().getHatchCards().discard(current);
+
 	}
 
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		if (!status.isMoved()) { 	//controllo stato del turno
-			if (moveCheck(dtoTurn.getCoordinate())) {//controllo se la mossa è valida
+		if (!status.isMoved()) { // controllo stato del turno
+			// controllo se la mossa è valida
+			if (moveCheck(dtoTurn.getCoordinate())) {
 				move(dtoTurn.getCoordinate());
 				status.setMoved(true);
-			} 
-			else {
+			} else {
 				dtoGame.setGameMessage("Non puoi muovere in quel settore");
-				dtoGame.setReceiver(status.getPlayer().getNumber()); //notifica privata
+				dtoGame.setReceiver(status.getPlayer().getNumber());
 			}
-		} 
-		else {
+		} else {
 			dtoGame.setGameMessage("Non puoi muovere adesso");
-			dtoGame.setReceiver(status.getPlayer().getNumber());  //notifica privata
+			dtoGame.setReceiver(status.getPlayer().getNumber());
 		}
-		
+
 		return dtoGame;
 	}
-	
-	
 
 }

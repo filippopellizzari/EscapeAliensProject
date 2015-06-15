@@ -21,6 +21,7 @@ public class ClientSocket {
 	
 	
 	private ClientData cd;
+	private DTOSend dtoSend;
 	/**
 	 * 
 	 * @param cd data 
@@ -61,7 +62,7 @@ public class ClientSocket {
 				System.out.println("Numero:\n");
 				int y = in.nextInt();
 				Coordinate coord = new Coordinate (x,y);
-				DTOSend dtoSend = new DTOSend(coord, cd.getView().getNumberPlayer(), null, ActionType.MOVE, null);
+				dtoSend = new DTOSend(coord, cd.getView().getNumberPlayer(), null, ActionType.MOVE, null);
 				cd.clickOnDoMove(dtoSend);
 				break;
 			case 2: 
@@ -69,8 +70,14 @@ public class ClientSocket {
 				int type = in.nextInt();
 				switch(type){
 				case 1: 
-					
+					dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(), null, ActionType.ATTACK, null);
+					cd.clickOnDoMove(dtoSend);
+					break;
+				default: 
+					break;
 				}
+			default:
+				break;
 				
 			}
 			

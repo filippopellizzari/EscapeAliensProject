@@ -2,6 +2,7 @@ package controller;
 
 import dto.*;
 import model.ItemCardType;
+import model.Player;
 
 /**
  * This class provides the methods to discard the item card, if the player has
@@ -18,8 +19,8 @@ public class DiscardItem implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param gameStatus, the status of a turn, reference at model and the player who
-	 * are playing, now is his turn
+	 * @param status
+	 * 
 	 */
 
 	public DiscardItem(GameStatus status) {
@@ -29,26 +30,33 @@ public class DiscardItem implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param type, type of itemCard to discard
+	 * @param type
+	 *            type of itemCard to discard
 	 */
 
 	public void discardItem(ItemCardType type) {
-		for (int i = 0; i < status.getPlayer().getItem().size(); i++) {	
-			if (status.getPlayer().getItem().get(i).getType().equals(type)) {
-				status.getGame().getItemCards().discard(status.getPlayer().removeItem(i));
-				return;			
+		Player player = status.getPlayer();
+		for (int i = 0; i < player.getItem().size(); i++) {
+			if (player.getItem().get(i).getType().equals(type)) {
+				status.getGame().getItemCards().discard(player.removeItem(i));
+				return;// ne scarto una sola di quel tipo
 			}
 		}
 	}
 
+	/**
+	 * a player can choose an action "discard item", if he has drawn the fourth
+	 * itemCard but he has not used it immediately (he is obliged to discard,
+	 * but he can choose when)
+	 */
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		if (status.isMoved() && status.isMustDiscardItem()){ 
+		if (status.isMustDiscardItem()) {
 			discardItem(dtoTurn.getTypeCard());
 			status.setMustDiscardItem(false);
-			dtoGame.setReceiver(9);	
+			dtoGame.setReceiver(9);
 		} else {
-			dtoGame.setReceiver(status.getPlayer().getNumber());		
+			dtoGame.setReceiver(status.getPlayer().getNumber());
 			dtoGame.setGameMessage("Non puoi scartare questa carta adesso");
 		}
 		return dtoGame;

@@ -93,6 +93,25 @@ public class TestSectorCards {
 		assertTrue(noiseInAnyType0==6 && noiseInAnyType1==4 && noiseInYourType0==6 && noiseInYourType1==4 && silence==5); //test the tipe of card in deck, class SectorCards
 		
 	}
+	/**
+	 * test verifies that, when a deck is empty and a player 
+	 * wants to draw a card, cards in the DiscardPile
+	 * are shuffled and put in the deck; discardPile remains empty.
+	 */
+	@Test
+	public void testDeckEmpty(){
+		List<SectorCard> sectorCards = new ArrayList<SectorCard>();
+		SectorCards sc = new SectorCards(sectorCards);
+		sc.getDiscardPile().add(new SectorCard(true, SectorCardType.NOISEANY));
+		sc.getDiscardPile().add(new SectorCard(true, SectorCardType.NOISEYOUR));
+		sc.getDiscardPile().add(new SectorCard(true, SectorCardType.SILENCE));
+		sc.getDiscardPile().add(new SectorCard(true, SectorCardType.NOISEYOUR));
+
+		sc.draw();
+		
+		assertTrue(sc.getDiscardPile().isEmpty());
+	}
+	
 	
 	
 	

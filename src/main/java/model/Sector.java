@@ -64,18 +64,20 @@ public class Sector {
 		return players;
 	}
 
-	/**
+	/**add a player at the end of the list of players in a sector
 	 * 
-	 * @param player, add a player in this sector
+	 * @param player
 	 */
 	
 	public void addPlayer(Player player){
 		players.add(player);
 	}
 	
-	/**
+	/**remove the first element in the list of players in a sector
+	 * (then the size of the list is oldsize-1)
 	 * 
-	 * @return a player used when this player move to another cell, so this method cancels that player from this cell
+	 * @return a playerObject, it is the first of the list of 
+	 * player in a sector
 	 */
 	
 	public Player removePlayer() {
@@ -84,7 +86,7 @@ public class Sector {
 	
 	/**
 	 * 
-	 * @return true se il settore è "chiuso", ossia non attraversabile e non raggiungibile
+	 * @return true if sector is closed (not achievable and not crossable)
 	 */
 	public boolean isClosed() {
 		return closed;
@@ -104,8 +106,8 @@ public class Sector {
 
 	@Override
 	public String toString() {
-		return "Sector [sectorType=" + sectorType + ", getX()=" + getCoordinate().getX()
-				+ ", getY()=" + getCoordinate().getY() + "]";
+		return "Sector [sectorType=" + sectorType + ", coordinate=(" + getCoordinate().getX()
+				+ "," + getCoordinate().getY() + ")]";
 	}
 
 	
