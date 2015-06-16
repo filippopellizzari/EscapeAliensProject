@@ -15,8 +15,8 @@ import model.*;
 public class GameStatus implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Player player;
-	private Game game;
+	private final Player player;
+	private final Game game;
 	private boolean moved;
 	private boolean attacked;
 	private boolean sedated;
@@ -41,18 +41,9 @@ public class GameStatus implements Serializable {
 	}
 
 
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
 
 	public Game getGame() {
 		return game;
-	}
-
-
-	public void setGame(Game game) {
-		this.game = game;
 	}
 
 
