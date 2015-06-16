@@ -59,7 +59,7 @@ public class TestAttack {
 	public void testPlayerKilled() {
 		GameStatus status = new GameStatus(model, alien);
 		new Attack(status).attackMove();
-		assertFalse(human.isAlive());
+		assertFalse(human.isInGame());
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class TestAttack {
 
 		GameStatus status = new GameStatus(model, alien);
 		new Attack(status).attackMove();
-		assertFalse(alien2.isAlive());
+		assertFalse(alien2.isInGame());
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class TestAttack {
 	public void testNotSuicide() {
 		GameStatus status = new GameStatus(model, alien);
 		new Attack(status).attackMove();
-		assertTrue(alien.isAlive());
+		assertTrue(alien.isInGame());
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class TestAttack {
 		human.addItem(new ItemCard(ItemCardType.DEFENSE));
 		new Attack(status).attackMove();
 
-		assertTrue(human.isAlive());
+		assertTrue(human.isInGame());
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class TestAttack {
 		status.setAttacked(true);
 		new Attack(status).doAction(new DTOTurn(null, null, ActionType.ATTACK));
 
-		assertTrue(human.isAlive());
+		assertTrue(human.isInGame());
 	}
 
 	/**

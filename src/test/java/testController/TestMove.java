@@ -214,7 +214,7 @@ public class TestMove {
 				.add(0, new HatchCard(HatchCardColor.GREEN));
 		GameStatus status = new GameStatus(model, alien);
 		new Move(status).drawHatchCard();
-		assertFalse(status.getPlayer().isAlive());
+		assertFalse(status.getPlayer().isInGame());
 	}
 
 	/**
@@ -227,7 +227,7 @@ public class TestMove {
 				.add(0, new HatchCard(HatchCardColor.RED));
 		GameStatus status = new GameStatus(model, alien);
 		new Move(status).drawHatchCard();
-		assertTrue(status.getPlayer().isAlive());
+		assertTrue(status.getPlayer().isInGame());
 	}
 
 	/**

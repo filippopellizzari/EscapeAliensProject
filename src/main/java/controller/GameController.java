@@ -15,6 +15,7 @@ import model.*;
  * This class contains the controller of the game turns and controls the end of
  * the game
  * 
+ * @author Filippo
  * @author Nicola
  *
  */
@@ -24,6 +25,7 @@ public class GameController {
 	private Turn currentTurn;
 	private int round;
 	private int currentNumberPlayer;
+	private final int TOT_ROUNDS = 39;
 
 	/**
 	 * 
@@ -78,46 +80,59 @@ public class GameController {
 		return dtoGame;
 	}
 
-	/**
-	 * This method ends a turn; prepares the next turn for another player, if
-	 * the game is not finished
-	 * 
-	 * @param dtoGame
-	 */
-
 	public synchronized void setChangeTurn() {
 		this.notifyAll(); // notifica al thread che segue i giocatori che il
 							// turno è finito
 	}
+	/**
+	 * this method is called at the end of each turn.
+	 * First of all, it controls if the game is finished before 39 rounds:
+	 *if yes, communicates how game is finished
+	 * 
+	 * @param dtoGame
+	 * @return
+	 */
+	public synchronized DTOGame endTurn(DTOGame dtoGame) {
 
-	private synchronized DTOGame endTurn(DTOGame dtoGame) {
-		
-		boolean nextPlayerDecide = false; // assegna correttamente il
-											// prossimo turno
-		do {
-			currentNumberPlayer++;
-			if (game.getPlayers().length == currentNumberPlayer) {
-				currentNumberPlayer = 0;
-				round++; // quando si riparte dal primo giocatore, si va al
-							// round successivo
-			}
-			if (game.getPlayers(currentNumberPlayer).isAlive())
-				nextPlayerDecide = true;
-		} while (!nextPlayerDecide);
-		
-		if (new EndGame(game, round).control()) {
-			dtoGame.setGameMessage("Partita conclusa");
+		String end = new EndGame(game).control();
+		if (end != null) {
+			disconnectAll();
+			dtoGame.setGameMessage(end);
 			dtoGame.setReceiver(9);
 			return dtoGame;
 		}
 
-		currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
-		dtoGame.setGameMessage("Turno giocatore: " + currentNumberPlayer);
+		boolean nextPlayerDecided = false;
+		do {
+			currentNumberPlayer++;
+			if (game.getPlayers().length == currentNumberPlayer) {
+				currentNumberPlayer = 0;
+				round++; // quando si riparte dal primo giocatore,
+				// si va al round successivo
+			}
+			if (game.getPlayers(currentNumberPlayer).isInGame())
+				nextPlayerDecided = true;
+		} while (!nextPlayerDecided);
+
+		if (round <= TOT_ROUNDS) {
+			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
+			dtoGame.setGameMessage("Turno giocatore " + currentNumberPlayer);
+		} else {
+			disconnectAll();
+			dtoGame.setGameMessage("Finiti i turni di gioco: gli alieni vincono");
+		}
+
 		dtoGame.setReceiver(9);
 		return dtoGame;
 
 	}
 
+	private void disconnectAll(){
+		for (int i = 0; i < game.getPlayers().length; i++) {
+			game.getPlayers(i).setInGame(false);
+		}
+	}
+	
 	/**
 	 * This method invoked by an external thread finishes the turn
 	 * 

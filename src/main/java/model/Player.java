@@ -15,10 +15,11 @@ import java.util.List;
 public class Player {
 	
 	private PlayerType playerType;
+	private PlayerState playerState;
 	private Sector currentSector;
 	private int speed;
 	private final int numberOfPlayer;
-	private boolean alive;
+	private boolean inGame;
 	private final List<ItemCard> itemCardPlayer;
 	
 	/**
@@ -31,12 +32,12 @@ public class Player {
 	
 	public Player(PlayerType playerType, Sector currentSector, int speed, int numberOfPlayer) {
 		this.playerType = playerType;
+		this.playerState = PlayerState.PLAYING;
 		this.currentSector = currentSector;
 		this.speed = speed;
 		this.numberOfPlayer = numberOfPlayer;
-		this.alive = true;
+		this.inGame = true;
 		this.itemCardPlayer = new ArrayList<ItemCard>();
-		
 	}
 	
 	/**
@@ -55,6 +56,14 @@ public class Player {
 	
 	public void setPlayerType(PlayerType playerType) {
 		this.playerType = playerType;
+	}
+
+	public PlayerState getPlayerState() {
+		return playerState;
+	}
+
+	public void setPlayerState(PlayerState playerState) {
+		this.playerState = playerState;
 	}
 
 	/**
@@ -104,21 +113,22 @@ public class Player {
 	
 	/**
 	 * 
-	 * @return status of player, if player is Alive he/she can play, otherwise no
+	 * @return true if player is in Game
 	 */
 
-	public boolean isAlive() {
-		return alive;
+	public boolean isInGame() {
+		return inGame;
 	}
 	
 	/**
 	 * 
-	 * @param alive, set the new status of player it is used to kill a player
+	 * @param inGame
 	 */
 
-	public void setAlive(boolean alive) {
-		this.alive = alive;
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
 	}
+
 
 	/**
 	 * 

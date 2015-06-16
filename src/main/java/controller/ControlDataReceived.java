@@ -33,7 +33,7 @@ public class ControlDataReceived {
 		if (numberPlayer != dtoSend.getNumberPlayer()) {
 			return "Ora non è il tuo turno";
 		}
-		if (!player.isAlive()) {
+		if (!player.isInGame()) {
 			return "Sei fuori dal gioco!";
 		}
 		if (dtoSend.getCoordinate() != null) {

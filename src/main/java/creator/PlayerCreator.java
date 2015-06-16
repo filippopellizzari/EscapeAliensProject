@@ -52,7 +52,7 @@ public class PlayerCreator {
 	/**
 	 * 
 	 * @param totPlayers, number of player in this game, this method use a random generator to create the human players then 
-	 * the other player are alien and are created with the method createAlien
+	 * the other players are alien and are created with the method createAlien
 	 * @return array of player
 	 */
 	

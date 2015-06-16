@@ -151,11 +151,20 @@ public class Move implements ChooseAnAction {
 		case RED:
 			break;
 		case GREEN:
-			status.getPlayer().setAlive(false);// partita conclusa per lui
+			Player player = status.getPlayer();
+			player.setInGame(false);
+			player.setPlayerState(PlayerState.WINNER);
+			removeAllItems(player);// partita conclusa per lui
 			break;
 		}
 		status.getGame().getHatchCards().discard(current);
-
+	}
+	
+	private void removeAllItems(Player player) {
+		int numItems = player.getItem().size();
+		for (int i = 0; i < numItems; i++) {
+			status.getGame().getItemCards().discard(player.removeItem(0));
+		}
 	}
 
 	@Override

@@ -54,7 +54,7 @@ public class TestControlDataReceived {
 	 */
 	@Test
 	public void testOutOfGame(){
-		player.setAlive(false);
+		player.setInGame(false);
 		
 		dtoSend = new DTOSend(null, player.getNumber(), null, null,null);
 		s = new ControlDataReceived(dtoSend, model, player.getNumber())
@@ -83,7 +83,7 @@ public class TestControlDataReceived {
 	@Test 
 	public void testRightCoordinates(){
 		Coordinate coord = new Coordinate (4,3);
-		player.setAlive(true);
+		player.setInGame(true);
 		
 		dtoSend = new DTOSend(coord, player.getNumber(), null, null,null);
 		s = new ControlDataReceived(dtoSend, model, player.getNumber())
