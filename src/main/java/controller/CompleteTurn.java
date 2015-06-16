@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -7,101 +8,121 @@ import dto.*;
 import model.*;
 
 /**
- * This class complete a turn after the time of a player ends and he has not
- * finished the turn
+ * This class completes obliged actions if time of player's turn has expired and
+ * player has not completed one or more of these actions
  * 
+ * @author Filippo
  * @author Nicola
  *
  */
 
 public class CompleteTurn {
-	private GameStatus gameStatus;
+
+	private Turn currentTurn;
+	private GameStatus status;
 	private DTOGame dtoGame;
+	private DTOTurn dtoTurn;
+	private final List<DTOGame> dtoGameList;
+	private Random random;
+	private int condizione;
 
 	/**
 	 * 
-	 * @param gameStatus
-	 *            , the status of a turn, reference at model and the player who
-	 *            are playing, now is his turn
+	 * @param status
+	 *            the status of a turn
 	 */
 
-	public CompleteTurn(GameStatus gameStatus) {
-		this.gameStatus = gameStatus;
+	public CompleteTurn(Turn currentTurn) {
+		this.currentTurn = currentTurn;
+		this.status = currentTurn.getStatus();
+		this.dtoGameList = new ArrayList<DTOGame>();
 	}
 
 	/**
 	 * 
 	 * @param dtoGameList
-	 * @return the action happen during the actions, this means that can be
-	 *         returned more than 1 action
+	 * @return dtoGameList, list of all the actions done
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
 	 */
 
-	public List<DTOGame> completeTurn(List<DTOGame> dtoGameList) {
-		ChooseAnAction actionToDo;
-		Random random = new Random();
-		int condizione; // se arriva a 4 vuol dire che il turno è finito
+	public List<DTOGame> completeTurn() throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+		random = new Random();
+		//ciclo finchè tutte le 4 azioni obbligatorie
+		//non sono state completate a random
 		do {
 			condizione = 0;
-			// obbligo di muovere
-			if (!gameStatus.isMoved()) {
-				actionToDo = new Move(gameStatus);
-				do {
-					dtoGame = new DTOGame();
-					dtoGame = actionToDo.doAction(new DTOTurn(gameStatus
-							.getPlayer().getSector().getAdjacent()
-							.get(random.nextInt(6)), null, ActionType.MOVE));
-					dtoGame = actionToDo.doAction(new DTOTurn(gameStatus
-							.getPlayer().getSector().getAdjacent()
-							.get(random.nextInt(6)), null, null));
-				} while (dtoGame.getGameMessage() != "OK");
-				gameStatus.setMoved(true);
-				dtoGameList.add(dtoGame);
-			} else
-				condizione++;
-			if (gameStatus.isMustDiscardItem()) { // non ha scartato
-				dtoGame = new DTOGame();
-				actionToDo = new DiscardItem(gameStatus);
-				dtoGame = actionToDo.doAction(new DTOTurn(null,
-						gameStatus.getPlayer().getItem().get(random.nextInt(4))
-								.getType(), ActionType.DISCARDITEM));
-				gameStatus.setMustDiscardItem(true);
-				dtoGameList.add(dtoGame);
-			} else
-				condizione++;
-			if (gameStatus.isMustDraw()) {
-				dtoGame = new DTOGame();
-				if (gameStatus.getPlayer().getSector().getType() == SectorType.DANGEROUS) { // verifica
-																							// che
-																							// debba
-																							// pescare
-																							// la
-																							// carta
-																							// settore
-																							// pericoloso
-					actionToDo = new DrawSectorCard(gameStatus);
-					dtoGame = actionToDo.doAction(new DTOTurn(null, null,
-							ActionType.DRAWSECTORCARD));
-					gameStatus.setMustDraw(false);
-					dtoGameList.add(dtoGame);
-				}
-			} else
-				condizione++;
-			// obbligo di scegliere settore per noise any sector
-			if (gameStatus.isMustNoise()) {
-				Coordinate coordRandom;
-				do {
-					coordRandom = new Coordinate(random.nextInt(22) + 1,
-							random.nextInt(13) + 1); // sorteggio coordinata a
-														// caso
-				} while (gameStatus.getGame().getMap().isNull(coordRandom) == false);
-				actionToDo = new SelectSectorNoise(gameStatus);
-				dtoGame = actionToDo.doAction(new DTOTurn(coordRandom, null,
-						ActionType.SELECTSECTORNOISE)); // usa il rumore a
-														// casodto
-				dtoGameList.add(dtoGame);
-			} else
-				condizione++;
-		} while (condizione <= 3);
+			checkMove();
+			checkMustDiscardItem();
+			checkMustDraw();
+			checkMustNoise();
+		} while (condizione < 4);
+		
 		return dtoGameList;
 	}
+
+	private void checkMove() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		if (!status.isMoved()) {
+			Coordinate randomCoord = status.getPlayer().getSector().getAdjacent().get(random.nextInt(6));
+			if(!status.getGame().getMap().isNull(randomCoord)){
+				dtoTurn = new DTOTurn(randomCoord, null, ActionType.MOVE);
+				dtoGame = new DTOGame();
+				dtoGame = currentTurn.action(dtoTurn);
+				dtoGameList.add(dtoGame);
+			}
+		} else {
+			condizione++;
+		}
+	}
+
+	private void checkMustDiscardItem() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		if (status.isMustDiscardItem()) {
+			ItemCardType randomType = status.getPlayer().getItem().get(random.nextInt(4)).getType();
+			dtoTurn = new DTOTurn(null, randomType, ActionType.DISCARDITEM);
+			dtoGame = new DTOGame();
+			dtoGame = currentTurn.action(dtoTurn);
+			dtoGameList.add(dtoGame);
+		} else {
+			condizione++;
+		}
+
+	}
+
+	private void checkMustDraw() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		if (status.isMustDraw()) {
+			dtoTurn = new DTOTurn(null, null,ActionType.DRAWSECTORCARD);
+			dtoGame = new DTOGame();
+			dtoGame = currentTurn.action(dtoTurn);
+			dtoGameList.add(dtoGame);
+		} else {
+			condizione++;
+		}
+	}
+
+	private void checkMustNoise() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		if (status.isMustNoise()) {
+			Coordinate randomCoord = new Coordinate(random.nextInt(22) + 1,random.nextInt(13) + 1); 									
+			if(!status.getGame().getMap().isNull(randomCoord)){
+				dtoTurn = new DTOTurn(randomCoord, null, ActionType.SELECTSECTORNOISE);
+				dtoGame = new DTOGame();
+				dtoGame = currentTurn.action(dtoTurn);
+				dtoGameList.add(dtoGame);
+			}
+		} else {
+			condizione++;
+		}
+	}
+	
+	public GameStatus getStatus(){
+		return status;
+	}
+
+	public List<DTOGame> getDtoGameList() {
+		return dtoGameList;
+	}
+	
+	
+	
+	
 }

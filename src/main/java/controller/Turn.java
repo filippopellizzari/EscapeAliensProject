@@ -37,7 +37,7 @@ public class Turn {
 	 * @throws InstantiationException
 	 */
 
-	public DTOGame turn(DTOTurn dtoTurn) throws ClassNotFoundException,
+	public DTOGame action(DTOTurn dtoTurn) throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
 		DTOGame response = new DTOGame();
 		ChooseAnAction actionToDo;
@@ -81,7 +81,7 @@ public class Turn {
 	 * @return the gameStatus
 	 */
 
-	public GameStatus getGameStatus() {
+	public GameStatus getStatus() {
 		return status;
 	}
 }

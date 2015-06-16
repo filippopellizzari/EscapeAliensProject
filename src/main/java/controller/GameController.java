@@ -53,7 +53,7 @@ public class GameController {
 	/**
 	 * 
 	 * @param dtoSend
-	 *            , a collection of data used to indicate the player's actions
+	 *            a collection of data used to indicate the player's actions
 	 * @return the report of action happen during the move
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
@@ -65,15 +65,15 @@ public class GameController {
 		DTOGame dtoGame = new DTOGame();
 		String error = new ControlDataReceived(dtoSend, game,
 				currentNumberPlayer).verify();
-		if (error != null) { // se ci sono errori sui dati ricevuti, notifico
-								// subito al client
+		//se ci sono errori sui dati ricevuti, notifico subito il client
+		if (error != null) { 
 			dtoGame.setGameMessage(error);
 			dtoGame.setReceiver(currentNumberPlayer);
 			return dtoGame;
 		}
 		DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),
 				dtoSend.getItemCardType(), dtoSend.getActionType());
-		dtoGame = currentTurn.turn(dtoTurn);
+		dtoGame = currentTurn.action(dtoTurn);
 		if (dtoGame.getGameMessage() == "Hai finito il turno") {
 			endTurn(dtoGame);
 		}
@@ -140,13 +140,18 @@ public class GameController {
 	 */
 
 	public List<DTOGame> completeTurn() {
-		CompleteTurn completeTurn = new CompleteTurn(
-				currentTurn.getGameStatus());
 		List<DTOGame> dtoGameList = new ArrayList<DTOGame>();
-		dtoGameList = completeTurn.completeTurn(dtoGameList); // completa il
-																// turno
-		dtoGameList.add(endTurn(new DTOGame())); // crea il prossimo turno
-													// oppure la partita finisce
+		CompleteTurn completeTurn = new CompleteTurn(currentTurn);
+		//completa il turno
+	
+		try {
+			dtoGameList = completeTurn.completeTurn();
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		//crea prossimo turno o finisci partita
+		dtoGameList.add(endTurn(new DTOGame())); 
 		return dtoGameList;
 	}
 
