@@ -173,7 +173,7 @@ public class TestAttack {
 		GameStatus status = new GameStatus(model, alien);
 		status.setMoved(false);
 		status.setAttacked(false);
-		new Attack(status).doAction(new DTOTurn(null, null, null));
+		new Attack(status).doAction(new DTOTurn(null, null, ActionType.ATTACK));
 
 		assertFalse(status.isAttacked());
 	}
@@ -187,7 +187,7 @@ public class TestAttack {
 		GameStatus status = new GameStatus(model, alien);
 		status.setMoved(true);
 		status.setAttacked(true);
-		new Attack(status).doAction(new DTOTurn(null, null, null));
+		new Attack(status).doAction(new DTOTurn(null, null, ActionType.ATTACK));
 
 		assertTrue(human.isAlive());
 	}
@@ -201,9 +201,21 @@ public class TestAttack {
 		GameStatus status = new GameStatus(model, alien);
 		status.setMoved(true);
 		status.setAttacked(false);
-		new Attack(status).doAction(new DTOTurn(null, null, null));
+		new Attack(status).doAction(new DTOTurn(null, null, ActionType.ATTACK));
 
 		assertTrue(status.isAttacked());
+	}
+	/**
+	 * test verifies that a human con not attack without using an itemCard Attack
+	 */
+	@Test
+	public void testAttackHumanWithoutItem(){
+		GameStatus status = new GameStatus(model, human);
+		status.setMoved(true);
+		status.setAttacked(false);
+		new Attack(status).doAction(new DTOTurn(null, null, ActionType.ATTACK));
+		
+		assertFalse(status.isAttacked());
 	}
 
 }

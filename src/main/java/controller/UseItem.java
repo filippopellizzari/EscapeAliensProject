@@ -105,16 +105,24 @@ public class UseItem implements ChooseAnAction {
 
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
-		if (!status.isAttacked() && status.isMoved()
-				&& dtoTurn.getTypeCard() == ItemCardType.ATTACK) {
-			attack();
-			status.setAttacked(true);
-			status.setMustDraw(false);
-		} else {
-			dtoGame.setGameMessage("Non puoi usare questo oggetto in questo momento");
+		if(status.getPlayer().getType().equals(PlayerType.ALIEN)){
+			dtoGame.setGameMessage("Sei un alieno, non puoi usare carte oggetto!");
 			dtoGame.setReceiver(status.getPlayer().getNumber());
+			return dtoGame;
 		}
-
+		if (dtoTurn.getTypeCard().equals(ItemCardType.ATTACK)){
+			if (!status.isAttacked() && status.isMoved()) {
+				attack();
+				status.setAttacked(true);
+				status.setMustDraw(false);
+			}
+			else{
+				dtoGame.setGameMessage("Non puoi attaccare in questo momento");
+				dtoGame.setReceiver(status.getPlayer().getNumber());
+				return dtoGame;
+			}
+		}
+		
 		if (dtoTurn.getTypeCard().equals(ItemCardType.TELEPORT)) {
 			teleport();
 		}
@@ -133,9 +141,11 @@ public class UseItem implements ChooseAnAction {
 		// se aveva 4 carte, doveva scartarne una o usarla
 		// in questo caso la usa, quindi l'obbligo non c'è più
 		status.setMustDiscardItem(false);
+		//azione a buon fine
 		dtoGame.setReceiver(9);
+		dtoGame.setActionType(dtoTurn.getActionType());
 		dtoGame.setItemCardType(dtoTurn.getTypeCard());
-
+		
 		return dtoGame;
 	}
 

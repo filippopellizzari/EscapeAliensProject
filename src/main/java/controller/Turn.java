@@ -18,9 +18,9 @@ public class Turn {
 	/**
 	 * 
 	 * @param game
-	 *            , reference at model
+	 *            reference at model
 	 * @param player
-	 *            , reference at player that has to play
+	 *            reference at player who has to play
 	 */
 
 	public Turn(Game game, Player player) {

@@ -56,7 +56,7 @@ public class Attack implements ChooseAnAction {
 			} else {
 				// segnala tipo del giocatore eliminato
 				dtoGame.setPlayerType(attacked.getType(), attacked.getNumber());
-				alienFeeding(player, attacked);
+				checkAlienFeeding(player, attacked);
 				attacked.setAlive(false);
 				removeAllItems(attacked);
 				attacked.setSector(null);
@@ -89,8 +89,8 @@ public class Attack implements ChooseAnAction {
 		}
 		return false;
 	}
-
-	private void alienFeeding(Player player, Player attacked) {
+	
+	private void checkAlienFeeding(Player player, Player attacked) {
 		if (player.getType().equals(PlayerType.ALIEN)
 				&& attacked.getType().equals(PlayerType.HUMAN)) {
 			player.setSpeed(3);
@@ -99,13 +99,18 @@ public class Attack implements ChooseAnAction {
 
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
+		if(status.getPlayer().getType().equals(PlayerType.HUMAN)){
+			dtoGame.setGameMessage("Puoi attaccare solo con una carta oggetto");
+			dtoGame.setReceiver(status.getPlayer().getNumber());
+			return dtoGame;
+		}
 		if (status.isMoved() && !status.isAttacked()) {
 			attackMove();
 			status.setAttacked(true);
 			status.setMustDraw(false);
 			dtoGame.setReceiver(9);
 		} else {
-			dtoGame.setGameMessage("Non puoi attaccare in questo momento\n");
+			dtoGame.setGameMessage("Non puoi attaccare in questo momento");
 			dtoGame.setReceiver(status.getPlayer().getNumber());
 		}
 		return dtoGame;
