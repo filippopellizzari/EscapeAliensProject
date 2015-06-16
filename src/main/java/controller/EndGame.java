@@ -22,19 +22,15 @@ public class EndGame {
 
 	/**
 	 * This is the main method of this class and controls if game is finished.
-	 * There are 3 cases of end Game: 
-	 * 1)If in the last turn an alien has killed
+	 * There are 3 cases of end Game: 1)If in the last turn an alien has killed
 	 * the last human in game, one of the aliens is surely winner; in this case,
 	 * also other aliens win automatically (even if have been eliminated before)
-	 * 2)if all human are in state of winners, it means that
-	 * all have escaped successfully; 
-	 * 3)if all HatchSectors are closed, but not
-	 * all human are winner, it could mean two things: 
-	 * a. some humans are been
-	 * killed, but the last human is escaped successfully, so aliens have not
-	 * exactly won; 
-	 * b. some humans are still in the Game, but it's impossible
-	 * for them to escape; in this last case, only humans escaped are winner.
+	 * 2)if all human are in state of winners, it means that all have escaped
+	 * successfully; 3)if all HatchSectors are closed, but not all human are
+	 * winner, it could mean two things: a. some humans are been killed, but the
+	 * last human is escaped successfully, so aliens have not exactly won; b.
+	 * some humans are still in the Game, but it's impossible for them to
+	 * escape; in this last case, only humans escaped are winner.
 	 * 
 	 * 
 	 * @return String, if game is finished, null otherwise
@@ -55,8 +51,8 @@ public class EndGame {
 	private boolean lastHumanKilled() {
 		for (int i = 0; i < model.getPlayers().length; i++) {
 			Player player = model.getPlayers(i);
-			//se trovo un alieno winner, allora di sicuro nell'ultimo turno
-			//ha ucciso l'ultimo umano in partita
+			// se trovo un alieno winner, allora di sicuro nell'ultimo turno
+			// ha ucciso l'ultimo umano in partita
 			if (player.getType().equals(PlayerType.ALIEN)
 					&& player.getPlayerState().equals(PlayerState.WINNER))
 				return true;
