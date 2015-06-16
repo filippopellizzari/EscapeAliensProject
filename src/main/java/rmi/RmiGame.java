@@ -4,9 +4,22 @@ import java.rmi.RemoteException;
 
 import dto.DTOSend;
 
+/**
+ * This thread is used to do an action on the game, is a thread because a player can do more than one action before
+ * a response is receives, so the client doesn't have a blocked interface
+ * @author Nicola
+ *
+ */
+
 public class RmiGame implements Runnable {
 	private ClientDataRMI clientData;
 	private DTOSend dtoSend;
+	
+	/**
+	 * 
+	 * @param clientDataRMI, contains all the parameter to set
+	 * @param dtoSend, object for an action, creates by the client and sends to the server
+	 */
 
 	public RmiGame(ClientDataRMI clientDataRMI, DTOSend dtoSend) {
 		this.clientData=clientDataRMI;

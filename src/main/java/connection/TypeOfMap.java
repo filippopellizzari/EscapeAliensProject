@@ -2,9 +2,22 @@ package connection;
 
 import java.io.Serializable;
 
+/**
+ * this class is a collection of data, is used to indicate what game the player would play
+ * @author Nicola
+ *
+ */
+
 public class TypeOfMap implements Serializable{
 	private MapName mapName;
 	private MapType typeMap;
+	
+	/**
+	 * 
+	 * @param mapName, the name of map
+	 * @param typeMap, the standard is hexagonal
+	 */
+	
 	public TypeOfMap(MapName mapName, MapType typeMap) {
 		super();
 		this.mapName = mapName;
@@ -22,9 +35,7 @@ public class TypeOfMap implements Serializable{
 	public MapType getTypeMap() {
 		return typeMap;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -33,9 +44,7 @@ public class TypeOfMap implements Serializable{
 		result = prime * result + ((typeMap == null) ? 0 : typeMap.hashCode());
 		return result;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -51,7 +60,4 @@ public class TypeOfMap implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 }

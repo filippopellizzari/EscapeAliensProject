@@ -10,7 +10,7 @@ import connection.MapType;
 import connection.TypeOfMap;
 import controller.ActionType;
 import dto.DTOSend;
-import socket.ClientData;
+import socket.ClientSocketData;
 /**
  * this class is a client who choosed connection Socket
  * 
@@ -20,13 +20,13 @@ import socket.ClientData;
 public class ClientSocket {
 	
 	
-	private ClientData cd;
+	private ClientSocketData cd;
 	private DTOSend dtoSend;
 	/**
 	 * 
 	 * @param cd data 
 	 */
-	public ClientSocket(ClientData cd){
+	public ClientSocket(ClientSocketData cd){
 		this.cd = cd;
 	}
 

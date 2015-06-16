@@ -5,6 +5,13 @@ import java.util.List;
 
 import dto.DTOGame;
 
+/**
+ * This is the player's buffer if the buffer is void no message must be send, otherwise there are one or more
+ * message that the player has to receive
+ * @author Nicola
+ *
+ */
+
 public class PlayersBuffers {
 	private List<DTOGame> buffer;
 

@@ -2,10 +2,21 @@ package pubSub;
 
 import dto.DTOGame;
 
+/**
+ * This class is the pub-sub of the game, receives a message from the game and saves it in the players' buffers
+ * @author Nicola
+ *
+ */
+
 public class Broker {
 	private PlayersBuffers[] playersBuffer;
 	private String message;
 	private int numberOfPlayers;
+	
+	/**
+	 * This constructor creates x number of buffer, one for each player
+	 * @param numberOfPlayers
+	 */
 
 	public Broker(int numberOfPlayers) {
 		this.numberOfPlayers=numberOfPlayers;
@@ -15,6 +26,11 @@ public class Broker {
 			this.message=null;
 		}
 	}	
+	
+	/**
+	 * This method is used to save a message in the broker, the broker analizes the message and saves this in the players' buffer 
+	 * @param dtoGame
+	 */
 
 	public void publish(DTOGame dtoGame){
 		if(dtoGame.getReceiver()<8)  {			//solo il giocatore deve ricevere il messaggio

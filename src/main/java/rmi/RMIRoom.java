@@ -6,6 +6,13 @@ import connection.*;
 import controller.ActionType;
 import dto.*;
 
+/**
+ * This class contains all the action used to connects, sends a message to join a game, does an action, receives a
+ * action from the pub-sub 
+ * @author Nicola
+ * @see Actions
+ */
+
 public class RMIRoom implements Actions{
 
 	IdentifyTypeOfConnection identifyConnection;

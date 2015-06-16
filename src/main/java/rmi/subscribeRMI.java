@@ -4,9 +4,21 @@ import java.rmi.RemoteException;
 
 import dto.DTOGame;
 
+/**
+ * This thread is used to do receives a dtoGame from the broker, is a thread because a player can do any action
+ * while the pub-sub sends messages
+ * @author Nicola
+ *
+ */
+
 public class subscribeRMI implements Runnable {
 
 	private ClientDataRMI clientData;
+	
+	/**
+	 * 
+	 * @param clientDataRMI, contains data to set
+	 */
 	
 	public subscribeRMI(ClientDataRMI clientDataRMI) {
 		this.clientData=clientDataRMI;

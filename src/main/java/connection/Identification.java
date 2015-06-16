@@ -1,10 +1,5 @@
 package connection;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dto.DTOGame;
-
 public class Identification {
 	private int numberGame;
 	private int numberPlayer;
