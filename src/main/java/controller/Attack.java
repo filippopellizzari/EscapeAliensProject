@@ -56,10 +56,10 @@ public class Attack implements ChooseAnAction {
 			} else {
 				// segnala tipo del giocatore eliminato
 				dtoGame.setPlayerType(attacked.getType(), attacked.getNumber());
-				checkAlienFeeding(player, attacked);
 				attacked.setInGame(false);
 				attacked.setPlayerState(PlayerState.KILLED);
-				new CheckLastHuman(attacked,status.getGame()).checkAlienWin();
+				checkAlienFeeding(player, attacked);
+				new CheckLastHuman(player, attacked, status.getGame()).check();
 				removeAllItems(attacked);
 				attacked.setSector(null);
 				// rimuovo giocatore dalla lista
