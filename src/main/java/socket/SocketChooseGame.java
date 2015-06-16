@@ -30,7 +30,7 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 	 * @throws IOException
 	 */
 	
-	public SocketChooseGame(ClientData clientData, TypeOfMap typeOfMap) throws UnknownHostException, IOException {
+	public SocketChooseGame(ClientSocketData clientData, TypeOfMap typeOfMap) throws UnknownHostException, IOException {
 		super(clientData);
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());
@@ -63,7 +63,7 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 					System.out.println("Aspetto messaggi dal Pub-Sub");
 					dtoGame=(DTOGame)in.readObject();
 					System.out.println("Messaggio arrivato");
-					clientData.setDtoGame(dtoGame);
+					clientData.setDtoGameList(dtoGame);
 				}while(dtoGame.getGameMessage()!="Partita conclusa");
 			}
 			in.close();	//close all the resource

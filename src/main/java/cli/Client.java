@@ -7,7 +7,7 @@ import java.rmi.NotBoundException;
 import java.util.Scanner;
 
 import rmi.ClientDataRMI;
-import socket.ClientData;
+import socket.ClientSocketData;
 /**
  * this class starts Client and the user can choose the connection type (RMI or Socket)
  * 
@@ -35,8 +35,8 @@ public class Client {
 		switch(connessione){
 		case 1 : 
 			System.out.println("ok, socket\n");
-			ClientData cd=new ClientData();
-			cd.clickOnConnectionSocket();
+			ClientSocketData cd=new ClientSocketData();
+			cd.clickOnConnection();
 			Thread.sleep(2000);
 			System.out.println("Assegnato token "+cd.getToken().getNumber()+"\n");
 			new ClientSocket(cd).play();;
@@ -44,7 +44,7 @@ public class Client {
 		case 2: 
 			System.out.println("ok, RMI");
 			ClientDataRMI cdr=new ClientDataRMI();
-			cdr.clickOnConnectionRMI();
+			cdr.clickOnConnection();
 			Thread.sleep(2000);
 			System.out.println("Assegnato token "+cdr.getToken().getNumber()+"\n");
 			new ClientRMI(cdr).play();

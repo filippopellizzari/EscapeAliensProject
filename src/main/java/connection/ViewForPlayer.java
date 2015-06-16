@@ -4,14 +4,24 @@ import java.io.Serializable;
 
 import model.*;
 
+/**
+ * 
+ * @author Nicola
+ *
+ */
+
 public class ViewForPlayer implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Coordinate coordinate;
 	private PlayerType playerType;
 	private int numberPlayer;
+	
+	/**
+	 * 
+	 * @param coordinate
+	 * @param playerType
+	 * @param numberPlayer
+	 */
 	
 	public ViewForPlayer(Coordinate coordinate, PlayerType playerType, int numberPlayer) {
 		this.coordinate = coordinate;
