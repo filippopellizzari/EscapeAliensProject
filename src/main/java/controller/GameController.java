@@ -140,19 +140,16 @@ public class GameController {
 	 * This method invoked by an external thread finishes the turn
 	 * 
 	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
 	 */
 
-	public List<DTOGame> completeTurn() {
+	public List<DTOGame> completeTurn() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		List<DTOGame> dtoGameList = new ArrayList<DTOGame>();
 		CompleteTurn completeTurn = new CompleteTurn(currentTurn);
 		// completa il turno
-
-		try {
-			dtoGameList = completeTurn.completeTurn();
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException e) {
-			e.printStackTrace();
-		}
+		dtoGameList = completeTurn.completeTurn();
 		// crea prossimo turno o finisci partita
 		dtoGameList.add(endTurn(new DTOGame()));
 		return dtoGameList;

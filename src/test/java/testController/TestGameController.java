@@ -130,9 +130,12 @@ public class TestGameController {
 
 	/**
 	 * test verifies that a turn is completed and ended correctly
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	public void testCompleteAndEndTurn() {
+	public void testCompleteAndEndTurn() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		gc.setRound(3);
 		gc.setCurrentNumberPlayer(2);
 

@@ -41,7 +41,13 @@ public class ThreadEndTurn implements Runnable {
 				if (temporize != null)
 					temporize.stop(); // ferma timer
 				gameDescription.getStatus();
-				list = gameDescription.getController().completeTurn();
+				try {
+					list = gameDescription.getController().completeTurn();
+				} catch (ClassNotFoundException | InstantiationException
+						| IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				//imposto il nuovo turno e giocatore
 				turn = gameDescription.getController().getRound(); 
 				numberPlayer = gameDescription.getController()
