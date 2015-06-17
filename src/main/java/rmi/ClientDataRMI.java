@@ -20,13 +20,19 @@ import dto.*;
  */
 
 public class ClientDataRMI extends ClientData {
-	private Token token;
-	private ViewForPlayer view;
+	
 	private final static String HOST = "127.0.0.1";
 	private final static int PORT = 39999;
 	private final String NAME = "room";
 	private final Actions game;
 	private final Registry registry;
+	
+	/**
+	 * Load the remote registry
+	 * @throws RemoteException
+	 * @throws NotBoundException
+	 * @throws AlreadyBoundException
+	 */
 
 	public ClientDataRMI() throws RemoteException, NotBoundException,
 			AlreadyBoundException {
@@ -35,11 +41,19 @@ public class ClientDataRMI extends ClientData {
 		game = (Actions) registry.lookup(NAME);
 		System.out.println("Invoking remote object...");
 	}
+	
+	/**
+	 * Takes the player's token
+	 */
 
 	public void clickOnConnection() throws UnknownHostException, IOException,
 			ClassNotFoundException {
 		token = game.getToken();
 	}
+	
+	/**
+	 * Subscribes a new game
+	 */
 
 	public void clickOnStartGame(TypeOfMap typeOfMap)
 			throws UnknownHostException, IOException, ClassNotFoundException {
@@ -53,6 +67,10 @@ public class ClientDataRMI extends ClientData {
 			this.buffer
 					.add("Tempo Scaduto e 1 solo giocatore, partita annullata");
 	}
+	
+	/**
+	 * Do an action in the game
+	 */
 
 	public void clickOnDoMove(DTOSend dtoSend) throws UnknownHostException,
 			IOException {

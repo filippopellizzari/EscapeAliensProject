@@ -36,60 +36,101 @@ public class GameStatus implements Serializable {
 		mustNoise = false;
 	}
 
-	public Player getPlayer() {
-		return player;
-	}
-
-	public Game getGame() {
-		return game;
-	}
-
+	/**
+	 * @return the moved
+	 */
 	public boolean isMoved() {
 		return moved;
 	}
 
+	/**
+	 * @param moved the moved to set
+	 */
 	public void setMoved(boolean moved) {
 		this.moved = moved;
 	}
 
+	/**
+	 * @return the attacked
+	 */
 	public boolean isAttacked() {
 		return attacked;
 	}
 
+	/**
+	 * @param attacked the attacked to set
+	 */
 	public void setAttacked(boolean attacked) {
 		this.attacked = attacked;
 	}
 
+	/**
+	 * @return the sedated
+	 */
 	public boolean isSedated() {
 		return sedated;
 	}
 
+	/**
+	 * @param sedated the sedated to set
+	 */
 	public void setSedated(boolean sedated) {
 		this.sedated = sedated;
 	}
 
+	/**
+	 * @return the mustDraw
+	 */
 	public boolean isMustDraw() {
 		return mustDraw;
 	}
 
+	/**
+	 * @param mustDraw the mustDraw to set
+	 */
 	public void setMustDraw(boolean mustDraw) {
 		this.mustDraw = mustDraw;
 	}
 
+	/**
+	 * @return the mustDiscardItem
+	 */
 	public boolean isMustDiscardItem() {
 		return mustDiscardItem;
 	}
 
+	/**
+	 * @param mustDiscardItem the mustDiscardItem to set
+	 */
 	public void setMustDiscardItem(boolean mustDiscardItem) {
 		this.mustDiscardItem = mustDiscardItem;
 	}
 
+	/**
+	 * @return the mustNoise
+	 */
 	public boolean isMustNoise() {
 		return mustNoise;
 	}
 
+	/**
+	 * @param mustNoise the mustNoise to set
+	 */
 	public void setMustNoise(boolean mustNoise) {
 		this.mustNoise = mustNoise;
 	}
 
+	/**
+	 * @return the player
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+
+	/**
+	 * @return the game
+	 */
+	public Game getGame() {
+		return game;
+	}
 }
