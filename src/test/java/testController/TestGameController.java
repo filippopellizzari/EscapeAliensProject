@@ -307,5 +307,29 @@ public class TestGameController {
 		
 		assertEquals(gc.getCurrentNumberPlayer(),0);	
 	}
+	/**
+	 * test verifies that getView send correctly the initial positions of game
+	 * (e.g initial position of alien1)
+	 */
+	@Test
+	public void testGetInitialPosition(){
+		Coordinate c = new Coordinate(12,6);
+		Sector s = model.getMap().getSector(c);
+		s.addPlayer(alien1);
+		alien1.setSector(s);
+		
+		ViewForPlayer [] v = gc.getViews();
+		
+		assertEquals(v[0].getCoordinate(), c);
+	}
+	/**
+	 * test verifies that getView send correctly the type of a generic player
+	 * (e.g alien)
+	 */
+	@Test
+	public void testViewType(){
+		ViewForPlayer [] v = gc.getViews();
+		assertEquals(v[0].getPlayerType(), PlayerType.ALIEN);
+	}
 
 }

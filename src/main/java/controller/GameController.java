@@ -199,10 +199,6 @@ public class GameController {
 		return currentNumberPlayer;
 	}
 
-	public Turn getCurrentTurn() {
-		return currentTurn;
-	}
-
 	public void setCurrentTurn(Turn currentTurn) {
 		this.currentTurn = currentTurn;
 	}
