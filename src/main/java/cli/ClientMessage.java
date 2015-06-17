@@ -158,6 +158,9 @@ public class ClientMessage {
 			// messaggio di errore
 			System.out.println(dtoGame.getGameMessage());
 		}
+		if(dtoGame.getChat() != null){
+			System.out.println(dtoGame.getChat());
+		}
 
 	}
 
