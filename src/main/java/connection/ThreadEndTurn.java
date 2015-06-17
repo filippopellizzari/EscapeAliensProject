@@ -43,7 +43,7 @@ public class ThreadEndTurn implements Runnable {
 				gameDescription.getStatus();
 				list = gameDescription.getController().completeTurn();
 				//imposto il nuovo turno e giocatore
-				turn = gameDescription.getController().getTurnNumber(); 
+				turn = gameDescription.getController().getRound(); 
 				numberPlayer = gameDescription.getController()
 						.getCurrentNumberPlayer();
 				gameDescription.setStatus(); // libera il controller

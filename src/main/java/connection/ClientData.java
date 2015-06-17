@@ -15,8 +15,8 @@ public abstract class ClientData {
 
 	public ClientData() {
 		this.token = new Token(-1);
-		this.dtoGameList=new ArrayList<DTOGame>();
-		this.buffer=new ArrayList<String>();
+		this.dtoGameList = new ArrayList<DTOGame>();
+		this.buffer = new ArrayList<String>();
 	}
 
 	public abstract void clickOnConnection() throws UnknownHostException,
@@ -25,8 +25,8 @@ public abstract class ClientData {
 	public abstract void clickOnStartGame(TypeOfMap typeOfMap)
 			throws UnknownHostException, IOException, ClassNotFoundException;
 
-	public abstract void clickOnDoMove(DTOSend dtoSend) throws UnknownHostException,
-			IOException;
+	public abstract void clickOnDoMove(DTOSend dtoSend)
+			throws UnknownHostException, IOException;
 
 	/**
 	 * @return the token
@@ -34,11 +34,11 @@ public abstract class ClientData {
 	public Token getToken() {
 		return token;
 	}
-	
+
 	/**
 	 * @param dtoGameList
 	 */
-	
+
 	public void setDtoGameList(DTOGame dtoGame) {
 		this.dtoGameList.add(dtoGame);
 	}
@@ -46,7 +46,7 @@ public abstract class ClientData {
 	/**
 	 * @return the buffer
 	 */
-	
+
 	public List<String> getBuffer() {
 		return buffer;
 	}
@@ -54,7 +54,7 @@ public abstract class ClientData {
 	/**
 	 * @param buffer
 	 */
-	
+
 	public void setBuffer(String buffer) {
 		this.buffer.add(buffer);
 	}
@@ -62,7 +62,7 @@ public abstract class ClientData {
 	/**
 	 * @param token
 	 */
-	
+
 	public void setToken(Token token) {
 		this.token = token;
 	}
@@ -70,7 +70,7 @@ public abstract class ClientData {
 	/**
 	 * @param view
 	 */
-	
+
 	public void setView(ViewForPlayer view) {
 		this.view = view;
 	}
@@ -78,7 +78,7 @@ public abstract class ClientData {
 	/**
 	 * @return the view
 	 */
-	
+
 	public ViewForPlayer getView() {
 		return view;
 	}

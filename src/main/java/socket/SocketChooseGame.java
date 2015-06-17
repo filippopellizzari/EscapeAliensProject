@@ -30,7 +30,7 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 	 * @throws IOException
 	 */
 	
-	public SocketChooseGame(ClientSocketData clientData, TypeOfMap typeOfMap) throws UnknownHostException, IOException {
+	public SocketChooseGame(ClientDataSocket clientData, TypeOfMap typeOfMap) throws UnknownHostException, IOException {
 		super(clientData);
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());

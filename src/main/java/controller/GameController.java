@@ -65,8 +65,8 @@ public class GameController {
 		DTOGame dtoGame = new DTOGame();
 		String error = new ControlDataReceived(dtoSend, game,
 				currentNumberPlayer).verify();
-		//se ci sono errori sui dati ricevuti, notifico subito il client
-		if (error != null) { 
+		// se ci sono errori sui dati ricevuti, notifico subito il client
+		if (error != null) {
 			dtoGame.setGameMessage(error);
 			dtoGame.setReceiver(currentNumberPlayer);
 			return dtoGame;
@@ -84,10 +84,13 @@ public class GameController {
 		this.notifyAll(); // notifica al thread che segue i giocatori che il
 							// turno è finito
 	}
+
 	/**
-	 * this method is called at the end of each turn.
-	 * First of all, it controls if the game is finished before 39 rounds:
-	 *if yes, communicates how game is finished
+	 * This method is called at the end of each turn. First of all, it controls
+	 * if the game is finished before 39 rounds: if yes, communicates how game
+	 * is finished. If game is not ended, then next turn is prepared. If round
+	 * is over, then starts a new round: if the new round is > 39, game is
+	 * finished in favor of aliens.
 	 * 
 	 * @param dtoGame
 	 * @return
@@ -127,12 +130,12 @@ public class GameController {
 
 	}
 
-	private void disconnectAll(){
+	private void disconnectAll() {
 		for (int i = 0; i < game.getPlayers().length; i++) {
 			game.getPlayers(i).setInGame(false);
 		}
 	}
-	
+
 	/**
 	 * This method invoked by an external thread finishes the turn
 	 * 
@@ -142,19 +145,26 @@ public class GameController {
 	public List<DTOGame> completeTurn() {
 		List<DTOGame> dtoGameList = new ArrayList<DTOGame>();
 		CompleteTurn completeTurn = new CompleteTurn(currentTurn);
-		//completa il turno
-	
+		// completa il turno
+
 		try {
 			dtoGameList = completeTurn.completeTurn();
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		//crea prossimo turno o finisci partita
-		dtoGameList.add(endTurn(new DTOGame())); 
+		// crea prossimo turno o finisci partita
+		dtoGameList.add(endTurn(new DTOGame()));
 		return dtoGameList;
 	}
 
+	/**
+	 * This method is used at the beginning of a game. It gives client info
+	 * about his initial position, his type and his number
+	 * 
+	 * @return array of views for player (each memory cell is for a particular
+	 *         player in game)
+	 */
 	public ViewForPlayer[] getViews() {
 		ViewForPlayer[] views = new ViewForPlayer[game.getPlayers().length];
 		for (int i = 0; i < views.length; i++) {
@@ -176,17 +186,37 @@ public class GameController {
 	}
 
 	/**
-	 * @return the turnNumber
+	 * @return the round of game
 	 */
-	public int getTurnNumber() {
+	public int getRound() {
 		return round;
 	}
 
 	/**
-	 * @return the currentNumberPlayer
+	 * @return the number of player who is playing the turn
 	 */
 	public int getCurrentNumberPlayer() {
 		return currentNumberPlayer;
+	}
+
+	public Turn getCurrentTurn() {
+		return currentTurn;
+	}
+
+	public void setCurrentTurn(Turn currentTurn) {
+		this.currentTurn = currentTurn;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
+	}
+
+	public void setCurrentNumberPlayer(int currentNumberPlayer) {
+		this.currentNumberPlayer = currentNumberPlayer;
 	}
 
 }

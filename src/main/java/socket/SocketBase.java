@@ -14,7 +14,7 @@ public abstract class SocketBase {
 	private final static int PORT = 29999;
 	private final static String IP="127.0.0.1";
 	protected Socket socket;
-	protected ClientSocketData clientData;
+	protected ClientDataSocket clientData;
 	
 	/**
 	 * This method create a socket that is used to send a message to the game's server
@@ -23,7 +23,7 @@ public abstract class SocketBase {
 	 * @throws IOException
 	 */
 	
-	public SocketBase(ClientSocketData clientData) throws UnknownHostException, IOException {
+	public SocketBase(ClientDataSocket clientData) throws UnknownHostException, IOException {
 		this.socket=new Socket(IP,PORT);
 		this.clientData=clientData;
 	}
