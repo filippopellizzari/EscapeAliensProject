@@ -19,10 +19,20 @@ public class ThreadEndTurn implements Runnable {
 	GameDescription gameDescription;
 	private int time;
 
+	/**
+	 * This constructor sets the timer and the game to cronometer
+	 * @param gameDescription
+	 */
+	
 	public ThreadEndTurn(GameDescription gameDescription) {
 		this.gameDescription = gameDescription;
 		this.time = 150;
 	}
+	
+	/**
+	 * Until the end of the game this thread for each players' turn create a thread, wait until the game's turn changes then
+	 * then if the turn is complete begins again, else completes the player's turn
+	 */
 
 	@Override
 	public void run() {
@@ -33,8 +43,7 @@ public class ThreadEndTurn implements Runnable {
 			do {
 				int turn = 0;
 				int numberPlayer = 0;
-				temporize = new Thread(new ThreadTemporize(time,
-						gameDescription));
+				temporize = new Thread(new ThreadTemporize(time,gameDescription));
 				temporize.start();
 				gameDescription.getController().getChangeTurn(turn,
 						numberPlayer); // finisce il turno
@@ -45,23 +54,19 @@ public class ThreadEndTurn implements Runnable {
 					list = gameDescription.getController().completeTurn();
 				} catch (ClassNotFoundException | InstantiationException
 						| IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.err.print("Errore nel fine turno");
 				}
-				//imposto il nuovo turno e giocatore
-				turn = gameDescription.getController().getRound(); 
-				numberPlayer = gameDescription.getController()
-						.getCurrentNumberPlayer();
+				turn = gameDescription.getController().getRound(); //imposto il nuovo turno e giocatore
+				numberPlayer = gameDescription.getController().getCurrentNumberPlayer();
 				gameDescription.setStatus(); // libera il controller
 				while (list.size() > 0) {
-					message = list.get(0).getGameMessage();
-					//pubblica il primo dto
+					message = list.get(0).getGameMessage();	//pubblica il primo dto
 					gameDescription.getBroker().publish(list.remove(0)); 
 				}
 			} while (message != "Partita conclusa");
 
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			System.err.print("Errore nel fine turno");
 		}
 	}
 

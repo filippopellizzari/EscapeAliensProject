@@ -2,8 +2,20 @@ package connection;
 
 import java.io.IOException;
 
+/**
+ * This class is used to create a game if there are at least 2 player, invokes the method to create the game and when the players have taken 
+ * the views deletes the game from the database of subscribing
+ * @author Nicola
+ *
+ */
+
 public class ThreadTimeCreatorGame implements Runnable {
 	DetailsPlayers details;
+	
+	/**
+	 * This costructor inizialize a new detailsPlayer, a class that contains all the data used to create a game and sends the views to the players
+	 * @param details
+	 */
 	
 	public ThreadTimeCreatorGame(DetailsPlayers details) {	//dati con mappa da creare
 		this.details=details;
@@ -12,6 +24,10 @@ public class ThreadTimeCreatorGame implements Runnable {
 		System.out.println(details.getStatus());
 		System.out.println(details.getNumberOfPlayers());
 	}
+	
+	/**
+	 * Creates a game if there are 2 or more players, sets the game status terminated
+	 */
 	
 	@Override
 	public void run() {
@@ -33,6 +49,11 @@ public class ThreadTimeCreatorGame implements Runnable {
 			System.err.println(e.getMessage());
 		}
 	}
+	
+	/**
+	 * Waits until all the players have taken their view then removes the game
+	 * @param details
+	 */
 	private synchronized void putInLock(DetailsPlayers details){
 		try {
 			System.out.println("thread creazione aspetto acquisizione view");

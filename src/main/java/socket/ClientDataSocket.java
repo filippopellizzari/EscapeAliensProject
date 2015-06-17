@@ -7,6 +7,12 @@ import connection.*;
 import controller.ActionType;
 import dto.*;
 
+/**
+ * This class is the socket connection, invokes the method based on socket to receives token, sends the game preference, does an action
+ * @author Nicola
+ * @see Client Data
+ */
+
 public class ClientDataSocket extends ClientData{
 	
 	@Override

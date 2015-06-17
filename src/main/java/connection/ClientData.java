@@ -7,11 +7,21 @@ import java.util.List;
 
 import dto.*;
 
+/**
+ * This class contains all the data needed by client, the method to starts a game and calls the actions
+ * @author Nicola
+ *
+ */
+
 public abstract class ClientData {
 	protected Token token;
 	protected ViewForPlayer view;
 	protected List<DTOGame> dtoGameList;
 	protected List<String> buffer;
+	
+	/**
+	 * Initialize a new Client Data
+	 */
 
 	public ClientData() {
 		this.token = new Token(-1);
@@ -21,9 +31,24 @@ public abstract class ClientData {
 
 	public abstract void clickOnConnection() throws UnknownHostException,
 			IOException, ClassNotFoundException;
+	
+	/**
+	 * Begin a new game, the response can be ok or no if there is only 1 request and the game is aborted
+	 * @param typeOfMap
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 
 	public abstract void clickOnStartGame(TypeOfMap typeOfMap)
 			throws UnknownHostException, IOException, ClassNotFoundException;
+	
+	/**
+	 * Do an action in the game
+	 * @param dtoSend
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 
 	public abstract void clickOnDoMove(DTOSend dtoSend)
 			throws UnknownHostException, IOException;

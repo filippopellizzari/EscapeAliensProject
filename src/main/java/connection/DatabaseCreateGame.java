@@ -3,17 +3,38 @@ package connection;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to contains all the game open to be join by other player, when the game is created is placed in an other way
+ * @author Nicola
+ *
+ */
+
 public class DatabaseCreateGame {
 	List<DetailsPlayers> playerWithRelativeConnection;
 	private static DatabaseCreateGame instance = new DatabaseCreateGame();
+	
+	/**
+	 * Create a new database
+	 */
 	
 	private DatabaseCreateGame() {
 		playerWithRelativeConnection=new ArrayList<DetailsPlayers>();
 	}
 	
+	/**
+	 * Return a istance of this class
+	 * @return
+	 */
+	
 	public static DatabaseCreateGame getinstance() {
 		return instance;
 	}
+	
+	/**
+	 * This method is used to subscribe a new game
+	 * @param typeOfMapChoose
+	 * @return the corresponding details player
+	 */
 	
 	public synchronized DetailsPlayers subscribe(TypeOfMap typeOfMapChoose) {
 		System.out.println("Iscrizione in corso");
@@ -34,6 +55,11 @@ public class DatabaseCreateGame {
 		return playerWithRelativeConnection.get(playerWithRelativeConnection.size()-1);		//dagli il details player appena creato
 	}
 	
+	/**
+	 * Block a game when time is finished so no other player can join this game after that
+	 * @param numberGame
+	 */
+	
 	public synchronized void blockGame(int numberGame) {
 		System.out.println("Chiusura iscrizione partita");
 		if(playerWithRelativeConnection.get(numberGame).getStatus()==StatusCreation.OPEN) {	//controlla che sia aperto
@@ -42,6 +68,11 @@ public class DatabaseCreateGame {
 			newGame.start();
 		}
 	}
+	
+	/**
+	 * Remove a game from the database
+	 * @param numberGame
+	 */
 	
 	public synchronized void  removeGame(int numberGame) { //rimuovi il temporize assegnato
 		playerWithRelativeConnection.remove(numberGame);		//rimuovi i dati

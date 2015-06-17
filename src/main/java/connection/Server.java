@@ -10,11 +10,21 @@ import java.rmi.server.UnicastRemoteObject;
 import rmi.*;
 import socket.ClientHandler;
 
+/**
+ * 
+ * @author Nicola
+ *
+ */
+
 public class Server {
 	private final static int PORT = 29999;
 	private final static int Port = 39999;
 	private Registry registry;
 	private static final String NAME = "room";
+	
+	/**
+	 * Starts the server, one port is for socket, the other is for RMI, when a request arrives a new thread is created to take care of it
+	 */
 	
 	public void startServer() {
 		ServerSocket serverSocket;
@@ -43,6 +53,11 @@ public class Server {
 			System.err.println("errore nella run");
 		}
 	}
+	
+	/**
+	 * Calls to start the server
+	 * @param args
+	 */
 	
 	public static void main(String[] args) {
 		Server server = new Server();
