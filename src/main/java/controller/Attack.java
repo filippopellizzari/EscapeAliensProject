@@ -50,7 +50,7 @@ public class Attack implements ChooseAnAction {
 			Player attacked = current.getPlayers().get(0);
 			if (isDefendable(attacked)) {
 				dtoGame.setGameMessage(attacked
-						+ " : si salva grazie alla carta Difesa\n");
+						+ " è stato attaccato, ma si salva grazie alla carta Difesa\n");
 				// sposto giocatore in fondo alla lista
 				current.addPlayer(current.removePlayer());
 			} else {
@@ -111,6 +111,7 @@ public class Attack implements ChooseAnAction {
 			attackMove();
 			status.setAttacked(true);
 			status.setMustDraw(false);
+			dtoGame.setActionType(ActionType.ATTACK);
 			dtoGame.setReceiver(9);
 		} else {
 			dtoGame.setGameMessage("Non puoi attaccare in questo momento");

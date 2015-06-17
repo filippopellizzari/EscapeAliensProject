@@ -116,6 +116,7 @@ public class Move implements ChooseAnAction {
 		}
 		// mossa avvenuta con successo
 		dtoGame.setCoordinate(destCoord, player.getNumber());
+		dtoGame.setActionType(ActionType.MOVE);
 		switch (destSector.getType()) {
 		case DANGEROUS:
 			if (!status.isSedated()) {

@@ -164,7 +164,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player "+ numberOfPlayer;
+		return "<giocatore "+ numberOfPlayer+">";
 				
 	}
 

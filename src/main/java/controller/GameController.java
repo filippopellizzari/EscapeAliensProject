@@ -75,7 +75,8 @@ public class GameController {
 				dtoSend.getItemCardType(), dtoSend.getActionType());
 		dtoGame = currentTurn.action(dtoTurn);
 		if (dtoGame.getGameMessage() == "Hai finito il turno") {
-			endTurn(dtoGame);
+			dtoGame = endTurn(dtoGame);
+			dtoGame.setActionType(ActionType.ENDTURN);
 		}
 		return dtoGame;
 	}

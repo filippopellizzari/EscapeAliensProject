@@ -94,6 +94,7 @@ public class DrawSectorCard implements ChooseAnAction {
 			drawSectorCard();
 			status.setMustDraw(false);
 			status.setAttacked(true);// non potrà più attaccare
+			dtoGame.setActionType(ActionType.DRAWSECTORCARD);
 		} else {
 			dtoGame.setGameMessage("Non puoi pescare in questo momento");
 			dtoGame.setReceiver(status.getPlayer().getNumber());

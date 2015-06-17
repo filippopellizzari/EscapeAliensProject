@@ -6,51 +6,87 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.util.Scanner;
 
+import connection.ClientData;
+import connection.MapName;
+import connection.MapType;
+import connection.TypeOfMap;
+import dto.DTOGame;
 import rmi.ClientDataRMI;
 import socket.ClientDataSocket;
+
 /**
- * this class starts Client and the user can choose the connection type (RMI or Socket)
+ * this class starts Client and the user can choose the connection type (RMI or
+ * Socket)
  * 
  * @author filippopellizzari
  *
  */
 public class Client {
-	
-/**
- * user can choose connection (RMI or Socket)
- * 
- * @param args
- * @throws UnknownHostException 
- * @throws ClassNotFoundException 
- * @throws IOException
- * @throws InterruptedException
- * @throws NotBoundException
- * @throws AlreadyBoundException 
- */
-	public static void main(String[] args) throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException, NotBoundException, AlreadyBoundException{
-		
-		Scanner in = new Scanner(System.in);
-		System.out.println("Scegli la connessione:\n 1: SOCKET\n 2: RMI\n");
+
+	private static ClientData cd;
+	private static Scanner in;
+
+	/**
+	 * user can choose connection (RMI or Socket)
+	 * 
+	 * @param args
+	 * @throws UnknownHostException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws NotBoundException
+	 * @throws AlreadyBoundException
+	 */
+	public static void main(String[] args) throws UnknownHostException,
+			ClassNotFoundException, IOException, InterruptedException,
+			NotBoundException, AlreadyBoundException {
+		in = new Scanner(System.in);
+		chooseConnection();
+		chooseMap();
+		new ClientPlay(cd).play();
+		DTOGame dtoGame = new DTOGame(); //un dtoGame: come lo ricevo??
+		new ClientMessage(cd, dtoGame).receive();
+		in.close();
+	}
+
+	private static void chooseConnection() throws NotBoundException,
+			AlreadyBoundException, UnknownHostException,
+			ClassNotFoundException, IOException, InterruptedException {
+		System.out.println("Scegli la connessione:\n 1: SOCKET\n 2: RMI");
 		int connessione = in.nextInt();
-		switch(connessione){
-		case 1 : 
-			System.out.println("ok, socket\n");
-			ClientDataSocket cd=new ClientDataSocket();
-			cd.clickOnConnection();
-			Thread.sleep(2000);
-			System.out.println("Assegnato token "+cd.getToken().getNumber()+"\n");
-			new ClientSocket(cd).play();;
+		switch (connessione) {
+		case 1:
+			cd = new ClientDataSocket();
 			break;
-		case 2: 
-			System.out.println("ok, RMI");
-			ClientDataRMI cdr=new ClientDataRMI();
-			cdr.clickOnConnection();
-			Thread.sleep(2000);
-			System.out.println("Assegnato token "+cdr.getToken().getNumber()+"\n");
-			new ClientRMI(cdr).play();
+		case 2:
+			cd = new ClientDataRMI();
 			break;
 		}
-		in.close();	
+		cd.clickOnConnection();
+		Thread.sleep(2000);
+		System.out.println("Assegnato token " + cd.getToken().getNumber());
+
+	}
+
+	private static void chooseMap() throws UnknownHostException,
+			ClassNotFoundException, IOException {
+		System.out
+				.println("Scegli la mappa di gioco:\n 1: Fermi\n 2: Galilei\n 3: Galvani");
+		int mappa = in.nextInt();
+		switch (mappa) {
+		case 1:
+			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
+			break;
+		case 2:
+			cd.clickOnStartGame(new TypeOfMap(MapName.Galilei,
+					MapType.HEXAGONAL));
+			break;
+		case 3:
+			cd.clickOnStartGame(new TypeOfMap(MapName.Galvani,
+					MapType.HEXAGONAL));
+			break;
+		}
+
 	}
 
 }
