@@ -22,7 +22,7 @@ public class DTOGame implements Serializable {
 	private SectorCardType sectorCardType;
 	private HatchCardColor hatchCardColor;
 	private ActionType actionType;
-	private String chat;
+	private String chat = "";
 	private String gameMessage;
 	private int receiver; //1-8 for single player, 9 broadcast, 10 caso particolare
 	private int playerNumber;
@@ -86,7 +86,7 @@ public class DTOGame implements Serializable {
 	}
 
 	public void setChat(String chat) {
-		this.chat = chat;
+		this.chat += chat;
 	}
 
 	public String getGameMessage() {

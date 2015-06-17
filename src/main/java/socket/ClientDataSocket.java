@@ -7,7 +7,7 @@ import connection.*;
 import controller.ActionType;
 import dto.*;
 
-public class ClientSocketData extends ClientData{
+public class ClientDataSocket extends ClientData{
 	
 	@Override
 	public void clickOnConnection() throws UnknownHostException,
@@ -32,7 +32,7 @@ public class ClientSocketData extends ClientData{
 
 	public static void main(String[] args) {
 		try {
-			ClientSocketData cd = new ClientSocketData();
+			ClientDataSocket cd = new ClientDataSocket();
 			System.out.println(cd.getToken().getNumber());
 			cd.clickOnConnection();
 			Thread.sleep(2000);

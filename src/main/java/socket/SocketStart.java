@@ -26,7 +26,7 @@ public class SocketStart extends SocketBase implements Runnable{
 	 * @throws IOException
 	 */
 	
-	public SocketStart(ClientSocketData clientData) throws UnknownHostException, IOException {
+	public SocketStart(ClientDataSocket clientData) throws UnknownHostException, IOException {
 		super(clientData);
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());

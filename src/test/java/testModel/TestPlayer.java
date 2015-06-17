@@ -93,7 +93,7 @@ public class TestPlayer {
 	 */
 	@Test
 	public void testAlive() {
-		assertTrue(player.isAlive());
+		assertTrue(player.isInGame());
 	}
 	/**
 	 * test of alien PlayerType
@@ -185,7 +185,7 @@ public class TestPlayer {
 					condition=true;
 					sector2.addPlayer(sector1.removePlayer());
 					player.setSector(sector2);
-					player.setAlive(false); 					//player is dead
+					player.setInGame(false); 					//player is dead
 				}
 			}
 			i++;
@@ -202,7 +202,7 @@ public class TestPlayer {
 	
 	@Test
 	public void testHatchSector() {
-		assertTrue(sector2.isClosed()==true && player.isAlive()==false); 	//control if the player is really dead and the sector is close, class HatchSector
+		assertTrue(sector2.isClosed()==true && player.isInGame()==false); 	//control if the player is really dead and the sector is close, class HatchSector
 	}
 	
 	/**

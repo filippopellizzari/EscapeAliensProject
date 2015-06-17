@@ -15,6 +15,7 @@ import model.*;
  * This class contains the controller of the game turns and controls the end of
  * the game
  * 
+ * @author Filippo
  * @author Nicola
  *
  */
@@ -24,6 +25,7 @@ public class GameController {
 	private Turn currentTurn;
 	private int round;
 	private int currentNumberPlayer;
+	private final int TOT_ROUNDS = 39;
 
 	/**
 	 * 
@@ -51,7 +53,7 @@ public class GameController {
 	/**
 	 * 
 	 * @param dtoSend
-	 *            , a collection of data used to indicate the player's actions
+	 *            a collection of data used to indicate the player's actions
 	 * @return the report of action happen during the move
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
@@ -63,78 +65,104 @@ public class GameController {
 		DTOGame dtoGame = new DTOGame();
 		String error = new ControlDataReceived(dtoSend, game,
 				currentNumberPlayer).verify();
-		if (error != null) { // se ci sono errori sui dati ricevuti, notifico
-								// subito al client
+		// se ci sono errori sui dati ricevuti, notifico subito il client
+		if (error != null) {
 			dtoGame.setGameMessage(error);
 			dtoGame.setReceiver(currentNumberPlayer);
 			return dtoGame;
 		}
 		DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),
 				dtoSend.getItemCardType(), dtoSend.getActionType());
-		dtoGame = currentTurn.turn(dtoTurn);
+		dtoGame = currentTurn.action(dtoTurn);
 		if (dtoGame.getGameMessage() == "Hai finito il turno") {
-			endTurn(dtoGame);
+			dtoGame = endTurn(dtoGame);
+			dtoGame.setActionType(ActionType.ENDTURN);
 		}
 		return dtoGame;
 	}
-
-	/**
-	 * This method ends a turn; prepares the next turn for another player, if
-	 * the game is not finished
-	 * 
-	 * @param dtoGame
-	 */
 
 	public synchronized void setChangeTurn() {
 		this.notifyAll(); // notifica al thread che segue i giocatori che il
 							// turno è finito
 	}
 
-	private synchronized DTOGame endTurn(DTOGame dtoGame) {
-		
-		boolean nextPlayerDecide = false; // assegna correttamente il
-											// prossimo turno
-		do {
-			currentNumberPlayer++;
-			if (game.getPlayers().length == currentNumberPlayer) {
-				currentNumberPlayer = 0;
-				round++; // quando si riparte dal primo giocatore, si va al
-							// round successivo
-			}
-			if (game.getPlayers(currentNumberPlayer).isAlive())
-				nextPlayerDecide = true;
-		} while (!nextPlayerDecide);
-		
-		if (new EndGame(game, round).control()) {
-			dtoGame.setGameMessage("Partita conclusa");
+	/**
+	 * This method is called at the end of each turn. First of all, it controls
+	 * if the game is finished before 39 rounds: if yes, communicates how game
+	 * is finished. If game is not ended, then next turn is prepared. If round
+	 * is over, then starts a new round: if the new round is > 39, game is
+	 * finished in favor of aliens.
+	 * 
+	 * @param dtoGame
+	 * @return
+	 */
+	public synchronized DTOGame endTurn(DTOGame dtoGame) {
+
+		String end = new EndGame(game).control();
+		if (end != null) {
+			disconnectAll();
+			dtoGame.setGameMessage(end);
 			dtoGame.setReceiver(9);
 			return dtoGame;
 		}
 
-		currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
-		dtoGame.setGameMessage("Turno giocatore: " + currentNumberPlayer);
+		boolean nextPlayerDecided = false;
+		do {
+			currentNumberPlayer++;
+			if (game.getPlayers().length == currentNumberPlayer) {
+				currentNumberPlayer = 0;
+				round++; // quando si riparte dal primo giocatore,
+				// si va al round successivo
+			}
+			if (game.getPlayers(currentNumberPlayer).isInGame())
+				nextPlayerDecided = true;
+		} while (!nextPlayerDecided);
+
+		if (round <= TOT_ROUNDS) {
+			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
+			dtoGame.setGameMessage("Turno giocatore " + currentNumberPlayer);
+		} else {
+			disconnectAll();
+			dtoGame.setGameMessage("Finiti i turni di gioco: gli alieni vincono");
+		}
+
 		dtoGame.setReceiver(9);
 		return dtoGame;
 
+	}
+
+	private void disconnectAll() {
+		for (int i = 0; i < game.getPlayers().length; i++) {
+			game.getPlayers(i).setInGame(false);
+		}
 	}
 
 	/**
 	 * This method invoked by an external thread finishes the turn
 	 * 
 	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
 	 */
 
-	public List<DTOGame> completeTurn() {
-		CompleteTurn completeTurn = new CompleteTurn(
-				currentTurn.getGameStatus());
+	public List<DTOGame> completeTurn() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		List<DTOGame> dtoGameList = new ArrayList<DTOGame>();
-		dtoGameList = completeTurn.completeTurn(dtoGameList); // completa il
-																// turno
-		dtoGameList.add(endTurn(new DTOGame())); // crea il prossimo turno
-													// oppure la partita finisce
+		CompleteTurn completeTurn = new CompleteTurn(currentTurn);
+		// completa il turno
+		dtoGameList = completeTurn.completeTurn();
+		// crea prossimo turno o finisci partita
+		dtoGameList.add(endTurn(new DTOGame()));
 		return dtoGameList;
 	}
 
+	/**
+	 * This method is used at the beginning of a game. It gives client info
+	 * about his initial position, his type and his number
+	 * 
+	 * @return array of views for player (each memory cell is for a particular
+	 *         player in game)
+	 */
 	public ViewForPlayer[] getViews() {
 		ViewForPlayer[] views = new ViewForPlayer[game.getPlayers().length];
 		for (int i = 0; i < views.length; i++) {
@@ -156,17 +184,33 @@ public class GameController {
 	}
 
 	/**
-	 * @return the turnNumber
+	 * @return the round of game
 	 */
-	public int getTurnNumber() {
+	public int getRound() {
 		return round;
 	}
 
 	/**
-	 * @return the currentNumberPlayer
+	 * @return the number of player who is playing the turn
 	 */
 	public int getCurrentNumberPlayer() {
 		return currentNumberPlayer;
+	}
+
+	public void setCurrentTurn(Turn currentTurn) {
+		this.currentTurn = currentTurn;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
+	}
+
+	public void setCurrentNumberPlayer(int currentNumberPlayer) {
+		this.currentNumberPlayer = currentNumberPlayer;
 	}
 
 }

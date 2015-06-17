@@ -72,7 +72,7 @@ public class DrawSectorCard implements ChooseAnAction {
 	public void drawItemCard() {
 		ItemCard current = status.getGame().getItemCards().draw();
 		if (current == null) {
-			dtoGame.setGameMessage("Sono finite le carte oggetto da pescare!\n");
+			dtoGame.setGameMessage("Sono finite le carte oggetto da pescare!");
 		} else {
 			Player player = status.getPlayer();
 			ItemCardType type = current.getType();
@@ -80,7 +80,7 @@ public class DrawSectorCard implements ChooseAnAction {
 			// solo chi ha pescato conosce la carta oggetto
 			dtoGame.setItemCardType(type);
 			if (player.getItem().size() == 4) {
-				dtoGame.setGameMessage("Hai 4 carte oggetto: devi giocarne una subito o scartarne una\n");
+				dtoGame.setGameMessage("Hai 4 carte oggetto: devi giocarne una subito o scartarne una");
 				// obbligato a scartarne una (finchè non la scarta o ne gioca
 				// una)
 				status.setMustDiscardItem(true);
@@ -94,6 +94,7 @@ public class DrawSectorCard implements ChooseAnAction {
 			drawSectorCard();
 			status.setMustDraw(false);
 			status.setAttacked(true);// non potrà più attaccare
+			dtoGame.setActionType(ActionType.DRAWSECTORCARD);
 		} else {
 			dtoGame.setGameMessage("Non puoi pescare in questo momento");
 			dtoGame.setReceiver(status.getPlayer().getNumber());

@@ -74,10 +74,10 @@ public class TestGameCreator {
 			player=game.getPlayers(i);
 			if(player.getType()==PlayerType.ALIEN)
 				assertTrue(player.getSector()==game.getMap().getSector(game.getMap().getAlienCoord()) 
-				&& player.getSpeed()==2 && player.isAlive()==true && player.getItem().isEmpty()==true);
+				&& player.getSpeed()==2 && player.isInGame()==true && player.getItem().isEmpty()==true);
 			else 
 				assertTrue(player.getSector()==game.getMap().getSector(game.getMap().getHumanCoord()) 
-					&& player.getSpeed()==1 && player.isAlive()==true && player.getItem().isEmpty()==true);
+					&& player.getSpeed()==1 && player.isInGame()==true && player.getItem().isEmpty()==true);
 		}
 	}	
 

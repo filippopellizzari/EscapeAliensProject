@@ -28,6 +28,7 @@ public class DiscardItem implements ChooseAnAction {
 		this.dtoGame = new DTOGame();
 	}
 
+	
 	/**
 	 * 
 	 * @param type

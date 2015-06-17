@@ -50,14 +50,16 @@ public class Attack implements ChooseAnAction {
 			Player attacked = current.getPlayers().get(0);
 			if (isDefendable(attacked)) {
 				dtoGame.setGameMessage(attacked
-						+ " : si salva grazie alla carta Difesa\n");
+						+ " è stato attaccato, ma si salva grazie alla carta Difesa\n");
 				// sposto giocatore in fondo alla lista
 				current.addPlayer(current.removePlayer());
 			} else {
 				// segnala tipo del giocatore eliminato
 				dtoGame.setPlayerType(attacked.getType(), attacked.getNumber());
+				attacked.setInGame(false);
+				attacked.setPlayerState(PlayerState.KILLED);
 				checkAlienFeeding(player, attacked);
-				attacked.setAlive(false);
+				new CheckLastHuman(player, attacked, status.getGame()).check();
 				removeAllItems(attacked);
 				attacked.setSector(null);
 				// rimuovo giocatore dalla lista
@@ -71,6 +73,7 @@ public class Attack implements ChooseAnAction {
 		return dtoGame;
 	}
 
+	
 	private void removeAllItems(Player attacked) {
 		int numItems = attacked.getItem().size();
 		for (int i = 0; i < numItems; i++) {
@@ -108,6 +111,7 @@ public class Attack implements ChooseAnAction {
 			attackMove();
 			status.setAttacked(true);
 			status.setMustDraw(false);
+			dtoGame.setActionType(ActionType.ATTACK);
 			dtoGame.setReceiver(9);
 		} else {
 			dtoGame.setGameMessage("Non puoi attaccare in questo momento");

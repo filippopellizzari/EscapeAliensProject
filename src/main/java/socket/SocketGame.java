@@ -28,7 +28,7 @@ public class SocketGame extends SocketBase implements Runnable{
 	 * @throws IOException
 	 */
 	
-	public SocketGame(ClientSocketData clientData, DTOSend dtoSend) throws UnknownHostException, IOException {
+	public SocketGame(ClientDataSocket clientData, DTOSend dtoSend) throws UnknownHostException, IOException {
 		super(clientData);
 		try {
 			this.dtoSend=dtoSend;
