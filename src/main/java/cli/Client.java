@@ -41,11 +41,19 @@ public class Client {
 			ClassNotFoundException, IOException, InterruptedException,
 			NotBoundException, AlreadyBoundException {
 		in = new Scanner(System.in);
+		String resultChooseMap=null;
 		chooseConnection();
-		chooseMap();
+		do {
+			chooseMap();
+			resultChooseMap=cd.getBuffer();
+			System.out.println(resultChooseMap);
+		}while(resultChooseMap!="Tempo Scaduto e 1 solo giocatore, partita annullata");
+		System.out.println("NumeroGiocatore: "+cd.getView().getNumberPlayer());
+		System.out.println("TipoGiocatore: "+cd.getView().getPlayerType());
+		System.out.println("Casella: "+cd.getView().getCoordinate());
+		Thread showMessage=new Thread(new ShowMessage(cd));
+		showMessage.start();
 		new ClientPlay(cd).play();
-		DTOGame dtoGame = new DTOGame(); //un dtoGame: come lo ricevo??
-		new ClientMessage(cd, dtoGame).receive();
 		in.close();
 	}
 
@@ -70,22 +78,20 @@ public class Client {
 
 	private static void chooseMap() throws UnknownHostException,
 			ClassNotFoundException, IOException {
-		System.out
-				.println("Scegli la mappa di gioco:\n 1: Fermi\n 2: Galilei\n 3: Galvani");
+		System.out.println("Scegli la mappa di gioco:\n 1: Fermi\n 2: Galilei\n 3: Galvani");
 		int mappa = in.nextInt();
 		switch (mappa) {
 		case 1:
 			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
 			break;
 		case 2:
-			cd.clickOnStartGame(new TypeOfMap(MapName.Galilei,
-					MapType.HEXAGONAL));
+			cd.clickOnStartGame(new TypeOfMap(MapName.Galilei, MapType.HEXAGONAL));
 			break;
 		case 3:
-			cd.clickOnStartGame(new TypeOfMap(MapName.Galvani,
-					MapType.HEXAGONAL));
+			cd.clickOnStartGame(new TypeOfMap(MapName.Galvani, MapType.HEXAGONAL));
 			break;
 		}
+		System.out.println(cd.getBuffer()); 		//stampa il messaggio
 
 	}
 

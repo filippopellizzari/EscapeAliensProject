@@ -26,7 +26,7 @@ public class ThreadEndTurn implements Runnable {
 	
 	public ThreadEndTurn(GameDescription gameDescription) {
 		this.gameDescription = gameDescription;
-		this.time = 150;
+		this.time = 50;
 	}
 	
 	/**
@@ -43,10 +43,10 @@ public class ThreadEndTurn implements Runnable {
 			do {
 				int turn = 0;
 				int numberPlayer = 0;
+				System.out.println("Sono il fine turno mi metto in attesa");
 				temporize = new Thread(new ThreadTemporize(time,gameDescription));
 				temporize.start();
-				gameDescription.getController().getChangeTurn(turn,
-						numberPlayer); // finisce il turno
+				gameDescription.getController().getChangeTurn(turn,	numberPlayer); // finisce il turno
 				if (temporize != null)
 					temporize.stop(); // ferma timer
 				gameDescription.getStatus();
@@ -54,9 +54,10 @@ public class ThreadEndTurn implements Runnable {
 					list = gameDescription.getController().completeTurn();
 				} catch (ClassNotFoundException | InstantiationException
 						| IllegalAccessException e) {
-					System.err.print("Errore nel fine turno");
+					System.err.println("Errore nel fine turno");
 				}
 				turn = gameDescription.getController().getRound(); //imposto il nuovo turno e giocatore
+				System.out.println("Sono il fine turno ho cambiato il turno");
 				numberPlayer = gameDescription.getController().getCurrentNumberPlayer();
 				gameDescription.setStatus(); // libera il controller
 				while (list.size() > 0) {
@@ -66,7 +67,7 @@ public class ThreadEndTurn implements Runnable {
 			} while (message != "Partita conclusa");
 
 		} catch (InterruptedException e) {
-			System.err.print("Errore nel fine turno");
+			System.err.println("Errore nel fine turno");
 		}
 	}
 
