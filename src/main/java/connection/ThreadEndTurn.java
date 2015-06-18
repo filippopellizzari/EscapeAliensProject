@@ -45,11 +45,9 @@ public class ThreadEndTurn implements Runnable {
 				int turn = 0;
 				int numberPlayer = 0;
 				System.out.println("Sono il fine turno mi metto in attesa");
-				temporize = new Thread(new ThreadTemporize(time,gameDescription));
+				temporize = new Thread(new ThreadTemporize(time,gameDescription,turn,numberPlayer));
 				temporize.start();
 				gameDescription.getController().getChangeTurn(turn,	numberPlayer); // aspetta un'azione
-				if (temporize != null)
-					temporize.stop(); // ferma timer
 				gameDescription.getStatus();
 				if(turn == gameDescription.getController().getRound()&&
 						numberPlayer==gameDescription.getController().getCurrentNumberPlayer()) {	//vedo se devo finire il turno
