@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import connection.*;
+import controller.ActionType;
 import dto.DTOGame;
 
 /**
@@ -69,7 +70,7 @@ public class ClientHandlerChooseGameSocket implements Processing{
 					dtoGame=description.getBroker().getPlayersBuffer(numberOfPlayer).getBuffer();
 					out.writeObject(dtoGame);
 					out.flush();
-				}while(dtoGame.getGameMessage()!="Partita conclusa");
+				}while(dtoGame.getActionType()!=ActionType.ENDGAME);
 			}
 		} catch (IOException | ClassNotFoundException | InterruptedException e) {
 			System.err.println(e.getMessage());

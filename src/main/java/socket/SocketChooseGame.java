@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
 
 import connection.*;
+import controller.ActionType;
 import dto.DTOGame;
 
 /**
@@ -64,7 +65,7 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 					dtoGame=(DTOGame)in.readObject();
 					System.out.println("Messaggio arrivato");
 					clientData.setDtoGameList(dtoGame);
-				}while(dtoGame.getGameMessage()!="Partita conclusa");
+				}while(dtoGame.getActionType()!=ActionType.ENDGAME);
 			}
 			in.close();	//close all the resource
 			out.close();

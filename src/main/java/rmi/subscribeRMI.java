@@ -2,6 +2,7 @@ package rmi;
 
 import java.rmi.RemoteException;
 
+import controller.ActionType;
 import dto.DTOGame;
 
 /**
@@ -34,6 +35,6 @@ public class subscribeRMI implements Runnable {
 			} catch (InterruptedException | RemoteException e) {
 				System.err.println("errore ricezione dtoGame");
 			}
-		}while(dtoGame.getGameMessage()!="Partita conclusa");
+		}while(dtoGame.getActionType()!=ActionType.ENDGAME);
 	}
 }

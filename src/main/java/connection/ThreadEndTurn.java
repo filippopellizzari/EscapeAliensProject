@@ -3,6 +3,7 @@ package connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.ActionType;
 import dto.DTOGame;
 
 /**
@@ -37,7 +38,7 @@ public class ThreadEndTurn implements Runnable {
 	@Override
 	public void run() {
 		try {
-			String message = null;
+			boolean goOn=true;
 			Thread temporize;
 			List<DTOGame> list = new ArrayList<DTOGame>();
 			do {
@@ -46,25 +47,35 @@ public class ThreadEndTurn implements Runnable {
 				System.out.println("Sono il fine turno mi metto in attesa");
 				temporize = new Thread(new ThreadTemporize(time,gameDescription));
 				temporize.start();
-				gameDescription.getController().getChangeTurn(turn,	numberPlayer); // finisce il turno
+				gameDescription.getController().getChangeTurn(turn,	numberPlayer); // aspetta un'azione
 				if (temporize != null)
 					temporize.stop(); // ferma timer
 				gameDescription.getStatus();
-				try {
-					list = gameDescription.getController().completeTurn();
-				} catch (ClassNotFoundException | InstantiationException
-						| IllegalAccessException e) {
-					System.err.println("Errore nel fine turno");
+				if(turn == gameDescription.getController().getRound()&&
+						numberPlayer==gameDescription.getController().getCurrentNumberPlayer()) {	//vedo se devo finire il turno
+					try {
+						list = gameDescription.getController().completeTurn();
+					} catch (ClassNotFoundException | InstantiationException
+							| IllegalAccessException e) {
+						System.err.println("Errore nel fine turno");
+					}
 				}
 				turn = gameDescription.getController().getRound(); //imposto il nuovo turno e giocatore
-				System.out.println("Sono il fine turno ho cambiato il turno");
 				numberPlayer = gameDescription.getController().getCurrentNumberPlayer();
+				System.out.println("Sono il fine turno ho cambiato il turno");
 				gameDescription.setStatus(); // libera il controller
-				while (list.size() > 0) {
-					message = list.get(0).getGameMessage();	//pubblica il primo dto
-					gameDescription.getBroker().publish(list.remove(0)); 
+				while (list.size() > 0)
+					gameDescription.getBroker().publish(list.remove(0));
+				if(turn>=40) {
+					goOn=false;
+					DTOGame end= new DTOGame();
+					end.setActionType(ActionType.ENDGAME);
+					end.setReceiver(9);
+					end.setPlayerNumber(9); 		//tutti lo devono ricevere
+					end.setGameMessage("Fine gioco");
+					gameDescription.getBroker().publish(end);
 				}
-			} while (message != "Partita conclusa");
+			} while (goOn);
 
 		} catch (InterruptedException e) {
 			System.err.println("Errore nel fine turno");
