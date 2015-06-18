@@ -28,10 +28,12 @@ public class ThreadTemporize implements Runnable {
 	@Override
 	public void run() {
 		try {
+			System.out.println("Sono il timer mi metto in attesa");
 			Thread.sleep(time * 1000);
 			gameDescription.getStatus();
 			gameDescription.getController().setChangeTurn();	// notifico cambio di turno
 			gameDescription.setStatus(); // libera il controller
+			System.out.println("Sono il timer ho finito il turno");
 		} catch (InterruptedException e) {
 			System.err.print("Errore nel temporize del turno");
 		}

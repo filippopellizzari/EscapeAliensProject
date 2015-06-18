@@ -3,6 +3,7 @@ package pubSub;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.ActionType;
 import dto.DTOGame;
 
 /**
@@ -14,9 +15,11 @@ import dto.DTOGame;
 
 public class PlayersBuffers {
 	private List<DTOGame> buffer;
-
-	public PlayersBuffers() {
+	private Broker broker;
+	
+	public PlayersBuffers(Broker broker) {
 		this.buffer=new ArrayList<DTOGame>();
+		this.broker=broker;
 	}
 
 	/**
@@ -26,7 +29,11 @@ public class PlayersBuffers {
 	public synchronized DTOGame getBuffer() throws InterruptedException {
 		while(buffer.size()==0) 
 			this.wait();
-		return buffer.remove(0);
+		DTOGame dtoGame= buffer.remove(0);
+		if(dtoGame.getActionType()==ActionType.ENDGAME) {
+			broker.getGameDescription().endPlayer();
+		}
+		return dtoGame;
 	}
 
 	/**

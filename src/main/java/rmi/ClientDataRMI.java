@@ -85,22 +85,4 @@ public class ClientDataRMI extends ClientData {
 	public Actions getGame() {
 		return game;
 	}
-
-	public static void main(String[] args) throws NotBoundException,
-			UnknownHostException, ClassNotFoundException, IOException,
-			InterruptedException, AlreadyBoundException {
-		ClientDataRMI cd = new ClientDataRMI();
-		System.out.println(cd.getToken().getNumber());
-		cd.clickOnConnection();
-		Thread.sleep(2000);
-		System.out.println(cd.getToken().getNumber());
-		cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
-		System.out.println(cd.getBuffer().remove(0));
-		Thread.sleep(40000);
-		System.out.println(cd.getBuffer().remove(0));
-		DTOSend dtoSend = new DTOSend(null, 1, null, ActionType.CHAT,
-				"benvenuti nel gioco");
-		cd.clickOnDoMove(dtoSend);
-		Thread.sleep(10000);
-	}
 }

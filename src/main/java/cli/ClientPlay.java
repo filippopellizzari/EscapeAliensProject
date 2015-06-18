@@ -33,8 +33,6 @@ public class ClientPlay {
 
 		Scanner in = new Scanner(System.in);
 		Thread.sleep(40000);
-		
-		
 			System.out.println("Fai un'azione:\n 1: MOVE\n 2: ATTACK\n 3: USE ITEM CARD\n "
 					+ "4: DISCARD ITEM CARD\n 5: DRAW SECTOR CARD\n 6: SELECT FOR NOISE IN ANY SECTOR\n "
 					+ "7: END TURN ");	
@@ -129,25 +127,7 @@ public class ClientPlay {
 				break;
 			default:
 				break;
-				
 			}
-		
 			in.close();
-			
-		
-		
-
-	}
-		
-		
-		
-		
-		
-		
-		
-	
-	
-	
-	
-	
+	}	
 }

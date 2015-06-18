@@ -15,6 +15,7 @@ public class GameDescription {
 	private GameController controller;
 	private Broker broker;
 	private StatusController statusController;
+	private StatusCreation statusGame;
 	
 	/**
 	 * This constructor sets the features of a new game
@@ -29,8 +30,10 @@ public class GameDescription {
 		this.numberOfPlayers = numberOfPlayers;
 		this.controller = controller;
 		this.statusController=StatusController.FREE;
-		this.broker=new Broker(numberOfPlayers);
+		this.broker=new Broker(numberOfPlayers,this);
+		this.statusGame=StatusCreation.OPEN;
 	}
+
 	/**
 	 * @return the mapName
 	 */
@@ -60,6 +63,29 @@ public class GameDescription {
 	 */
 	public void setBroker(Broker broker) {
 		this.broker = broker;
+	}
+	
+	/**
+	 * This method show the gameStatus, if the game is in-progress waits until is finished
+	 * @throws InterruptedException 
+	 * @stop until the game is finished
+	 */
+	public synchronized void getStatusGame() throws InterruptedException {
+		while(statusGame==StatusCreation.OPEN)
+			this.wait();
+	}
+	
+	/**
+	 * this method reduces the number of player, when all player have taken their last dto they reduce the number by one for
+	 * each one
+	 */
+	
+	public synchronized void endPlayer() {
+		this.numberOfPlayers--;
+		if(numberOfPlayers==-1) {
+			statusGame=StatusCreation.TERMINATED;
+			this.notifyAll();
+		}
 	}
 	
 	/**

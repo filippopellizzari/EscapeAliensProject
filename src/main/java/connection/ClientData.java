@@ -59,21 +59,34 @@ public abstract class ClientData {
 	public Token getToken() {
 		return token;
 	}
+	
+	/**
+	 * return dtoGame
+	 * @return 
+	 * @throws InterruptedException 
+	 */
+	
+	public synchronized DTOGame getDtoGame() throws InterruptedException {
+		while(dtoGameList.size()==0) 
+			this.wait();
+		return dtoGameList.remove(0);
+	}
 
 	/**
 	 * @param dtoGameList
 	 */
 
-	public void setDtoGameList(DTOGame dtoGame) {
+	public synchronized void setDtoGameList(DTOGame dtoGame) {
 		this.dtoGameList.add(dtoGame);
+		this.notifyAll();
 	}
 
 	/**
 	 * @return the buffer
 	 */
 
-	public List<String> getBuffer() {
-		return buffer;
+	public String getBuffer() {
+		return buffer.remove(0);
 	}
 
 	/**

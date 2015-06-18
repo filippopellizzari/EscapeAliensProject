@@ -1,5 +1,6 @@
 package pubSub;
 
+import connection.GameDescription;
 import dto.DTOGame;
 
 /**
@@ -12,17 +13,19 @@ public class Broker {
 	private PlayersBuffers[] playersBuffer;
 	private String message;
 	private int numberOfPlayers;
+	private GameDescription gameDescription;
 	
 	/**
 	 * This constructor creates x number of buffer, one for each player
 	 * @param numberOfPlayers
 	 */
 
-	public Broker(int numberOfPlayers) {
+	public Broker(int numberOfPlayers, GameDescription gameDescription) {
 		this.numberOfPlayers=numberOfPlayers;
 		playersBuffer=new PlayersBuffers[numberOfPlayers];
+		this.gameDescription=gameDescription;
 		for(int i=0;i<numberOfPlayers;i++) {
-			playersBuffer[i]=new PlayersBuffers();
+			playersBuffer[i]=new PlayersBuffers(this);
 			this.message=null;
 		}
 	}	
@@ -55,5 +58,11 @@ public class Broker {
 	public PlayersBuffers getPlayersBuffer(int numberPlayer) {
 		return playersBuffer[numberPlayer];
 	}
-	
+
+	/**
+	 * @return the gameDescription
+	 */
+	public GameDescription getGameDescription() {
+		return gameDescription;
+	}
 }

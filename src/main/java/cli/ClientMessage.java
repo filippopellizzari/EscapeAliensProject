@@ -13,16 +13,14 @@ import dto.DTOGame;
  *
  */
 public class ClientMessage {
-
-	private ClientData cd;
-	private DTOGame dtoGame;
-
-	public ClientMessage(ClientData cd, DTOGame dtoGame) {
-		this.cd = cd;
-		this.dtoGame = dtoGame;
+	
+	private int numberOfPlayer;
+	
+	public ClientMessage(int numberOfPlayer) {
+		this.numberOfPlayer = numberOfPlayer;
 	}
-
-	public void receive() {
+	
+	public void receive(DTOGame dtoGame) {
 		if (dtoGame.getActionType() != null) {
 			switch (dtoGame.getActionType()) {
 			case MOVE:
@@ -131,7 +129,7 @@ public class ClientMessage {
 					break;
 				}
 				// messaggio privato, associato a un evento pubblico
-				if (cd.getView().getNumberPlayer() == dtoGame.getPlayerNumber()) {
+				if (numberOfPlayer == dtoGame.getPlayerNumber()) {
 					if (dtoGame.getItemCardType() != null) {
 						System.out.println("Hai pescato una carta oggetto "
 								+ dtoGame.getItemCardType());
