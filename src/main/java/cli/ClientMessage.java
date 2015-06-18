@@ -2,7 +2,6 @@ package cli;
 
 import model.Coordinate;
 import model.PlayerType;
-import connection.ClientData;
 import dto.DTOGame;
 
 /**

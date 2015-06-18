@@ -3,14 +3,18 @@ package cli;
 import connection.ClientData;
 import controller.ActionType;
 import dto.DTOGame;
-
+/**
+ * 
+ * @author Nicola
+ *
+ */
 public class ShowMessage implements Runnable {
 	private ClientData cd;
 	ClientMessage clientMessage;
 
 	public ShowMessage(ClientData cd) {
-		this.cd=cd;
-		clientMessage=new ClientMessage(cd.getView().getNumberPlayer());
+		this.cd = cd;
+		clientMessage = new ClientMessage(cd.getView().getNumberPlayer());
 	}
 
 	@Override
@@ -18,12 +22,12 @@ public class ShowMessage implements Runnable {
 		DTOGame dtoGame = null;
 		do {
 			try {
-				dtoGame=cd.getDtoGame();
+				dtoGame = cd.getDtoGame();
 				clientMessage.receive(dtoGame);
 			} catch (InterruptedException e) {
 				System.err.println("Errore nella scrittura messaggi");
 			}
-		}while(dtoGame.getActionType()==ActionType.ENDGAME);
+		} while (dtoGame.getActionType() != ActionType.ENDGAME);
 	}
 
 }
