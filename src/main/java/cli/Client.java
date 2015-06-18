@@ -63,7 +63,7 @@ public class Client {
 			break;
 		}
 		cd.clickOnConnection();
-		Thread.sleep(2000);
+		Thread.sleep(3000);
 		System.out.println("Assegnato token " + cd.getToken().getNumber());
 
 	}
