@@ -53,9 +53,7 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 			String message;
 			message=(String)in.readObject();
 			System.out.println(message);
-			clientData.setBuffer(message);		//risposta server ricezione richiesta
 			message=(String)in.readObject();
-			System.out.println(message);
 			clientData.setBuffer(message);		//risposta server su partita
 			if(message.contains("Partita pronta, Turno Giocatore 1")) {
 				clientData.setView((ViewForPlayer)in.readObject()); //ecco la view
@@ -75,13 +73,3 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 		} 
 	}
 }
-
-/*Message message;
-String
-message=(Message)in.readObject();
-System.out.println(message.getMessage());
-clientData.setBuffer(message.getMessage());		//risposta server ricezione richiesta
-message=(Message)in.readObject();
-System.out.println(message.getMessage());				//il primo carattere serve per capire la risposta
-clientData.setBuffer(message.getMessage());		//risposta server su partita
-if(message.getMessage()*/

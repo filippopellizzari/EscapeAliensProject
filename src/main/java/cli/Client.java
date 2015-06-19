@@ -41,17 +41,19 @@ public class Client {
 			ClassNotFoundException, IOException, InterruptedException,
 			NotBoundException, AlreadyBoundException {
 		in = new Scanner(System.in);
-		String resultChooseMap=null;
+		String resultChooseMap;
 		chooseConnection();
 		do {
 			chooseMap();
 			resultChooseMap=cd.getBuffer();
-		}while(resultChooseMap!="Tempo Scaduto e 1 solo giocatore, partita annullata");
+			System.out.println(resultChooseMap);
+		}while(resultChooseMap.contains("Tempo Scaduto e 1 solo giocatore, partita annullata"));
 		System.out.println("NumeroGiocatore: "+cd.getView().getNumberPlayer());
 		System.out.println("TipoGiocatore: "+cd.getView().getPlayerType());
 		System.out.println("Casella: "+cd.getView().getCoordinate());
 		Thread showMessage=new Thread(new ShowMessage(cd));
 		showMessage.start();
+		System.out.println("Il thread è partito");
 		new ClientPlay(cd).play();
 		in.close();
 	}

@@ -57,15 +57,13 @@ public class ClientDataRMI extends ClientData {
 
 	public void clickOnStartGame(TypeOfMap typeOfMap)
 			throws UnknownHostException, IOException, ClassNotFoundException {
-		buffer.add("Iscrizione inviata");
 		view = game.subscribeGame(typeOfMap, token);
 		if (view != null) {
-			this.buffer.add("Partita pronta, Turno Giocatore 1");
+			this.setBuffer("Partita pronta, Turno Giocatore 1");
 			Thread subscribe = new Thread(new subscribeRMI(this));
 			subscribe.start();
 		} else
-			this.buffer
-					.add("Tempo Scaduto e 1 solo giocatore, partita annullata");
+			this.setBuffer("Tempo Scaduto e 1 solo giocatore, partita annullata");
 	}
 	
 	/**

@@ -17,7 +17,7 @@ public abstract class ClientData {
 	protected Token token;
 	protected ViewForPlayer view;
 	protected List<DTOGame> dtoGameList;
-	protected List<String> buffer;
+	protected String buffer;
 	
 	/**
 	 * Initialize a new Client Data
@@ -26,7 +26,7 @@ public abstract class ClientData {
 	public ClientData() {
 		this.token = new Token(-1);
 		this.dtoGameList = new ArrayList<DTOGame>();
-		this.buffer = new ArrayList<String>();
+		this.buffer = null;
 	}
 
 	public abstract void clickOnConnection() throws UnknownHostException,
@@ -87,17 +87,18 @@ public abstract class ClientData {
 	 */
 
 	public synchronized String getBuffer() throws InterruptedException {
-		while(buffer.size()==0)
+		while(buffer==null)
 			this.wait();
-		return buffer.remove(0);
+		return buffer;
 	}
 
 	/**
 	 * @param buffer
 	 */
 
-	public void setBuffer(String buffer) {
-		this.buffer.add(buffer);
+	public synchronized void setBuffer(String buffer) {
+		this.buffer=buffer;
+		this.notifyAll();
 	}
 
 	/**
