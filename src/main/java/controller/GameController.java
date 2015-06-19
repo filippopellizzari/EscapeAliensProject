@@ -93,6 +93,7 @@ public class GameController {
 	public synchronized DTOGame endTurn(DTOGame dtoGame) {
 
 		String end = new EndGame(game).control();
+		dtoGame.setPlayerNumber(currentNumberPlayer);
 		if (end != null) {
 			disconnectAll();
 			round = TOT_ROUNDS + 1;			//turno 40
@@ -115,11 +116,11 @@ public class GameController {
 		if (round <= TOT_ROUNDS) {
 			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 			dtoGame.setGameMessage("Turno giocatore " + currentNumberPlayer);
-		} else {
+		} 
+		else {
 			disconnectAll();
 			dtoGame.setGameMessage("Finiti i turni di gioco: gli alieni vincono");
 		}
-
 		dtoGame.setReceiver(9);
 		return dtoGame;
 

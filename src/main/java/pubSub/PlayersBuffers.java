@@ -30,7 +30,6 @@ public class PlayersBuffers {
 		while(buffer.size()==0) 
 			this.wait();
 		DTOGame dtoGame= buffer.remove(0);
-		System.out.println("Mando un messaggio");
 		if(dtoGame.getActionType()==ActionType.ENDGAME) {
 			broker.getGameDescription().endPlayer();
 		}
@@ -42,7 +41,6 @@ public class PlayersBuffers {
 	 */
 	public synchronized void setBuffer(DTOGame dtoGame) {
 		buffer.add(dtoGame);
-		System.out.println("Aggiungo un messaggio");
 		notifyAll();
 	}
 	

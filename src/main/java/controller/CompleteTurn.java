@@ -59,6 +59,20 @@ public class CompleteTurn {
 			checkMustDraw();
 			checkMustNoise();
 		} while (condizione < 4);
+		for(int i=0;i<dtoGameList.size();i++) {
+			if(dtoGameList.get(i).getReceiver()==9) {		//serve per far pervenire l'azione anche a chi la fatta 
+				//simulando la comunicazione client server
+				DTOGame dtoGameSimulationClientServer=new DTOGame();
+				dtoGameSimulationClientServer.setActionType(dtoGameList.get(i).getActionType());
+				dtoGameSimulationClientServer.setGameMessage(dtoGameList.get(i).getGameMessage());
+				dtoGameSimulationClientServer.setHatchCardColor(dtoGameList.get(i).getHatchCardColor());
+				dtoGameSimulationClientServer.setItemCardType(dtoGameList.get(i).getItemCardType());
+				dtoGameSimulationClientServer.setPlayerNumber(dtoGameList.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setReceiver(dtoGameList.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setSectorCardType(dtoGameList.get(i).getSectorCardType());
+				dtoGameList.add(dtoGameSimulationClientServer);
+			}
+		}
 		return dtoGameList;
 	}
 
@@ -71,14 +85,11 @@ public class CompleteTurn {
 					.getAdjacent().get(i);
 				if (!status.getGame().getMap().isNull(randomCoord) &&
 						!status.getGame().getMap().getSector(randomCoord).isClosed()) {
-					status.getGame().getMap().getSector(randomCoord).addPlayer(status.getPlayer());
-					status.getPlayer().setSector(status.getGame().getMap().getSector(randomCoord));
-					status.setMoved(true);
-					findSector=true;
+					dtoTurn = new DTOTurn(randomCoord, null, ActionType.MOVE);
 					dtoGame = new DTOGame();
-					dtoGame.setActionType(ActionType.MOVE);
-					dtoGame.setCoordinate(randomCoord, status.getPlayer().getNumber());
+					dtoGame = currentTurn.action(dtoTurn);
 					dtoGameList.add(dtoGame);
+					findSector=true;
 				}
 			}
 		} else {

@@ -38,13 +38,17 @@ public class Broker {
 	public void publish(DTOGame dtoGame){
 		if(dtoGame.getReceiver()<8)  {			//solo il giocatore deve ricevere il messaggio
 			playersBuffer[dtoGame.getPlayerNumber()].setBuffer(dtoGame);
+			System.out.println("Aggiungo messaggio a buffer: "+dtoGame.getReceiver());
 		}
 		else {
 			dtoGame.setGameMessage(message);
 			if(dtoGame.getReceiver()==9) {
 				for(int i=0;i<numberOfPlayers;i++) {
-					if(i==dtoGame.getPlayerNumber()) continue;
-					playersBuffer[i].setBuffer(dtoGame);
+					if(i==dtoGame.getPlayerNumber());
+					else {
+						playersBuffer[i].setBuffer(dtoGame);
+						System.out.println("Aggiungo messaggio a buffer: "+i);
+					}
 				}
 			}
 			else
