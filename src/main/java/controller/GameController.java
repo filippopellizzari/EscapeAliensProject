@@ -79,7 +79,7 @@ public class GameController {
 		}
 		return dtoGame;
 	}
-
+	
 	/**
 	 * This method is called at the end of each turn. First of all, it controls
 	 * if the game is finished before 39 rounds: if yes, communicates how game
@@ -95,6 +95,7 @@ public class GameController {
 		String end = new EndGame(game).control();
 		if (end != null) {
 			disconnectAll();
+			round = TOT_ROUNDS + 1;			//turno 40
 			dtoGame.setGameMessage(end);
 			dtoGame.setReceiver(9);
 			return dtoGame;
@@ -176,7 +177,7 @@ public class GameController {
 	}
 	
 	/**
-	 * 
+	 * Notify the turn's change
 	 */
 
 	public synchronized void setChangeTurn() {

@@ -10,7 +10,6 @@ import connection.ClientData;
 import connection.MapName;
 import connection.MapType;
 import connection.TypeOfMap;
-import dto.DTOGame;
 import rmi.ClientDataRMI;
 import socket.ClientDataSocket;
 
@@ -18,7 +17,7 @@ import socket.ClientDataSocket;
  * this class starts Client and the user can choose the connection type (RMI or
  * Socket)
  * 
- * @author filippopellizzari
+ * @author Filippo
  *
  */
 public class Client {
@@ -43,15 +42,16 @@ public class Client {
 		in = new Scanner(System.in);
 		String resultChooseMap;
 		chooseConnection();
+		
 		do {
 			chooseMap();
-			resultChooseMap=cd.getBuffer();
+			resultChooseMap = cd.getBuffer();
 			System.out.println(resultChooseMap);
 		}while(resultChooseMap.contains("Tempo Scaduto e 1 solo giocatore, partita annullata"));
-		System.out.println("Numero Giocatore: "+cd.getView().getNumberPlayer());
-		System.out.println("Tipo giocatore: " +cd.getView().getPlayerType());
+		System.out.println("NumeroGiocatore: "+cd.getView().getNumberPlayer());
+		System.out.println("TipoGiocatore: "+cd.getView().getPlayerType());
 		System.out.println("Casella: "+cd.getView().getCoordinate());
-		Thread showMessage=new Thread(new ShowMessage(cd));
+		Thread showMessage = new Thread(new ShowMessage(cd));
 		showMessage.start();
 		System.out.println("Il thread è partito");
 		new ClientPlay(cd).play();
@@ -73,7 +73,7 @@ public class Client {
 		}
 		cd.clickOnConnection();
 		Thread.sleep(2000);
-		System.out.println("Assegnato token " + cd.getToken().getNumber());
+		//System.out.println("Assegnato token " + cd.getToken().getNumber());
 
 	}
 
