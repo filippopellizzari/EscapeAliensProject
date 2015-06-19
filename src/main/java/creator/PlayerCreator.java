@@ -48,7 +48,7 @@ public class PlayerCreator {
 	
 	private Player createAlien(int numberOfPlayer) {
 		Player alien =new Player(PlayerType.ALIEN, map.getSector(alienSector), 2, numberOfPlayer);
-		map.getSector(humanSector).addPlayer(alien);	//aggiunge il giocatore al settore
+		map.getSector(alienSector).addPlayer(alien);	//aggiunge il giocatore al settore
 		return alien;
 	}
 	

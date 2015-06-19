@@ -52,7 +52,7 @@ public class ClientHandlerChooseGameSocket implements Processing{
 			out.flush();	//svuota buffer
 			putInWait(detailsYourGame);
 			message=detailsYourGame.getBuffer();
-			if(message=="Partita pronta, Turno Giocatore 1") {
+			if(message.contains("Partita pronta, Turno Giocatore 1")) {
 				int numberGame=detailsYourGame.getGameId();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(numberGame);	//numero partita
 				ViewForPlayer myView=detailsYourGame.getView();
@@ -61,7 +61,6 @@ public class ClientHandlerChooseGameSocket implements Processing{
 				out.flush();
 				out.writeObject(myView); 	//manda la view al client
 				out.flush();
-				System.out.println("Scritto view");
 				ListOfStartedGame list=ListOfStartedGame.getinstance();
 				int numberOfPlayer=myView.getNumberPlayer();
 				DTOGame dtoGame=new DTOGame();

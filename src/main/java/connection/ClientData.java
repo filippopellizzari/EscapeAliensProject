@@ -55,8 +55,9 @@ public abstract class ClientData {
 
 	/**
 	 * @return the token
+	 * @throws InterruptedException 
 	 */
-	public Token getToken() {
+	public Token getToken(){
 		return token;
 	}
 	
@@ -89,7 +90,9 @@ public abstract class ClientData {
 	public synchronized String getBuffer() throws InterruptedException {
 		while(buffer==null)
 			this.wait();
-		return buffer;
+		String response=buffer;
+		buffer=null;		//serve per poter fare più partite
+		return response;
 	}
 
 	/**
@@ -113,15 +116,19 @@ public abstract class ClientData {
 	 * @param view
 	 */
 
-	public void setView(ViewForPlayer view) {
+	public synchronized void setView(ViewForPlayer view) {
 		this.view = view;
+		this.notifyAll();
 	}
 
 	/**
 	 * @return the view
+	 * @throws InterruptedException 
 	 */
 
-	public ViewForPlayer getView() {
+	public synchronized ViewForPlayer getView() throws InterruptedException {
+		while(this.view==null)
+			this.wait();
 		return view;
 	}
 }

@@ -8,7 +8,7 @@ public class ShowMessage implements Runnable {
 	private ClientData cd;
 	ClientMessage clientMessage;
 
-	public ShowMessage(ClientData cd) {
+	public ShowMessage(ClientData cd) throws InterruptedException {
 		this.cd=cd;
 		clientMessage=new ClientMessage(cd.getView().getNumberPlayer());
 	}

@@ -80,11 +80,6 @@ public class GameController {
 		return dtoGame;
 	}
 
-	public synchronized void setChangeTurn() {
-		this.notifyAll(); // notifica al thread che segue i giocatori che il
-							// turno è finito
-	}
-
 	/**
 	 * This method is called at the end of each turn. First of all, it controls
 	 * if the game is finished before 39 rounds: if yes, communicates how game
@@ -176,9 +171,17 @@ public class GameController {
 	 */
 	public synchronized void getChangeTurn(int turnPreviousNumber,
 			int playerPreviousNumber) throws InterruptedException {
-		if (turnPreviousNumber != round
-				|| playerPreviousNumber != currentNumberPlayer)
+		if (turnPreviousNumber == round	&& playerPreviousNumber == currentNumberPlayer)
 			this.wait();
+	}
+	
+	/**
+	 * 
+	 */
+
+	public synchronized void setChangeTurn() {
+		this.notifyAll(); // notifica al thread che segue i giocatori che il
+							// turno è finito
 	}
 
 	/**

@@ -109,9 +109,7 @@ public class RMIRoom implements Actions{
 		GameDescription gameDescription;
 		gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());
 		DTOGame dtoGame=new DTOGame();
-		System.out.println("Aspetto messaggi dal Pub-Sub");
 		dtoGame=gameDescription.getBroker().getPlayersBuffer(identification.getNumberPlayer()).getBuffer();
-		System.out.println("Messaggio arrivato");
 		return dtoGame;
 	}
 

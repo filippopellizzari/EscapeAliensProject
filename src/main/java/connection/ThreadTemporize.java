@@ -40,8 +40,9 @@ public class ThreadTemporize implements Runnable {
 			if(gameDescription.getController().getRound()==turn &&
 					gameDescription.getController().getCurrentNumberPlayer()==numberPlayer) {		//se il turno è lo stesso segnala
 				gameDescription.getController().setChangeTurn();	// notifico cambio di turno
-				gameDescription.setStatus(); // libera il controller
+				System.out.println("Sono il timer notifico il cambiamento");
 			}
+			gameDescription.setStatus(); // libera il controller
 			System.out.println("Sono il timer ho finito il turno");
 		} catch (InterruptedException e) {
 			System.err.print("Errore nel temporize del turno");

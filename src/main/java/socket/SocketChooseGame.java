@@ -59,9 +59,7 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 				clientData.setView((ViewForPlayer)in.readObject()); //ecco la view
 				DTOGame dtoGame=new DTOGame();
 				do {
-					System.out.println("Aspetto messaggi dal Pub-Sub");
 					dtoGame=(DTOGame)in.readObject();
-					System.out.println("Messaggio arrivato");
 					clientData.setDtoGameList(dtoGame);
 				}while(dtoGame.getActionType()!=ActionType.ENDGAME);
 			}

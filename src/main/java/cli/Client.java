@@ -48,8 +48,8 @@ public class Client {
 			resultChooseMap=cd.getBuffer();
 			System.out.println(resultChooseMap);
 		}while(resultChooseMap.contains("Tempo Scaduto e 1 solo giocatore, partita annullata"));
-		System.out.println("NumeroGiocatore: "+cd.getView().getNumberPlayer());
-		System.out.println("TipoGiocatore: "+cd.getView().getPlayerType());
+		System.out.println("Numero Giocatore: "+cd.getView().getNumberPlayer());
+		System.out.println("Tipo giocatore: " +cd.getView().getPlayerType());
 		System.out.println("Casella: "+cd.getView().getCoordinate());
 		Thread showMessage=new Thread(new ShowMessage(cd));
 		showMessage.start();

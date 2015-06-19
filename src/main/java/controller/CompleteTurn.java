@@ -59,21 +59,40 @@ public class CompleteTurn {
 			checkMustDraw();
 			checkMustNoise();
 		} while (condizione < 4);
-
 		return dtoGameList;
 	}
 
 	private void checkMove() throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
 		if (!status.isMoved()) {
-			Coordinate randomCoord = status.getPlayer().getSector()
-					.getAdjacent().get(random.nextInt(6));
-			if (!status.getGame().getMap().isNull(randomCoord)) {
-				dtoTurn = new DTOTurn(randomCoord, null, ActionType.MOVE);
-				dtoGame = new DTOGame();
-				dtoGame = currentTurn.action(dtoTurn);
-				dtoGameList.add(dtoGame);
+			boolean findSector=false;
+			for(int i=0;i<6 && !findSector;i++) {
+				Coordinate randomCoord = status.getPlayer().getSector()
+					.getAdjacent().get(i);
+				if (!status.getGame().getMap().isNull(randomCoord) &&
+						!status.getGame().getMap().getSector(randomCoord).isClosed()) {
+					status.getGame().getMap().getSector(randomCoord).addPlayer(status.getPlayer());
+					status.getPlayer().setSector(status.getGame().getMap().getSector(randomCoord));
+					status.setMoved(true);
+					findSector=true;
+					dtoGame = new DTOGame();
+					dtoGame.setActionType(ActionType.MOVE);
+					dtoGame.setCoordinate(randomCoord, status.getPlayer().getNumber());
+					dtoGameList.add(dtoGame);
+				}
 			}
+		} else {
+			condizione++;
+		}
+	}
+
+	private void checkMustDraw() throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
+		if (status.isMustDraw()) {
+			dtoTurn = new DTOTurn(null, null, ActionType.DRAWSECTORCARD);
+			dtoGame = new DTOGame();
+			dtoGame = currentTurn.action(dtoTurn);
+			dtoGameList.add(dtoGame);
 		} else {
 			condizione++;
 		}
@@ -92,18 +111,6 @@ public class CompleteTurn {
 			condizione++;
 		}
 
-	}
-
-	private void checkMustDraw() throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException {
-		if (status.isMustDraw()) {
-			dtoTurn = new DTOTurn(null, null, ActionType.DRAWSECTORCARD);
-			dtoGame = new DTOGame();
-			dtoGame = currentTurn.action(dtoTurn);
-			dtoGameList.add(dtoGame);
-		} else {
-			condizione++;
-		}
 	}
 
 	private void checkMustNoise() throws ClassNotFoundException,
