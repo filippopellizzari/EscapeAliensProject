@@ -100,6 +100,7 @@ public class GameController {
 		String end = new EndGame(game).control();
 		if (end != null) {
 			disconnectAll();
+			round = TOT_ROUNDS + 1;
 			dtoGame.setGameMessage(end);
 			dtoGame.setReceiver(9);
 			return dtoGame;
