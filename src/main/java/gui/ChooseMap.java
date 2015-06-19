@@ -33,18 +33,20 @@ public class ChooseMap extends JPanel {
 		submit.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				String mapName = null;
 				if (fermi.isSelected()) {
-					System.out.println("You choosed fermi");
+					mapName = fermi.getText();
 				}
 				if (galilei.isSelected()) {
-					System.out.println("You choosed galilei");
+					mapName = galilei.getText();
 				}
 				if (galvani.isSelected()) {
-					System.out.println("You choosed galvani");
+					mapName = galvani.getText();
 				}
-
+				System.out.println("You choosed "+mapName);
+			
 				setVisible(false);
-				new GameTable(frame);
+				new GameTable(frame,mapName);
 
 			}
 		});
