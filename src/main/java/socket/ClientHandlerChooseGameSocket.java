@@ -87,8 +87,6 @@ public class ClientHandlerChooseGameSocket implements Processing{
 	 */
 
 	private void putInWait(DetailsPlayers detailsYourGame) throws InterruptedException {
-		System.out.println("Sono il thread connessione aspetto il buffer");
 		detailsYourGame.getBuffer();		//se è vuoto fermati e aspetta
-		System.out.println("Sono il thread connessione ricevuto il buffer");
 	}
 }

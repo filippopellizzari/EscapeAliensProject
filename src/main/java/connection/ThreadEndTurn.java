@@ -27,7 +27,7 @@ public class ThreadEndTurn implements Runnable {
 	
 	public ThreadEndTurn(GameDescription gameDescription) {
 		this.gameDescription = gameDescription;
-		this.time = 150;
+		this.time = 50;
 	}
 	
 	/**

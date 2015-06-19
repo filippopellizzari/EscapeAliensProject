@@ -92,15 +92,11 @@ public class RMIRoom implements Actions{
 
 	
 	private void putInWait(DetailsPlayers detailsYourGame) throws InterruptedException {
-		System.out.println("Sono il thread connessione aspetto il buffer");
 		detailsYourGame.getBuffer();		//se è vuoto fermati e aspetta
-		System.out.println("Sono il thread connessione ricevuto il buffer");
 	}
 	
 	private void putInWaitAction(GameDescription gameDescription) throws InterruptedException {
-		System.out.println("Sono il thread connessione");
 		gameDescription.getStatus();		//se è vuoto fermati e aspetta
-		System.out.println("Sono il thread connessione mi sveglio");
 	}
 
 	@Override

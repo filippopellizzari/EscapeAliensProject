@@ -60,6 +60,7 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 				DTOGame dtoGame=new DTOGame();
 				do {
 					dtoGame=(DTOGame)in.readObject();
+					System.out.println("Ricevuto messaggio");
 					clientData.setDtoGameList(dtoGame);
 				}while(dtoGame.getActionType()!=ActionType.ENDGAME);
 			}
