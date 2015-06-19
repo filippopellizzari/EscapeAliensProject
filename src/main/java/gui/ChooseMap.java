@@ -1,7 +1,8 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -9,11 +10,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-public class Connection extends JPanel {
+public class ChooseMap extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public Connection(final JFrame frame) {
+	public ChooseMap(final JFrame frame) {
 
 		super(new BorderLayout());
 		setOpaque(true);
@@ -21,46 +22,54 @@ public class Connection extends JPanel {
 		setBackground(Color.BLACK);
 
 		// buttons
-		final JRadioButton rmiButton = new JRadioButton("RMI");
-		rmiButton.setSelected(true);
+		final JRadioButton fermi = new JRadioButton("Fermi");
+		fermi.setSelected(true);
 
-		final JRadioButton socketButton = new JRadioButton("Socket");
+		final JRadioButton galilei = new JRadioButton("Galilei");
+
+		final JRadioButton galvani = new JRadioButton("Galvani");
 
 		JButton submit = new JButton("Submit");
 		submit.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (rmiButton.isSelected()) {
-					System.out.println("You choosed RMI");
+				if (fermi.isSelected()) {
+					System.out.println("You choosed fermi");
 				}
-				if (socketButton.isSelected()) {
-					System.out.println("You choosed socket");
+				if (galilei.isSelected()) {
+					System.out.println("You choosed galilei");
 				}
+				if (galvani.isSelected()) {
+					System.out.println("You choosed galvani");
+				}
+
 				setVisible(false);
-				new ChooseMap(frame);
+				new GameTable(frame);
 
 			}
 		});
 
 		// buttonGroup
 		ButtonGroup group = new ButtonGroup();
-		group.add(rmiButton);
-		group.add(socketButton);
+		group.add(fermi);
+		group.add(galilei);
+		group.add(galvani);
 		group.add(submit);
 
 		// image
 		ImageIcon image = loadImage("rsc" + File.separatorChar
-				+ "startImage.jpg");
+				+ "chooseImage.jpg");
 		JLabel imageContainer = new JLabel();
 		imageContainer.setIcon(image);
 		imageContainer.setSize(image.getIconWidth(), image.getIconHeight());
 
-		// put buttons in a column in a panel
+		// put buttons in a column in a panel.
 		JPanel radioPanel = new JPanel(new GridLayout(0, 1));
-		radioPanel.setBorder(new TitledBorder("Scegli la connessione"));
+		radioPanel.setBorder(new TitledBorder("Scegli una mappa"));
 		radioPanel.setBackground(Color.GRAY);
-		radioPanel.add(rmiButton);
-		radioPanel.add(socketButton);
+		radioPanel.add(fermi);
+		radioPanel.add(galilei);
+		radioPanel.add(galvani);
 		radioPanel.add(submit);
 
 		// layout

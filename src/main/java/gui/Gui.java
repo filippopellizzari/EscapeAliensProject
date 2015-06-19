@@ -1,31 +1,27 @@
 package gui;
 
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 public class Gui {
-	
 	
 	private static void createAndShowGUI() {
 
 		JFrame frame = new JFrame("EscapeFromTheAliens");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setMinimumSize(new Dimension(400, 400));
-		frame.setLocationRelativeTo(null); //frame al centro
+		frame.setResizable(false);
 		
-		JComponent connection = new Connection();
-		connection.setOpaque(true);
-        frame.setContentPane(connection);
+		frame.setPreferredSize(new Dimension(600,800));
+		frame.setSize(600, 800);
+		
+		//frame al centro dello schermo
+		frame.setLocationRelativeTo(null); 
+		
+		new Connection(frame);
 		
 		frame.pack();
-		frame.setVisible(true);
-
+		frame.setVisible(true);	
 	}
 	
 	public static void main(String[] args) {
