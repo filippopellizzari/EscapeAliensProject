@@ -46,7 +46,6 @@ public class Client {
 		do {
 			chooseMap();
 			resultChooseMap=cd.getBuffer();
-			System.out.println(resultChooseMap);
 		}while(resultChooseMap!="Tempo Scaduto e 1 solo giocatore, partita annullata");
 		System.out.println("NumeroGiocatore: "+cd.getView().getNumberPlayer());
 		System.out.println("TipoGiocatore: "+cd.getView().getPlayerType());
@@ -91,8 +90,5 @@ public class Client {
 			cd.clickOnStartGame(new TypeOfMap(MapName.Galvani, MapType.HEXAGONAL));
 			break;
 		}
-		System.out.println(cd.getBuffer()); 		//stampa il messaggio
-
 	}
-
 }

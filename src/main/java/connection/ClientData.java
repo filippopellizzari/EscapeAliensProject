@@ -83,9 +83,12 @@ public abstract class ClientData {
 
 	/**
 	 * @return the buffer
+	 * @throws InterruptedException 
 	 */
 
-	public String getBuffer() {
+	public synchronized String getBuffer() throws InterruptedException {
+		while(buffer.size()==0)
+			this.wait();
 		return buffer.remove(0);
 	}
 

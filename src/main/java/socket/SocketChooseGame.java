@@ -50,14 +50,14 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 			out.flush();
 			out.writeObject(typeOfMapChoose);	//send the map
 			out.flush();
-			Message message;
-			message=(Message)in.readObject();
-			System.out.println(message.getMessage());
-			clientData.setBuffer(message.getMessage());		//risposta server ricezione richiesta
-			message=(Message)in.readObject();
-			System.out.println(message.getMessage());				//il primo carattere serve per capire la risposta
-			clientData.setBuffer(message.getMessage());		//risposta server su partita
-			if(message.getMessage()!="Tempo Scaduto e 1 solo giocatore, partita annullata") {
+			String message;
+			message=(String)in.readObject();
+			System.out.println(message);
+			clientData.setBuffer(message);		//risposta server ricezione richiesta
+			message=(String)in.readObject();
+			System.out.println(message);
+			clientData.setBuffer(message);		//risposta server su partita
+			if(message.contains("Partita pronta, Turno Giocatore 1")) {
 				clientData.setView((ViewForPlayer)in.readObject()); //ecco la view
 				DTOGame dtoGame=new DTOGame();
 				do {
@@ -75,3 +75,13 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 		} 
 	}
 }
+
+/*Message message;
+String
+message=(Message)in.readObject();
+System.out.println(message.getMessage());
+clientData.setBuffer(message.getMessage());		//risposta server ricezione richiesta
+message=(Message)in.readObject();
+System.out.println(message.getMessage());				//il primo carattere serve per capire la risposta
+clientData.setBuffer(message.getMessage());		//risposta server su partita
+if(message.getMessage()*/
