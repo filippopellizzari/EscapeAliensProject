@@ -79,12 +79,6 @@ public class GameController {
 		}
 		return dtoGame;
 	}
-
-	public synchronized void setChangeTurn() {
-		this.notifyAll(); // notifica al thread che segue i giocatori che il
-							// turno è finito
-	}
-
 	
 	/**
 	 * This method is called at the end of each turn. First of all, it controls
@@ -99,9 +93,10 @@ public class GameController {
 	public synchronized DTOGame endTurn(DTOGame dtoGame) {
 
 		String end = new EndGame(game).control();
+		dtoGame.setPlayerNumber(currentNumberPlayer);
 		if (end != null) {
 			disconnectAll();
-			round = TOT_ROUNDS + 1;
+			round = TOT_ROUNDS + 1;			//turno 40
 			dtoGame.setGameMessage(end);
 			dtoGame.setReceiver(9);
 			return dtoGame;
@@ -121,11 +116,11 @@ public class GameController {
 		if (round <= TOT_ROUNDS) {
 			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 			dtoGame.setGameMessage("Turno giocatore " + currentNumberPlayer);
-		} else {
+		} 
+		else {
 			disconnectAll();
 			dtoGame.setGameMessage("Finiti i turni di gioco: gli alieni vincono");
 		}
-
 		dtoGame.setReceiver(9);
 		return dtoGame;
 
@@ -178,9 +173,17 @@ public class GameController {
 	 */
 	public synchronized void getChangeTurn(int turnPreviousNumber,
 			int playerPreviousNumber) throws InterruptedException {
-		if (turnPreviousNumber != round
-				|| playerPreviousNumber != currentNumberPlayer)
+		if (turnPreviousNumber == round	&& playerPreviousNumber == currentNumberPlayer)
 			this.wait();
+	}
+	
+	/**
+	 * Notify the turn's change
+	 */
+
+	public synchronized void setChangeTurn() {
+		this.notifyAll(); // notifica al thread che segue i giocatori che il
+							// turno è finito
 	}
 
 	/**

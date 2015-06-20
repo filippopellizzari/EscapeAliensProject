@@ -17,7 +17,7 @@ public abstract class ClientData {
 	protected Token token;
 	protected ViewForPlayer view;
 	protected List<DTOGame> dtoGameList;
-	protected List<String> buffer;
+	protected String buffer;
 	
 	/**
 	 * Initialize a new Client Data
@@ -26,7 +26,7 @@ public abstract class ClientData {
 	public ClientData() {
 		this.token = new Token(-1);
 		this.dtoGameList = new ArrayList<DTOGame>();
-		this.buffer = new ArrayList<String>();
+		this.buffer = null;
 	}
 
 	public abstract void clickOnConnection() throws UnknownHostException,
@@ -55,8 +55,9 @@ public abstract class ClientData {
 
 	/**
 	 * @return the token
+	 * @throws InterruptedException 
 	 */
-	public Token getToken() {
+	public Token getToken(){
 		return token;
 	}
 	
@@ -83,18 +84,24 @@ public abstract class ClientData {
 
 	/**
 	 * @return the buffer
+	 * @throws InterruptedException 
 	 */
 
-	public String getBuffer() {
-		return buffer.remove(0);
+	public synchronized String getBuffer() throws InterruptedException {
+		while(buffer==null)
+			this.wait();
+		String response=buffer;
+		buffer=null;		//serve per poter fare più partite
+		return response;
 	}
 
 	/**
 	 * @param buffer
 	 */
 
-	public void setBuffer(String buffer) {
-		this.buffer.add(buffer);
+	public synchronized void setBuffer(String buffer) {
+		this.buffer=buffer;
+		this.notifyAll();
 	}
 
 	/**
@@ -109,15 +116,19 @@ public abstract class ClientData {
 	 * @param view
 	 */
 
-	public void setView(ViewForPlayer view) {
+	public synchronized void setView(ViewForPlayer view) {
 		this.view = view;
+		this.notifyAll();
 	}
 
 	/**
 	 * @return the view
+	 * @throws InterruptedException 
 	 */
 
-	public ViewForPlayer getView() {
+	public synchronized ViewForPlayer getView() throws InterruptedException {
+		while(this.view==null)
+			this.wait();
 		return view;
 	}
 }

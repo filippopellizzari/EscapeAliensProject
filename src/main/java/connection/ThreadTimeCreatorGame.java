@@ -19,10 +19,6 @@ public class ThreadTimeCreatorGame implements Runnable {
 	
 	public ThreadTimeCreatorGame(DetailsPlayers details) {	//dati con mappa da creare
 		this.details=details;
-		System.out.println("creazione di una nuova partita");
-		System.out.println(details.getMapType().getMapName());
-		System.out.println(details.getStatus());
-		System.out.println(details.getNumberOfPlayers());
 	}
 	
 	/**
@@ -33,11 +29,9 @@ public class ThreadTimeCreatorGame implements Runnable {
 	public void run() {
 		try {
 			if(details.getNumberOfPlayers()==0) {
-				System.out.println("partita senza 2 giocatori");
 				details.setBuffer("Tempo Scaduto e 1 solo giocatore, partita annullata");
 			}
 			else {
-				System.out.println("start creazine");
 				CreateEntireGame createGame=new CreateEntireGame();		//crea gioco
 				details.setGameId(createGame.createGameController(details.getMapType(), details.getNumberOfPlayers()+1));
 				details.setView(createGame.getViews()); 		//metto le view accessibili ai players

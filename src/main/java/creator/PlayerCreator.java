@@ -1,5 +1,7 @@
 package creator;
 
+import java.util.Random;
+
 import model.*;
 
 /**
@@ -46,7 +48,7 @@ public class PlayerCreator {
 	
 	private Player createAlien(int numberOfPlayer) {
 		Player alien =new Player(PlayerType.ALIEN, map.getSector(alienSector), 2, numberOfPlayer);
-		map.getSector(humanSector).addPlayer(alien);	//aggiunge il giocatore al settore
+		map.getSector(alienSector).addPlayer(alien);	//aggiunge il giocatore al settore
 		return alien;
 	}
 	
@@ -60,11 +62,32 @@ public class PlayerCreator {
 	
 	public Player[] createPlayer(int totPlayers) {  
 		Player[] players = new Player[totPlayers];
-		int i;
-		for(i=0; i<totPlayers/2; i++)
-			players[i] = createHuman(i);
-		for(int j=i; j<totPlayers; j++)
-			players[j] = createAlien(j);
+		Random random = new Random();
+		int human=totPlayers/2;
+		int alien=totPlayers-human;
+		for(int i=0; i<totPlayers; i++) {
+			if(alien>0 && human>0) {
+				boolean chooseAlien=random.nextBoolean();
+				if(chooseAlien) {
+					players[i]=createAlien(i);
+					alien--;
+				}
+				else {
+					players[i] = createHuman(i);
+					human--;
+				}
+			}
+			else {
+				if(human>0) {
+					players[i] = createHuman(i);
+					human--;
+				}
+				else{
+					players[i]=createAlien(i);
+					alien--;
+				}
+			}
+		}
 		return players;
 	}
 }

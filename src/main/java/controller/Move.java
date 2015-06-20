@@ -38,7 +38,10 @@ public class Move implements ChooseAnAction {
 
 		Player player = status.getPlayer();
 		Sector destSector = status.getGame().getMap().getSector(dest);
-
+		if(destSector.isClosed()) 	//controlli se il personaggio può effettivamente andare nel settore
+			return false;
+		if(player.getType()==PlayerType.ALIEN && destSector.getType()==SectorType.HATCH)
+			return false;
 		return pathCheck(player.getSector().getCoordinate(), dest,
 				player.getSpeed())
 				&& destCheck(player, destSector);
@@ -82,8 +85,9 @@ public class Move implements ChooseAnAction {
 				if(!status.getGame().getMap().isNull(adjCoord)){
 					Sector adjSector = status.getGame().getMap()
 							.getSector(adjCoord);
-					if (!adjSector.isClosed()) {
 						speed--;
+						if(adjSector.getCoordinate().equals(dest))
+							return true;
 						if (pathCheck(adjCoord, dest, speed)) {
 							return true;
 						}
@@ -92,7 +96,6 @@ public class Move implements ChooseAnAction {
 
 				}
 			}
-		}
 		return false;
 	}
 

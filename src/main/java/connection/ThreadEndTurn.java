@@ -41,19 +41,18 @@ public class ThreadEndTurn implements Runnable {
 			boolean goOn=true;
 			Thread temporize;
 			List<DTOGame> list = new ArrayList<DTOGame>();
+			int turn = 1;
+			int numberPlayer = 0;
 			do {
-				int turn = 0;
-				int numberPlayer = 0;
-				System.out.println("Sono il fine turno mi metto in attesa");
-				temporize = new Thread(new ThreadTemporize(time,gameDescription));
+				temporize = new Thread(new ThreadTemporize(time,gameDescription,turn,numberPlayer));
 				temporize.start();
+				System.out.println("Sono il fine turno mi metto in attesa");
 				gameDescription.getController().getChangeTurn(turn,	numberPlayer); // aspetta un'azione
-				if (temporize != null)
-					temporize.stop(); // ferma timer
 				gameDescription.getStatus();
 				if(turn == gameDescription.getController().getRound()&&
 						numberPlayer==gameDescription.getController().getCurrentNumberPlayer()) {	//vedo se devo finire il turno
 					try {
+						System.out.println("completo il turno");
 						list = gameDescription.getController().completeTurn();
 					} catch (ClassNotFoundException | InstantiationException
 							| IllegalAccessException e) {
@@ -64,6 +63,7 @@ public class ThreadEndTurn implements Runnable {
 				numberPlayer = gameDescription.getController().getCurrentNumberPlayer();
 				System.out.println("Sono il fine turno ho cambiato il turno");
 				gameDescription.setStatus(); // libera il controller
+				System.out.println("Lunghezza lista: "+list.size());
 				while (list.size() > 0)
 					gameDescription.getBroker().publish(list.remove(0));
 				if(turn>=40) {

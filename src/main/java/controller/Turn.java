@@ -74,6 +74,7 @@ public class Turn {
 		default:
 			break;
 		}
+		response.setPlayerNumber(status.getPlayer().getNumber()); 		//numero giocatore
 		return response;
 	}
 

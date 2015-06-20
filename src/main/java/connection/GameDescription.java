@@ -94,11 +94,9 @@ public class GameDescription {
 	 */
 	
 	public synchronized void getStatus() throws InterruptedException {		//se il controller è impegnato aspetta fino a che non si libera
-		System.out.println("Aspetto che il controller sia libero");
 		while(statusController==StatusController.BUSY) 
 			this.wait();
 		statusController=StatusController.BUSY;
-		System.out.println("Prendo il controller");
 	}
 	
 	/**
@@ -108,6 +106,5 @@ public class GameDescription {
 	public synchronized void setStatus() {					//libera la risorsa e avvisa tutti
 		statusController=StatusController.FREE;
 		this.notifyAll();
-		System.out.println("Libero il controller");
 	}
 }

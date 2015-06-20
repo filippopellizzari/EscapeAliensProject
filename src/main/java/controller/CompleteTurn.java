@@ -59,21 +59,51 @@ public class CompleteTurn {
 			checkMustDraw();
 			checkMustNoise();
 		} while (condizione < 4);
-
+		for(int i=0;i<dtoGameList.size();i++) {
+			if(dtoGameList.get(i).getReceiver()==9) {		//serve per far pervenire l'azione anche a chi la fatta 
+				//simulando la comunicazione client server
+				DTOGame dtoGameSimulationClientServer=new DTOGame();
+				dtoGameSimulationClientServer.setActionType(dtoGameList.get(i).getActionType());
+				dtoGameSimulationClientServer.setGameMessage(dtoGameList.get(i).getGameMessage());
+				dtoGameSimulationClientServer.setHatchCardColor(dtoGameList.get(i).getHatchCardColor());
+				dtoGameSimulationClientServer.setItemCardType(dtoGameList.get(i).getItemCardType());
+				dtoGameSimulationClientServer.setPlayerNumber(dtoGameList.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setReceiver(dtoGameList.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setSectorCardType(dtoGameList.get(i).getSectorCardType());
+				dtoGameList.add(dtoGameSimulationClientServer);
+			}
+		}
 		return dtoGameList;
 	}
 
 	private void checkMove() throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
 		if (!status.isMoved()) {
-			Coordinate randomCoord = status.getPlayer().getSector()
-					.getAdjacent().get(random.nextInt(6));
-			if (!status.getGame().getMap().isNull(randomCoord)) {
-				dtoTurn = new DTOTurn(randomCoord, null, ActionType.MOVE);
-				dtoGame = new DTOGame();
-				dtoGame = currentTurn.action(dtoTurn);
-				dtoGameList.add(dtoGame);
+			boolean findSector=false;
+			for(int i=0;i<6 && !findSector;i++) {
+				Coordinate randomCoord = status.getPlayer().getSector()
+					.getAdjacent().get(i);
+				if (!status.getGame().getMap().isNull(randomCoord) &&
+						!status.getGame().getMap().getSector(randomCoord).isClosed()) {
+					dtoTurn = new DTOTurn(randomCoord, null, ActionType.MOVE);
+					dtoGame = new DTOGame();
+					dtoGame = currentTurn.action(dtoTurn);
+					dtoGameList.add(dtoGame);
+					findSector=true;
+				}
 			}
+		} else {
+			condizione++;
+		}
+	}
+
+	private void checkMustDraw() throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
+		if (status.isMustDraw()) {
+			dtoTurn = new DTOTurn(null, null, ActionType.DRAWSECTORCARD);
+			dtoGame = new DTOGame();
+			dtoGame = currentTurn.action(dtoTurn);
+			dtoGameList.add(dtoGame);
 		} else {
 			condizione++;
 		}
@@ -92,18 +122,6 @@ public class CompleteTurn {
 			condizione++;
 		}
 
-	}
-
-	private void checkMustDraw() throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException {
-		if (status.isMustDraw()) {
-			dtoTurn = new DTOTurn(null, null, ActionType.DRAWSECTORCARD);
-			dtoGame = new DTOGame();
-			dtoGame = currentTurn.action(dtoTurn);
-			dtoGameList.add(dtoGame);
-		} else {
-			condizione++;
-		}
 	}
 
 	private void checkMustNoise() throws ClassNotFoundException,

@@ -53,21 +53,20 @@ public class ClientHandlerGameSocket implements Processing{
 	public void start() {
 		try {
 			this.dtoSend=(DTOSend)in.readObject();				//ricevo i dati
-			dtoSend.setNumberPlayer(numberPlayer);  			//metto il tuo numero
-			DTOGame dtoGame=new DTOGame();
-			dtoGame.setPlayerNumber(numberPlayer);  			//giocatore che manda il messaggio
+			dtoSend.setNumberPlayer(numberPlayer);
+			DTOGame dtoGame=new DTOGame();			//giocatore che manda il messaggio
 			if(dtoSend.getActionType()==ActionType.CHAT) {
 				dtoGame.setReceiver(9);
 				dtoGame.setActionType(ActionType.CHAT);
 				dtoGame.setChat(dtoSend.getChat());
-				dtoGame.setPlayerNumber(numberPlayer);
+				dtoGame.setPlayerNumber(numberPlayer); 
 			}
 			else {
 				putInWait();
 				dtoGame=gameDescription.getController().doAnAction(dtoSend);
 				gameDescription.setStatus();	//ho finito
 			}
-			if(dtoGame.getReceiver()==9) {		//usa il publisher
+			if(dtoGame.getReceiver()==9 || dtoGame.getReceiver()==10) {		//usa il publisher
 				gameDescription.getBroker().publish(dtoGame);
 			}
 			out.writeObject((DTOGame)dtoGame);

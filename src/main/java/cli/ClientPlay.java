@@ -71,7 +71,7 @@ public class ClientPlay {
 	}	
 	
 	
-	private void move() throws UnknownHostException, IOException{
+	private void move() throws UnknownHostException, IOException, InterruptedException{
 		System.out.println("Inserisci le coordinate:\n Lettera:\n");
 		char letteraMove = in.next().charAt(0);
 		int xMove = (int)letteraMove - 96; //converto char in intero
@@ -82,12 +82,12 @@ public class ClientPlay {
 		cd.clickOnDoMove(dtoSend);
 	}
 	
-	private void attack() throws UnknownHostException, IOException{
+	private void attack() throws UnknownHostException, IOException, InterruptedException{
 		dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(), null, ActionType.ATTACK, null);
 		cd.clickOnDoMove(dtoSend);
 	}
 	
-	private void useItem() throws UnknownHostException, IOException{
+	private void useItem() throws UnknownHostException, IOException, InterruptedException{
 		System.out.println("Scegli tipo:\n 1: ATTACK\n 2: TELEPORT\n 3: SEDATIVES\n 4: SPOTLIGHT\n 5: ADRENALINE");
 		int typeToUse = in.nextInt();
 		switch(typeToUse){
@@ -116,7 +116,7 @@ public class ClientPlay {
 		}
 	}
 	
-	private void discard() throws UnknownHostException, IOException{
+	private void discard() throws UnknownHostException, IOException, InterruptedException{
 		System.out.println("Scegli tipo:\n 1: ATTACK\n 2: TELEPORT\n 3: SEDATIVES\n 4: SPOTLIGHT\n 5: ADRENALINE");
 		int typeToDiscard = in.nextInt();
 		switch(typeToDiscard){
@@ -145,12 +145,12 @@ public class ClientPlay {
 		}
 	}
 	
-	private void draw() throws UnknownHostException, IOException{
+	private void draw() throws UnknownHostException, IOException, InterruptedException{
 		dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(), null, ActionType.DRAWSECTORCARD, null);
 		cd.clickOnDoMove(dtoSend);
 	}
 	
-	private void noise() throws UnknownHostException, IOException{
+	private void noise() throws UnknownHostException, IOException, InterruptedException{
 		System.out.println("Inserisci le coordinate:\n Lettera:\n");
 		char letteraSelect = in.next().charAt(0);
 		int xSelect = (int)letteraSelect - 96; //converto char in intero
@@ -161,12 +161,12 @@ public class ClientPlay {
 		cd.clickOnDoMove(dtoSend);
 	}
 	
-	private void endTurn() throws UnknownHostException, IOException{
+	private void endTurn() throws UnknownHostException, IOException, InterruptedException{
 		dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(), null, ActionType.ENDTURN, null);
 		cd.clickOnDoMove(dtoSend);
 	}
 	
-	private void chat() throws UnknownHostException, IOException{
+	private void chat() throws UnknownHostException, IOException, InterruptedException{
 		String mess = in.nextLine();
 		dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(), null, ActionType.CHAT, mess);
 		cd.clickOnDoMove(dtoSend);

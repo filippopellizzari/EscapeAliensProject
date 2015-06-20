@@ -50,20 +50,17 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 			out.flush();
 			out.writeObject(typeOfMapChoose);	//send the map
 			out.flush();
-			Message message;
-			message=(Message)in.readObject();
-			System.out.println(message.getMessage());
-			clientData.setBuffer(message.getMessage());		//risposta server ricezione richiesta
-			message=(Message)in.readObject();
-			System.out.println(message.getMessage());				//il primo carattere serve per capire la risposta
-			clientData.setBuffer(message.getMessage());		//risposta server su partita
-			if(message.getMessage()!="Tempo Scaduto e 1 solo giocatore, partita annullata") {
+			String message;
+			message=(String)in.readObject();
+			System.out.println(message);
+			message=(String)in.readObject();
+			clientData.setBuffer(message);		//risposta server su partita
+			if(message.contains("Partita pronta, Turno Giocatore 1")) {
 				clientData.setView((ViewForPlayer)in.readObject()); //ecco la view
 				DTOGame dtoGame=new DTOGame();
 				do {
-					System.out.println("Aspetto messaggi dal Pub-Sub");
 					dtoGame=(DTOGame)in.readObject();
-					System.out.println("Messaggio arrivato");
+					System.out.println("Ricevuto messaggio");
 					clientData.setDtoGameList(dtoGame);
 				}while(dtoGame.getActionType()!=ActionType.ENDGAME);
 			}

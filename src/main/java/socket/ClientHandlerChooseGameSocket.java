@@ -47,12 +47,12 @@ public class ClientHandlerChooseGameSocket implements Processing{
 		try {
 			TypeOfMap chooseOfThePlayer=(TypeOfMap)in.readObject();
 			DetailsPlayers detailsYourGame=dataBaseForSubscribe.subscribe(chooseOfThePlayer);		//hai i dettagli della partita in corso
-			Message message=new Message("Iscrizione Ricevuta");
+			String message="Iscrizione Ricevuta";
 			out.writeObject(message);
 			out.flush();	//svuota buffer
 			putInWait(detailsYourGame);
-			message=new Message(detailsYourGame.getBuffer());
-			if(message.getMessage()=="Partita pronta, Turno Giocatore 1") {
+			message=detailsYourGame.getBuffer();
+			if(message.contains("Partita pronta, Turno Giocatore 1")) {
 				int numberGame=detailsYourGame.getGameId();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(numberGame);	//numero partita
 				ViewForPlayer myView=detailsYourGame.getView();
@@ -61,7 +61,6 @@ public class ClientHandlerChooseGameSocket implements Processing{
 				out.flush();
 				out.writeObject(myView); 	//manda la view al client
 				out.flush();
-				System.out.println("Scritto view");
 				ListOfStartedGame list=ListOfStartedGame.getinstance();
 				int numberOfPlayer=myView.getNumberPlayer();
 				DTOGame dtoGame=new DTOGame();
@@ -71,6 +70,10 @@ public class ClientHandlerChooseGameSocket implements Processing{
 					out.writeObject(dtoGame);
 					out.flush();
 				}while(dtoGame.getActionType()!=ActionType.ENDGAME);
+			}
+			else {
+				out.writeObject(message);								//manda il messaggio
+				out.flush();
 			}
 		} catch (IOException | ClassNotFoundException | InterruptedException e) {
 			System.err.println(e.getMessage());
@@ -84,8 +87,6 @@ public class ClientHandlerChooseGameSocket implements Processing{
 	 */
 
 	private void putInWait(DetailsPlayers detailsYourGame) throws InterruptedException {
-		System.out.println("Sono il thread connessione aspetto il buffer");
 		detailsYourGame.getBuffer();		//se è vuoto fermati e aspetta
-		System.out.println("Sono il thread connessione ricevuto il buffer");
 	}
 }
