@@ -44,6 +44,7 @@ public class Move implements ChooseAnAction {
 				&& destCheck(player, destSector);
 	}
 
+	
 	/**
 	 * 
 	 * check that an alien can not move to an escape hatch sector
