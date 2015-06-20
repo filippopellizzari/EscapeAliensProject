@@ -38,10 +38,7 @@ public class Move implements ChooseAnAction {
 
 		Player player = status.getPlayer();
 		Sector destSector = status.getGame().getMap().getSector(dest);
-		if(destSector.isClosed()) 	//controlli se il personaggio può effettivamente andare nel settore
-			return false;
-		if(player.getType()==PlayerType.ALIEN && destSector.getType()==SectorType.HATCH)
-			return false;
+	
 		return pathCheck(player.getSector().getCoordinate(), dest,
 				player.getSpeed())
 				&& destCheck(player, destSector);
@@ -82,20 +79,21 @@ public class Move implements ChooseAnAction {
 			Sector currSector = status.getGame().getMap().getSector(curr);
 			for (int i = 0; i < currSector.getAdjacent().size(); i++) {
 				Coordinate adjCoord = currSector.getAdjacent().get(i);
-				if(!status.getGame().getMap().isNull(adjCoord)){
+				if (!status.getGame().getMap().isNull(adjCoord)) {
 					Sector adjSector = status.getGame().getMap()
 							.getSector(adjCoord);
+					if (!adjSector.isClosed()) {
 						speed--;
-						if(adjSector.getCoordinate().equals(dest))
-							return true;
+
 						if (pathCheck(adjCoord, dest, speed)) {
 							return true;
 						}
 						speed++;
 					}
-
 				}
+
 			}
+		}
 		return false;
 	}
 
@@ -163,7 +161,7 @@ public class Move implements ChooseAnAction {
 		}
 		status.getGame().getHatchCards().discard(current);
 	}
-	
+
 	private void removeAllItems(Player player) {
 		int numItems = player.getItem().size();
 		for (int i = 0; i < numItems; i++) {
