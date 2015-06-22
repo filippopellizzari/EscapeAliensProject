@@ -2,7 +2,6 @@ package model;
 
 /**
  * This class simulate one hatchCard, all of this cards are in a deck 
- * 
  * @see HatchCards
  * @author Nicola
  *
@@ -13,7 +12,6 @@ public class HatchCard {
 	private  HatchCardColor color;
 	
 	/**
-	 * 
 	 * @param color use for create the card, it is the only attribute of this class
 	 */
 	
@@ -22,7 +20,6 @@ public class HatchCard {
 	}
 	
 	/**
-	 * 
 	 * @return return the color of the card this can be red or green
 	 * @see HatchCardColor
 	 */
@@ -30,7 +27,4 @@ public class HatchCard {
 	public HatchCardColor getColor() {
 		return color;
 	}
-	
-
-	
 }

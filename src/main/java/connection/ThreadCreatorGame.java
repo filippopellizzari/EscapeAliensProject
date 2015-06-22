@@ -3,13 +3,13 @@ package connection;
 import java.io.IOException;
 
 /**
- * This class is used to create a game if there are at least 2 player, invokes the method to create the game and when the players have taken 
- * the views deletes the game from the database of subscribing
+ * This class is used to create a game if there are at least 2 player, invokes the method to create the game 
+ * and when the players have taken the views deletes the game from the database of subscribing
  * @author Nicola
  *
  */
 
-public class ThreadTimeCreatorGame implements Runnable {
+public class ThreadCreatorGame implements Runnable {
 	DetailsPlayers details;
 	
 	/**
@@ -17,7 +17,7 @@ public class ThreadTimeCreatorGame implements Runnable {
 	 * @param details
 	 */
 	
-	public ThreadTimeCreatorGame(DetailsPlayers details) {	//dati con mappa da creare
+	public ThreadCreatorGame(DetailsPlayers details) {	//dati con mappa da creare
 		this.details=details;
 	}
 	

@@ -1,12 +1,8 @@
 package model;
 
 /**
- * 
+ * This class contains all the features of the game from players to map
  * @author Nicola
- * @see	Ma, to know the scenario of the game
- * @see HatchCards, to know number and type of hatch cards
- * @see SectorCards, to know number and type of sector cards
- * @see ItemCards, to know number and type of item cards
  *
  */
 
@@ -37,9 +33,7 @@ public class Game {
 	}
 	
 	/**
-	 * 
 	 * @return HatchCards, this is the deck and discard of Hatch cards
-	 * @see HatchCards
 	 */
 	
 	public HatchCards getHatchCards() {
@@ -47,9 +41,7 @@ public class Game {
 	}
 	
 	/**
-	 * 
 	 * @return SectorCards, this is the deck and discard of Sector cards
-	 * @see SectorCards
 	 */
 	
 	public SectorCards getSectorCards() {
@@ -57,9 +49,7 @@ public class Game {
 	}
 	
 	/**
-	 * 
 	 * @return ItemCards, this is the deck and discard of Item Hatch cards
-	 * @see ItemCards
 	 */
 	
 	public ItemCards getItemCards() {
@@ -67,9 +57,7 @@ public class Game {
 	}
 	
 	/**
-	 * 
 	 * @return the map, the Map contains all sectors
-	 * @see Map
 	 */
 	
 	public Map getMap() {
@@ -77,7 +65,6 @@ public class Game {
 	}
 	
 	/**
-	 * 
 	 * @param numberOfPlayer, used to referred at the right player
 	 * @return if player doesn't exit so return null, otherwise return correct player
 	 */
@@ -87,15 +74,10 @@ public class Game {
 	}
 
 	/**
-	 * 
 	 * @return return the array of the player used to control they status for decide if the game is finished and for test
 	 */
 
 	public Player[] getPlayers() {
 		return players;
 	}
-	
 }
-	
-	
-	

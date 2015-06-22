@@ -9,15 +9,15 @@ import java.util.List;
  *
  */
 
-public class DatabaseCreateGame {
+public class DatabaseInscriptionsForGames {
 	List<DetailsPlayers> playerWithRelativeConnection;
-	private static DatabaseCreateGame instance = new DatabaseCreateGame();
+	private static DatabaseInscriptionsForGames instance = new DatabaseInscriptionsForGames();
 	
 	/**
 	 * Create a new database
 	 */
 	
-	private DatabaseCreateGame() {
+	private DatabaseInscriptionsForGames() {
 		playerWithRelativeConnection=new ArrayList<DetailsPlayers>();
 	}
 	
@@ -26,7 +26,7 @@ public class DatabaseCreateGame {
 	 * @return
 	 */
 	
-	public static DatabaseCreateGame getinstance() {
+	public static DatabaseInscriptionsForGames getinstance() {
 		return instance;
 	}
 	
@@ -49,7 +49,7 @@ public class DatabaseCreateGame {
 			}
 		}
 		playerWithRelativeConnection.add(new DetailsPlayers(typeOfMapChoose));		//nuovo gioco
-		Thread temporize=new Thread(new Temporize(20,this,typeOfMapChoose));		//temporize con nome
+		Thread temporize=new Thread(new TimerInscriptionForGame(20,this,typeOfMapChoose));		//temporize con nome
 		temporize.start();
 		return playerWithRelativeConnection.get(playerWithRelativeConnection.size()-1);		//dagli il details player appena creato
 	}
@@ -63,7 +63,7 @@ public class DatabaseCreateGame {
 		System.out.println("Chiusura iscrizione partita");
 		if(playerWithRelativeConnection.get(numberGame).getStatus()==StatusCreation.OPEN) {	//controlla che sia aperto
 			playerWithRelativeConnection.get(numberGame).setStatus(StatusCreation.CLOSED);
-			Thread newGame=new Thread(new ThreadTimeCreatorGame(playerWithRelativeConnection.get(numberGame)));
+			Thread newGame=new Thread(new ThreadCreatorGame(playerWithRelativeConnection.get(numberGame)));
 			newGame.start();
 		}
 	}
@@ -85,6 +85,3 @@ public class DatabaseCreateGame {
 		return playerWithRelativeConnection;
 	}
 }
-
-
-/*&& */

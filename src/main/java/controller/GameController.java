@@ -29,19 +29,15 @@ public class GameController {
 
 	/**
 	 * 
-	 * @param mapName
-	 *            , name of the map to create
-	 * @param numberOfPlayers
-	 *            , number of players
-	 * @param mapType
-	 *            , type of map (standard is hexagonal)
+	 * @param mapName, name of the map to create
+	 * @param numberOfPlayers, number of players
+	 * @param mapType, type of map (standard is hexagonal)
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
 
 	public GameController(MapName mapName, int numberOfPlayers, MapType mapType)
 			throws NumberFormatException, IOException {
-
 		GameCreator gameCreator = GameCreator.getinstance();
 		this.game = gameCreator.createGame(mapName, numberOfPlayers, mapType);
 		this.currentNumberPlayer = 0;

@@ -18,9 +18,8 @@ public class Attack implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param status
-	 *            status of game, contains all the information about the action
-	 *            that the player has done and has to do
+	 * @param status status of game, contains all the information about the action
+	 * that the player has done and has to do
 	 */
 
 	public Attack(GameStatus status) {

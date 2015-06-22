@@ -15,24 +15,29 @@ import dto.*;
 
 public class RMIRoom implements Actions{
 
-	IdentifyTypeOfConnection identifyConnection;
-	DatabaseCreateGame dataBaseForSubscribe;
+	DatabasePlayersIdentification identifyConnection;
+	DatabaseInscriptionsForGames dataBaseForSubscribe;
 	ListOfStartedGame listOfStartedGame;
 	
+	/**
+	 * Takes and instance of many singleton, the DatabasePlayerIdentification to understand what player is,
+	 * databaseInscriptionForGames to send a new inscription, list of game to take the correct game
+	 */
+	
 	public RMIRoom() {
-		identifyConnection=IdentifyTypeOfConnection.getinstance();
-		dataBaseForSubscribe=DatabaseCreateGame.getinstance();		//accesso a thread che accetta le richieste
+		identifyConnection=DatabasePlayersIdentification.getinstance();
+		dataBaseForSubscribe=DatabaseInscriptionsForGames.getinstance();		//accesso a thread che accetta le richieste
 		listOfStartedGame=ListOfStartedGame.getinstance();
 	}
 
 	@Override
 	public Token getToken() {
 		int i=0;
-		Identification identificationToBeWrite;
+		PlayerIdentification identificationToBeWrite;
 		do{
 			identificationToBeWrite=identifyConnection.getIdentification(i);
 			if(identificationToBeWrite==null) {
-				identificationToBeWrite=new Identification(-1,0);
+				identificationToBeWrite=new PlayerIdentification(-1,0);
 				identifyConnection.setIdentificationList(identificationToBeWrite, i);  //aggiorna il database
 				return new Token(i);
 			}
@@ -49,8 +54,8 @@ public class RMIRoom implements Actions{
 			detailsYourGame=dataBaseForSubscribe.subscribe(typeOfMap);		//hai i dettagli della partita in corso
 			putInWait(detailsYourGame);
 			if(detailsYourGame.getBuffer()=="Partita pronta, Turno Giocatore 1") {
-				IdentifyTypeOfConnection identifyTypeOfConnection;
-				identifyTypeOfConnection=IdentifyTypeOfConnection.getinstance();
+				DatabasePlayersIdentification identifyTypeOfConnection;
+				identifyTypeOfConnection=DatabasePlayersIdentification.getinstance();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(detailsYourGame.getGameId());	//numero partita
 				myView=detailsYourGame.getView();
 				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(myView.getNumberPlayer()); //numero giocatore
@@ -65,7 +70,7 @@ public class RMIRoom implements Actions{
 	public DTOGame doAnAction(DTOSend dtoSend, Token token) throws RemoteException {
 		DTOGame dtoGame=new DTOGame();
 		try {
-			Identification identification=identifyConnection.getIdentification(token.getNumber());	//prendo l'identificatore del giocatore per avere il gioco
+			PlayerIdentification identification=identifyConnection.getIdentification(token.getNumber());	//prendo l'identificatore del giocatore per avere il gioco
 			int numberPlayer=identification.getNumberPlayer();
 			dtoSend.setNumberPlayer(numberPlayer);		//metto il numero di giocatore
 			GameDescription gameDescription;
@@ -90,10 +95,21 @@ public class RMIRoom implements Actions{
 		return dtoGame;
 	}
 
+	/**
+	 * Waits if the game isn't ready to send the view
+	 * @param detailsYourGame
+	 * @throws InterruptedException
+	 */
 	
 	private void putInWait(DetailsPlayers detailsYourGame) throws InterruptedException {
 		detailsYourGame.getBuffer();		//se è vuoto fermati e aspetta
 	}
+	
+	/**
+	 * Waits if the controller is busy
+	 * @param gameDescription
+	 * @throws InterruptedException
+	 */
 	
 	private void putInWaitAction(GameDescription gameDescription) throws InterruptedException {
 		gameDescription.getStatus();		//se è vuoto fermati e aspetta
@@ -101,7 +117,7 @@ public class RMIRoom implements Actions{
 
 	@Override
 	public DTOGame subscribe(Token token) throws RemoteException, InterruptedException {
-		Identification identification=identifyConnection.getIdentification(token.getNumber());
+		PlayerIdentification identification=identifyConnection.getIdentification(token.getNumber());
 		GameDescription gameDescription;
 		gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());
 		DTOGame dtoGame=new DTOGame();

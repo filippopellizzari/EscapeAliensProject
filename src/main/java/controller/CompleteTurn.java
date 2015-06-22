@@ -28,8 +28,7 @@ public class CompleteTurn {
 
 	/**
 	 * 
-	 * @param status
-	 *            the status of a turn
+	 * @param status the status of a turn
 	 */
 
 	public CompleteTurn(Turn currentTurn) {
@@ -75,6 +74,13 @@ public class CompleteTurn {
 		}
 		return dtoGameList;
 	}
+	
+	/**
+	 * Moves the player 
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 
 	private void checkMove() throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
@@ -85,17 +91,28 @@ public class CompleteTurn {
 					.getAdjacent().get(i);
 				if (!status.getGame().getMap().isNull(randomCoord) &&
 						!status.getGame().getMap().getSector(randomCoord).isClosed()) {
-					dtoTurn = new DTOTurn(randomCoord, null, ActionType.MOVE);
-					dtoGame = new DTOGame();
-					dtoGame = currentTurn.action(dtoTurn);
-					dtoGameList.add(dtoGame);
-					findSector=true;
+					if(status.getPlayer().getType()==PlayerType.ALIEN &&
+							status.getGame().getMap().getSector(randomCoord).getType()==SectorType.HATCH);
+					else {
+						dtoTurn = new DTOTurn(randomCoord, null, ActionType.MOVE);
+						dtoGame = new DTOGame();
+						dtoGame = currentTurn.action(dtoTurn);
+						dtoGameList.add(dtoGame);
+						findSector=true;
+					}
 				}
 			}
 		} else {
 			condizione++;
 		}
 	}
+	
+	/**
+	 * Draws a card from the deck
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 
 	private void checkMustDraw() throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
@@ -108,6 +125,13 @@ public class CompleteTurn {
 			condizione++;
 		}
 	}
+	
+	/**
+	 * Discards a item from the players
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 
 	private void checkMustDiscardItem() throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
@@ -123,6 +147,13 @@ public class CompleteTurn {
 		}
 
 	}
+	
+	/**
+	 * Selects the sector where does the noise
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
 
 	private void checkMustNoise() throws ClassNotFoundException,
 			InstantiationException, IllegalAccessException {
@@ -140,6 +171,10 @@ public class CompleteTurn {
 			condizione++;
 		}
 	}
+	
+	/**
+	 * @return the game status
+	 */
 
 	public GameStatus getStatus() {
 		return status;

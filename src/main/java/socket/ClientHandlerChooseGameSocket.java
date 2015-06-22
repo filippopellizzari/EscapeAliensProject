@@ -10,7 +10,8 @@ import dto.DTOGame;
 
 /**
  * This class receives a type of map from the player, sends a new request for that type of map and wait, when 
- * the buffer is setted, if the response is positive take the view and sends these at the player, else terminates
+ * the buffer is setted, if the response is positive take the view and sends these at the player, then waits
+ * for a new message from broken and sends it as publisher, else terminates
  * @author Nicola
  *
  */
@@ -20,8 +21,8 @@ public class ClientHandlerChooseGameSocket implements Processing{
 	private Token token;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
-	private IdentifyTypeOfConnection identifyTypeOfConnection;		//serve per settare i dettagli del giocatore
-	private final DatabaseCreateGame dataBaseForSubscribe;
+	private DatabasePlayersIdentification identifyTypeOfConnection;		//serve per settare i dettagli del giocatore
+	private final DatabaseInscriptionsForGames dataBaseForSubscribe;
 	
 	/**
 	 * This costructor inizialize the input and output, used to read and send objects
@@ -34,13 +35,15 @@ public class ClientHandlerChooseGameSocket implements Processing{
 		this.token=token;
 		this.out=socketOut;
 		this.in=socketIn;
-		this.dataBaseForSubscribe=DatabaseCreateGame.getinstance();		//accesso a thread che accetta le richieste
-		this.identifyTypeOfConnection=IdentifyTypeOfConnection.getinstance();
+		this.dataBaseForSubscribe=DatabaseInscriptionsForGames.getinstance();		//accesso a thread che accetta le richieste
+		this.identifyTypeOfConnection=DatabasePlayersIdentification.getinstance();
 	}
 
 	/**
 	 * Send a requesta at the databaseForSubscribe, then wait for the response, if the response is positive sets the
-	 * parameters of the current player, now the player has a game and a number, then send the view at the player
+	 * parameters of the current player, now the player has a game and a number, then send the view at the player, 
+	 * waits for a new dtoGame from the broker in the player's buffer, when a new message arrived sends it at the player
+	 * as publisher
 	 */
 	
 	public void start() {

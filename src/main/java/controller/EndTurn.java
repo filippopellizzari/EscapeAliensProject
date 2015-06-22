@@ -19,15 +19,18 @@ public class EndTurn implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param status
-	 *            , the status of a turn, reference at model and the player who
-	 *            are playing, now is his turn
+	 * @param status, the status of a turn, reference at model and the player who
+	 * are playing, now is his turn
 	 */
 
 	public EndTurn(GameStatus status) {
 		this.status = status;
 		this.dtoGame = new DTOGame();
 	}
+	
+	/**
+	 * @return true is the turn is finished
+	 */
 
 	public boolean isEndTurn() {
 		return status.isMoved() && !status.isMustDraw()

@@ -16,10 +16,6 @@ import connection.MapName;
 
 public class HexagonalMapCreator extends MapCreator{
 	
-	/**
-	 * 
-	 */
-	
 	public HexagonalMapCreator() {
 		this.hatchSectors = new ArrayList<Coordinate>();
 		this.sectors = new Sector[322];
@@ -34,6 +30,7 @@ public class HexagonalMapCreator extends MapCreator{
 	 * but that the string does not have the appropriate format
 	 * @throws IOException  signals that an I/O exception of some sort has occurred
 	 */
+	
 	@Override
 	public Map loadMap(MapName mapName) throws NumberFormatException, IOException {
 
@@ -81,8 +78,6 @@ public class HexagonalMapCreator extends MapCreator{
 			for(int i = 0; i < 6; i++){
 				adjacent.add(new Coordinate(Integer.parseInt(br.readLine()), Integer.parseInt(br.readLine())));
 			}
-			
-			
 			//creazione concreta del settore
 			if(sectorType != SectorType.HATCH) {
 				sectors[(y-1)*23 + (x-1)]= new Sector(sectorType, closed, x, y, adjacent);
@@ -90,10 +85,8 @@ public class HexagonalMapCreator extends MapCreator{
 			else {
 				sectors[(y-1)*23 + (x-1)] = new HatchSector(sectorType, closed, x, y, adjacent);		
 			}
-			
 		}
 		br.close();
-		
 		return new HexagonalMap(sectors, humanSector, alienSector, hatchSectors);
 		
 	}

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import model.*;
 
 /**
- * 
+ * This class is the view passed from server to client, contains the type of player, his number and the start sector
  * @author Nicola
  *
  */

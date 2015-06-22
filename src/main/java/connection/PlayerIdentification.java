@@ -7,7 +7,7 @@ package connection;
  *
  */
 
-public class Identification {
+public class PlayerIdentification {
 	private int numberGame;
 	private int numberPlayer;
 	
@@ -17,7 +17,7 @@ public class Identification {
 	 * @param numberPlayer
 	 */
 	
-	public Identification(int numberGame, int numberPlayer) {
+	public PlayerIdentification(int numberGame, int numberPlayer) {
 		this.numberGame = numberGame;
 		this.numberPlayer=numberPlayer;
 	}

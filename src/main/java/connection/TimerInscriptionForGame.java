@@ -1,15 +1,16 @@
 package connection;
 
 /**
- * This class is used to cronometer the time while a game is open to subscribe, when the time stops the game is closed and is created or cancelled
+ * This class is used to cronometer the time while a game is open to subscribe, when the time stops the 
+ * game is closed and is created or cancelled
  * @author Nicola
  *
  */
 
-public class Temporize implements Runnable {
+public class TimerInscriptionForGame implements Runnable {
 
 	private int time;
-	private DatabaseCreateGame database;
+	private DatabaseInscriptionsForGames database;
 	private TypeOfMap mapType;
 
 	/**
@@ -19,7 +20,7 @@ public class Temporize implements Runnable {
 	 * @param mapType
 	 */
 	
-	public Temporize(int time, DatabaseCreateGame databaseGame,
+	public TimerInscriptionForGame(int time, DatabaseInscriptionsForGames databaseGame,
 			TypeOfMap mapType) {
 		this.time = time;
 		this.database = databaseGame;
@@ -27,7 +28,8 @@ public class Temporize implements Runnable {
 	}
 	
 	/**
-	 * Sleep for tot seconds then closes the inscription, wait until the game is created then cancel the game from the database
+	 * Sleep for tot seconds then closes the inscription, wait until the game is created then cancel the game 
+	 * from the database
 	 */
 
 	@Override

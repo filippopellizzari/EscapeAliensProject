@@ -4,17 +4,14 @@ import java.util.List;
 
 /**
  * This class is used to find a sector in a exagonal map, extension of Map
- * 
  * @see Map
  * @author Nicola
- * 
  *
  */
 
 public class HexagonalMap extends Map{
 	
 	/**
-	 * 
 	 * @param sectors list of sector, this sectors compose the map
 	 * @param humanSector coordinate of the human sector in the map
 	 * @param alienSector coordinate of the alien sector in the map
@@ -37,5 +34,4 @@ public class HexagonalMap extends Map{
 		}
 		return sectors[(coordinate.getX()-1) + (coordinate.getY()-1)*23] == null;
 	}
-
 }

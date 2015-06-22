@@ -14,6 +14,7 @@ import dto.DTOGame;
  * the response is sended when the timer of the game stop, if the game has at least 2 player the game start, otherwise
  * the response is negative and the player has to send another request.
  * @author Nicola
+ * @see SocketBase
  *
  */
 
@@ -24,7 +25,7 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 	private ObjectOutputStream out;
 
 	/**
-	 * This costructor inizializes the input and output, uses object because transfer dto instead of strings
+	 * This costructor inizializes the input and output, uses object because transfers dtos instead of strings
 	 * @param clientData, to inizialize its parameters
 	 * @param typeOfMap
 	 * @throws UnknownHostException
@@ -42,6 +43,11 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 			System.out.print("Errore");
 		}
 	}
+	
+	/**
+	 * Sends a token, then sends a type of map and receives a response, if the response is positive receives the view
+	 * and during the game all the dto sends by publisher, adds these dto to a list
+	 */
 
 	@Override
 	public void run() {

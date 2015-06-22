@@ -24,7 +24,7 @@ public class CreateEntireGame {
 	}
 	
 	/**
-	 * Create a game and return its number
+	 * Create a game and return its number, then creates the thread complete turn for this game
 	 * @param typeOfMap, the map chooses
 	 * @param numberOfPlayers, the number of players in this game 
 	 * @return the number of array's cell where the games is
@@ -48,7 +48,7 @@ public class CreateEntireGame {
 	 */
 	
 	public void createThreadTemporize(GameDescription gameDescription) {
-		Thread temporize=new Thread(new ThreadEndTurn(gameDescription));
+		Thread temporize=new Thread(new ThreadCompleteTurn(gameDescription));
 		temporize.start();
 	}
 

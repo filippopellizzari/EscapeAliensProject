@@ -13,6 +13,7 @@ import dto.*;
  */
 
 public interface Actions extends Remote{
+	
 	/**
 	 * This method returnes a new token for the player
 	 * @return the new token

@@ -9,15 +9,11 @@ import java.io.Serializable;
  */
 
 public class TypeOfMap implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private MapName mapName;
 	private MapType typeMap;
 	
 	/**
-	 * 
 	 * @param mapName, the name of map
 	 * @param typeMap, the standard is hexagonal
 	 */

@@ -6,15 +6,16 @@ import controller.ActionType;
 import model.*;
 
 /**
- * 
- * @author Nicola this is the DTO passed from client to server
+ * This class is used as a DTO between Client and Server, when the game starts
+ * this is the DTO passed from client to server
+ * @author Nicola 
  *
  */
 
 
 public class DTOSend implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
-
 	private Coordinate coordinate;
 	private int numberPlayer;
 	private ItemCardType itemCardType;
@@ -22,16 +23,11 @@ public class DTOSend implements Serializable{
 	private ActionType actionType;
 
 	/**
-	 * @param coordinate
-	 *            of the sector selected
-	 * @param numberPlayer
-	 *            number of player in the game
-	 * @param itemCardType
-	 *            type of card used
-	 * @param chat
-	 *            message for the chat
-	 * @param actionType
-	 *            the action that the player would do
+	 * @param coordinate of the sector selected
+	 * @param numberPlayer number of player in the game
+	 * @param itemCardType type of card used
+	 * @param chat message for the chat
+	 * @param actionType the action that the player would do
 	 */
 
 	public DTOSend(Coordinate coordinate, int numberPlayer,
@@ -87,6 +83,7 @@ public class DTOSend implements Serializable{
 
 	 * @param coordinate the coordinate to set
 	 */
+	
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
 	}
@@ -94,6 +91,7 @@ public class DTOSend implements Serializable{
 	/**
 	 * @param typeCard the typeCard to set
 	 */
+	
 	public void setItemCardType(ItemCardType itemCardType) {
 		this.itemCardType = itemCardType;
 	}
@@ -101,6 +99,7 @@ public class DTOSend implements Serializable{
 	/**
 	 * @param chat the chat to set
 	 */
+	
 	public void setChat(String chat) {
 		this.chat = chat;
 	}
@@ -108,6 +107,7 @@ public class DTOSend implements Serializable{
 	/**
 	 * @param typeOfAction the typeOfAction to set
 	 */
+	
 	public void setActionType(ActionType actionType) {
 		this.actionType = actionType;
 	}
@@ -115,10 +115,8 @@ public class DTOSend implements Serializable{
 	/**
 	 * @param numberPlayer the numberPlayer to set
 	 */
+	
 	public void setNumberPlayer(int numberPlayer) {
 		this.numberPlayer = numberPlayer;
 	}
-	
-
-
 }

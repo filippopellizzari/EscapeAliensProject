@@ -6,7 +6,6 @@ import model.*;
 /**
  * This class is a small box of data passed from server to gameController to
  * perform a turn of a game
- * 
  * @author Nicola
  *
  */
@@ -18,13 +17,9 @@ public class DTOTurn {
 	private ActionType actionType;
 
 	/**
-	 * 
-	 * @param coordinate
-	 *            , coordinate of a sector
-	 * @param itemCardType
-	 *            , type of a item card, players can't use other card
-	 * @param actionType
-	 *            , type of action the player would do
+	 * @param coordinate, coordinate of a sector
+	 * @param itemCardType, type of a item card, players can't use other card
+	 * @param actionType, type of action the player would do
 	 */
 
 	public DTOTurn(Coordinate coordinate, ItemCardType itemCardType,

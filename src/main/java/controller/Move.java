@@ -40,8 +40,6 @@ public class Move implements ChooseAnAction {
 		Sector destSector = status.getGame().getMap().getSector(dest);
 		if(destSector.isClosed()) 	//controlli se il personaggio può effettivamente andare nel settore
 			return false;
-		if(player.getType()==PlayerType.ALIEN && destSector.getType()==SectorType.HATCH)
-			return false;
 		return pathCheck(player.getSector().getCoordinate(), dest,
 				player.getSpeed())
 				&& destCheck(player, destSector);

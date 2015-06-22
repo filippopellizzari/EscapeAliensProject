@@ -15,7 +15,7 @@ import dto.DTOGame;
  *
  */
 
-public class ThreadEndTurn implements Runnable {
+public class ThreadCompleteTurn implements Runnable {
 
 	GameDescription gameDescription;
 	private int time;
@@ -25,7 +25,7 @@ public class ThreadEndTurn implements Runnable {
 	 * @param gameDescription
 	 */
 	
-	public ThreadEndTurn(GameDescription gameDescription) {
+	public ThreadCompleteTurn(GameDescription gameDescription) {
 		this.gameDescription = gameDescription;
 		this.time = 50;
 	}
@@ -44,7 +44,7 @@ public class ThreadEndTurn implements Runnable {
 			int turn = 1;
 			int numberPlayer = 0;
 			do {
-				temporize = new Thread(new ThreadTemporize(time,gameDescription,turn,numberPlayer));
+				temporize = new Thread(new ThreadTemporizeTurn(time,gameDescription,turn,numberPlayer));
 				temporize.start();
 				System.out.println("Sono il fine turno mi metto in attesa");
 				gameDescription.getController().getChangeTurn(turn,	numberPlayer); // aspetta un'azione

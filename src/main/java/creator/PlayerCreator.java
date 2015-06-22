@@ -7,7 +7,6 @@ import model.*;
 /**
  * This class create one array of player which will be used by client as they characters in the game
  * @author Nicola
- * @see Player
  *
  */
 
@@ -17,9 +16,8 @@ public class PlayerCreator {
 	private Coordinate alienSector;
 	
 	/**
-	 * 
-	 * @param map, used to put the player in the right sector (alien sector for alien player and human sector for human
-	 * player)
+	 * @param map, used to put the player in the right sector (alien sector for alien player and human
+	 * sector for human player)
 	 */
 	
 	public PlayerCreator(Map map) {
@@ -29,7 +27,6 @@ public class PlayerCreator {
 	}
 	
 	/**
-	 * 
 	 * @param numberOfPlayer number of player to create from 1 to 8
 	 * @return a human player
 	 */
@@ -41,7 +38,6 @@ public class PlayerCreator {
 	}
 	
 	/**
-	 * 
 	 * @param numberOfPlayer player to create from 1 to 8
 	 * @return a alien player
 	 */
@@ -54,9 +50,8 @@ public class PlayerCreator {
 	
 
 	/**
-	 * 
-	 * @param totPlayers, number of player in this game, this method use a random generator to create the human players then 
-	 * the other players are alien and are created with the method createAlien
+	 * @param totPlayers, number of player in this game, this method use a random generator to create 
+	 * the human players then the other players are alien and are created with the method createAlien
 	 * @return array of player
 	 */
 	

@@ -9,12 +9,11 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 import connection.*;
-import controller.ActionType;
 import dto.*;
 
 /**
- * This class is the socket connection, invokes the method based on rmi to receives token, sends the game preference, does an action and receives 
- * the message from pub-sub
+ * This class is the socket connection, invokes the method based on rmi to receives token, sends the game preference,
+ * does an action and receives the message from pub-sub
  * @author Nicola
  * @see Client Data
  */
@@ -52,7 +51,7 @@ public class ClientDataRMI extends ClientData {
 	}
 	
 	/**
-	 * Subscribes a new game
+	 * Subscribes a new game, if the response is positive the view returned is not null, null otherzise
 	 */
 
 	public void clickOnStartGame(TypeOfMap typeOfMap)
