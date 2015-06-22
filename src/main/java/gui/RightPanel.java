@@ -16,8 +16,9 @@ public class RightPanel extends JPanel{
 		
 		super(new BorderLayout());
 		setOpaque(true);
+		setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		
-		//move area
+		//coordinates area
 		final JComboBox letteraBox = new JComboBox();
 		for(int i=65; i<=87; i++){
 			letteraBox.addItem((char)i);
@@ -32,28 +33,46 @@ public class RightPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(letteraBox.getSelectedItem());
+				System.out.println(numeroBox.getSelectedItem());
 				System.out.println("MOVE ");
+					
+			}
+			
+		});
+		JButton noiseButton = new JButton("NOISE");
+		noiseButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(letteraBox.getSelectedItem());
+				System.out.println(numeroBox.getSelectedItem());
+				System.out.println("NOISE ");
 				
 			}
 			
 		});
 		
 		
-		
-		//movePanel
-		JPanel movePanel = new JPanel(new GridLayout(0,2));
-		movePanel.setBorder(new TitledBorder("Move"));
-		movePanel.setBackground(Color.GRAY);
-		movePanel.add(letteraBox);
-		movePanel.add(numeroBox);
-		movePanel.add(moveButton);
+		//coordinates Panel
+		JPanel coordPanel = new JPanel(new GridLayout(0,2));
+		coordPanel.setBorder(new TitledBorder("Coordinates"));
+		coordPanel.setBackground(Color.GRAY);
+		coordPanel.add(letteraBox);
+		coordPanel.add(numeroBox);
+		coordPanel.add(moveButton);
+		coordPanel.add(noiseButton);
 		
 		//messagePanel
 		MessagePanel messagePanel = new MessagePanel();
 		
+		//logPanel
+		LogPanel logPanel = new LogPanel();
+		
 		//layout
-		add(movePanel, BorderLayout.NORTH);
+		add(coordPanel, BorderLayout.NORTH);
 		add(messagePanel, BorderLayout.SOUTH);
+		add(logPanel, BorderLayout.CENTER);
 		
 	}
 	

@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 public class LeftPanel extends JPanel {
 
@@ -19,13 +20,14 @@ public class LeftPanel extends JPanel {
 
 		super(new BorderLayout());
 		setOpaque(true);
+		setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
 		// items buttons
-		JButton attack = new JButton("attack", loadIcon("attack"));
-		JButton teleport = new JButton("teleport", loadIcon("teleport"));
-		JButton sedatives = new JButton("sedatives", loadIcon("sedatives"));
-		JButton spotlight = new JButton("spotlight", loadIcon("spotlight"));
-		JButton adrenaline = new JButton("adrenaline", loadIcon("adrenaline"));
+		JButton attack = new JButton("Attack", loadIcon("attack"));
+		JButton teleport = new JButton("Teleport", loadIcon("teleport"));
+		JButton sedatives = new JButton("Sedatives", loadIcon("sedatives"));
+		JButton spotlight = new JButton("Spotlight", loadIcon("spotlight"));
+		JButton adrenaline = new JButton("Adrenaline", loadIcon("adrenaline"));
 		
 		attack.addActionListener(new ItemListener());
 		teleport.addActionListener(new ItemListener());
@@ -43,19 +45,35 @@ public class LeftPanel extends JPanel {
 				{" Adrenaline",new Integer(0)}
 		};
 		
-		final JTable itemsTable = new JTable(data, columnNames);
-		itemsTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		final JTable table = new JTable();
+		table.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		
+		final DefaultTableModel dataModel = new DefaultTableModel()
+		{
+
+		private static final long serialVersionUID = 1L;
+
+		public boolean isCellEditable(int row, int column)
+		{
+		return false;
+		}
+
+		}; 
+		dataModel.setDataVector(data, columnNames);
+		table.setModel(dataModel);
+		
 		
 		JButton discard = new JButton("Discard");
 		discard.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int row = itemsTable.getSelectedRow();
-				System.out.println("discard "+data[row][0]);
-				int num = (int) data[row][1];
+				int row = table.getSelectedRow();
+				System.out.println("discard");
+				System.out.println(dataModel.getValueAt(row, 0));
+				int num = (int) dataModel.getValueAt(row, 1);
 				num--;
-				data[row][1] = num;
+				dataModel.setValueAt(num, row, 1);
 				
 			}
 			
@@ -92,7 +110,7 @@ public class LeftPanel extends JPanel {
 		spotlight.setToolTipText("usa carta spotlight");
 		adrenaline.setToolTipText("usa carta adrenalina");
 		discard.setToolTipText("clicca per scartare carta oggetto selezionata");
-		alienAttack.setToolTipText("attacco alieno");
+		alienAttack.setToolTipText("clicca solo se sei alieno");
 		endTurn.setToolTipText("clicca quando vuoi finire il turno");
 
 		// put item buttons in a column in the panel items
@@ -108,7 +126,7 @@ public class LeftPanel extends JPanel {
 		//discard panel
 		JPanel discardPanel = new JPanel(new GridLayout(0,1));
 		discardPanel.setBackground(Color.GRAY);
-		discardPanel.add(itemsTable);
+		discardPanel.add(table);
 		discardPanel.add(discard);
 		
 		

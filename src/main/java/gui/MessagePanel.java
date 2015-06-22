@@ -7,17 +7,21 @@ import java.awt.event.ActionListener;
 
 public class MessagePanel extends JPanel implements ActionListener{
 
+
+	private static final long serialVersionUID = 1L;
 	private JTextArea textArea;
 	private JTextField textField;
 	
 	public MessagePanel(){
 		super(new GridBagLayout());
 		
-		textArea = new JTextArea(10,15);
+		setBackground(Color.GRAY);
+		
+		textArea = new JTextArea(20,20);
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		
-		textField = new JTextField(15);
+		textField = new JTextField(20);
 		textField.addActionListener(this);
 		
 		//Add Components to this panel.
