@@ -58,11 +58,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testHumanMove() {
-
-		GameStatus status = new GameStatus(model, human);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector s = model.getMap().getSector(curr);
 		human.setSector(s);
+		s.addPlayer(human);
+		
+		GameStatus status = new GameStatus(model, human);
+		
 
 		Coordinate dest = new Coordinate(12, 3);
 		assertFalse(new Move(status).moveCheck(dest));
@@ -73,12 +75,15 @@ public class TestMove {
 	 */
 	@Test
 	public void testAlienMoveOne() {
-		GameStatus status = new GameStatus(model, alien);
-		Coordinate curr = new Coordinate(12, 5);
+		Coordinate curr = new Coordinate(6, 2);
 		Sector s = model.getMap().getSector(curr);
 		alien.setSector(s);
+		s.addPlayer(alien);
+		
+		GameStatus status = new GameStatus(model, alien);
+		
 
-		Coordinate dest = new Coordinate(12, 4);
+		Coordinate dest = new Coordinate(6, 3);
 		assertTrue(new Move(status).moveCheck(dest));
 	}
 
@@ -87,11 +92,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testAlienMoveTwo() {
-		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector s = model.getMap().getSector(curr);
 		alien.setSector(s);
+		s.addPlayer(alien);
 
+		GameStatus status = new GameStatus(model, alien);
+		
 		Coordinate dest = new Coordinate(12, 3);
 		assertTrue(new Move(status).moveCheck(dest));
 	}
@@ -102,11 +109,13 @@ public class TestMove {
 
 	@Test
 	public void testAlienMoveToHatch() {
-		GameStatus status = new GameStatus(model, alien);
-		Coordinate curr = new Coordinate(4, 3);
+		Coordinate curr = new Coordinate(3, 3);
 		Sector s = model.getMap().getSector(curr);
 		alien.setSector(s);
+		s.addPlayer(alien);
 
+		GameStatus status = new GameStatus(model, alien);
+		
 		Coordinate dest = new Coordinate(2, 2);
 		assertFalse(new Move(status).moveCheck(dest));
 
@@ -117,10 +126,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testHumanMoveToHatch() {
-		GameStatus status = new GameStatus(model, human);
 		Coordinate curr = new Coordinate(3, 3);
 		Sector s = model.getMap().getSector(curr);
 		human.setSector(s);
+		s.addPlayer(human);
+		
+		GameStatus status = new GameStatus(model, human);
+		
 
 		Coordinate dest = new Coordinate(2, 2);
 		assertTrue(new Move(status).moveCheck(dest));
@@ -132,26 +144,45 @@ public class TestMove {
 	 * 
 	 */
 	@Test
-	public void testAlienFedMove() {
-		GameStatus status = new GameStatus(model, alienFed);
-		Coordinate curr = new Coordinate(12, 5);
+	public void testAlienFedMoveThree() {
+		Coordinate curr = new Coordinate(6, 3);
 		Sector s = model.getMap().getSector(curr);
 		alienFed.setSector(s);
+		s.addPlayer(alienFed);
+		
+		GameStatus status = new GameStatus(model, alienFed);
+		
 
-		Coordinate dest = new Coordinate(13, 6);
+		Coordinate dest = new Coordinate(9, 5);
+		assertTrue(new Move(status).moveCheck(dest));
+	}
+	
+	@Test
+	public void testAlienFedMoveTwo() {
+		Coordinate curr = new Coordinate(6, 9);
+		Sector s = model.getMap().getSector(curr);
+		alienFed.setSector(s);
+		s.addPlayer(alienFed);
+
+		GameStatus status = new GameStatus(model, alienFed);
+		
+		Coordinate dest = new Coordinate(6, 11);
 		assertTrue(new Move(status).moveCheck(dest));
 	}
 
 	/**
-	 * The test verifies that a generic player ( eg . Alien ) can not reach a
+	 * The test verifies that a generic player ( eg . human ) can not reach a
 	 * null sector on the map ( even if he respects the distance )
 	 */
 	@Test
 	public void testMoveToNull() {
-		GameStatus status = new GameStatus(model, alien);
-		Coordinate curr = new Coordinate(6, 5);
+		Coordinate curr = new Coordinate(5, 5);
 		Sector s = model.getMap().getSector(curr);
-		alien.setSector(s);
+		human.setSector(s);
+		s.addPlayer(human);
+		
+		GameStatus status = new GameStatus(model, human);
+	
 
 		Coordinate dest = new Coordinate(4, 4);
 		assertFalse(new Move(status).moveCheck(dest));
@@ -159,15 +190,18 @@ public class TestMove {
 
 	/**
 	 * the test verifies that a generic player (eg . alien ) can not reach a
-	 * sector of the map across null sectors " null " (even if it respects the
+	 * sector of the map across null sectors(even if it respects the
 	 * distance)
 	 */
 	@Test
 	public void testMoveThroughNull() {
-		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(5, 5);
 		Sector s = model.getMap().getSector(curr);
 		alien.setSector(s);
+		s.addPlayer(alien);
+		
+		GameStatus status = new GameStatus(model, alien);
+		
 
 		Coordinate dest = new Coordinate(3, 4);
 		assertFalse(new Move(status).moveCheck(dest));
@@ -179,12 +213,15 @@ public class TestMove {
 	 */
 	@Test
 	public void testMoveToClosedSector() {
-		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(14, 9);
 		Sector s = model.getMap().getSector(curr);
 		alien.setSector(s);
+		s.addPlayer(alien);
+		
+		GameStatus status = new GameStatus(model, alien);
+	
 
-		Coordinate dest = model.getMap().getHumanCoord();
+		Coordinate dest = new Coordinate(12,8);
 		assertFalse(new Move(status).moveCheck(dest));
 	}
 
@@ -194,15 +231,43 @@ public class TestMove {
 	 * even if it respects the distance
 	 */
 	@Test
-	public void testMoveThroughClosedSector() {
-		GameStatus status = new GameStatus(model, alien);
+	public void testMoveThroughClosedHumanSector() {
 		Coordinate curr = new Coordinate(13, 8);
 		Sector s = model.getMap().getSector(curr);
 		alien.setSector(s);
+		s.addPlayer(alien);
+		
+		GameStatus status = new GameStatus(model, alien);
+		
 
 		Coordinate dest = new Coordinate(11, 9);
 		assertFalse(new Move(status).moveCheck(dest));
 	}
+	
+	/**
+	 * The test verifies that a generic player (eg. alien) can not reach a
+	 * sector of the map moving across a sector " closed " (eg. hatch sector closed) ,
+	 * even if it respects the distance
+	 */
+	@Test
+	public void testMoveThroughClosedHatchSector() {
+		Coordinate curr = new Coordinate(3, 3);
+		Sector s = model.getMap().getSector(curr);
+		alien.setSector(s);
+		s.addPlayer(alien);
+		
+		Coordinate hatch = new Coordinate(2,2);
+		Sector hatchSector = model.getMap().getSector(hatch);
+		human.setSector(hatchSector);
+		hatchSector.addPlayer(human);
+		
+		GameStatus status = new GameStatus(model, alien);
+		
+
+		Coordinate dest = new Coordinate(1, 2);
+		assertFalse(new Move(status).moveCheck(dest));
+	}
+
 
 	/**
 	 * test verifies that a player who draw a green hatch card wins(he is not in
@@ -236,10 +301,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testDoActionMoveAlreadyMoved() {
-		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
+		start.addPlayer(alien);
+		
+		GameStatus status = new GameStatus(model, alien);
+		
 		status.setMoved(true);
 
 		DTOTurn dtoTurn = new DTOTurn(new Coordinate(12, 3), null, null);
@@ -253,11 +321,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testDoActionMoveNotMovedNotValid() {
-		GameStatus status = new GameStatus(model, human);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		human.setSector(start);
 		start.addPlayer(human);
+		
+		GameStatus status = new GameStatus(model, human);
+		
 
 		Coordinate destCoord = new Coordinate(12, 3);
 		DTOTurn dtoTurn = new DTOTurn(destCoord, null, null);
@@ -272,11 +342,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testDoActionMoveNotMovedValid() {
-		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
+		
+		GameStatus status = new GameStatus(model, alien);
+	
 
 		Coordinate destCoord = new Coordinate(12, 3);
 		Sector dest = model.getMap().getSector(destCoord);
@@ -291,11 +363,13 @@ public class TestMove {
 	 **/
 	@Test
 	public void testMoveSectorDest() {
-		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
+		
+		GameStatus status = new GameStatus(model, alien);
+		
 
 		Coordinate destCoord = new Coordinate(12, 3);
 		Sector dest = model.getMap().getSector(destCoord);
@@ -311,11 +385,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testMoveToDangerousNotSedated() {
-		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
+		
+		GameStatus status = new GameStatus(model, alien);
+		
 
 		Coordinate destCoord = new Coordinate(12, 3);
 
@@ -330,11 +406,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testMoveToDangerousSedated() {
-		GameStatus status = new GameStatus(model, human);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		human.setSector(start);
 		start.addPlayer(human);
+		
+		GameStatus status = new GameStatus(model, human);
+		
 
 		Coordinate destCoord = new Coordinate(13, 6);
 
@@ -351,12 +429,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testMoveToSecure() {
-		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(12, 5);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
 
+		GameStatus status = new GameStatus(model, alien);
+		
 		Coordinate destCoord = new Coordinate(12, 4);
 
 		new Move(status).move(destCoord);
@@ -370,11 +449,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testMoveToHatch() {
-		GameStatus status = new GameStatus(model, alien);
 		Coordinate curr = new Coordinate(3, 3);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
+		
+		GameStatus status = new GameStatus(model, alien);
+		
 
 		Coordinate destCoord = new Coordinate(2, 2);
 		Sector dest = model.getMap().getSector(destCoord);
@@ -390,11 +471,13 @@ public class TestMove {
 	 */
 	@Test
 	public void testMoveAdrenalineEliminated() {
-		GameStatus status = new GameStatus(model, human);
 		Coordinate curr = new Coordinate(3, 3);
 		Sector start = model.getMap().getSector(curr);
 		human.setSector(start);
 		start.addPlayer(human);
+		
+		GameStatus status = new GameStatus(model, human);
+	
 
 		human.setSpeed(2);
 

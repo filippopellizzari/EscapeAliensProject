@@ -17,9 +17,8 @@ public class Move implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param gameStatus
-	 *            , the status of a turn, reference at model and the player who
-	 *            are playing, now is his turn
+	 * @param gameStatus, the status of a turn, reference at model and the player who
+	 * are playing, now is his turn
 	 */
 
 	public Move(GameStatus status) {
@@ -38,13 +37,12 @@ public class Move implements ChooseAnAction {
 
 		Player player = status.getPlayer();
 		Sector destSector = status.getGame().getMap().getSector(dest);
-		if(destSector.isClosed()) 	//controlli se il personaggio può effettivamente andare nel settore
-			return false;
 		return pathCheck(player.getSector().getCoordinate(), dest,
 				player.getSpeed())
 				&& destCheck(player, destSector);
 	}
 
+	
 	/**
 	 * 
 	 * check that an alien can not move to an escape hatch sector
@@ -80,20 +78,21 @@ public class Move implements ChooseAnAction {
 			Sector currSector = status.getGame().getMap().getSector(curr);
 			for (int i = 0; i < currSector.getAdjacent().size(); i++) {
 				Coordinate adjCoord = currSector.getAdjacent().get(i);
-				if(!status.getGame().getMap().isNull(adjCoord)){
+				if (!status.getGame().getMap().isNull(adjCoord)) {
 					Sector adjSector = status.getGame().getMap()
 							.getSector(adjCoord);
+					if (!adjSector.isClosed()) {
 						speed--;
-						if(adjSector.getCoordinate().equals(dest))
-							return true;
+
 						if (pathCheck(adjCoord, dest, speed)) {
 							return true;
 						}
 						speed++;
 					}
-
 				}
+
 			}
+		}
 		return false;
 	}
 
@@ -161,7 +160,7 @@ public class Move implements ChooseAnAction {
 		}
 		status.getGame().getHatchCards().discard(current);
 	}
-	
+
 	private void removeAllItems(Player player) {
 		int numItems = player.getItem().size();
 		for (int i = 0; i < numItems; i++) {
