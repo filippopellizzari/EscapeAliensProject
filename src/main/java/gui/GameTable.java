@@ -27,12 +27,15 @@ public class GameTable extends JPanel {
 		mapContainer.setIcon(map);
 		mapContainer.setSize(map.getIconWidth(), map.getIconHeight());
 
-		//action panel
-		ActionPanel actionPanel = new ActionPanel();
+		//left panel
+		LeftPanel leftPanel = new LeftPanel();
+		//right panel
+		RightPanel rightPanel = new RightPanel();
 		
 		//layout
-		add(actionPanel, BorderLayout.WEST);
+		add(leftPanel, BorderLayout.WEST);
 		add(mapContainer, BorderLayout.CENTER);
+		add(rightPanel, BorderLayout.EAST);
 		setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 	}
 

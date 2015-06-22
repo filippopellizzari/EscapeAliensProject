@@ -10,12 +10,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-public class ActionPanel extends JPanel {
+public class LeftPanel extends JPanel {
 
 	
 	private static final long serialVersionUID = 1L;
 
-	public ActionPanel() {
+	public LeftPanel() {
 
 		super(new BorderLayout());
 		setOpaque(true);
@@ -33,23 +33,29 @@ public class ActionPanel extends JPanel {
 		spotlight.addActionListener(new ItemListener());
 		adrenaline.addActionListener(new ItemListener());
 	
-		//discard combobox
+		//discard table
+		String[] columnNames = {"Item Type", "#"};
+		final Object[][] data = {
+				{" Attack", new Integer(0)},
+				{" Teleport", new Integer(0)},
+				{" Sedatives",new Integer(0)},
+				{" Spotlight",new Integer(0)},
+				{" Adrenaline",new Integer(0)}
+		};
 		
-		JComboBox<String> discardBox = new JComboBox<String>();
-		discardBox.addItem("attack");
-		discardBox.addItem("teleport");
-		discardBox.addItem("sedatives");
-		discardBox.addItem("spotlight");
-		discardBox.addItem("adrenaline");
-		
-		discardBox.setEditable(false);
+		final JTable itemsTable = new JTable(data, columnNames);
+		itemsTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		JButton discard = new JButton("Discard");
 		discard.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(((JComboBox) e.getSource()).getSelectedItem());
+				int row = itemsTable.getSelectedRow();
+				System.out.println("discard "+data[row][0]);
+				int num = (int) data[row][1];
+				num--;
+				data[row][1] = num;
 				
 			}
 			
@@ -58,7 +64,25 @@ public class ActionPanel extends JPanel {
 		
 		//other buttons
 		JButton alienAttack = new JButton("ATTACK");
+		alienAttack.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("ALIEN ATTACK");
+				
+			}
+			
+		});
 		JButton endTurn = new JButton("FINE TURNO");
+		endTurn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("FINE TURNO");
+				
+			}
+			
+		});
 
 		// testo esplicativo al passaggio mouse
 
@@ -67,6 +91,7 @@ public class ActionPanel extends JPanel {
 		sedatives.setToolTipText("usa carta sedativi");
 		spotlight.setToolTipText("usa carta spotlight");
 		adrenaline.setToolTipText("usa carta adrenalina");
+		discard.setToolTipText("clicca per scartare carta oggetto selezionata");
 		alienAttack.setToolTipText("attacco alieno");
 		endTurn.setToolTipText("clicca quando vuoi finire il turno");
 
@@ -83,8 +108,9 @@ public class ActionPanel extends JPanel {
 		//discard panel
 		JPanel discardPanel = new JPanel(new GridLayout(0,1));
 		discardPanel.setBackground(Color.GRAY);
-		discardPanel.add(discardBox);
+		discardPanel.add(itemsTable);
 		discardPanel.add(discard);
+		
 		
 		//put action buttons in a column in another panel
 		JPanel other = new JPanel(new GridLayout(0,1));

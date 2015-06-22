@@ -359,11 +359,12 @@ public class TestMove {
 
 	/**
 	 * test verifies that a player move effectively to destination
+	 * 
 	 *
 	 **/
 	@Test
 	public void testMoveSectorDest() {
-		Coordinate curr = new Coordinate(12, 5);
+		Coordinate curr = new Coordinate(12, 6);
 		Sector start = model.getMap().getSector(curr);
 		alien.setSector(start);
 		start.addPlayer(alien);
@@ -371,7 +372,7 @@ public class TestMove {
 		GameStatus status = new GameStatus(model, alien);
 		
 
-		Coordinate destCoord = new Coordinate(12, 3);
+		Coordinate destCoord = new Coordinate(12, 5);
 		Sector dest = model.getMap().getSector(destCoord);
 
 		new Move(status).move(destCoord);

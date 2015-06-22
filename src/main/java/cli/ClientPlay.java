@@ -33,7 +33,7 @@ public class ClientPlay {
 	public void play() throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException{
 
 		in = new Scanner(System.in);
-		Thread.sleep(40000);
+		Thread.sleep(5000);
 			System.out.println("Fai un'azione:\n 1: MOVE\n 2: ATTACK\n 3: USE ITEM CARD\n "
 					+ "4: DISCARD ITEM CARD\n 5: DRAW SECTOR CARD\n 6: SELECT FOR NOISE IN ANY SECTOR\n "
 					+ "7: END TURN\n 8: CHAT");	

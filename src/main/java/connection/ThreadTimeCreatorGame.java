@@ -18,7 +18,7 @@ public class ThreadTimeCreatorGame implements Runnable {
 	 */
 	
 	public ThreadTimeCreatorGame(DetailsPlayers details) {	//dati con mappa da creare
-		this.details=details;
+		this.details = details;
 	}
 	
 	/**

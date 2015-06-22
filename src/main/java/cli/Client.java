@@ -53,8 +53,9 @@ public class Client {
 		System.out.println("Casella: "+cd.getView().getCoordinate());
 		Thread showMessage = new Thread(new ShowMessage(cd));
 		showMessage.start();
-		System.out.println("Il thread è partito");
+		//System.out.println("Il thread è partito");
 		new ClientPlay(cd).play();
+
 		in.close();
 	}
 
