@@ -62,7 +62,7 @@ public class ListOfStartedGame {
 	 */
 	
 	public synchronized void removeGameDescription(int number) throws InterruptedException{
-		IdentifyTypeOfConnection identityConnection=IdentifyTypeOfConnection.getinstance();
+		DatabasePlayersIdentification identityConnection=DatabasePlayersIdentification.getinstance();
 		Thread.sleep(60000);   	//aspetto 60 secondi in modo che tutti i giocatori abbiano ricevuto l'ultimo dto 
 		for(int i=0;i<identityConnection.getSize();i++) {
 			if(identityConnection.getIdentification(i)!=null)

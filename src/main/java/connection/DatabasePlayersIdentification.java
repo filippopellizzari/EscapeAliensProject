@@ -7,17 +7,17 @@ package connection;
  *
  */
 
-public class IdentifyTypeOfConnection {
+public class DatabasePlayersIdentification {
 	
-	private Identification[] identificationList;
-	private static IdentifyTypeOfConnection instance = new IdentifyTypeOfConnection();
+	private PlayerIdentification[] identificationList;
+	private static DatabasePlayersIdentification instance = new DatabasePlayersIdentification();
 	
 	/**
 	 * This constructor creates a new arrays of identifications
 	 */
 	
-	public IdentifyTypeOfConnection() {
-		this.identificationList = new Identification[10000];
+	public DatabasePlayersIdentification() {
+		this.identificationList = new PlayerIdentification[10000];
 	}
 	
 	/**
@@ -25,14 +25,14 @@ public class IdentifyTypeOfConnection {
 	 * @return
 	 */
 	
-	public static IdentifyTypeOfConnection getinstance() {
+	public static DatabasePlayersIdentification getinstance() {
 		return instance;
 	}
 	
 	/**
 	 * @return the identification
 	 */
-	public Identification getIdentification(int number) {
+	public PlayerIdentification getIdentification(int number) {
 		if(identificationList[number]==null) return null;
 		return identificationList[number];
 	}
@@ -58,7 +58,7 @@ public class IdentifyTypeOfConnection {
 	/**
 	 * @param identificationList the identificationList to set
 	 */
-	public void setIdentificationList(Identification identification, int number) {
+	public void setIdentificationList(PlayerIdentification identification, int number) {
 		this.identificationList[number] = identification;
 	}
 }

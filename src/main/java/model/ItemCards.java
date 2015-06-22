@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This class represent the 2 deck relative at itemcard, everyone draw a card from the deck and discard in the discardPile
+ * This class represent the 2 deck relative at itemcard, everyone draw a card from the deck 
+ * and discard in the discardPile
  * @author Nicola
  * @see ItemCard
  *
@@ -29,9 +30,8 @@ public class ItemCards {
 	}
 	
 	/**
-	 * 
-	 * @return if the deck is empty so all the cards in discardPile are shuffle and the put into deck, then a card is passed, if discardPile is
-	 * void return null
+	 * @return if the deck is empty so all the cards in discardPile are shuffle and the put into deck,
+	 * then a card is passed, if discardPile is void return null
 	 */
 	
 	public ItemCard draw() {
@@ -43,14 +43,11 @@ public class ItemCards {
 			deck.addAll(discardPile);
 			discardPile.clear();
 			Collections.shuffle(deck);
-		}
-						 
+		}			 
 		return deck.remove(0);
-		
 	}
 	
 	/**
-	 * 
 	 * @param current, discard a card and this card is added at the discard Pile
 	 */
 	
@@ -59,7 +56,6 @@ public class ItemCards {
 	}
 	
 	/**
-	 * 
 	 * @return deck, this method is used only for test and it isn't used in the game
 	 */
 
@@ -68,7 +64,6 @@ public class ItemCards {
 	}
 	
 	/**
-	 * 
 	 * @return discard, this method is used only for test and it isn't used in the game
 	 */
 

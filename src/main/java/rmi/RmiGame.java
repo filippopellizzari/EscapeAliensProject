@@ -25,6 +25,10 @@ public class RmiGame implements Runnable {
 		this.clientData=clientDataRMI;
 		this.dtoSend=dtoSend;
 	}
+	
+	/**
+	 * Does an action on the game
+	 */
 
 	@Override
 	public void run() {

@@ -11,7 +11,7 @@ import rmi.*;
 import socket.ClientHandler;
 
 /**
- * 
+ * This class is the server used to starts the connection, has 2 ports, one for rmi and one other for socket
  * @author Nicola
  *
  */
@@ -23,7 +23,8 @@ public class Server {
 	private static final String NAME = "room";
 	
 	/**
-	 * Starts the server, one port is for socket, the other is for RMI, when a request arrives a new thread is created to take care of it
+	 * Starts the server, one port is for socket, the other is for RMI, when a request arrives a new 
+	 * thread is created to take care of it
 	 */
 	
 	public void startServer() {

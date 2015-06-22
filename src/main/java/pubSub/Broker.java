@@ -31,7 +31,8 @@ public class Broker {
 	}	
 	
 	/**
-	 * This method is used to save a message in the broker, the broker analizes the message and saves this in the players' buffer 
+	 * This method is used to save a message in the broker, the broker analizes the message
+	 * and saves this in the players' buffer 
 	 * @param dtoGame
 	 */
 
@@ -59,6 +60,7 @@ public class Broker {
 	/**
 	 * @return the playersBuffer
 	 */
+	
 	public PlayersBuffers getPlayersBuffer(int numberPlayer) {
 		return playersBuffer[numberPlayer];
 	}
@@ -66,6 +68,7 @@ public class Broker {
 	/**
 	 * @return the gameDescription
 	 */
+	
 	public GameDescription getGameDescription() {
 		return gameDescription;
 	}

@@ -4,10 +4,8 @@ import java.io.Serializable;
 
 /**
  * This class is used to find a sector, x is the letter A-W, y is the number 1-14, is
- * used in class sector 
- * 
+ * used in class sector
  * @author Nicola
- * @see Sector
  *
  */
 
@@ -21,7 +19,6 @@ public class Coordinate implements Serializable{
 	private int y;
 	
 	/**
-	 * 
 	 * @param x letter of the sector convert into number
 	 * @param y number of the sector
 	 */
@@ -32,7 +29,6 @@ public class Coordinate implements Serializable{
 	}
 	
 	/**
-	 * 
 	 * @return the letter of the sector in number
 	 */
 	
@@ -41,7 +37,6 @@ public class Coordinate implements Serializable{
 	}
 	
 	/**
-	 * 
 	 * @return the number of the sector
 	 */
 	
@@ -77,7 +72,5 @@ public class Coordinate implements Serializable{
 		if (y != other.y)
 			return false;
 		return true;
-	}
-	
-	
+	}	
 }

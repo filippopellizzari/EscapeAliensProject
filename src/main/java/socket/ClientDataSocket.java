@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 import connection.*;
-import controller.ActionType;
 import dto.*;
 
 /**
- * This class is the socket connection, invokes the method based on socket to receives token, sends the game preference, does an action
+ * This class is the socket connection, invokes the method based on socket to receives token,
+ * sends the game preference, does an action on a specified game
  * @author Nicola
  * @see Client Data
  */

@@ -6,7 +6,7 @@ package connection;
  *
  */
 
-public class ThreadTemporize implements Runnable {
+public class ThreadTemporizeTurn implements Runnable {
 	private int time;
 	private GameDescription gameDescription;
 	private int turn = 0;
@@ -20,7 +20,7 @@ public class ThreadTemporize implements Runnable {
 	 * @param turn 
 	 */
 
-	public ThreadTemporize(int time, GameDescription gameDescription, int turn, int numberPlayer) {
+	public ThreadTemporizeTurn(int time, GameDescription gameDescription, int turn, int numberPlayer) {
 		this.gameDescription = gameDescription;
 		this.time = time;
 		this.turn=turn;

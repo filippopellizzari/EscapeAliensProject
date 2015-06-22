@@ -1,8 +1,19 @@
 package connection;
 
+/**
+ * This thread eliminates a game when the game is finished 
+ * @author Nicola
+ *
+ */
+
 public class DeleteGame implements Runnable {
 	private int numberOfGame;
 	private ListOfStartedGame listOfGames;
+	
+	/**
+	 * Eliminate the game with the right number
+	 * @param i
+	 */
 
 	public DeleteGame(int i) {
 		this.numberOfGame=i;

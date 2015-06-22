@@ -17,7 +17,6 @@ public class subscribeRMI implements Runnable {
 	private ClientDataRMI clientData;
 	
 	/**
-	 * 
 	 * @param clientDataRMI, contains data to set
 	 */
 	

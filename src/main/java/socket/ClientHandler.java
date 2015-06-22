@@ -5,15 +5,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import connection.Identification;
-import connection.IdentifyTypeOfConnection;
-import connection.Processing;
-import connection.Token;
-import socket.*;
+import connection.*;
 
 /**
  * This class read the token from the input and if the token is -1 calls the class that creates a new toke, if the 
- * game is -1 calls the class that sends a request for a new game, otherwise call the class that does an action on 
+ * game is -1 calls the class that sends a request for a new game, otherwise calls the class that does an action on 
  * a specific game
  * @author Nicola
  *
@@ -21,7 +17,7 @@ import socket.*;
 
 public class ClientHandler implements Runnable{
 	
-	private IdentifyTypeOfConnection identifyTypeOfConnection;
+	private DatabasePlayersIdentification identifyTypeOfConnection;
 	private Socket socket;
 	
 	/**
@@ -31,7 +27,7 @@ public class ClientHandler implements Runnable{
 	
 	public ClientHandler(Socket socket){
 		this.socket = socket;
-		identifyTypeOfConnection=IdentifyTypeOfConnection.getinstance();
+		identifyTypeOfConnection=DatabasePlayersIdentification.getinstance();
 	}
 	
 	/**
@@ -50,7 +46,7 @@ public class ClientHandler implements Runnable{
 				processing.start();
 			}
 			else {
-				Identification identify=identifyTypeOfConnection.getIdentification(token.getNumber());
+				PlayerIdentification identify=identifyTypeOfConnection.getIdentification(token.getNumber());
 				if(identify.getNumberGame()==-1) {
 					processing=new ClientHandlerChooseGameSocket(token,socketOut,socketIn);
 					processing.start();

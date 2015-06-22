@@ -6,14 +6,13 @@ import controller.ActionType;
 import model.*;
 
 /**
- * this class is used as a DTO between Client and Server, when the game starts
- * 
- * @author Nicola this is the DTO passed from server to client
+ * This class is used as a DTO between Client and Server, when the game starts
+ * this is the DTO passed from server to client
+ * @author Nicola 
  *
  */
 
 public class DTOGame implements Serializable {
-
 
 	private static final long serialVersionUID = 1L;
 	private final Coordinate[] coordinate;
@@ -39,6 +38,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @return the itemCardType
 	 */
+	
 	public ItemCardType getItemCardType() {
 		return itemCardType;
 	}
@@ -46,6 +46,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @param itemCardType the itemCardType to set
 	 */
+	
 	public void setItemCardType(ItemCardType itemCardType) {
 		this.itemCardType = itemCardType;
 	}
@@ -53,6 +54,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @return the sectorCardType
 	 */
+	
 	public SectorCardType getSectorCardType() {
 		return sectorCardType;
 	}
@@ -60,6 +62,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @param sectorCardType the sectorCardType to set
 	 */
+	
 	public void setSectorCardType(SectorCardType sectorCardType) {
 		this.sectorCardType = sectorCardType;
 	}
@@ -67,6 +70,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @return the hatchCardColor
 	 */
+	
 	public HatchCardColor getHatchCardColor() {
 		return hatchCardColor;
 	}
@@ -74,6 +78,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @param hatchCardColor the hatchCardColor to set
 	 */
+	
 	public void setHatchCardColor(HatchCardColor hatchCardColor) {
 		this.hatchCardColor = hatchCardColor;
 	}
@@ -81,6 +86,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @return the actionType
 	 */
+	
 	public ActionType getActionType() {
 		return actionType;
 	}
@@ -88,6 +94,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @param actionType the actionType to set
 	 */
+	
 	public void setActionType(ActionType actionType) {
 		this.actionType = actionType;
 	}
@@ -95,6 +102,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @return the chat
 	 */
+	
 	public String getChat() {
 		return chat;
 	}
@@ -102,6 +110,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @param chat the chat to set
 	 */
+	
 	public void setChat(String chat) {
 		this.chat += chat;
 	}
@@ -109,6 +118,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @return the gameMessage
 	 */
+	
 	public String getGameMessage() {
 		return gameMessage;
 	}
@@ -116,6 +126,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @param gameMessage the gameMessage to set
 	 */
+	
 	public void setGameMessage(String gameMessage) {
 		this.gameMessage += gameMessage;
 	}
@@ -123,6 +134,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @return the receiver
 	 */
+	
 	public int getReceiver() {
 		return receiver;
 	}
@@ -130,6 +142,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @param receiver the receiver to set
 	 */
+	
 	public void setReceiver(int receiver) {
 		this.receiver = receiver;
 	}
@@ -137,6 +150,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @return the playerNumber
 	 */
+	
 	public int getPlayerNumber() {
 		return playerNumber;
 	}
@@ -144,6 +158,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @param playerNumber the playerNumber to set
 	 */
+	
 	public void setPlayerNumber(int playerNumber) {
 		this.playerNumber = playerNumber;
 	}
@@ -151,6 +166,7 @@ public class DTOGame implements Serializable {
 	/**
 	 * @return the coordinate
 	 */
+	
 	public Coordinate[] getCoordinate() {
 		return coordinate;
 	}
@@ -158,12 +174,12 @@ public class DTOGame implements Serializable {
 	/**
 	 * @return the playerType
 	 */
+	
 	public PlayerType[] getPlayerType() {
 		return playerType;
 	}
 	
 	/**
-	 * 
 	 * @param coordinate
 	 * @param number
 	 */
@@ -173,7 +189,6 @@ public class DTOGame implements Serializable {
 	}
 	
 	/**
-	 * 
 	 * @param type
 	 * @param number
 	 */

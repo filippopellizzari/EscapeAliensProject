@@ -9,7 +9,6 @@ import model.*;
 /**
  * This class create a map of the type you passed
  * @author Nicola
- * @see Map
  *
  */
 
@@ -21,7 +20,6 @@ public abstract class MapCreator {
 	protected List<Coordinate> hatchSectors;
 	
 	/**
-	 * 
 	 * @param mapName, the name of a map
 	 * @return Map, one type of map
 	 * @throws NumberFormatException

@@ -17,9 +17,8 @@ public class Move implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param gameStatus
-	 *            , the status of a turn, reference at model and the player who
-	 *            are playing, now is his turn
+	 * @param gameStatus, the status of a turn, reference at model and the player who
+	 * are playing, now is his turn
 	 */
 
 	public Move(GameStatus status) {
@@ -38,7 +37,6 @@ public class Move implements ChooseAnAction {
 
 		Player player = status.getPlayer();
 		Sector destSector = status.getGame().getMap().getSector(dest);
-	
 		return pathCheck(player.getSector().getCoordinate(), dest,
 				player.getSpeed())
 				&& destCheck(player, destSector);

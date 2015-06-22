@@ -11,6 +11,7 @@ import connection.*;
  * This class is used to begin the connection, sends the number -1 to the server, then takes its token number
  * and save this in the client data 
  * @author Nicola
+ * @see SocketBase
  *
  */
 
@@ -36,6 +37,10 @@ public class SocketStart extends SocketBase implements Runnable{
 			System.out.print("Errore");
 		}
 	}
+	
+	/**
+	 * Sends a standard token and receive his new token
+	 */
 	
 	@Override
 	public void run() {

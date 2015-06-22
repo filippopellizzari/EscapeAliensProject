@@ -6,7 +6,6 @@ import model.*;
 /**
  * This class control a player action, if the player can do the action the
  * method changes the model and notifies the player/players
- * 
  * @author Nicola
  *
  */
@@ -17,10 +16,8 @@ public class Turn {
 
 	/**
 	 * 
-	 * @param game
-	 *            reference at model
-	 * @param player
-	 *            reference at player who has to play
+	 * @param game reference at model
+	 * @param player reference at player who has to play
 	 */
 
 	public Turn(Game game, Player player) {
@@ -29,8 +26,7 @@ public class Turn {
 
 	/**
 	 * 
-	 * @param dtoTurn
-	 *            , collection of element used to explain an action
+	 * @param dtoTurn, collection of element used to explain an action
 	 * @return the message with the response about the actions executed
 	 * @throws ClassNotFoundException
 	 * @throws IllegalAccessException
@@ -70,7 +66,6 @@ public class Turn {
 			actionToDo = new EndTurn(status);
 			response = actionToDo.doAction(dtoTurn);
 			break;
-
 		default:
 			break;
 		}

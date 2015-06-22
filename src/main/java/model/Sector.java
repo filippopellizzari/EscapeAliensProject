@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class define the "cells" that compounds the map, each has a type, the coordinate to adjcent sector to know if player can move there and a 
- * list of player in this sector, the attribute close indicate if it is possible to move in this sector
+ * This class define the "cells" that compounds the map, each has a type, the coordinate to adjcent 
+ * sector to know if player can move there and a list of player in this sector, the attribute close
+ * indicate if it is possible to move in this sector
  * @author Nicola
  * @author Filippo
- *@see Coordinate to know what it is
  */
 
 public class Sector {
@@ -20,7 +20,6 @@ public class Sector {
 	private Coordinate coordinate;
 	
 	/**
-	 * 
 	 * @param sectorType indicate the varius tipe each has its own propriety defined in the controller for the game rules
 	 * @param closed indicate if the sector is crossable by player
 	 * @param x		use for indicate the letter of a sector
@@ -37,7 +36,6 @@ public class Sector {
 	}
 	
 	/**
-	 * 
 	 * @return the type of sector
 	 * @see SectorType
 	 */
@@ -47,7 +45,6 @@ public class Sector {
 	}
 
 	/**
-	 * 
 	 * @return list of coordinate of adjacent sectors used by controller to indicate if player can go in these sectors
 	 */
 	
@@ -56,7 +53,6 @@ public class Sector {
 	}
 
 	/**
-	 * 
 	 * @return the list of player in the sector, used for test this class
 	 */
 
@@ -64,8 +60,8 @@ public class Sector {
 		return players;
 	}
 
-	/**add a player at the end of the list of players in a sector
-	 * 
+	/**
+	 * add a player at the end of the list of players in a sector
 	 * @param player
 	 */
 	
@@ -73,11 +69,10 @@ public class Sector {
 		players.add(player);
 	}
 	
-	/**remove the first element in the list of players in a sector
+	/**
+	 * remove the first element in the list of players in a sector
 	 * (then the size of the list is oldsize-1)
-	 * 
-	 * @return a playerObject, it is the first of the list of 
-	 * player in a sector
+	 * @return a playerObject, it is the first of the list of player in a sector
 	 */
 	
 	public Player removePlayer() {
@@ -85,7 +80,6 @@ public class Sector {
 	}
 	
 	/**
-	 * 
 	 * @return true if sector is closed (not achievable and not crossable)
 	 */
 	public boolean isClosed() {
@@ -93,7 +87,6 @@ public class Sector {
 	}
 	
 	/**
-	 * 
 	 * @return the coordinate of this sector
 	 * @see Coordinate
 	 */
@@ -101,14 +94,10 @@ public class Sector {
 	public Coordinate getCoordinate() {
 		return this.coordinate;
 	}
-	
-
 
 	@Override
 	public String toString() {
 		return "Sector [sectorType=" + sectorType + ", coordinate=(" + getCoordinate().getX()
 				+ "," + getCoordinate().getY() + ")]";
 	}
-
-	
 }

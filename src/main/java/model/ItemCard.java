@@ -3,7 +3,6 @@ package model;
 /**
  * This class represent an ItemCard 
  * @author Nicola
- *@see ItemCardType
  */
 
 public class ItemCard {
@@ -20,7 +19,6 @@ public class ItemCard {
 	}
 	
 	/**
-	 * 
 	 * @return itemCardType used by controller to execute the appropriate method
 	 */
 	

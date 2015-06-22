@@ -37,8 +37,8 @@ public class ClientHandlerGameSocket implements Processing{
 		this.token=token;
 		this.out=socketOut;
 		this.in=socketIn;
-		IdentifyTypeOfConnection identifyTypeOfConnection=IdentifyTypeOfConnection.getinstance();
-		Identification identification=identifyTypeOfConnection.getIdentification(token.getNumber());	//prendo l'identificatore del giocatore per avere il gioco
+		DatabasePlayersIdentification identifyTypeOfConnection=DatabasePlayersIdentification.getinstance();
+		PlayerIdentification identification=identifyTypeOfConnection.getIdentification(token.getNumber());	//prendo l'identificatore del giocatore per avere il gioco
 		ListOfStartedGame listOfStartedGame=ListOfStartedGame.getinstance();
 		gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());		//prendo il gioco associato al giocatore
 		this.numberPlayer=identification.getNumberPlayer();

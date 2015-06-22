@@ -23,6 +23,8 @@ public class PlayersBuffers {
 	}
 
 	/**
+	 * If the buffer is empty waits otherwise takes and removes the fist message, if the message
+	 * is the end of game notifies this
 	 * @return the buffer
 	 * @throws InterruptedException 
 	 */

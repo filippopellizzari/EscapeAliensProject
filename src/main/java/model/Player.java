@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
  * @author Nicola
  * @author Filippo
  * this class represent a player in the game with all its attributes
- * @see PlayerType
  *
  */
 
@@ -23,7 +21,6 @@ public class Player {
 	private final List<ItemCard> itemCardPlayer;
 	
 	/**
-	 * 
 	 * @param playerType, there are 2 type of player Alien and Human
 	 * @param currentSector, sector where there is this player
 	 * @param speed, number of sector that player can pass in one round 
@@ -41,7 +38,6 @@ public class Player {
 	}
 	
 	/**
-	 * 
 	 * @return player type, used by controller because a human can do some option denied at alien and vice versa
 	 */
 
@@ -50,24 +46,30 @@ public class Player {
 	}
 	
 	/**
-	 * 
 	 * @param playerType
 	 */
 	
 	public void setPlayerType(PlayerType playerType) {
 		this.playerType = playerType;
 	}
+	
+	/**
+	 * @return the player's state
+	 */
 
 	public PlayerState getPlayerState() {
 		return playerState;
 	}
+	
+	/**
+	 * @param playerState, sets the new player's state
+	 */
 
 	public void setPlayerState(PlayerState playerState) {
 		this.playerState = playerState;
 	}
 
 	/**
-	 * 
 	 * @return the player's sector
 	 */
 	
@@ -76,7 +78,6 @@ public class Player {
 	}
 	
 	/**
-	 * 
 	 * @param currentSector, the sector where the player go is the new location of player
 	 */
 
@@ -85,7 +86,6 @@ public class Player {
 	}
 	
 	/**
-	 * 
 	 * @return the player speed, used by controller to check the move
 	 */
 
@@ -94,7 +94,6 @@ public class Player {
 	}
 	
 	/**
-	 * 
 	 * @param speed, used by alien player when kill a human to increase his speed
 	 */
 
@@ -103,7 +102,6 @@ public class Player {
 	}
 	
 	/**
-	 * 
 	 * @return number of player, each player is a client and plays with one number identifier
 	 */
 	
@@ -112,7 +110,6 @@ public class Player {
 	}
 	
 	/**
-	 * 
 	 * @return true if player is in Game
 	 */
 
@@ -121,7 +118,6 @@ public class Player {
 	}
 	
 	/**
-	 * 
 	 * @param inGame
 	 */
 
@@ -131,7 +127,6 @@ public class Player {
 
 
 	/**
-	 * 
 	 * @return list of the itemCards of a player
 	 */
 	
@@ -139,8 +134,8 @@ public class Player {
 		return itemCardPlayer;
 	}
 	
-	/**add an item card at the end of the list of player's itemCards 
-	 * 
+	/**
+	 * add an item card at the end of the list of player's itemCards 
 	 * @param itemCard Object 
 	 */
 	
@@ -148,11 +143,11 @@ public class Player {
 		itemCardPlayer.add(itemCard);
 	}
 	
-	/**remove an itemCard from the list;
+	/**
+	 * remove an itemCard from the list;
 	 * the new list size is oldsize-1; 
 	 * new indexes at the right of element removed are
 	 * oldindexes-1;
-	 * 
 	 * @param index of the itemCard to remove from the player's deck
 	 * @return itemCard Object if exists, null otherwise
 	 */
@@ -167,6 +162,4 @@ public class Player {
 		return "<giocatore "+ numberOfPlayer+">";
 				
 	}
-
-	
 }

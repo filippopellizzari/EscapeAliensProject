@@ -11,6 +11,7 @@ import dto.*;
  * This class is used during the game, sends a dtoSend for the server, the server analizes the dto and send a
  * response saved in a list.
  * @author Nicola
+ * @see SocketBase
  *
  */
 
@@ -39,6 +40,10 @@ public class SocketGame extends SocketBase implements Runnable{
 			System.out.print("Errore");
 		}
 	}
+	
+	/**
+	 * Sends a request and receives the corresponding response from controller
+	 */
 
 	@Override
 	public void run() {

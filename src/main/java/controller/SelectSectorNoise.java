@@ -6,7 +6,6 @@ import dto.*;
  * This class is used to show the effect of "noise in any sector"; the player,
  * who has drawn the dangerous sector card, must select a random sector
  *
- * 
  * @author Nicola
  *
  */
@@ -18,8 +17,7 @@ public class SelectSectorNoise implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param gameStatus
-	 *            status of the game
+	 * @param gameStatus status of the game
 	 */
 
 	public SelectSectorNoise(GameStatus gameStatus) {
@@ -32,8 +30,7 @@ public class SelectSectorNoise implements ChooseAnAction {
 		if (status.isMustNoise()) {
 			status.setMustNoise(false);
 			dtoGame.setReceiver(9);
-			dtoGame.setCoordinate(dtoTurn.getCoordinate(), status.getPlayer()
-					.getNumber());
+			dtoGame.setCoordinate(dtoTurn.getCoordinate(), status.getPlayer().getNumber());
 			dtoGame.setActionType(ActionType.SELECTSECTORNOISE);// notifica noise
 		} else {
 			dtoGame.setGameMessage("Non puoi usare in questo momento il Noise in Any Sector");
@@ -41,5 +38,4 @@ public class SelectSectorNoise implements ChooseAnAction {
 		}
 		return dtoGame;
 	}
-
 }
