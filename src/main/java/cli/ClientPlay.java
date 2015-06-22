@@ -67,7 +67,7 @@ public class ClientPlay {
 			default:
 				break;
 			}
-			in.close();
+			//in.close();
 	}	
 	
 	
