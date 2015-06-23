@@ -52,7 +52,7 @@ public class ClientDataRMI extends ClientData {
 	}
 	
 	/**
-	 * Subscribes a new game, if the response is positive the view returned is not null, null otherzise
+	 * Subscribes a new game, if the response is positive the view returned is not null, null otherwise
 	 */
 	@Override
 	public void clickOnStartGame(TypeOfMap typeOfMap)

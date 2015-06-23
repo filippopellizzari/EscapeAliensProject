@@ -16,8 +16,8 @@ public class GameTable extends JPanel {
 		super(new BorderLayout());
 		setOpaque(true);
 		frame.setContentPane(this);
-		frame.setPreferredSize(new Dimension(1400, 800));
-		frame.setSize(new Dimension(1400, 800));
+		frame.setPreferredSize(new Dimension(1450, 800));
+		frame.setSize(new Dimension(1450, 800));
 		frame.setLocationRelativeTo(null);
 		setBackground(Color.BLACK);
 
@@ -27,13 +27,17 @@ public class GameTable extends JPanel {
 		mapContainer.setIcon(map);
 		mapContainer.setSize(map.getIconWidth(), map.getIconHeight());
 
-		//action panel
-		ActionPanel actionPanel = new ActionPanel();
+		//left panel
+		LeftPanel leftPanel = new LeftPanel();
+		//right panel
+		RightPanel rightPanel = new RightPanel();
 		
 		//layout
-		add(actionPanel, BorderLayout.WEST);
+		add(leftPanel, BorderLayout.WEST);
 		add(mapContainer, BorderLayout.CENTER);
+		add(rightPanel, BorderLayout.EAST);
 		setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		
 	}
 
 	private ImageIcon loadIcon(String name) {
