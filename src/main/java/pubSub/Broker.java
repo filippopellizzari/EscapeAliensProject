@@ -38,7 +38,6 @@ public class Broker {
 	 * and saves this in the players' buffer 
 	 * @param dtoGame
 	 */
-
 	public void publish(DTOGame dtoGame){
 		if(dtoGame.getReceiver()<8)  {			//solo il giocatore deve ricevere il messaggio
 			playersBuffer[dtoGame.getPlayerNumber()].setBuffer(dtoGame);
