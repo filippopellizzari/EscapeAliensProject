@@ -119,7 +119,7 @@ public class GameController {
 		if (round <= TOT_ROUNDS) {
 			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 			dtoGame.setActionType(ActionType.ENDTURN);
-			if(nuovoRound){
+			if(nuovoRound) {
 				dtoGame.setGameMessage("Round "+round+"\n");
 			}
 			dtoGame.setGameMessage("Turno giocatore " + (currentNumberPlayer+1)+"\n");
@@ -129,6 +129,7 @@ public class GameController {
 			dtoGame.setActionType(ActionType.ENDTURN);
 			dtoGame.setGameMessage("Finiti i turni di gioco: gli alieni vincono\n");
 		}
+		setChangeTurn();
 		dtoGame.setReceiver(9);
 		return dtoGame;
 
