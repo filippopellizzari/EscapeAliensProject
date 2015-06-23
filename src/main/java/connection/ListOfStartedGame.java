@@ -31,7 +31,7 @@ public class ListOfStartedGame {
 	 * @param number
 	 * @return
 	 */
-	public GameDescription getNumberGameDescription(int number) {
+	public synchronized GameDescription getNumberGameDescription(int number) {
 		return gameDescriptionList[number];
 	}
 
@@ -60,12 +60,5 @@ public class ListOfStartedGame {
 	public synchronized void removeGameDescription(int number) throws InterruptedException{
 		System.out.println("Ho cancellato la partita: "+number);
 		gameDescriptionList[number]=null;
-	}
-
-	/**
-	 * @return the gameDescriptionList
-	 */
-	public synchronized GameDescription getGameDescriptionList(int number) {
-		return gameDescriptionList[number];
 	}
 }

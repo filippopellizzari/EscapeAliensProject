@@ -19,9 +19,6 @@ public class GameCreator {
 	
 	private static GameCreator instance = new GameCreator();
 	
-	private GameCreator() { 	
-	}
-	
 	/**
 	 * @return the instance of GameCreator the same for all
 	 */

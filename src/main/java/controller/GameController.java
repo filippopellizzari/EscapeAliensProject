@@ -127,6 +127,7 @@ public class GameController {
 			dtoGame.setActionType(ActionType.ENDTURN);
 			dtoGame.setGameMessage("Finiti i turni di gioco: gli alieni vincono");
 		}
+		setChangeTurn();
 		dtoGame.setReceiver(9);
 		return dtoGame;
 

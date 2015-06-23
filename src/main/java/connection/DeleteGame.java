@@ -28,7 +28,7 @@ public class DeleteGame implements Runnable {
 	@Override
 	public void run() {
 		try {
-			listOfGames.getGameDescriptionList(numberOfGame).getStatusGame();
+			listOfGames.getNumberGameDescription(numberOfGame).getStatusGame();
 			Thread.sleep(120000);
 			listOfGames.removeGameDescription(numberOfGame);
 		} catch (InterruptedException e) {
