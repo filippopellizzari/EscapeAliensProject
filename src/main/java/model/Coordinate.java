@@ -46,7 +46,7 @@ public class Coordinate implements Serializable{
 
 	@Override
 	public String toString() {
-		return " [x=" + x + ", y=" + y + "]";
+		return " ["+(char)(x+64) + ","+y + "]";
 	}
 	
 	@Override

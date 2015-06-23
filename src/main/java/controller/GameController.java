@@ -70,7 +70,7 @@ public class GameController {
 				dtoSend.getItemCardType(), dtoSend.getActionType());
 		dtoGame = currentTurn.action(dtoTurn);
 		if (dtoGame.getGameMessage() == "Hai finito il turno") {
-			dtoGame=endTurn(dtoGame);
+			dtoGame = endTurn(dtoGame);
 			dtoGame.setActionType(ActionType.ENDTURN);
 			return dtoGame;
 		}
@@ -93,7 +93,7 @@ public class GameController {
 		dtoGame.setPlayerNumber(currentNumberPlayer);
 		if (end != null) {
 			disconnectAll();
-			round = TOT_ROUNDS + 1;			//turno 40
+			round = TOT_ROUNDS + 1;			
 			dtoGame.setGameMessage(end);
 			dtoGame.setReceiver(9);
 			dtoGame.setActionType(ActionType.ENDTURN);
@@ -120,7 +120,7 @@ public class GameController {
 			if(nuovoRound){
 				dtoGame.setGameMessage("Round "+round+"\n");
 			}
-			dtoGame.setGameMessage("Turno giocatore " + currentNumberPlayer);
+			dtoGame.setGameMessage("Turno giocatore " + (currentNumberPlayer+1));
 		} 
 		else {
 			disconnectAll();
