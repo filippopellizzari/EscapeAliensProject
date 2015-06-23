@@ -162,7 +162,7 @@ public class ClientPlay {
 		cd.clickOnDoMove(dtoSend);
 	}
 	
-	private void chat() throws UnknownHostException, IOException, InterruptedException{
+	private void chat() throws InterruptedException, UnknownHostException, IOException{
 		String mess = in.nextLine();
 		dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(), null, ActionType.CHAT, mess);
 		cd.clickOnDoMove(dtoSend);

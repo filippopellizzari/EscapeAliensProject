@@ -12,19 +12,19 @@ public class DrawMessage implements Message {
 					+ "seleziona un settore a scelta");
 			break;
 		case NOISEYOUR:
-			System.out.println("<giocatore " + dtoGame.getPlayerNumber() + "> "
+			System.out.println("<giocatore " + (dtoGame.getPlayerNumber()+1) + "> "
 					+ "RUMORE IN SETTORE "
-					+ dtoGame.getCoordinate()[dtoGame.getPlayerNumber()]);
+					+ dtoGame.getCoordinate(dtoGame.getPlayerNumber()));
 			break;
 		case SILENCE:
-			System.out.println("<giocatore " + dtoGame.getPlayerNumber() + ">"
+			System.out.println("<giocatore " + (dtoGame.getPlayerNumber()+1) + ">"
 					+ " SILENZIO IN TUTTI I SETTORI ");
 			break;
 		default:
 			break;
 		}
 		if (dtoGame.getItemCardType() != null) {
-			System.out.println("<giocatore " + dtoGame.getPlayerNumber()
+			System.out.println("<giocatore " + (dtoGame.getPlayerNumber()+1)
 					+ "> ha pescato una carta oggetto");
 		}
 
