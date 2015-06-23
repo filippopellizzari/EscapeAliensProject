@@ -44,7 +44,6 @@ public class TimerInscriptionForGame implements Runnable {
 					database.removeGame(i); // rimuovilo
 				}
 			}
-			System.out.println("Sono il thread creato per cronometrare la partita: ho finito");
 		} catch (InterruptedException e) {
 			System.err.print("Errore nel fine turno");
 		}

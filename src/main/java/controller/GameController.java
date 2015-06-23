@@ -70,7 +70,7 @@ public class GameController {
 				dtoSend.getItemCardType(), dtoSend.getActionType());
 		dtoGame = currentTurn.action(dtoTurn);
 		if (dtoGame.getGameMessage() == "Hai finito il turno") {
-			endTurn(dtoGame);
+			dtoGame=endTurn(dtoGame);
 			dtoGame.setActionType(ActionType.ENDTURN);
 			return dtoGame;
 		}
@@ -85,7 +85,7 @@ public class GameController {
 	 * finished in favor of aliens.
 	 * 
 	 * @param dtoGame
-	 * @return
+	 * @return dtoGame
 	 */
 	public synchronized DTOGame endTurn(DTOGame dtoGame) {
 

@@ -52,6 +52,7 @@ public class ThreadCompleteTurn implements Runnable {
 						numberPlayer==gameDescription.getController().getCurrentNumberPlayer()) {	//vedo se devo finire il turno
 					try {
 						list = gameDescription.getController().completeTurn();
+						addMessageToPlayer(list);
 					} catch (ClassNotFoundException | InstantiationException
 							| IllegalAccessException e) {
 					}
@@ -75,5 +76,28 @@ public class ThreadCompleteTurn implements Runnable {
 		} catch (InterruptedException e) {
 			System.err.println("Errore nel fine turno");
 		}
+	}
+
+	private void addMessageToPlayer(List<DTOGame> list) {
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getReceiver()==9) {		//serve per far pervenire l'azione anche a chi la fatta 
+				//simulando la comunicazione client server
+				DTOGame dtoGameSimulationClientServer=new DTOGame();
+				for(int j=0;j<8;j++) {
+					dtoGameSimulationClientServer.setCoordinate(list.get(i).getCoordinate(j), j);
+					dtoGameSimulationClientServer.setPlayerType(list.get(i).getPlayerType(j), j);
+				}
+				dtoGameSimulationClientServer.setCoordinate(list.get(i).getCoordinate()[list.get(i).getPlayerNumber()], list.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setActionType(list.get(i).getActionType());
+				dtoGameSimulationClientServer.setGameMessage(list.get(i).getGameMessage());
+				dtoGameSimulationClientServer.setHatchCardColor(list.get(i).getHatchCardColor());
+				dtoGameSimulationClientServer.setItemCardType(list.get(i).getItemCardType());
+				dtoGameSimulationClientServer.setPlayerNumber(list.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setReceiver(list.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setSectorCardType(list.get(i).getSectorCardType());
+				list.add(dtoGameSimulationClientServer);
+			}
+		}
+		
 	}
 }
