@@ -83,7 +83,8 @@ public class Move implements ChooseAnAction {
 							.getSector(adjCoord);
 					if (!adjSector.isClosed()) {
 						speed--;
-
+						if(adjSector.getCoordinate().equals(dest))
+							return true;
 						if (pathCheck(adjCoord, dest, speed)) {
 							return true;
 						}

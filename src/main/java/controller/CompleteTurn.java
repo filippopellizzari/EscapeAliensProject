@@ -67,7 +67,7 @@ public class CompleteTurn {
 				dtoGameSimulationClientServer.setHatchCardColor(dtoGameList.get(i).getHatchCardColor());
 				dtoGameSimulationClientServer.setItemCardType(dtoGameList.get(i).getItemCardType());
 				dtoGameSimulationClientServer.setPlayerNumber(dtoGameList.get(i).getPlayerNumber());
-				dtoGameSimulationClientServer.setReceiver(dtoGameList.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setReceiver(dtoGameSimulationClientServer.getPlayerNumber());
 				dtoGameSimulationClientServer.setSectorCardType(dtoGameList.get(i).getSectorCardType());
 				dtoGameList.add(dtoGameSimulationClientServer);
 			}
