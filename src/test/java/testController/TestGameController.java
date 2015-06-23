@@ -308,7 +308,7 @@ public class TestGameController {
 		dtoSend = new DTOSend(null, 5, null, ActionType.ENDTURN, null);
 		gc.doAnAction(dtoSend);
 		
-		//assertEquals(gc.getCurrentNumberPlayer(),0);	
+		assertEquals(gc.getCurrentNumberPlayer(),0);	
 	}
 	/**
 	 * test verifies that getView send correctly the initial positions of game

@@ -69,7 +69,7 @@ public class GameController {
 		DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),
 				dtoSend.getItemCardType(), dtoSend.getActionType());
 		dtoGame = currentTurn.action(dtoTurn);
-		if (dtoGame.getGameMessage() == "Hai finito il turno") {
+		if (dtoGame.getGameMessage().equals("Hai finito il turno")) {
 			dtoGame = endTurn(dtoGame);
 			dtoGame.setActionType(ActionType.ENDTURN);
 			return dtoGame;

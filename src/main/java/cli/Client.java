@@ -34,6 +34,7 @@ public class Client {
 
 		do {
 			chooseMap();
+			System.out.println("Attendi partita disponibile...");
 			resultChooseMap = cd.getBuffer();
 			System.out.println(resultChooseMap);
 		} while (resultChooseMap
