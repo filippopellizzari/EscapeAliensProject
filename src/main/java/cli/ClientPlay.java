@@ -30,15 +30,11 @@ public class ClientPlay {
 	}
 
 	
-	public void play() throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException{
-
-		in = new Scanner(System.in);
-		Thread.sleep(5000);
-			System.out.println("Fai un'azione:\n 1: MOVE\n 2: ATTACK\n 3: USE ITEM CARD\n "
-					+ "4: DISCARD ITEM CARD\n 5: DRAW SECTOR CARD\n 6: SELECT FOR NOISE IN ANY SECTOR\n "
-					+ "7: END TURN\n 8: CHAT");	
+	public void play(int action, Scanner input) throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException{
+	
+			in = input;
+			int azione = action;
 			
-			int azione = in.nextInt();
 			switch(azione){
 			case 1:
 				move();
@@ -67,7 +63,7 @@ public class ClientPlay {
 			default:
 				break;
 			}
-			//in.close();
+			
 	}	
 	
 	

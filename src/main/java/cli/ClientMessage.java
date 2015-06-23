@@ -72,6 +72,7 @@ public class ClientMessage {
 								+ ">"
 								+ " pesca carta scialuppa rossa:\n il giocatore non si salva "
 								+ "e il settore rimane bloccato");
+				break;
 			case GREEN:
 				System.out
 						.println("<giocatore "
@@ -79,6 +80,7 @@ public class ClientMessage {
 								+ ">"
 								+ " pesca carta scialuppa verde:\n il giocatore ha vinto "
 								+ "e il settore rimane bloccato");
+				break;
 			}
 		}
 	}
