@@ -100,11 +100,14 @@ public class GameController {
 			return dtoGame;
 		}
 		boolean nextPlayerDecided = false;
+		boolean nuovoRound = false;
 		do {
 			currentNumberPlayer++;
 			if (game.getPlayers().length == currentNumberPlayer) {
 				currentNumberPlayer = 0;
-				round++; // quando si riparte dal primo giocatore,
+				round++; 
+				nuovoRound = true;
+				// quando si riparte dal primo giocatore,
 				// si va al round successivo
 			}
 			if (game.getPlayers(currentNumberPlayer).isInGame())
@@ -114,6 +117,9 @@ public class GameController {
 		if (round <= TOT_ROUNDS) {
 			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 			dtoGame.setActionType(ActionType.ENDTURN);
+			if(nuovoRound){
+				dtoGame.setGameMessage("Round "+round);
+			}
 			dtoGame.setGameMessage("Turno giocatore " + currentNumberPlayer);
 		} 
 		else {

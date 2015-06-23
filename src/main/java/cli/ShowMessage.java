@@ -9,11 +9,16 @@ import dto.DTOGame;
  *
  */
 public class ShowMessage implements Runnable {
+	
+	
 	private ClientData cd;
-	ClientMessage clientMessage;
-	public ShowMessage(ClientData cd) throws InterruptedException {
+	private Client client;
+	private ClientMessage clientMessage;
+	
+	public ShowMessage(ClientData cd, Client client) throws InterruptedException {
 		this.cd = cd;
-		clientMessage = new ClientMessage(cd.getView().getNumberPlayer());
+		this.client = client;
+		this.clientMessage = new ClientMessage(cd.getView().getNumberPlayer());
 	}
 
 	@Override
@@ -27,6 +32,9 @@ public class ShowMessage implements Runnable {
 				System.err.println("Errore nella scrittura messaggi");
 			}
 		} while (dtoGame.getActionType() != ActionType.ENDGAME);
+		
+		System.out.println(dtoGame.getGameMessage());
+		client.setFinePartita(true);	
 	}
 
 }
