@@ -1,6 +1,8 @@
 package pubSub;
 
+import model.ItemCardType;
 import connection.GameDescription;
+import controller.ActionType;
 import dto.DTOGame;
 
 /**
@@ -11,10 +13,10 @@ import dto.DTOGame;
 
 public class Broker {
 	private PlayersBuffers[] playersBuffer;
-	private String message;
+	private ItemCardType item;
 	private int numberOfPlayers;
 	private GameDescription gameDescription;
-	private boolean messageFull;
+	private boolean itemFull;
 	
 	/**
 	 * This constructor creates x number of buffer, one for each player
@@ -28,7 +30,7 @@ public class Broker {
 		for(int i=0;i<numberOfPlayers;i++) {
 			playersBuffer[i]=new PlayersBuffers(this);
 		}
-		this.messageFull=false;
+		this.itemFull=false;
 	}	
 	
 	/**
@@ -42,9 +44,9 @@ public class Broker {
 			playersBuffer[dtoGame.getPlayerNumber()].setBuffer(dtoGame);
 		}
 		else {
-			if(messageFull) {
-				dtoGame.setGameMessage(message);
-				messageFull=false;
+			if(itemFull && dtoGame.getActionType()==ActionType.SELECTSECTORNOISE ) {
+				dtoGame.setItemCardType(item);
+				itemFull=false;
 			}
 			if(dtoGame.getReceiver()==9) {
 				for(int i=0;i<numberOfPlayers;i++) {
@@ -55,8 +57,11 @@ public class Broker {
 				}
 			}
 			else {
-				message=dtoGame.getGameMessage(); 	//aggiungi il messaggio di gioco
-				messageFull=true;
+				if(dtoGame.getItemCardType()!=null)		//ha pescato una carta
+				{
+					item=dtoGame.getItemCardType();
+					itemFull=true;
+				}
 			}
 		}
 	}
