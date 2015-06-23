@@ -19,15 +19,16 @@ public class EndTurn implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param status, the status of a turn, reference at model and the player who
-	 * are playing, now is his turn
+	 * @param status
+	 *            , the status of a turn, reference at model and the player who
+	 *            are playing, now is his turn
 	 */
 
 	public EndTurn(GameStatus status) {
 		this.status = status;
 		this.dtoGame = new DTOGame();
 	}
-	
+
 	/**
 	 * @return true is the turn is finished
 	 */
@@ -40,7 +41,7 @@ public class EndTurn implements ChooseAnAction {
 	@Override
 	public DTOGame doAction(DTOTurn dtoTurn) {
 		if (isEndTurn()) {
-			dtoGame.setGameMessage("Hai finito il turno");
+			dtoGame.setGameMessage("FINE TURNO");
 		} else {
 			dtoGame.setGameMessage("Non hai completato tutte le azioni obbligatorie per finire il turno");
 			dtoGame.setReceiver(status.getPlayer().getNumber());

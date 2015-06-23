@@ -69,11 +69,13 @@ public class GameController {
 		DTOTurn dtoTurn = new DTOTurn(dtoSend.getCoordinate(),
 				dtoSend.getItemCardType(), dtoSend.getActionType());
 		dtoGame = currentTurn.action(dtoTurn);
-		if (dtoGame.getGameMessage().equals("Hai finito il turno")) {
+		if (dtoGame.getGameMessage().equals("FINE TURNO")) {
+			dtoGame.setGameMessage("\n<giocatore "+(currentNumberPlayer+1)+"> ha finito il turno");
 			dtoGame = endTurn(dtoGame);
 			dtoGame.setActionType(ActionType.ENDTURN);
 			return dtoGame;
 		}
+		
 		return dtoGame;
 	}
 	
@@ -120,12 +122,12 @@ public class GameController {
 			if(nuovoRound){
 				dtoGame.setGameMessage("Round "+round+"\n");
 			}
-			dtoGame.setGameMessage("Turno giocatore " + (currentNumberPlayer+1));
+			dtoGame.setGameMessage("Turno giocatore " + (currentNumberPlayer+1)+"\n");
 		} 
 		else {
 			disconnectAll();
 			dtoGame.setActionType(ActionType.ENDTURN);
-			dtoGame.setGameMessage("Finiti i turni di gioco: gli alieni vincono");
+			dtoGame.setGameMessage("Finiti i turni di gioco: gli alieni vincono\n");
 		}
 		dtoGame.setReceiver(9);
 		return dtoGame;
