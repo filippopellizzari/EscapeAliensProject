@@ -45,7 +45,8 @@ public class ClientDataRMI extends ClientData {
 	 * Takes the player's token
 	 */
 
-	public void clickOnConnection() throws UnknownHostException, IOException,
+	@Override
+	public void clickOnConnection() throws IOException,
 			ClassNotFoundException {
 		token = game.getToken();
 	}
@@ -53,9 +54,9 @@ public class ClientDataRMI extends ClientData {
 	/**
 	 * Subscribes a new game, if the response is positive the view returned is not null, null otherzise
 	 */
-
+	@Override
 	public void clickOnStartGame(TypeOfMap typeOfMap)
-			throws UnknownHostException, IOException, ClassNotFoundException {
+			throws IOException, ClassNotFoundException {
 		view = game.subscribeGame(typeOfMap, token);
 		if (view != null) {
 			this.setBuffer("Partita pronta, Turno Giocatore 1");
@@ -68,9 +69,8 @@ public class ClientDataRMI extends ClientData {
 	/**
 	 * Do an action in the game
 	 */
-
-	public void clickOnDoMove(DTOSend dtoSend) throws UnknownHostException,
-			IOException {
+	@Override
+	public void clickOnDoMove(DTOSend dtoSend) throws IOException {
 		Thread rmiGame = new Thread(new RmiGame(this, dtoSend));
 		rmiGame.start();
 	}

@@ -33,7 +33,7 @@ public class ClientHandler implements Runnable{
 	/**
 	 * Opens the input and the output and decides what class it has to call, depends on token received
 	 */
-	
+	@Override
 	public void run() {
 		try {
 			ObjectOutputStream socketOut=new ObjectOutputStream(socket.getOutputStream());

@@ -24,14 +24,13 @@ public class ClientDataSocket extends ClientData{
 
 	@Override
 	public void clickOnStartGame(TypeOfMap typeOfMap)
-			throws UnknownHostException, IOException, ClassNotFoundException {
+			throws IOException, ClassNotFoundException {
 		Thread choose = new Thread(new SocketChooseGame(this, typeOfMap));
 		choose.start();
 	}
 
 	@Override
-	public void clickOnDoMove(DTOSend dtoSend) throws UnknownHostException,
-			IOException {
+	public void clickOnDoMove(DTOSend dtoSend) throws IOException {
 		Thread action = new Thread(new SocketGame(this, dtoSend));
 		action.start();
 	}

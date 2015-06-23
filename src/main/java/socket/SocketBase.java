@@ -23,7 +23,7 @@ public abstract class SocketBase {
 	 * @throws IOException
 	 */
 	
-	public SocketBase(ClientDataSocket clientData) throws UnknownHostException, IOException {
+	public SocketBase(ClientDataSocket clientData) throws IOException {
 		this.socket=new Socket(IP,PORT);
 		this.clientData=clientData;
 	}

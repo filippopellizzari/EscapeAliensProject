@@ -45,7 +45,7 @@ public class ClientHandlerChooseGameSocket implements Processing{
 	 * waits for a new dtoGame from the broker in the player's buffer, when a new message arrived sends it at the player
 	 * as publisher
 	 */
-	
+	@Override
 	public void start() {
 		try {
 			TypeOfMap chooseOfThePlayer=(TypeOfMap)in.readObject();
