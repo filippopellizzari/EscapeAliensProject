@@ -27,7 +27,6 @@ public class Client {
 
 	/**
 	 * user can choose connection (RMI or Socket)
-	 * 
 	 * @param args
 	 * @throws UnknownHostException
 	 * @throws ClassNotFoundException
