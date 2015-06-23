@@ -39,7 +39,7 @@ public class Client {
 		} while (resultChooseMap
 				.contains("Tempo Scaduto e 1 solo giocatore, partita annullata"));
 
-		System.out.println("NumeroGiocatore: " + cd.getView().getNumberPlayer());
+		System.out.println("NumeroGiocatore: " + (cd.getView().getNumberPlayer()+1));
 		System.out.println("TipoGiocatore: " + cd.getView().getPlayerType());
 		System.out.println("Casella: " + cd.getView().getCoordinate());
 
