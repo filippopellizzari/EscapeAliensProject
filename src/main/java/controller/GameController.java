@@ -91,7 +91,6 @@ public class GameController {
 
 		String end = new EndGame(game).control();
 		dtoGame.setPlayerNumber(currentNumberPlayer);
-		end="L'ultimo umano in gioco è stato ucciso: gli alieni vincono"; 		//decido se le connessioni si recidono	
 		if (end != null) {
 			disconnectAll();
 			round = TOT_ROUNDS + 1;			//turno 40

@@ -35,16 +35,12 @@ public class TimerInscriptionForGame implements Runnable {
 	@Override
 	public void run() {
 		try {
-			System.out.println("Sono il thread creato per cronometrare la partita: mi metto a dormire");
 			Thread.sleep(time * 1000);
-			System.out.println("Sono il thread creato per cronometrare la partita: mi sveglio");
 			for (int i = 0; i < database.getPlayerWithRelativeConnection()
 					.size(); i++) { // rimuovi la giusta partita dal database
 				if (database.getPlayerWithRelativeConnection().get(i).getMapType() == mapType) {
 					database.blockGame(i);
-					System.out.println("Sono il thread creato per cronometrare la partita: mi metto a dormire in attesa che sia creata");
 					database.getPlayerWithRelativeConnection().get(i).deleteGame();
-					System.out.println("Sono il thread creato per cronometrare la partita: mi sveglio dopo che è stata creata");
 					database.removeGame(i); // rimuovilo
 				}
 			}

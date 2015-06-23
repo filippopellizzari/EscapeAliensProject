@@ -50,9 +50,7 @@ public class ThreadCreatorGame implements Runnable {
 	 */
 	private synchronized void putInLock(DetailsPlayers details){
 		try {
-			System.out.println("thread creazione aspetto acquisizione view");
 			details.allPlayersHaveTakeView();
-			System.out.println("view acquisite");
 		}catch (InterruptedException e) {
 			System.err.println(e.getMessage());
 		}

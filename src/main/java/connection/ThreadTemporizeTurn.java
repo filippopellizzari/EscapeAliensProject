@@ -34,7 +34,6 @@ public class ThreadTemporizeTurn implements Runnable {
 	@Override
 	public void run() {
 		try {
-			System.out.println("Sono il timer turno: "+turn+" - "+ numberPlayer+" aspetto");
 			Thread.sleep(time * 1000);
 			gameDescription.getStatus();
 			if(gameDescription.getController().getRound()==turn &&
@@ -42,7 +41,6 @@ public class ThreadTemporizeTurn implements Runnable {
 				gameDescription.getController().setChangeTurn();	// notifico cambio di turno
 			}
 			gameDescription.setStatus(); // libera il controller
-			System.out.println("Sono il timer ho finito il turno");
 		} catch (InterruptedException e) {
 			System.err.print("Errore nel temporize del turno");
 		}
