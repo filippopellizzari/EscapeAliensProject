@@ -73,6 +73,8 @@ public class ClientHandlerChooseGameSocket implements Processing{
 					out.writeObject(dtoGame);
 					out.flush();
 				}while(dtoGame.getActionType()!=ActionType.ENDGAME);
+				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberGame(-1);	//numero partita
+				identifyTypeOfConnection.getIdentification(token.getNumber()).setNumberPlayer(0);
 			}
 			else {
 				out.writeObject(message);								//manda il messaggio

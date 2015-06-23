@@ -14,7 +14,6 @@ public class ListOfStartedGame {
 	/**
 	 * Creates a new array of void games description
 	 */
-	
 	public ListOfStartedGame() {
 		this.gameDescriptionList=new GameDescription[1000];
 	}
@@ -23,7 +22,6 @@ public class ListOfStartedGame {
 	 * Returns a istance of this class
 	 * @return
 	 */
-	
 	public static ListOfStartedGame getinstance() {
 		return instance;
 	}
@@ -33,7 +31,6 @@ public class ListOfStartedGame {
 	 * @param number
 	 * @return
 	 */
-	
 	public GameDescription getNumberGameDescription(int number) {
 		return gameDescriptionList[number];
 	}
@@ -60,27 +57,15 @@ public class ListOfStartedGame {
 	 * @param number
 	 * @throws InterruptedException 
 	 */
-	
 	public synchronized void removeGameDescription(int number) throws InterruptedException{
-		DatabasePlayersIdentification identityConnection=DatabasePlayersIdentification.getinstance();
-		Thread.sleep(60000);   	//aspetto 60 secondi in modo che tutti i giocatori abbiano ricevuto l'ultimo dto 
-		for(int i=0;i<identityConnection.getSize();i++) {
-			if(identityConnection.getIdentification(i)!=null)
-				if(identityConnection.getIdentification(i).getNumberGame()==number) {	//se il token ha lo stesso numero di gioco eliminalo
-					identityConnection.getIdentification(i).setNumberGame(-1);
-					identityConnection.getIdentification(i).setNumberPlayer(0);
-				}
-		}
+		System.out.println("Ho cancellato la partita: "+number);
 		gameDescriptionList[number]=null;
 	}
 
 	/**
 	 * @return the gameDescriptionList
 	 */
-	
 	public synchronized GameDescription getGameDescriptionList(int number) {
 		return gameDescriptionList[number];
 	}
-	
-	
 }

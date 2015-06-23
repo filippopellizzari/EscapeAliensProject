@@ -26,7 +26,6 @@ public class Broker {
 		this.gameDescription=gameDescription;
 		for(int i=0;i<numberOfPlayers;i++) {
 			playersBuffer[i]=new PlayersBuffers(this);
-			this.message=null;
 		}
 	}	
 	
@@ -52,8 +51,10 @@ public class Broker {
 					}
 				}
 			}
-			else
+			else {
 				message=dtoGame.getGameMessage(); 	//aggiungi il messaggio di gioco
+				message="";
+			}
 		}
 	}
 

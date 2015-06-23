@@ -19,6 +19,11 @@ public class DeleteGame implements Runnable {
 		this.numberOfGame=i;
 		this.listOfGames=ListOfStartedGame.getinstance();
 	}
+	
+	/**
+	 * Controls if the game is terminated, waits if is still available, then when the game finished 
+	 * deletes the game
+	 */
 
 	@Override
 	public void run() {

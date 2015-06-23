@@ -82,7 +82,7 @@ public class GameDescription {
 	
 	public synchronized void endPlayer() {
 		this.numberOfPlayers--;
-		if(numberOfPlayers==-1) {
+		if(numberOfPlayers==0) {
 			statusGame=StatusCreation.TERMINATED;
 			this.notifyAll();
 		}
