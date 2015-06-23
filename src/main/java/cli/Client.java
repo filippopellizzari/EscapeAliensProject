@@ -19,6 +19,7 @@ import socket.ClientDataSocket;
  * @author filippopellizzari
  *
  */
+
 public class Client {
 
 	private ClientData cd;
