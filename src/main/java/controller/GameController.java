@@ -119,7 +119,7 @@ public class GameController {
 		if (round <= TOT_ROUNDS) {
 			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 			dtoGame.setActionType(ActionType.ENDTURN);
-			if(nuovoRound){
+			if(nuovoRound) {
 				dtoGame.setGameMessage("Round "+round+"\n");
 			}
 			dtoGame.setGameMessage("Turno giocatore " + (currentNumberPlayer+1)+"\n");
