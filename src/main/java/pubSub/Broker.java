@@ -14,6 +14,7 @@ public class Broker {
 	private String message;
 	private int numberOfPlayers;
 	private GameDescription gameDescription;
+	private boolean messageFull;
 	
 	/**
 	 * This constructor creates x number of buffer, one for each player
@@ -26,8 +27,8 @@ public class Broker {
 		this.gameDescription=gameDescription;
 		for(int i=0;i<numberOfPlayers;i++) {
 			playersBuffer[i]=new PlayersBuffers(this);
-			this.message=null;
 		}
+		this.messageFull=false;
 	}	
 	
 	/**
@@ -39,21 +40,24 @@ public class Broker {
 	public void publish(DTOGame dtoGame){
 		if(dtoGame.getReceiver()<8)  {			//solo il giocatore deve ricevere il messaggio
 			playersBuffer[dtoGame.getPlayerNumber()].setBuffer(dtoGame);
-			System.out.println("Aggiungo messaggio a buffer: "+dtoGame.getReceiver());
 		}
 		else {
-			dtoGame.setGameMessage(message);
+			if(messageFull) {
+				dtoGame.setGameMessage(message);
+				messageFull=false;
+			}
 			if(dtoGame.getReceiver()==9) {
 				for(int i=0;i<numberOfPlayers;i++) {
 					if(i==dtoGame.getPlayerNumber());
 					else {
 						playersBuffer[i].setBuffer(dtoGame);
-						System.out.println("Aggiungo messaggio a buffer: "+i);
 					}
 				}
 			}
-			else
+			else {
 				message=dtoGame.getGameMessage(); 	//aggiungi il messaggio di gioco
+				messageFull=true;
+			}
 		}
 	}
 

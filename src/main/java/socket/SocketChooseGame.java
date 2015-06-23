@@ -58,7 +58,6 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 			out.flush();
 			String message;
 			message=(String)in.readObject();
-			System.out.println(message);
 			message=(String)in.readObject();
 			clientData.setBuffer(message);		//risposta server su partita
 			if(message.contains("Partita pronta, Turno Giocatore 1")) {
@@ -66,7 +65,6 @@ public class SocketChooseGame extends SocketBase implements Runnable{
 				DTOGame dtoGame=new DTOGame();
 				do {
 					dtoGame=(DTOGame)in.readObject();
-					System.out.println("Ricevuto messaggio");
 					clientData.setDtoGameList(dtoGame);
 				}while(dtoGame.getActionType()!=ActionType.ENDGAME);
 			}

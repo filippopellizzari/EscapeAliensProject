@@ -31,7 +31,6 @@ public class subscribeRMI implements Runnable {
 			dtoGame=new DTOGame();
 			try {
 				dtoGame=clientData.getGame().subscribe(clientData.getToken());
-				System.out.println("Ricevuto messaggio r");
 				clientData.setDtoGameList(dtoGame);
 			} catch (InterruptedException | RemoteException e) {
 				System.err.println("errore ricezione dtoGame");

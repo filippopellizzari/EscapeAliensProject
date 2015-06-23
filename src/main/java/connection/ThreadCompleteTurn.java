@@ -46,24 +46,20 @@ public class ThreadCompleteTurn implements Runnable {
 			do {
 				temporize = new Thread(new ThreadTemporizeTurn(time,gameDescription,turn,numberPlayer));
 				temporize.start();
-				System.out.println("Sono il fine turno mi metto in attesa");
 				gameDescription.getController().getChangeTurn(turn,	numberPlayer); // aspetta un'azione
 				gameDescription.getStatus();
 				if(turn == gameDescription.getController().getRound()&&
 						numberPlayer==gameDescription.getController().getCurrentNumberPlayer()) {	//vedo se devo finire il turno
 					try {
-						System.out.println("completo il turno");
 						list = gameDescription.getController().completeTurn();
+						addMessageToPlayer(list);
 					} catch (ClassNotFoundException | InstantiationException
 							| IllegalAccessException e) {
-						System.err.println("Errore nel fine turno");
 					}
 				}
 				turn = gameDescription.getController().getRound(); //imposto il nuovo turno e giocatore
 				numberPlayer = gameDescription.getController().getCurrentNumberPlayer();
-				System.out.println("Sono il fine turno ho cambiato il turno");
 				gameDescription.setStatus(); // libera il controller
-				System.out.println("Lunghezza lista: "+list.size());
 				while (list.size() > 0)
 					gameDescription.getBroker().publish(list.remove(0));
 				if(turn>=40) {
@@ -82,4 +78,26 @@ public class ThreadCompleteTurn implements Runnable {
 		}
 	}
 
+	private void addMessageToPlayer(List<DTOGame> list) {
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getReceiver()==9) {		//serve per far pervenire l'azione anche a chi la fatta 
+				//simulando la comunicazione client server
+				DTOGame dtoGameSimulationClientServer=new DTOGame();
+				for(int j=0;j<8;j++) {
+					dtoGameSimulationClientServer.setCoordinate(list.get(i).getCoordinate(j), j);
+					dtoGameSimulationClientServer.setPlayerType(list.get(i).getPlayerType(j), j);
+				}
+				dtoGameSimulationClientServer.setCoordinate(list.get(i).getCoordinate()[list.get(i).getPlayerNumber()], list.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setActionType(list.get(i).getActionType());
+				dtoGameSimulationClientServer.setGameMessage(list.get(i).getGameMessage());
+				dtoGameSimulationClientServer.setHatchCardColor(list.get(i).getHatchCardColor());
+				dtoGameSimulationClientServer.setItemCardType(list.get(i).getItemCardType());
+				dtoGameSimulationClientServer.setPlayerNumber(list.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setReceiver(list.get(i).getPlayerNumber());
+				dtoGameSimulationClientServer.setSectorCardType(list.get(i).getSectorCardType());
+				list.add(dtoGameSimulationClientServer);
+			}
+		}
+		
+	}
 }

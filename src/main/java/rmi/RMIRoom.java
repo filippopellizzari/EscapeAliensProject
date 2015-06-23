@@ -122,6 +122,10 @@ public class RMIRoom implements Actions{
 		gameDescription=listOfStartedGame.getNumberGameDescription(identification.getNumberGame());
 		DTOGame dtoGame=new DTOGame();
 		dtoGame=gameDescription.getBroker().getPlayersBuffer(identification.getNumberPlayer()).getBuffer();
+		if(dtoGame.getActionType()==ActionType.ENDGAME) {
+			identifyConnection.getIdentification(token.getNumber()).setNumberGame(-1);	//numero partita
+			identifyConnection.getIdentification(token.getNumber()).setNumberPlayer(0);
+		}
 		return dtoGame;
 	}
 

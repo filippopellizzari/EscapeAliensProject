@@ -82,8 +82,6 @@ public class ClientHandlerGameSocket implements Processing{
 	 */
 	
 	private void putInWait() throws InterruptedException {
-		System.out.println("Sono il thread connessione aspetto il dto");
 		gameDescription.getStatus();
-		System.out.println("Sono il thread connessione ho il dto");
 	}
 }

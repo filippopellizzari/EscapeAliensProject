@@ -37,11 +37,9 @@ public class DatabaseInscriptionsForGames {
 	 */
 	
 	public synchronized DetailsPlayers subscribe(TypeOfMap typeOfMapChoose) {
-		System.out.println(playerWithRelativeConnection.size());
 		for(int i=0;i<playerWithRelativeConnection.size();i++) {
 			if(playerWithRelativeConnection.get(i).getStatus()==StatusCreation.OPEN &&
 					playerWithRelativeConnection.get(i).getMapType().equals(typeOfMapChoose)) {	//iscrizione già in corso
-				System.out.println("aggiunto giocatore a una partita");
 				playerWithRelativeConnection.get(i).setNumberOfPlayers();
 				if(playerWithRelativeConnection.get(i).getNumberOfPlayers()==7) 	//blocca il gioco
 					blockGame(i);	//iscrizione chiusa

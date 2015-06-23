@@ -170,6 +170,13 @@ public class DTOGame implements Serializable {
 	public Coordinate[] getCoordinate() {
 		return coordinate;
 	}
+	
+	/**
+	 * @return the coordinate of the player
+	 */
+	public Coordinate getCoordinate(int number) {
+		return coordinate[number];
+	}
 
 	/**
 	 * @return the playerType
@@ -196,5 +203,12 @@ public class DTOGame implements Serializable {
 	public void setPlayerType(PlayerType type, int number) {
 		playerType[number]=type;
 
+	}
+	
+	/**
+	 * @return playerType of player number
+	 */
+	public PlayerType getPlayerType(int number) {
+		return playerType[number];		
 	}
 }
