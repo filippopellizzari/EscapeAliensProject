@@ -71,7 +71,7 @@ public class TestEndGame {
 	
 		String s = new EndGame(model).control();
 		
-		assertEquals(s,"L'ultimo umano in gioco è stato ucciso: gli alieni vincono");
+		assertEquals(s,"L'ultimo umano in gioco è stato ucciso: gli alieni vincono\n");
 	}
 	/**
 	 * test verifies correct end communication if all humans are winner
@@ -85,7 +85,7 @@ public class TestEndGame {
 		
 		String s = new EndGame(model).control();
 		
-		assertEquals(s, "Tutti gli umani sono riusciti a scappare: gli umani vincono");
+		assertEquals(s, "Tutti gli umani sono riusciti a scappare: gli umani vincono\n");
 	}
 	/**
 	 * test verifies  correct end communication if all hatchSectors are closed
@@ -118,7 +118,7 @@ public class TestEndGame {
 		
 		String s = new EndGame(model).control();
 		
-		assertEquals(s, "Non tutti gli umani sono riusciti a scappare: la partita finisce");
+		assertEquals(s, "Non tutti gli umani sono riusciti a scappare: la partita finisce\n");
 	}
 	/**
 	 * test verifies that game is not finished if some humans win and the human killed is not 

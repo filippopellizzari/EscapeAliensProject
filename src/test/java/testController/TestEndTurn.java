@@ -97,7 +97,7 @@ public class TestEndTurn {
 		
 		DTOTurn dtoTurn = new DTOTurn(null, null, ActionType.ENDTURN);
 		DTOGame dtoGame = new EndTurn(status).doAction(dtoTurn);
-		assertEquals(dtoGame.getGameMessage(),"Hai finito il turno");	
+		assertEquals(dtoGame.getGameMessage(),"FINE TURNO");	
 	}
 	
 	
