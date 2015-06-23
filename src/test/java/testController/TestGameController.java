@@ -56,7 +56,6 @@ public class TestGameController {
 
 		human3 = model.getPlayers(4);
 		human3.setPlayerType(PlayerType.HUMAN);
-
 	}
 
 	/**
