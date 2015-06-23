@@ -29,6 +29,7 @@ public class DeleteGame implements Runnable {
 	public void run() {
 		try {
 			listOfGames.getGameDescriptionList(numberOfGame).getStatusGame();
+			Thread.sleep(120000);
 			listOfGames.removeGameDescription(numberOfGame);
 		} catch (InterruptedException e) {
 			System.err.println("Errore nel thread per eliminare il gioco");

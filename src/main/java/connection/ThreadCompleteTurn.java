@@ -76,5 +76,4 @@ public class ThreadCompleteTurn implements Runnable {
 			System.err.println("Errore nel fine turno");
 		}
 	}
-
 }
