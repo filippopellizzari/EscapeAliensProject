@@ -68,10 +68,11 @@ public class ClientPlay {
 	
 	
 	private void move() throws UnknownHostException, IOException, InterruptedException{
-		System.out.println("Inserisci le coordinate:\n Lettera:\n");
+		System.out.println("Inserisci le coordinate:");
+		System.out.println("Lettera:");
 		char letteraMove = in.next().charAt(0);
 		int xMove = (int)letteraMove - 96; //converto char in intero
-		System.out.println("Numero:\n");
+		System.out.println("Numero:");
 		int yMove = in.nextInt();
 		Coordinate coordMove = new Coordinate (xMove, yMove);
 		dtoSend = new DTOSend(coordMove, cd.getView().getNumberPlayer(), null, ActionType.MOVE, null);
@@ -83,9 +84,13 @@ public class ClientPlay {
 		cd.clickOnDoMove(dtoSend);
 	}
 	
-	private void useItem() throws UnknownHostException, IOException, InterruptedException{
+	private void useItem() throws InterruptedException, UnknownHostException, IOException{
 		System.out.println("Scegli tipo:\n 1: ATTACK\n 2: TELEPORT\n 3: SEDATIVES\n 4: SPOTLIGHT\n 5: ADRENALINE");
-		int typeToUse = in.nextInt();
+		int typeToUse;
+		do{
+		typeToUse = in.nextInt();
+		}while(typeToUse < 1 || typeToUse > 5);
+		
 		switch(typeToUse){
 		case 1: 
 			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(), ItemCardType.ATTACK, ActionType.USEITEM, null);
@@ -153,7 +158,7 @@ public class ClientPlay {
 		System.out.println("Numero:\n");
 		int ySelect = in.nextInt();
 		Coordinate coordSelect = new Coordinate (xSelect,ySelect);
-		dtoSend = new DTOSend(coordSelect, cd.getView().getNumberPlayer(), null, ActionType.MOVE, null);
+		dtoSend = new DTOSend(coordSelect, cd.getView().getNumberPlayer(), null, ActionType.SELECTSECTORNOISE, null);
 		cd.clickOnDoMove(dtoSend);
 	}
 	

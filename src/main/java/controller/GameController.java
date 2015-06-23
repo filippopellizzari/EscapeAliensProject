@@ -70,7 +70,7 @@ public class GameController {
 				dtoSend.getItemCardType(), dtoSend.getActionType());
 		dtoGame = currentTurn.action(dtoTurn);
 		if (dtoGame.getGameMessage().equals("FINE TURNO")) {
-			dtoGame.setGameMessage("\n<giocatore "+(currentNumberPlayer+1)+"> ha finito il turno");
+			dtoGame.setGameMessage("\n<giocatore "+(currentNumberPlayer+1)+"> ha finito il turno\n");
 			dtoGame = endTurn(dtoGame);
 			dtoGame.setActionType(ActionType.ENDTURN);
 			return dtoGame;
