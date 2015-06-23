@@ -34,14 +34,15 @@ public class Client {
 
 		do {
 			chooseMap();
+			System.out.println("Attendi partita disponibile...");
 			resultChooseMap = cd.getBuffer();
 			System.out.println(resultChooseMap);
 		} while (resultChooseMap
 				.contains("Tempo Scaduto e 1 solo giocatore, partita annullata"));
 
-		System.out.println("NumeroGiocatore: " + cd.getView().getNumberPlayer());
-		System.out.println("TipoGiocatore: " + cd.getView().getPlayerType());
-		System.out.println("Casella: " + cd.getView().getCoordinate());
+		System.out.println("Numero giocatore: " + (cd.getView().getNumberPlayer()+1));
+		System.out.println("Tipo giocatore: " + cd.getView().getPlayerType());
+		System.out.println("Settore corrente: " + cd.getView().getCoordinate());
 
 		Thread showMessage = new Thread(new ShowMessage(cd, this));
 		showMessage.start();
@@ -50,11 +51,15 @@ public class Client {
 				+ "4: DISCARD ITEM CARD\n 5: DRAW SECTOR CARD\n 6: SELECT FOR NOISE IN ANY SECTOR\n "
 				+ "7: END TURN\n 8: CHAT\n");	
 		
-		System.out.println("Se non ti ricordi le azioni, premi 9");
+		System.out.println("Per info, premi 9\n");
 		
+		System.out.println("Round 1\n");
 		do{
 		int action = in.nextInt();
 		if(action==9){
+			System.out.println("Numero giocatore: " + (cd.getView().getNumberPlayer()+1));
+			System.out.println("Tipo giocatore: " + cd.getView().getPlayerType());
+			System.out.println("Settore Corrente: " + cd.getView().getCoordinate());
 			System.out.println("Per fare un'azione premi il numero corrispondente:\n 1: MOVE\n 2: ATTACK\n 3: USE ITEM CARD\n "
 					+ "4: DISCARD ITEM CARD\n 5: DRAW SECTOR CARD\n 6: SELECT FOR NOISE IN ANY SECTOR\n "
 					+ "7: END TURN\n 8: CHAT\n");	

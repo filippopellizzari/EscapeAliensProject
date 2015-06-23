@@ -49,8 +49,8 @@ public class TestCoordinate {
 	 */
 	@Test
 	public void testToString(){
-		Coordinate c = new Coordinate(2,3);
-		assertEquals(c.toString()," [x=2, y=3]");
+		Coordinate c = new Coordinate(12,8);
+		assertEquals(c.toString()," [L,8]");
 	}
 	/**
 	 * test verifies correct hashcode

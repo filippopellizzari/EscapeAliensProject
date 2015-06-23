@@ -37,13 +37,13 @@ public class EndGame {
 	 */
 	public String control() {
 		if (lastHumanKilled()) {
-			return "L'ultimo umano in gioco è stato ucciso: gli alieni vincono";
+			return "L'ultimo umano in gioco è stato ucciso: gli alieni vincono\n";
 		}
 		if (allHumansWin()) {
-			return "Tutti gli umani sono riusciti a scappare: gli umani vincono";
+			return "Tutti gli umani sono riusciti a scappare: gli umani vincono\n";
 		}
 		if (allHatchClosed()) {
-			return "Non tutti gli umani sono riusciti a scappare: la partita finisce";
+			return "Non tutti gli umani sono riusciti a scappare: la partita finisce\n";
 		}
 		return null;
 	}
