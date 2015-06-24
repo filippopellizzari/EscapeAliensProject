@@ -5,29 +5,30 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Gui {
-	
+
 	private static void createAndShowGUI() {
 
 		JFrame frame = new JFrame("EscapeFromTheAliens");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		
-		frame.setPreferredSize(new Dimension(600,800));
+
+		frame.setPreferredSize(new Dimension(600, 800));
 		frame.setSize(600, 800);
+
+		// frame al centro dello schermo
+		frame.setLocationRelativeTo(null);
 		
-		//frame al centro dello schermo
-		frame.setLocationRelativeTo(null); 
-		
-		new Connection(frame);
+		String mapName = "Fermi";
+		new GameTable(frame, mapName);
 		
 		frame.pack();
-		frame.setVisible(true);	
+		frame.setVisible(true);
+
 	}
-	
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-
 				createAndShowGUI();
 
 			}
