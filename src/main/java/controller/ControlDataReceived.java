@@ -21,6 +21,13 @@ public class ControlDataReceived {
 	private final Game game;
 	private final int numberPlayer;
 	private final Player player;
+	
+	/**
+	 * Creates the class
+	 * @param dtoSend
+	 * @param game
+	 * @param numberPlayer
+	 */
 
 	public ControlDataReceived(DTOSend dtoSend, Game game, int numberPlayer) {
 		this.dtoSend = dtoSend;
@@ -28,6 +35,11 @@ public class ControlDataReceived {
 		this.numberPlayer = numberPlayer;
 		this.player = game.getPlayers(numberPlayer);
 	}
+	
+	/**
+	 * Verifies the correction of the object passed from player
+	 * @return
+	 */
 
 	public String verify() {
 		if (numberPlayer != dtoSend.getNumberPlayer()) {
@@ -47,6 +59,12 @@ public class ControlDataReceived {
 		}
 		return null;
 	}
+	
+	/**
+	 * Controls if the player has the card passed
+	 * @param type
+	 * @return
+	 */
 
 	private boolean hasItemCard(ItemCardType type) {
 		for (int i = 0; i < player.getItem().size(); i++) {

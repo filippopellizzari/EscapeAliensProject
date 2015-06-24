@@ -101,6 +101,10 @@ public class DrawSectorCard implements ChooseAnAction {
 		}
 		return dtoGame;
 	}
+	
+	/**
+	 * Return the dtoGame
+	 */
 
 	public DTOGame getDtoGame() {
 		return dtoGame;

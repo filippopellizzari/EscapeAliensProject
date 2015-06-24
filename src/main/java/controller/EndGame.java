@@ -47,6 +47,11 @@ public class EndGame {
 		}
 		return null;
 	}
+	
+	/**
+	 * Controls if the last human is killed
+	 * @return
+	 */
 
 	private boolean lastHumanKilled() {
 		for (int i = 0; i < model.getPlayers().length; i++) {
@@ -59,6 +64,11 @@ public class EndGame {
 		}
 		return false;
 	}
+	
+	/**
+	 * Controls if the humans win
+	 * @return
+	 */
 
 	private boolean allHumansWin() {
 		for (int i = 0; i < model.getPlayers().length; i++) {
@@ -69,6 +79,11 @@ public class EndGame {
 		}
 		return true;
 	}
+	
+	/**
+	 * Controls if all hatch sector are closed
+	 * @return
+	 */
 
 	private boolean allHatchClosed() {
 		for (int i = 0; i < model.getMap().getHatchSectors().size(); i++) {

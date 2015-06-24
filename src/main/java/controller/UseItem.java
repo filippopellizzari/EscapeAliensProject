@@ -65,6 +65,11 @@ public class UseItem implements ChooseAnAction {
 		// notifica posizione giocatori nei settori attorno a quello scelto
 		lightAdjacent(chosen);
 	}
+	
+	/**
+	 * Sets the coordinates of all human lighted
+	 * @param chosen
+	 */
 
 	private void lightChosen(Sector chosen) {
 		for (int i = 0; i < chosen.getPlayers().size(); i++) {
@@ -72,6 +77,11 @@ public class UseItem implements ChooseAnAction {
 			dtoGame.setCoordinate(chosen.getCoordinate(), declaring.getNumber());
 		}
 	}
+	
+	/**
+	 * Uses the spotlight
+	 * @param chosen
+	 */
 
 	private void lightAdjacent(Sector chosen) {
 		for (int i = 0; i < chosen.getAdjacent().size(); i++) {
@@ -148,6 +158,10 @@ public class UseItem implements ChooseAnAction {
 		
 		return dtoGame;
 	}
+	/**
+	 * 
+	 * @return dtoGame
+	 */
 
 	public DTOGame getDtoGame() {
 		return dtoGame;

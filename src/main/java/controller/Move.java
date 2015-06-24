@@ -161,6 +161,11 @@ public class Move implements ChooseAnAction {
 		}
 		status.getGame().getHatchCards().discard(current);
 	}
+	
+	/**
+	 * Removes all items from dead players
+	 * @param player
+	 */
 
 	private void removeAllItems(Player player) {
 		int numItems = player.getItem().size();
