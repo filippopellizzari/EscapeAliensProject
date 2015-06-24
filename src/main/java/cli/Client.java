@@ -7,8 +7,6 @@ import java.rmi.NotBoundException;
 import java.util.Scanner;
 
 import connection.ClientData;
-import rmi.ClientDataRMI;
-import socket.ClientDataSocket;
 
 /**
  * 
@@ -25,13 +23,13 @@ public class Client {
 	public void startClient() throws ClassNotFoundException, NotBoundException,
 			AlreadyBoundException, InterruptedException, IOException {
 		in = new Scanner(System.in);
-		
-		chooseConnection();//scegli RMI o Socket
+
+		cd = new ChooseConnection().choose(cd, in);// scegli RMI o Socket
 
 		int next;
 		do {
-			//ciclo finchè una partita non è disponibile
-            String resultChooseMap;
+			// ciclo finchè una partita non è disponibile
+			String resultChooseMap;
 			do {
 				new ChooseMap().choose(cd, in);
 				System.out.println("Attendi partita disponibile...");
@@ -39,7 +37,7 @@ public class Client {
 				System.out.println(resultChooseMap);
 			} while (resultChooseMap
 					.contains("Tempo Scaduto e 1 solo giocatore, partita annullata"));
-			
+
 			// da qui la partita è creata
 			System.out.println("Numero giocatore: "
 					+ (cd.getView().getNumberPlayer() + 1));
@@ -48,14 +46,14 @@ public class Client {
 			System.out.println("Settore corrente: "
 					+ cd.getView().getCoordinate());
 
-			//modello del client(posizione corrente, carte oggetto)
+			// modello del client(posizione corrente, carte oggetto)
 			ClientModel model = new ClientModel();
 			model.setCoordinate(cd.getView().getCoordinate());
-			
+
 			Thread showMessage = new Thread(new ShowMessage(cd, this, model));
 			showMessage.start();
 
-			//istruzioni generali utili al client
+			// istruzioni generali utili al client
 			System.out
 					.println("Per fare un'azione premi il numero corrispondente:\n 1: MOVE\n 2: ATTACK\n 3: USE ITEM CARD\n "
 							+ "4: DISCARD ITEM CARD\n 5: DRAW SECTOR CARD\n 6: SELECT FOR NOISE IN ANY SECTOR\n "
@@ -63,11 +61,11 @@ public class Client {
 
 			System.out.println("Per info, premi 9\n");
 
-			//primo turno
+			// primo turno
 			System.out.println("Round 1\n");
 			System.out.println("Turno giocatore 1\n");
 
-			//si possono inviare comandi fino alla fine della partita
+			// si possono inviare comandi fino alla fine della partita
 			do {
 				int action = in.nextInt();
 
@@ -86,49 +84,21 @@ public class Client {
 			} while (next < 1 || next > 2);
 
 		} while (next == 1);
-		
+
 		in.close();
 	}
 
-	private void info(ClientModel model) throws InterruptedException{
+	private void info(ClientModel model) throws InterruptedException {
 		System.out.println("Numero giocatore: "
 				+ (cd.getView().getNumberPlayer() + 1));
-		System.out.println("Tipo giocatore: "
-				+ cd.getView().getPlayerType());
-		System.out.println("Settore corrente: "
-				+ model.getCoordinate());
-		System.out.println("Carte oggetto: "+model.getItems());
+		System.out.println("Tipo giocatore: " + cd.getView().getPlayerType());
+		System.out.println("Settore corrente: " + model.getCoordinate());
+		System.out.println("Carte oggetto: " + model.getItems());
 		System.out
 				.println("Per fare un'azione premi il numero corrispondente:\n 1: MOVE\n 2: ATTACK\n 3: USE ITEM CARD\n "
 						+ "4: DISCARD ITEM CARD\n 5: DRAW SECTOR CARD\n 6: SELECT FOR NOISE IN ANY SECTOR\n "
 						+ "7: END TURN\n 8: CHAT\n");
 	}
-	
-	private void chooseConnection() throws NotBoundException,
-			AlreadyBoundException, ClassNotFoundException,
-			InterruptedException, IOException {
-		System.out.println("Scegli la connessione:\n 1: SOCKET\n 2: RMI");
-		
-		int connessione;
-		do {
-			connessione = in.nextInt();
-		} while (connessione < 1 || connessione > 2);
-		
-		switch (connessione) {
-		case 1:
-			cd = new ClientDataSocket();
-			break;
-		case 2:
-			cd = new ClientDataRMI();
-			break;
-		default:
-			break;
-		}
-		cd.clickOnConnection();
-		Thread.sleep(2000);
-	}
-	
-	
 
 	public boolean isFinePartita() {
 		return finePartita;
