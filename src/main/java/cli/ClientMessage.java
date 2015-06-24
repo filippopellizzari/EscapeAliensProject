@@ -70,11 +70,11 @@ public class ClientMessage {
 
 	
 	private void notifyDefense(DTOGame dtoGame) {
-		if(dtoGame.getNumberPlayerDefense() >= 0){
-			int numberDefended = dtoGame.getNumberPlayerDefense();
-			System.out.println("<giocatore "+numberDefended+"> è stato attaccato, "
+		int numDefended = dtoGame.getNumberPlayerDefense();
+		if(numDefended >= 0 && numDefended <=8){
+			System.out.println("<giocatore "+(numDefended+1)+"> è stato attaccato, "
 					+ " ma si è salvato grazie alla carta difesa");
-			if(numberOfPlayer == numberDefended){
+			if(numberOfPlayer == numDefended){
 				model.removeItem(ItemCardType.DEFENSE);
 			}
 		}
