@@ -27,6 +27,7 @@ public class CoordinatePanel extends JPanel {
 		setBorder(new TitledBorder("Coordinates"));
 		setBackground(Color.GRAY);
 
+		
 		//coord comboBox
 		final JComboBox letteraBox = new JComboBox();
 		for (int i = 65; i <= 87; i++) {
