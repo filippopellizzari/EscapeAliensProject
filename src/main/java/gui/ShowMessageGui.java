@@ -1,7 +1,6 @@
 package gui;
 
 
-import javax.swing.JTextArea;
 
 import cli.ClientModel;
 import connection.ClientData;

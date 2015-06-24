@@ -134,5 +134,6 @@ public class CoordinatePanel extends JPanel {
 		add(numeroBox);
 		add(moveButton);
 		add(noiseButton);
+		add(spotlightButton);
 	}
 }
