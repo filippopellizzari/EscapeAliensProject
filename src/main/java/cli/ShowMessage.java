@@ -15,10 +15,10 @@ public class ShowMessage implements Runnable {
 	private Client client;
 	private ClientMessage clientMessage;
 	
-	public ShowMessage(ClientData cd, Client client) throws InterruptedException {
+	public ShowMessage(ClientData cd, Client client, ClientModel model) throws InterruptedException {
 		this.cd = cd;
 		this.client = client;
-		this.clientMessage = new ClientMessage(cd.getView().getNumberPlayer());
+		this.clientMessage = new ClientMessage(cd.getView().getNumberPlayer(), model);
 	}
 
 	@Override
