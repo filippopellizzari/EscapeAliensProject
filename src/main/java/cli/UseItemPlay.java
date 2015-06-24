@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import model.Coordinate;
 import model.ItemCardType;
 import connection.ClientData;
 import controller.ActionType;
@@ -37,8 +38,18 @@ public class UseItemPlay {
 			cd.clickOnDoMove(dtoSend);
 			break;
 		case 4:
+			System.out.println("Inserisci le coordinate:");
 
-			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(),
+			System.out.println("Lettera:");
+			char letteraSpot = in.next().charAt(0);
+			int xSpot = (int) letteraSpot - 96; // converto char/int
+
+			System.out.println("Numero:");
+			int ySpot = in.nextInt();
+
+			Coordinate coordSpot = new Coordinate(xSpot, ySpot);
+			
+			dtoSend = new DTOSend(coordSpot, cd.getView().getNumberPlayer(),
 					ItemCardType.SPOTLIGHT, ActionType.USEITEM, null);
 			cd.clickOnDoMove(dtoSend);
 			break;

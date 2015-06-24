@@ -17,7 +17,7 @@ public class MovePlay{
 
 		System.out.println("Lettera:");
 		char letteraMove = in.next().charAt(0);
-		int xMove = (int) letteraMove - 96; // converto chat/int
+		int xMove = (int) letteraMove - 96; // converto char/int
 
 		System.out.println("Numero:");
 		int yMove = in.nextInt();
