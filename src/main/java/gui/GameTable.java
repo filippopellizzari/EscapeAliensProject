@@ -49,7 +49,7 @@ public class GameTable extends JPanel {
 			return new ImageIcon(ImageIO.read(new File("rsc"
 					+ File.separatorChar + name + ".png")));
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Error loadIcon: "+e);
 			return null;
 		}
 	}
