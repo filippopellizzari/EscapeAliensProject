@@ -18,11 +18,22 @@ public class CheckLastHuman {
 	private final Player attacked;
 	private Game model;
 	
+	/**
+	 * Creates the class with player and the player who has to attack
+	 * @param player
+	 * @param attacked
+	 * @param model
+	 */
+	
 	public CheckLastHuman(Player player, Player attacked, Game model){
 		this.player = player;
 		this.attacked = attacked;
 		this.model = model;
 	}
+	
+	/**
+	 * Controls if the human killed is the last human alives
+	 */
 
 	public void check(){
 		//non serve controllare che chi attacca è alieno; 
@@ -35,6 +46,11 @@ public class CheckLastHuman {
 		
 	}
 	
+	/**
+	 * Controls one by one the human, if there is one alive return false
+	 * @return
+	 */
+	
 	private boolean allHumansOut() {
 		for (int i = 0; i < model.getPlayers().length; i++) {
 			Player player = model.getPlayers(i);
@@ -43,7 +59,4 @@ public class CheckLastHuman {
 		}
 		return true;
 	}
-	
-	
-
 }

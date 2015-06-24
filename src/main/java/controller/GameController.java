@@ -134,6 +134,10 @@ public class GameController {
 		return dtoGame;
 
 	}
+	
+	/**
+	 * Sets all the players' status to not in game
+	 */
 
 	private void disconnectAll() {
 		for (int i = 0; i < game.getPlayers().length; i++) {

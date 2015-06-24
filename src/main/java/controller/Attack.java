@@ -8,7 +8,7 @@ import model.*;
  * of alien the effective attack can be done also by human
  * 
  * @author Filippo
- *
+ * @see ChooseAnAction
  */
 
 public class Attack implements ChooseAnAction {
@@ -71,6 +71,10 @@ public class Attack implements ChooseAnAction {
 		return dtoGame;
 	}
 
+	/**
+	 * Removes all items from dead players
+	 * @param attacked
+	 */
 	
 	private void removeAllItems(Player attacked) {
 		int numItems = attacked.getItem().size();
@@ -78,6 +82,12 @@ public class Attack implements ChooseAnAction {
 			status.getGame().getItemCards().discard(attacked.removeItem(0));
 		}
 	}
+	
+	/**
+	 * Controls if a player has a defense card and uses this card
+	 * @param attacked
+	 * @return
+	 */
 
 	private boolean isDefendable(Player attacked) {
 		for (int j = 0; j < attacked.getItem().size(); j++) {
@@ -90,6 +100,12 @@ public class Attack implements ChooseAnAction {
 		}
 		return false;
 	}
+	
+	/**
+	 * If a alien kills a players increases his movements by 1
+	 * @param player
+	 * @param attacked
+	 */
 	
 	private void checkAlienFeeding(Player player, Player attacked) {
 		if (player.getType().equals(PlayerType.ALIEN)
