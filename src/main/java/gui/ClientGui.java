@@ -38,6 +38,10 @@ public class ClientGui {
 				+ (cd.getView().getNumberPlayer() + 1));
 		System.out.println("Tipo giocatore: " + cd.getView().getPlayerType());
 		System.out.println("Settore corrente: " + cd.getView().getCoordinate());
+		
+		in.close();
+		
+		
 
 	}
 

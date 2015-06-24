@@ -11,10 +11,11 @@ import connection.TypeOfMap;
 
 public class ChooseMap {
 
-	public void choose(ClientData cd, Scanner in) throws UnknownHostException, ClassNotFoundException, IOException {
+	public String choose(ClientData cd, Scanner in) throws UnknownHostException, ClassNotFoundException, IOException {
 		System.out
 				.println("Scegli la mappa di gioco:\n 1: Fermi\n 2: Galilei\n 3: Galvani");
 
+		String mapName = null;
 		int mappa;
 		do {
 			mappa = in.nextInt();
@@ -23,17 +24,22 @@ public class ChooseMap {
 		switch (mappa) {
 		case 1:
 			cd.clickOnStartGame(new TypeOfMap(MapName.Fermi, MapType.HEXAGONAL));
+			mapName = "Fermi";
 			break;
 		case 2:
 			cd.clickOnStartGame(new TypeOfMap(MapName.Galilei,
 					MapType.HEXAGONAL));
+			mapName = "Galilei";
 			break;
 		case 3:
 			cd.clickOnStartGame(new TypeOfMap(MapName.Galvani,
 					MapType.HEXAGONAL));
+			mapName = "Galvani";
 			break;
 		default:
 			break;
 		}
+		
+		return mapName;
 	}
 }
