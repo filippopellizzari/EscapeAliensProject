@@ -4,9 +4,13 @@ import java.awt.*;
 
 import javax.swing.*;
 
-public class Gui {
+import connection.ClientData;
 
-	private static void createAndShowGUI() {
+public class Gui {
+	
+	private GameTable gameTable;
+	
+	public void createAndShowGUI(String mapName, ClientData cd) {
 
 		JFrame frame = new JFrame("EscapeFromTheAliens");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,22 +22,20 @@ public class Gui {
 		// frame al centro dello schermo
 		frame.setLocationRelativeTo(null);
 		
-		String mapName = "Fermi";
-		new GameTable(frame, mapName);
+		
+		setGameTable(new GameTable(frame, mapName));
 		
 		frame.pack();
 		frame.setVisible(true);
 
 	}
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGUI();
+	public GameTable getGameTable() {
+		return gameTable;
+	}
 
-			}
-
-		});
+	public void setGameTable(GameTable gameTable) {
+		this.gameTable = gameTable;
 	}
 
 }

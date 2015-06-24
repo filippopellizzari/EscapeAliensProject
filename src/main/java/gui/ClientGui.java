@@ -6,6 +6,8 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.util.Scanner;
 
+import javax.swing.SwingUtilities;
+
 import cli.ChooseConnection;
 import cli.ChooseMap;
 import connection.ClientData;
@@ -14,6 +16,7 @@ public class ClientGui {
 
 	private ClientData cd;
 	private Scanner in;
+	private String mapName;
 
 	public void startClientGui() throws UnknownHostException,
 			ClassNotFoundException, NotBoundException, AlreadyBoundException,
@@ -25,8 +28,9 @@ public class ClientGui {
 
 		// ciclo finchè una partita non è disponibile
 		String resultChooseMap;
+		
 		do {
-			new ChooseMap().choose(cd, in);
+			mapName = new ChooseMap().choose(cd, in);
 			System.out.println("Attendi partita disponibile...");
 			resultChooseMap = cd.getBuffer();
 			System.out.println(resultChooseMap);
@@ -40,6 +44,16 @@ public class ClientGui {
 		System.out.println("Settore corrente: " + cd.getView().getCoordinate());
 		
 		in.close();
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				Gui gui = new Gui();
+				gui.createAndShowGUI(mapName, cd);
+				
+
+			}
+
+		});
 		
 		
 
