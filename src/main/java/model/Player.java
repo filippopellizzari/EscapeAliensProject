@@ -159,7 +159,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "<giocatore "+ numberOfPlayer+">";
+		return "<giocatore "+ (numberOfPlayer+1)+">";
 				
 	}
 }

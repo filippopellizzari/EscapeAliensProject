@@ -42,12 +42,14 @@ public class ControlDataReceived {
 	 */
 
 	public String verify() {
-		if (numberPlayer != dtoSend.getNumberPlayer()) {
-			return "Ora non è il tuo turno";
-		}
 		if (!player.isInGame()) {
 			return "Sei fuori dal gioco!";
 		}
+		
+		if (numberPlayer != dtoSend.getNumberPlayer()) {
+			return "Ora non è il tuo turno";
+		}
+		
 		if (dtoSend.getCoordinate() != null) {
 			if (game.getMap().isNull(dtoSend.getCoordinate()))
 				return "Il settore non esiste sulla mappa";

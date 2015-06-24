@@ -7,12 +7,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+
+
 public class GameTable extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	public GameTable(JFrame frame, String mapName) {
 
+		
 		super(new BorderLayout());
 		setOpaque(true);
 		frame.setContentPane(this);
@@ -29,7 +32,7 @@ public class GameTable extends JPanel {
 
 		//left panel
 		LeftPanel leftPanel = new LeftPanel();
-		//right panel
+		//rightPanel
 		RightPanel rightPanel = new RightPanel();
 		
 		//layout
@@ -50,4 +53,5 @@ public class GameTable extends JPanel {
 		}
 	}
 
+	
 }

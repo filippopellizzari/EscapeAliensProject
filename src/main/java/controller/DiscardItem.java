@@ -55,6 +55,7 @@ public class DiscardItem implements ChooseAnAction {
 		if (status.isMustDiscardItem()) {
 			discardItem(dtoTurn.getTypeCard());
 			status.setMustDiscardItem(false);
+			dtoGame.setItemCardType(dtoTurn.getTypeCard());
 			dtoGame.setActionType(dtoTurn.getActionType());
 			dtoGame.setReceiver(9);
 		} else {

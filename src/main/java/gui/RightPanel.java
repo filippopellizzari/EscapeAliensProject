@@ -3,6 +3,7 @@ package gui;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,8 @@ public class RightPanel extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 
+
+	
 	public RightPanel(){
 		
 		super(new BorderLayout());
@@ -33,11 +36,9 @@ public class RightPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(letteraBox.getSelectedItem());
-				System.out.println(numeroBox.getSelectedItem());
-				System.out.println("MOVE ");
-					
+				System.out.println("MOVE");
 			}
+			
 			
 		});
 		JButton noiseButton = new JButton("NOISE");
@@ -68,6 +69,7 @@ public class RightPanel extends JPanel{
 		
 		//logPanel
 		LogPanel logPanel = new LogPanel();
+	
 		
 		//layout
 		add(coordPanel, BorderLayout.NORTH);
@@ -75,6 +77,9 @@ public class RightPanel extends JPanel{
 		add(logPanel, BorderLayout.CENTER);
 		
 	}
+
+	
+	
 	
 	
 }

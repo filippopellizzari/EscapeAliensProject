@@ -39,6 +39,31 @@ public class MessagePanel extends JPanel implements ActionListener{
 		
 	}
 	
+	
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
+
+
+	public void setTextArea(JTextArea textArea) {
+		this.textArea = textArea;
+	}
+
+
+
+	public JTextField getTextField() {
+		return textField;
+	}
+
+
+
+	public void setTextField(JTextField textField) {
+		this.textField = textField;
+	}
+
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
