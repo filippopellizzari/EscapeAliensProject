@@ -1,20 +1,19 @@
-package cli;
+package gui;
 
 import model.Coordinate;
 import model.PlayerType;
 import dto.DTOGame;
 
-public class UseItemMessage implements Message{
+public class UseItemMessageGui implements MessageGui {
 
 	@Override
-	public void receive(DTOGame dtoGame){
-		System.out.println("<giocatore " + (dtoGame.getPlayerNumber()+1)
+	public void receive(DTOGame dtoGame, RightPanel rp) {
+		rp.getMessagePanel().getTextArea().append("<giocatore " + (dtoGame.getPlayerNumber()+1)
 				+ ">" + " ha usato la carta "
 				+ dtoGame.getItemCardType());
 		switch (dtoGame.getItemCardType()) {
 		case ATTACK:
-			System.out
-					.println("<giocatore "
+			rp.getMessagePanel().getTextArea().append("<giocatore "
 							+ (dtoGame.getPlayerNumber()+1)
 							+ ">"
 							+ " ATTACCO IN SETTORE "
@@ -23,7 +22,7 @@ public class UseItemMessage implements Message{
 			for (int i = 0; i < dtoGame.getPlayerType().length; i++) {
 				PlayerType type = dtoGame.getPlayerType(i);
 				if (type != null) {
-					System.out.println("<giocatore " + (i+1) + ">"
+					rp.getMessagePanel().getTextArea().append("<giocatore " + (i+1) + ">"
 							+ " è stato attaccato e viene eliminato:\n"
 							+ "era un " + type);
 				}
@@ -33,7 +32,7 @@ public class UseItemMessage implements Message{
 			for (int i = 0; i < dtoGame.getCoordinate().length; i++) {
 				Coordinate coord = dtoGame.getCoordinate(i);
 				if (coord != null) {
-					System.out.println("<giocatore " + (i+1) + ">"
+					rp.getLogPanel().getTextArea().append("<giocatore " + (i+1) + ">"
 							+ " si trova nel settore" + coord);
 				}
 			}
@@ -41,5 +40,7 @@ public class UseItemMessage implements Message{
 		default:
 			break;
 		}
+
 	}
+
 }

@@ -23,7 +23,7 @@ public class Gui {
 		frame.setLocationRelativeTo(null);
 		
 		
-		setGameTable(new GameTable(frame, mapName));
+		setGameTable(new GameTable(frame, mapName, cd));
 		
 		frame.pack();
 		frame.setVisible(true);

@@ -18,7 +18,6 @@ public class LogPanel extends JPanel{
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		
-		
 		//Add Components to this panel.
         GridBagConstraints c = new GridBagConstraints();
         c.gridwidth = GridBagConstraints.REMAINDER;
@@ -30,6 +29,12 @@ public class LogPanel extends JPanel{
         c.weighty = 1.0;
         add(scrollPane, c);
 		
-		
 	}
+
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
+	
 }

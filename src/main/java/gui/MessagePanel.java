@@ -40,31 +40,6 @@ public class MessagePanel extends JPanel implements ActionListener{
 	}
 	
 	
-
-	public JTextArea getTextArea() {
-		return textArea;
-	}
-
-
-
-	public void setTextArea(JTextArea textArea) {
-		this.textArea = textArea;
-	}
-
-
-
-	public JTextField getTextField() {
-		return textField;
-	}
-
-
-
-	public void setTextField(JTextField textField) {
-		this.textField = textField;
-	}
-
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String text = textField.getText();
@@ -76,5 +51,10 @@ public class MessagePanel extends JPanel implements ActionListener{
         textArea.setCaretPosition(textArea.getDocument().getLength());
 		
 	}
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
 
 }

@@ -3,38 +3,26 @@ package gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import connection.ClientData;
+import controller.ActionType;
+import dto.DTOSend;
 
 public class LeftPanel extends JPanel {
 
 	
 	private static final long serialVersionUID = 1L;
 
-	public LeftPanel() {
+	public LeftPanel(final ClientData cd) {
 
 		super(new BorderLayout());
 		setOpaque(true);
 		setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
-		// items buttons
-		JButton attack = new JButton("Attack", loadIcon("attack"));
-		JButton teleport = new JButton("Teleport", loadIcon("teleport"));
-		JButton sedatives = new JButton("Sedatives", loadIcon("sedatives"));
-		JButton spotlight = new JButton("Spotlight", loadIcon("spotlight"));
-		JButton adrenaline = new JButton("Adrenaline", loadIcon("adrenaline"));
-		
-		attack.addActionListener(new ItemListener());
-		teleport.addActionListener(new ItemListener());
-		sedatives.addActionListener(new ItemListener());
-		spotlight.addActionListener(new ItemListener());
-		adrenaline.addActionListener(new ItemListener());
-	
 		//discard table
 		String[] columnNames = {"Item Type", "#"};
 		final Object[][] data = {
@@ -86,7 +74,18 @@ public class LeftPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("ALIEN ATTACK");
+				DTOSend dtoSend = null;
+				try {
+					dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(), null,
+							ActionType.ATTACK, null);
+				} catch (InterruptedException e1) {
+					System.out.println("Problem Attack action: "+e1);
+				}
+				try {
+					cd.clickOnDoMove(dtoSend);
+				} catch (IOException e1) {
+					System.out.println("Problem Attack action: "+e1);
+				}
 				
 			}
 			
@@ -96,32 +95,30 @@ public class LeftPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("FINE TURNO");
+				DTOSend dtoSend = null;
+				try {
+					dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(), null,
+							ActionType.ENDTURN, null);
+				} catch (InterruptedException e1) {
+					System.out.println("Problem EndTurn action: "+e1);
+				}
+				try {
+					cd.clickOnDoMove(dtoSend);
+				} catch (IOException e1) {
+					System.out.println("Problem EndTurn action: "+e1);
+				}
 				
 			}
 			
 		});
 
-		// testo esplicativo al passaggio mouse
-
-		attack.setToolTipText("usa carta attacco");
-		teleport.setToolTipText("usa carta teletrasporto");
-		sedatives.setToolTipText("usa carta sedativi");
-		spotlight.setToolTipText("usa carta spotlight");
-		adrenaline.setToolTipText("usa carta adrenalina");
+		//testo esplicativo
 		discard.setToolTipText("clicca per scartare carta oggetto selezionata");
 		alienAttack.setToolTipText("clicca solo se sei alieno");
 		endTurn.setToolTipText("clicca quando vuoi finire il turno");
 
 		// put item buttons in a column in the panel items
-		JPanel items = new JPanel(new GridLayout(0, 1));
-		items.setBorder(new TitledBorder("Items"));
-		items.setBackground(Color.GRAY);
-		items.add(attack);
-		items.add(teleport);
-		items.add(sedatives);
-		items.add(spotlight);
-		items.add(adrenaline);
+		ItemsPanel items = new ItemsPanel(cd);
 		
 		//discard panel
 		JPanel discardPanel = new JPanel(new GridLayout(0,1));
@@ -143,13 +140,4 @@ public class LeftPanel extends JPanel {
 		
 	}
 	
-	private ImageIcon loadIcon(String name) {
-		try {
-			return new ImageIcon(ImageIO.read(new File("rsc"
-					+ File.separatorChar + name + ".png")));
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 }

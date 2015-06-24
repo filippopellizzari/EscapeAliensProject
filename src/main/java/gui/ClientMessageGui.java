@@ -1,5 +1,6 @@
-package cli;
+package gui;
 
+import cli.ClientModel;
 import model.ItemCardType;
 import dto.DTOGame;
 
@@ -10,49 +11,51 @@ import dto.DTOGame;
  * @author Filippo
  *
  */
-public class ClientMessage {
+public class ClientMessageGui {
 
 	private int numberOfPlayer;
 	private ClientModel model;
+	private RightPanel rp;
 
-	public ClientMessage(int numberOfPlayer, ClientModel model) {
+	public ClientMessageGui(int numberOfPlayer, ClientModel model, RightPanel rp) {
 		this.numberOfPlayer = numberOfPlayer;
 		this.model = model;
+		this.rp = rp;
 	}
 
 	public void receive(DTOGame dtoGame) {
 		if (dtoGame.getActionType() != null) {
-			Message message;
+			MessageGui message;
 			switch (dtoGame.getActionType()) {
 			case MOVE:
-				message = new MoveMessage();
-				message.receive(dtoGame);
+				message = new MoveMessageGui();
+				message.receive(dtoGame, rp);;
 				updatePosition(dtoGame);
-				break;
+				break;	
 			case ATTACK:
-				message = new AttackMessage();
-				message.receive(dtoGame);
+				message = new AttackMessageGui();
+				message.receive(dtoGame, rp);
 				notifyDefense(dtoGame);
-				break;
+				break;	
 			case USEITEM:
-				message = new UseItemMessage();
-				message.receive(dtoGame);
+				message = new UseItemMessageGui();
+				message.receive(dtoGame, rp);
 				removeItem(dtoGame);
 				notifyDefense(dtoGame);
 				break;
 			case DISCARDITEM:
-				message = new DiscardMessage();
-				message.receive(dtoGame);
+				message = new DiscardMessageGui();
+				message.receive(dtoGame, rp);
 				removeItem(dtoGame);
 				break;
 			case DRAWSECTORCARD:
-				message = new DrawMessage();
-				message.receive(dtoGame);
+				message = new DrawMessageGui();
+				message.receive(dtoGame, rp);
 				itemDrawnMessage(dtoGame);
 				break;
 			case SELECTSECTORNOISE:
-				message = new NoiseMessage();
-				message.receive(dtoGame);
+				message = new NoiseMessageGui();
+				message.receive(dtoGame, rp);
 				break;
 			case ENDTURN:
 				endTurnMessage(dtoGame);
@@ -63,7 +66,7 @@ public class ClientMessage {
 
 		} else {
 			// messaggio di errore
-			System.out.println(dtoGame.getGameMessage());
+			rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage());
 		}
 
 		chatMessage(dtoGame);
@@ -73,7 +76,7 @@ public class ClientMessage {
 	private void notifyDefense(DTOGame dtoGame) {
 		int numDefended = dtoGame.getNumberPlayerDefense();
 		if(numDefended >= 0 && numDefended <=8){
-			System.out.println("<giocatore "+(numDefended+1)+"> è stato attaccato, "
+			rp.getMessagePanel().getTextArea().append("<giocatore "+(numDefended+1)+"> è stato attaccato, "
 					+ " ma si è salvato grazie alla carta difesa");
 			if(numberOfPlayer == numDefended){
 				model.removeItem(ItemCardType.DEFENSE);
@@ -101,12 +104,12 @@ public class ClientMessage {
 
 		if (numberOfPlayer == dtoGame.getPlayerNumber()) {
 			if (dtoGame.getItemCardType() != null) {
-				System.out.println("Hai pescato una carta oggetto "
+				rp.getMessagePanel().getTextArea().append("Hai pescato una carta oggetto "
 						+ dtoGame.getItemCardType());
 				model.getItems().add(dtoGame.getItemCardType());
 			}
 			if (dtoGame.getGameMessage() != null) {
-				System.out.println(dtoGame.getGameMessage());
+				rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage());
 			}
 
 		}
@@ -117,7 +120,7 @@ public class ClientMessage {
 	 * @param dtoGame
 	 */
 	private void endTurnMessage(DTOGame dtoGame) {
-		System.out.println(dtoGame.getGameMessage());
+		rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage());
 	}
 
 	/**
@@ -127,7 +130,7 @@ public class ClientMessage {
 	 */
 	private void chatMessage(DTOGame dtoGame) {
 		if (dtoGame.getChat() != null) {
-			System.out.println("<giocatore " + (dtoGame.getPlayerNumber() + 1)
+			rp.getMessagePanel().getTextArea().append("<giocatore " + (dtoGame.getPlayerNumber() + 1)
 					+ "> " + dtoGame.getChat());
 		}
 	}

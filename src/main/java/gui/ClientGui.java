@@ -6,10 +6,12 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.util.Scanner;
 
+
 import javax.swing.SwingUtilities;
 
 import cli.ChooseConnection;
 import cli.ChooseMap;
+import cli.ClientModel;
 import connection.ClientData;
 
 public class ClientGui {
@@ -50,7 +52,24 @@ public class ClientGui {
 				Gui gui = new Gui();
 				gui.createAndShowGUI(mapName, cd);
 				
+				ClientModel model = new ClientModel();
+				try {
+					model.setCoordinate(cd.getView().getCoordinate());
+				} catch (InterruptedException e) {
+					System.out.println("Problem Get Starting Coordinates");
+				}
+				
+				RightPanel rp = gui.getGameTable().getRightPanel();
+				
+				Thread showMessage = null;
+				try {
+					showMessage = new Thread(new ShowMessageGui(cd,model,rp));
+				} catch (InterruptedException e) {
+					System.out.println("Problem Show Message Thread: "+e);
+				}
+				showMessage.start();
 
+				
 			}
 
 		});
