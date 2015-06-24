@@ -18,9 +18,6 @@ public class AttackMessage implements Message{
 						+ "era un " + type);
 			}
 		}
-		if (dtoGame.getGameMessage() != null) {
-			System.out.println(dtoGame.getGameMessage());
-		}
 	}
 	
 }

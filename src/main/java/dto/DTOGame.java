@@ -25,7 +25,7 @@ public class DTOGame implements Serializable {
 	private String gameMessage = "";
 	private int receiver; //1-8 for single player, 9 broadcast, 10 caso particolare
 	private int playerNumber;
-	
+	private int numberPlayerDefense;
 	/**
 	 * Create a new dtoGame
 	 */
@@ -210,5 +210,20 @@ public class DTOGame implements Serializable {
 	 */
 	public PlayerType getPlayerType(int number) {
 		return playerType[number];		
+	}
+	/**
+	 * number of Player who has defended himself
+	 * 
+	 * @return
+	 */
+	public int getNumberPlayerDefense() {
+		return numberPlayerDefense;
+	}
+	/**
+	 * 
+	 * @param numberPlayerDefense
+	 */
+	public void setNumberPlayerDefense(int numberPlayerDefense) {
+		this.numberPlayerDefense = numberPlayerDefense;
 	}
 }

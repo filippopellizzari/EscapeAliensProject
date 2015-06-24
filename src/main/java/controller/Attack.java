@@ -48,8 +48,7 @@ public class Attack implements ChooseAnAction {
 		for (int i = 0; i < playersAttackable; i++) {
 			Player attacked = current.getPlayers().get(0);
 			if (isDefendable(attacked)) {
-				dtoGame.setGameMessage(attacked
-						+ " è stato attaccato, ma si salva grazie alla carta Difesa\n");
+				dtoGame.setNumberPlayerDefense(attacked.getNumber());
 				// sposto giocatore in fondo alla lista
 				current.addPlayer(current.removePlayer());
 			} else {

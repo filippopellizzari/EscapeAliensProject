@@ -1,5 +1,6 @@
 package cli;
 
+import model.ItemCardType;
 import dto.DTOGame;
 
 /**
@@ -31,6 +32,7 @@ public class ClientMessage {
 			case ATTACK:
 				message = new AttackMessage();
 				message.receive(dtoGame);
+				notifyDefense(dtoGame);
 				break;
 			case USEITEM:
 				message = new UseItemMessage();
@@ -67,6 +69,18 @@ public class ClientMessage {
 	}
 
 	
+	private void notifyDefense(DTOGame dtoGame) {
+		if(dtoGame.getNumberPlayerDefense() >= 0){
+			int numberDefended = dtoGame.getNumberPlayerDefense();
+			System.out.println("<giocatore "+numberDefended+"> è stato attaccato, "
+					+ " ma si è salvato grazie alla carta difesa");
+			if(numberOfPlayer == numberDefended){
+				model.removeItem(ItemCardType.DEFENSE);
+			}
+		}
+		
+	}
+
 	private void updatePosition(DTOGame dtoGame){
 		if(numberOfPlayer == dtoGame.getPlayerNumber()){
 		model.setCoordinate(dtoGame.getCoordinate(numberOfPlayer));
