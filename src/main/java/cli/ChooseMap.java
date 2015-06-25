@@ -9,9 +9,25 @@ import connection.MapName;
 import connection.MapType;
 import connection.TypeOfMap;
 
+/**
+ * This class is used to choose the Map of the game, before subscribing. It is
+ * used both by CLI users and by GUI users
+ * 
+ * @author Filippo
+ *
+ */
 public class ChooseMap {
-
-	public String choose(ClientData cd, Scanner in) throws UnknownHostException, ClassNotFoundException, IOException {
+	/**
+	 * 
+	 * @param cd
+	 * @param in
+	 * @return
+	 * @throws UnknownHostException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
+	public String choose(ClientData cd, Scanner in)
+			throws UnknownHostException, ClassNotFoundException, IOException {
 		System.out
 				.println("Scegli la mappa di gioco:\n 1: Fermi\n 2: Galilei\n 3: Galvani");
 
@@ -39,7 +55,7 @@ public class ChooseMap {
 		default:
 			break;
 		}
-		
+
 		return mapName;
 	}
 }

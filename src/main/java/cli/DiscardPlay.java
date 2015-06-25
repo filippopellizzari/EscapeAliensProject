@@ -9,10 +9,26 @@ import connection.ClientData;
 import controller.ActionType;
 import dto.DTOSend;
 
+/**
+ * This class is used to try a discard Item Card action
+ * 
+ * @author Filippo
+ *
+ */
 public class DiscardPlay {
 
+	/**
+	 * 
+	 * @param dtoSend
+	 * @param cd
+	 * @param in
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void action(DTOSend dtoSend, ClientData cd, Scanner in)
 			throws UnknownHostException, IOException, InterruptedException {
+
 		System.out
 				.println("Scegli tipo:\n 1: ATTACK\n 2: TELEPORT\n 3: SEDATIVES\n 4: SPOTLIGHT\n 5: ADRENALINE\n 6: DEFENSE");
 

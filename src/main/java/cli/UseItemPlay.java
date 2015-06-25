@@ -10,10 +10,26 @@ import connection.ClientData;
 import controller.ActionType;
 import dto.DTOSend;
 
+/**
+ * This class is used to try a use Item Card action
+ * 
+ * @author Filippo
+ *
+ */
 public class UseItemPlay {
 
-	public void action(DTOSend dtoSend, ClientData cd, Scanner in) throws InterruptedException, UnknownHostException,
-			IOException {
+	/**
+	 * 
+	 * @param dtoSend
+	 * @param cd
+	 * @param in
+	 * @throws InterruptedException
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
+	public void action(DTOSend dtoSend, ClientData cd, Scanner in)
+			throws InterruptedException, UnknownHostException, IOException {
+		
 		System.out
 				.println("Scegli tipo:\n 1: ATTACK\n 2: TELEPORT\n 3: SEDATIVES\n 4: SPOTLIGHT\n 5: ADRENALINE");
 		int typeToUse;
@@ -48,7 +64,7 @@ public class UseItemPlay {
 			int ySpot = in.nextInt();
 
 			Coordinate coordSpot = new Coordinate(xSpot, ySpot);
-			
+
 			dtoSend = new DTOSend(coordSpot, cd.getView().getNumberPlayer(),
 					ItemCardType.SPOTLIGHT, ActionType.USEITEM, null);
 			cd.clickOnDoMove(dtoSend);

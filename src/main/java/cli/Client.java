@@ -9,6 +9,7 @@ import java.util.Scanner;
 import connection.ClientData;
 
 /**
+ * This class is the main class of client CLI
  * 
  * @author Filippo
  *
@@ -20,6 +21,15 @@ public class Client {
 	private Scanner in;
 	private boolean finePartita;
 
+	/**
+	 * This class starts the CLI
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws NotBoundException
+	 * @throws AlreadyBoundException
+	 * @throws InterruptedException
+	 * @throws IOException
+	 */
 	public void startClient() throws ClassNotFoundException, NotBoundException,
 			AlreadyBoundException, InterruptedException, IOException {
 		in = new Scanner(System.in);
@@ -88,6 +98,14 @@ public class Client {
 		in.close();
 	}
 
+	/**
+	 * This method prints general info of player, when user click "9": number of
+	 * player, type (alien or human), current sector, itemCards, association
+	 * between command and action
+	 * 
+	 * @param model
+	 * @throws InterruptedException
+	 */
 	private void info(ClientModel model) throws InterruptedException {
 		System.out.println("Numero giocatore: "
 				+ (cd.getView().getNumberPlayer() + 1));
@@ -100,14 +118,32 @@ public class Client {
 						+ "7: END TURN\n 8: CHAT\n");
 	}
 
+	/**
+	 * 
+	 * @return true, if game is finished
+	 */
 	public boolean isFinePartita() {
 		return finePartita;
 	}
 
+	/**
+	 * 
+	 * @param finePartita
+	 */
 	public void setFinePartita(boolean finePartita) {
 		this.finePartita = finePartita;
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @throws UnknownHostException
+	 * @throws ClassNotFoundException
+	 * @throws NotBoundException
+	 * @throws AlreadyBoundException
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public static void main(String[] args) throws UnknownHostException,
 			ClassNotFoundException, NotBoundException, AlreadyBoundException,
 			IOException, InterruptedException {

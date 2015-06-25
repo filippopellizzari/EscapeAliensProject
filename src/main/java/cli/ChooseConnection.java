@@ -10,6 +10,13 @@ import connection.ClientData;
 import rmi.ClientDataRMI;
 import socket.ClientDataSocket;
 
+/**
+ * This class is used to choose the type of connection: Socket or RMI.
+ * It is used both by CLI users and by GUI users.
+ * 
+ * @author Filippo
+ *
+ */
 public class ChooseConnection {
 
 	public ClientData choose(ClientData cd, Scanner in)
