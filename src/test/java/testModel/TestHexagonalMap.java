@@ -79,6 +79,22 @@ public class TestHexagonalMap {
 		Coordinate c = new Coordinate(12, 5);
 		assertTrue(!fermi.getMap().isNull(c));
 	}
+	/**
+	 * test verifies that a coordinate is null, if x > 23
+	 */
+	@Test 
+	public void testHighX(){
+		Coordinate c = new Coordinate(25, 5);
+		assertTrue(fermi.getMap().isNull(c));
+	}
+	/**
+	 * test verifies that a coordinate is null, if y > 14
+	 */
+	@Test 
+	public void testHighY(){
+		Coordinate c = new Coordinate(12, 15);
+		assertTrue(fermi.getMap().isNull(c));
+	}
 	
 	
 

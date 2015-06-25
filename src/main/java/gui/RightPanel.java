@@ -3,83 +3,57 @@ package gui;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
+import connection.ClientData;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class RightPanel extends JPanel{
+public class RightPanel extends JPanel {
 
-	
 	private static final long serialVersionUID = 1L;
 
-
+	private CoordinatePanel coordPanel;
 	
-	public RightPanel(){
-		
+	private LogPanel myPositionPanel;
+	private LogPanel logPanel;
+	
+	private MessagePanel messagePanel;
+
+	public RightPanel(final ClientData cd) {
+
 		super(new BorderLayout());
 		setOpaque(true);
 		setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		
-		//coordinates area
-		final JComboBox letteraBox = new JComboBox();
-		for(int i=65; i<=87; i++){
-			letteraBox.addItem((char)i);
-		}
-		final JComboBox numeroBox = new JComboBox();
-		for(int i=1; i<=14; i++){
-			numeroBox.addItem(new Integer(i));
-		}
-		
-		JButton moveButton = new JButton("MOVE");
-		moveButton.addActionListener(new ActionListener(){
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("MOVE");
-			}
-			
-			
-		});
-		JButton noiseButton = new JButton("NOISE");
-		noiseButton.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println(letteraBox.getSelectedItem());
-				System.out.println(numeroBox.getSelectedItem());
-				System.out.println("NOISE ");
-				
-			}
-			
-		});
+		coordPanel = new CoordinatePanel(cd);
 		
+		JPanel eastCenterPanel = new JPanel(new GridLayout(0,1));
+		myPositionPanel = new LogPanel();
+		myPositionPanel.setBorder(new TitledBorder("My Position"));
 		
-		//coordinates Panel
-		JPanel coordPanel = new JPanel(new GridLayout(0,2));
-		coordPanel.setBorder(new TitledBorder("Coordinates"));
-		coordPanel.setBackground(Color.GRAY);
-		coordPanel.add(letteraBox);
-		coordPanel.add(numeroBox);
-		coordPanel.add(moveButton);
-		coordPanel.add(noiseButton);
+		logPanel = new LogPanel();
+		eastCenterPanel.add(myPositionPanel);
+		eastCenterPanel.add(logPanel);
 		
-		//messagePanel
-		MessagePanel messagePanel = new MessagePanel();
+		messagePanel = new MessagePanel(cd);
 		
-		//logPanel
-		LogPanel logPanel = new LogPanel();
-	
-		
-		//layout
+		// layout
 		add(coordPanel, BorderLayout.NORTH);
+		add(eastCenterPanel, BorderLayout.CENTER);
 		add(messagePanel, BorderLayout.SOUTH);
-		add(logPanel, BorderLayout.CENTER);
 		
 	}
 
 	
-	
-	
-	
+	public LogPanel getMyPositionPanel() {
+		return myPositionPanel;
+	}
+
+	public LogPanel getLogPanel() {
+		return logPanel;
+	}
+
+	public MessagePanel getMessagePanel() {
+		return messagePanel;
+	}
+
 }

@@ -9,10 +9,27 @@ import connection.ClientData;
 import controller.ActionType;
 import dto.DTOSend;
 
+/**
+ * This class is used to try an action of selection coordinates for noise in any
+ * sector
+ * 
+ * @author Filippo
+ *
+ */
 public class NoisePlay {
 
+	/**
+	 * 
+	 * @param dtoSend
+	 * @param cd
+	 * @param in
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void action(DTOSend dtoSend, ClientData cd, Scanner in)
 			throws UnknownHostException, IOException, InterruptedException {
+		
 		System.out.println("Inserisci le coordinate:");
 
 		System.out.println("Lettera:");

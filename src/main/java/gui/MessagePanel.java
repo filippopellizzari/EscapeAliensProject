@@ -1,9 +1,14 @@
 package gui;
 import javax.swing.*;
 
+import connection.ClientData;
+import controller.ActionType;
+import dto.DTOSend;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MessagePanel extends JPanel implements ActionListener{
 
@@ -12,16 +17,18 @@ public class MessagePanel extends JPanel implements ActionListener{
 	private JTextArea textArea;
 	private JTextField textField;
 	
-	public MessagePanel(){
+	private ClientData cd;
+	
+	public MessagePanel(ClientData cd){
 		super(new GridBagLayout());
-		
+		this.cd = cd;
 		setBackground(Color.GRAY);
 		
-		textArea = new JTextArea(20,20);
+		textArea = new JTextArea(20,28);
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		
-		textField = new JTextField(20);
+		textField = new JTextField(28);
 		textField.addActionListener(this);
 		
 		//Add Components to this panel.
@@ -35,40 +42,26 @@ public class MessagePanel extends JPanel implements ActionListener{
         c.weightx = 1.0;
         c.weighty = 1.0;
         add(scrollPane, c);
-		
-		
+			
 	}
 	
-	
-
-	public JTextArea getTextArea() {
-		return textArea;
-	}
-
-
-
-	public void setTextArea(JTextArea textArea) {
-		this.textArea = textArea;
-	}
-
-
-
-	public JTextField getTextField() {
-		return textField;
-	}
-
-
-
-	public void setTextField(JTextField textField) {
-		this.textField = textField;
-	}
-
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String text = textField.getText();
-        textArea.append(text + "\n");
+		
+		DTOSend dtoSend = null;
+		try {
+			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(), null,
+					ActionType.CHAT, text);
+		} catch (InterruptedException e1) {
+			System.out.println("Problema invio chat: "+e1);
+		}
+		try {
+			cd.clickOnDoMove(dtoSend);
+		} catch (IOException e1) {
+			System.out.println("Problema invio chat: "+e1);
+		}
+
         textField.selectAll();
  
         //Make sure the new text is visible, even if there
@@ -76,5 +69,10 @@ public class MessagePanel extends JPanel implements ActionListener{
         textArea.setCaretPosition(textArea.getDocument().getLength());
 		
 	}
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
 
 }

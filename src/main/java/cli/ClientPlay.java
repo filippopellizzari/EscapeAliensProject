@@ -9,7 +9,8 @@ import controller.ActionType;
 import dto.DTOSend;
 
 /**
- * 
+ * This class is used to analyze the input of client,
+ * to do the right action that client wants
  * 
  * @author Filippo
  *
@@ -23,12 +24,21 @@ public class ClientPlay {
 	/**
 	 * 
 	 * @param cd
-	 *            data
+	 *            ClientData, used to send an action to server
 	 */
 	public ClientPlay(ClientData cd) {
 		this.cd = cd;
 	}
 
+	/**
+	 * 
+	 * @param action
+	 * @param input
+	 * @throws UnknownHostException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void play(int action, Scanner input) throws UnknownHostException,
 			ClassNotFoundException, IOException, InterruptedException {
 

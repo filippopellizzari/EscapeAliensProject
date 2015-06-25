@@ -15,11 +15,22 @@ public class ClientMessage {
 	private int numberOfPlayer;
 	private ClientModel model;
 
+	/**
+	 * 
+	 * @param numberOfPlayer
+	 * @param model
+	 */
 	public ClientMessage(int numberOfPlayer, ClientModel model) {
 		this.numberOfPlayer = numberOfPlayer;
 		this.model = model;
 	}
 
+	/**
+	 * This class analyzes the type of action done; if it has no type is surely
+	 * an error message; if there is a chat message, it is always displayed
+	 * 
+	 * @param dtoGame
+	 */
 	public void receive(DTOGame dtoGame) {
 		if (dtoGame.getActionType() != null) {
 			Message message;
@@ -38,6 +49,7 @@ public class ClientMessage {
 				message = new UseItemMessage();
 				message.receive(dtoGame);
 				removeItem(dtoGame);
+				notifyDefense(dtoGame);
 				break;
 			case DISCARDITEM:
 				message = new DiscardMessage();
@@ -68,31 +80,43 @@ public class ClientMessage {
 		chatMessage(dtoGame);
 	}
 
-	
 	private void notifyDefense(DTOGame dtoGame) {
 		int numDefended = dtoGame.getNumberPlayerDefense();
-		if(numDefended >= 0 && numDefended <=8){
-			System.out.println("<giocatore "+(numDefended+1)+"> è stato attaccato, "
+		if (numDefended >= 0 && numDefended <= 8) {
+			System.out.println("<giocatore " + (numDefended + 1)
+					+ "> è stato attaccato, "
 					+ " ma si è salvato grazie alla carta difesa");
-			if(numberOfPlayer == numDefended){
+			if (numberOfPlayer == numDefended) {
 				model.removeItem(ItemCardType.DEFENSE);
 			}
 		}
-		
 	}
 
-	private void updatePosition(DTOGame dtoGame){
-		if(numberOfPlayer == dtoGame.getPlayerNumber()){
-		model.setCoordinate(dtoGame.getCoordinate(numberOfPlayer));
+	/**
+	 * This method updates the current sector of a player after a move action,
+	 * in the view of client
+	 * 
+	 * @param dtoGame
+	 */
+	private void updatePosition(DTOGame dtoGame) {
+		if (numberOfPlayer == dtoGame.getPlayerNumber()) {
+			model.setCoordinate(dtoGame.getCoordinate(numberOfPlayer));
 		}
 	}
-	private void removeItem(DTOGame dtoGame){
-		if(numberOfPlayer == dtoGame.getPlayerNumber()){
-			model.removeItem(dtoGame.getItemCardType());
-			}
-	}
+
 	/**
-	 * private message, when a player draws an itemCard
+	 * This method removes an item Card, in the view of client
+	 * 
+	 * @param dtoGame
+	 */
+	private void removeItem(DTOGame dtoGame) {
+		if (numberOfPlayer == dtoGame.getPlayerNumber()) {
+			model.removeItem(dtoGame.getItemCardType());
+		}
+	}
+
+	/**
+	 * This method adds an item Card, in the view of client
 	 * 
 	 * @param dtoGame
 	 */
@@ -112,6 +136,7 @@ public class ClientMessage {
 	}
 
 	/**
+	 * This method displays a message of end Turn
 	 * 
 	 * @param dtoGame
 	 */
@@ -120,6 +145,7 @@ public class ClientMessage {
 	}
 
 	/**
+	 * This method displays a message of chat
 	 * 
 	 * @param dtoGame
 	 * 

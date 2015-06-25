@@ -14,10 +14,9 @@ public class LogPanel extends JPanel{
 		super(new GridBagLayout());
 		setBackground(Color.GRAY);
 		
-		textArea = new JTextArea(10,20);
+		textArea = new JTextArea(10,28);
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
-		
 		
 		//Add Components to this panel.
         GridBagConstraints c = new GridBagConstraints();
@@ -30,6 +29,12 @@ public class LogPanel extends JPanel{
         c.weighty = 1.0;
         add(scrollPane, c);
 		
-		
 	}
+
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
+	
 }

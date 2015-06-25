@@ -1,69 +1,47 @@
-package cli;
+package gui;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 import model.ItemCardType;
 import connection.ClientData;
 import controller.ActionType;
 import dto.DTOSend;
 
-/**
- * This class is used to try a discard Item Card action
- * 
- * @author Filippo
- *
- */
-public class DiscardPlay {
+public class DiscardAction {
 
-	/**
-	 * 
-	 * @param dtoSend
-	 * @param cd
-	 * @param in
-	 * @throws UnknownHostException
-	 * @throws IOException
-	 * @throws InterruptedException
-	 */
-	public void action(DTOSend dtoSend, ClientData cd, Scanner in)
-			throws UnknownHostException, IOException, InterruptedException {
+	public void discard(ClientData cd, int row) throws InterruptedException,
+			UnknownHostException, IOException {
 
-		System.out
-				.println("Scegli tipo:\n 1: ATTACK\n 2: TELEPORT\n 3: SEDATIVES\n 4: SPOTLIGHT\n 5: ADRENALINE\n 6: DEFENSE");
-
-		int typeToDiscard;
-		do {
-			typeToDiscard = in.nextInt();
-		} while (typeToDiscard < 1 || typeToDiscard > 5);
-
-		switch (typeToDiscard) {
-		case 1:
+		DTOSend dtoSend;
+		
+		switch (row) {
+		case 0:
 			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(),
 					ItemCardType.ATTACK, ActionType.DISCARDITEM, null);
 			cd.clickOnDoMove(dtoSend);
 			break;
-		case 2:
+		case 1:
 			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(),
 					ItemCardType.TELEPORT, ActionType.DISCARDITEM, null);
 			cd.clickOnDoMove(dtoSend);
 			break;
-		case 3:
+		case 2:
 			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(),
 					ItemCardType.SEDATIVES, ActionType.DISCARDITEM, null);
 			cd.clickOnDoMove(dtoSend);
 			break;
-		case 4:
+		case 3:
 			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(),
 					ItemCardType.SPOTLIGHT, ActionType.DISCARDITEM, null);
 			cd.clickOnDoMove(dtoSend);
 			break;
-		case 5:
+		case 4:
 			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(),
 					ItemCardType.ADRENALINE, ActionType.DISCARDITEM, null);
 			cd.clickOnDoMove(dtoSend);
 			break;
-		case 6:
+		case 5:
 			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(),
 					ItemCardType.DEFENSE, ActionType.DISCARDITEM, null);
 			cd.clickOnDoMove(dtoSend);
@@ -71,6 +49,6 @@ public class DiscardPlay {
 		default:
 			break;
 		}
-	}
 
+	}
 }
