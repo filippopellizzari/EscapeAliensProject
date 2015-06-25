@@ -10,11 +10,6 @@ public class NoiseMessageGui implements MessageGui {
 				+ " RUMORE IN SETTORE "
 				+ dtoGame.getCoordinate(dtoGame.getPlayerNumber())+"\n");
 		
-		if (dtoGame.getItemCardType() != null) {
-			rp.getMessagePanel().getTextArea().append("<giocatore " + (dtoGame.getPlayerNumber()+1)
-					+ "> ha pescato una carta oggetto\n");
-		}
-
 	}
 
 }

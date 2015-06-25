@@ -30,10 +30,7 @@ public class DrawMessage implements Message {
 		default:
 			break;
 		}
-		if (dtoGame.getItemCardType() != null) {
-			System.out.println("<giocatore " + (dtoGame.getPlayerNumber() + 1)
-					+ "> ha pescato una carta oggetto");
-		}
+		
 
 	}
 
