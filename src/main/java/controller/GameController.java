@@ -26,6 +26,7 @@ public class GameController {
 	private int round;
 	private int currentNumberPlayer;
 	private final int TOT_ROUNDS = 39;
+	private boolean endPlayerTurn;
 
 	/**
 	 * 
@@ -46,7 +47,7 @@ public class GameController {
 		this.currentNumberPlayer = 0;
 		this.round = 1;
 		currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
-
+		endPlayerTurn=false;
 	}
 
 	/**
@@ -78,6 +79,7 @@ public class GameController {
 					+ "> ha finito il turno\n");
 			dtoGame = endTurn(dtoGame);
 			dtoGame.setActionType(ActionType.ENDTURN);
+			setChangeTurn();
 			return dtoGame;
 		}
 
@@ -134,7 +136,6 @@ public class GameController {
 			dtoGame.setActionType(ActionType.ENDTURN);
 			dtoGame.setGameMessage("Finiti i turni di gioco: gli alieni vincono\n");
 		}
-		setChangeTurn();
 		dtoGame.setReceiver(9);
 		return dtoGame;
 
@@ -192,15 +193,16 @@ public class GameController {
 	 */
 	public synchronized void getChangeTurn(int turnPreviousNumber,
 			int playerPreviousNumber) throws InterruptedException {
-		if (turnPreviousNumber == round
-				&& playerPreviousNumber == currentNumberPlayer)
+		while(endPlayerTurn==false)
 			this.wait();
+		endPlayerTurn=false;
 	}
 
 	/**
 	 * Notify the turn's change
 	 */
 	public synchronized void setChangeTurn() {
+		endPlayerTurn=true;
 		// notifica al thread che segue i giocatori che il turno è finito
 		this.notifyAll();
 	}
