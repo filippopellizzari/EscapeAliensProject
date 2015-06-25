@@ -12,7 +12,10 @@ public class RightPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private CoordinatePanel coordPanel;
+	
+	private LogPanel myPositionPanel;
 	private LogPanel logPanel;
+	
 	private MessagePanel messagePanel;
 
 	public RightPanel(final ClientData cd) {
@@ -22,14 +25,25 @@ public class RightPanel extends JPanel {
 		setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
 		coordPanel = new CoordinatePanel(cd);
+		
+		JPanel eastCenterPanel = new JPanel(new GridLayout(0,1));
+		myPositionPanel = new LogPanel();
 		logPanel = new LogPanel();
+		eastCenterPanel.add(myPositionPanel);
+		eastCenterPanel.add(logPanel);
+		
 		messagePanel = new MessagePanel(cd);
 		
 		// layout
 		add(coordPanel, BorderLayout.NORTH);
-		add(logPanel, BorderLayout.CENTER);
+		add(eastCenterPanel, BorderLayout.CENTER);
 		add(messagePanel, BorderLayout.SOUTH);
 		
+	}
+
+	
+	public LogPanel getMyPositionPanel() {
+		return myPositionPanel;
 	}
 
 	public LogPanel getLogPanel() {
