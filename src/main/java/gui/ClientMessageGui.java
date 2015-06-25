@@ -51,11 +51,13 @@ public class ClientMessageGui {
 			case DRAWSECTORCARD:
 				message = new DrawMessageGui();
 				message.receive(dtoGame, rp);
-				itemDrawnMessage(dtoGame);
+				itemDrawnPrivateMessage(dtoGame);
+				itemDrawnPublicMessage(dtoGame);
 				break;
 			case SELECTSECTORNOISE:
 				message = new NoiseMessageGui();
 				message.receive(dtoGame, rp);
+				itemDrawnPublicMessage(dtoGame);
 				break;
 			case ENDTURN:
 				endTurnMessage(dtoGame);
@@ -74,8 +76,8 @@ public class ClientMessageGui {
 
 	
 	private void notifyDefense(DTOGame dtoGame) {
-		int numDefended = dtoGame.getNumberPlayerDefense();
-		if(numDefended >= 0 && numDefended <=8){
+		if(dtoGame.getNumberPlayerDefense() != null){
+			int numDefended = dtoGame.getNumberPlayerDefense();
 			rp.getMessagePanel().getTextArea().append("<giocatore "+(numDefended+1)+"> è stato attaccato, "
 					+ " ma si è salvato grazie alla carta difesa\n");
 			if(numberOfPlayer == numDefended){
@@ -96,21 +98,27 @@ public class ClientMessageGui {
 			model.removeItem(dtoGame.getItemCardType());
 			}
 	}
-	/**
-	 * private message, when a player draws an itemCard
-	 * 
-	 * @param dtoGame
-	 */
-	private void itemDrawnMessage(DTOGame dtoGame) {
+	
+	private void itemDrawnPublicMessage(DTOGame dtoGame) {
+		if (numberOfPlayer != dtoGame.getPlayerNumber()) {
+			if (dtoGame.getItemCardType() != null) {
+				rp.getMessagePanel().getTextArea().append("<giocatore "
+						+ (dtoGame.getPlayerNumber() + 1)
+						+ "> ha pescato una carta oggetto");
+			}
+		}
 
+	}
+	
+	private void itemDrawnPrivateMessage(DTOGame dtoGame) {
 		if (numberOfPlayer == dtoGame.getPlayerNumber()) {
 			if (dtoGame.getItemCardType() != null) {
 				rp.getMessagePanel().getTextArea().append("Hai pescato una carta oggetto "
-						+ dtoGame.getItemCardType()+"\n");
+						+ dtoGame.getItemCardType());
 				model.getItems().add(dtoGame.getItemCardType());
 			}
 			if (dtoGame.getGameMessage() != null) {
-				rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage()+"\n");
+				rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage());
 			}
 
 		}

@@ -59,11 +59,13 @@ public class ClientMessage {
 			case DRAWSECTORCARD:
 				message = new DrawMessage();
 				message.receive(dtoGame);
-				itemDrawnMessage(dtoGame);
+				itemDrawnPrivateMessage(dtoGame);
+				itemDrawnPublicMessage(dtoGame);
 				break;
 			case SELECTSECTORNOISE:
 				message = new NoiseMessage();
 				message.receive(dtoGame);
+				itemDrawnPublicMessage(dtoGame);
 				break;
 			case ENDTURN:
 				endTurnMessage(dtoGame);
@@ -81,8 +83,8 @@ public class ClientMessage {
 	}
 
 	private void notifyDefense(DTOGame dtoGame) {
-		int numDefended = dtoGame.getNumberPlayerDefense();
-		if (numDefended >= 0 && numDefended <= 8) {
+		if (dtoGame.getNumberPlayerDefense() != null) {
+			int numDefended = dtoGame.getNumberPlayerDefense();
 			System.out.println("<giocatore " + (numDefended + 1)
 					+ "> è stato attaccato, "
 					+ " ma si è salvato grazie alla carta difesa");
@@ -116,12 +118,31 @@ public class ClientMessage {
 	}
 
 	/**
-	 * This method adds an item Card, in the view of client
+	 * This method notifies all (excepted player of turn, because he already
+	 * knows it) if the player draws a generic Item Card (but only player knows
+	 * the type of Item Card)
 	 * 
 	 * @param dtoGame
 	 */
-	private void itemDrawnMessage(DTOGame dtoGame) {
+	private void itemDrawnPublicMessage(DTOGame dtoGame) {
+		if (numberOfPlayer != dtoGame.getPlayerNumber()) {
+			if (dtoGame.getItemCardType() != null) {
+				System.out.println("<giocatore "
+						+ (dtoGame.getPlayerNumber() + 1)
+						+ "> ha pescato una carta oggetto");
+			}
+		}
 
+	}
+
+	/**
+	 * This method notifies the player if he has drawn an item Card (also the
+	 * type) or if the deck of Item Cards is empty or if he has drawn the fourth
+	 * itemCard. Then, adds itemCard in the view of client.
+	 * 
+	 * @param dtoGame
+	 */
+	private void itemDrawnPrivateMessage(DTOGame dtoGame) {
 		if (numberOfPlayer == dtoGame.getPlayerNumber()) {
 			if (dtoGame.getItemCardType() != null) {
 				System.out.println("Hai pescato una carta oggetto "

@@ -23,10 +23,6 @@ public class DrawMessageGui implements MessageGui {
 		default:
 			break;
 		}
-		if (dtoGame.getItemCardType() != null) {
-			rp.getMessagePanel().getTextArea().append("<giocatore " + (dtoGame.getPlayerNumber()+1)
-					+ "> ha pescato una carta oggetto\n");
-		}
 
 	}
 

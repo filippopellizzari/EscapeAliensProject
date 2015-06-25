@@ -29,6 +29,12 @@ public abstract class ClientData {
 		this.buffer = null;
 	}
 
+	/**
+	 * 
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public abstract void clickOnConnection() throws UnknownHostException,
 			IOException, ClassNotFoundException;
 	
