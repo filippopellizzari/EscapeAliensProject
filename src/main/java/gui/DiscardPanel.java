@@ -57,19 +57,13 @@ public class DiscardPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
-				System.out.println("discard");
-				System.out.println(dataModel.getValueAt(row, 0));
-
+				
 				try {
 					new DiscardAction().discard(cd, row);
 				} catch (InterruptedException | IOException e1) {
 					System.out.println("Problem discard: "+e1);
 				}
-				/*
-				int num = (int) dataModel.getValueAt(row, 1);
-				num--;
-				dataModel.setValueAt(num, row, 1);
-*/
+				
 			}
 
 		});
@@ -78,8 +72,9 @@ public class DiscardPanel extends JPanel {
 		discardButton.setToolTipText("clicca per scartare carta oggetto selezionata");
 
 		// add components
-		add(table);
 		add(discardButton);
+		add(table);
+		
 	}
 
 	public DefaultTableModel getDataModel() {
