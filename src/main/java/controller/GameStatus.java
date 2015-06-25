@@ -5,9 +5,10 @@ import java.io.Serializable;
 import model.*;
 
 /**
- * this class contains the status of a player during his turn; booleans
+ * This class contains the status of a player during his turn; booleans
  * attributes indicate if a player has already do a type of action or if a
  * player must do something
+ * 
  * @author Nicola
  * @author Filippo
  *
@@ -22,10 +23,15 @@ public class GameStatus implements Serializable {
 	private boolean attacked;
 	private boolean sedated;
 	private boolean mustDraw; // must draw dangerous sector card
-	private boolean mustDiscardItem;// must discard fourth itemcard
+	private boolean mustDiscardItem;// must discard fourth itemCard
 	private boolean mustNoise; // must select random coordinate for
 								// "noise in any sector"
 
+	/**
+	 * 
+	 * @param game
+	 * @param player
+	 */
 	public GameStatus(Game game, Player player) {
 		this.player = player;
 		this.game = game;
@@ -44,7 +50,8 @@ public class GameStatus implements Serializable {
 	}
 
 	/**
-	 * @param moved the moved to set
+	 * @param moved
+	 *            the moved to set
 	 */
 	public void setMoved(boolean moved) {
 		this.moved = moved;
@@ -58,7 +65,8 @@ public class GameStatus implements Serializable {
 	}
 
 	/**
-	 * @param attacked the attacked to set
+	 * @param attacked
+	 *            the attacked to set
 	 */
 	public void setAttacked(boolean attacked) {
 		this.attacked = attacked;
@@ -72,7 +80,8 @@ public class GameStatus implements Serializable {
 	}
 
 	/**
-	 * @param sedated the sedated to set
+	 * @param sedated
+	 *            the sedated to set
 	 */
 	public void setSedated(boolean sedated) {
 		this.sedated = sedated;
@@ -86,7 +95,8 @@ public class GameStatus implements Serializable {
 	}
 
 	/**
-	 * @param mustDraw the mustDraw to set
+	 * @param mustDraw
+	 *            the mustDraw to set
 	 */
 	public void setMustDraw(boolean mustDraw) {
 		this.mustDraw = mustDraw;
@@ -100,7 +110,8 @@ public class GameStatus implements Serializable {
 	}
 
 	/**
-	 * @param mustDiscardItem the mustDiscardItem to set
+	 * @param mustDiscardItem
+	 *            the mustDiscardItem to set
 	 */
 	public void setMustDiscardItem(boolean mustDiscardItem) {
 		this.mustDiscardItem = mustDiscardItem;
@@ -114,7 +125,8 @@ public class GameStatus implements Serializable {
 	}
 
 	/**
-	 * @param mustNoise the mustNoise to set
+	 * @param mustNoise
+	 *            the mustNoise to set
 	 */
 	public void setMustNoise(boolean mustNoise) {
 		this.mustNoise = mustNoise;

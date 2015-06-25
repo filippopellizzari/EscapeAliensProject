@@ -19,6 +19,18 @@ import socket.ClientDataSocket;
  */
 public class ChooseConnection {
 
+	/**
+	 * 
+	 * @param cd
+	 * @param in
+	 * @return a concrete type of ClientData (Socket or RMI)
+	 * @throws UnknownHostException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws NotBoundException
+	 * @throws AlreadyBoundException
+	 */
 	public ClientData choose(ClientData cd, Scanner in)
 			throws UnknownHostException, ClassNotFoundException, IOException,
 			InterruptedException, NotBoundException, AlreadyBoundException {

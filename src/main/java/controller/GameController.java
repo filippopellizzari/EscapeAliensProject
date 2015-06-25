@@ -29,9 +29,12 @@ public class GameController {
 
 	/**
 	 * 
-	 * @param mapName, name of the map to create
-	 * @param numberOfPlayers, number of players
-	 * @param mapType, type of map (standard is hexagonal)
+	 * @param mapName
+	 *            , name of the map to create
+	 * @param numberOfPlayers
+	 *            , number of players
+	 * @param mapType
+	 *            , type of map (standard is hexagonal)
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
@@ -48,7 +51,8 @@ public class GameController {
 
 	/**
 	 * 
-	 * @param dtoSend a collection of data used to indicate the player's actions
+	 * @param dtoSend
+	 *            a collection of data used to indicate the player's actions
 	 * @return the report of action happen during the move
 	 * @throws IllegalAccessException
 	 * @throws InstantiationException
@@ -70,15 +74,16 @@ public class GameController {
 				dtoSend.getItemCardType(), dtoSend.getActionType());
 		dtoGame = currentTurn.action(dtoTurn);
 		if (dtoGame.getGameMessage().equals("FINE TURNO")) {
-			dtoGame.setGameMessage("\n<giocatore "+(currentNumberPlayer+1)+"> ha finito il turno\n");
+			dtoGame.setGameMessage("\n<giocatore " + (currentNumberPlayer + 1)
+					+ "> ha finito il turno\n");
 			dtoGame = endTurn(dtoGame);
 			dtoGame.setActionType(ActionType.ENDTURN);
 			return dtoGame;
 		}
-		
+
 		return dtoGame;
 	}
-	
+
 	/**
 	 * This method is called at the end of each turn. First of all, it controls
 	 * if the game is finished before 39 rounds: if yes, communicates how game
@@ -95,7 +100,7 @@ public class GameController {
 		dtoGame.setPlayerNumber(currentNumberPlayer);
 		if (end != null) {
 			disconnectAll();
-			round = TOT_ROUNDS + 1;			
+			round = TOT_ROUNDS + 1;
 			dtoGame.setGameMessage(end);
 			dtoGame.setReceiver(9);
 			dtoGame.setActionType(ActionType.ENDTURN);
@@ -107,7 +112,7 @@ public class GameController {
 			currentNumberPlayer++;
 			if (game.getPlayers().length == currentNumberPlayer) {
 				currentNumberPlayer = 0;
-				round++; 
+				round++;
 				nuovoRound = true;
 				// quando si riparte dal primo giocatore,
 				// si va al round successivo
@@ -119,12 +124,12 @@ public class GameController {
 		if (round <= TOT_ROUNDS) {
 			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 			dtoGame.setActionType(ActionType.ENDTURN);
-			if(nuovoRound) {
-				dtoGame.setGameMessage("Round "+round+"\n");
+			if (nuovoRound) {
+				dtoGame.setGameMessage("Round " + round + "\n");
 			}
-			dtoGame.setGameMessage("Turno giocatore " + (currentNumberPlayer+1)+"\n");
-		} 
-		else {
+			dtoGame.setGameMessage("Turno giocatore "
+					+ (currentNumberPlayer + 1) + "\n");
+		} else {
 			disconnectAll();
 			dtoGame.setActionType(ActionType.ENDTURN);
 			dtoGame.setGameMessage("Finiti i turni di gioco: gli alieni vincono\n");
@@ -134,7 +139,7 @@ public class GameController {
 		return dtoGame;
 
 	}
-	
+
 	/**
 	 * Sets all the players' status to not in game
 	 */
@@ -149,12 +154,13 @@ public class GameController {
 	 * This method invoked by an external thread finishes the turn
 	 * 
 	 * @return
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
 	 */
 
-	public List<DTOGame> completeTurn() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public List<DTOGame> completeTurn() throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
 		List<DTOGame> dtoGameList = new ArrayList<DTOGame>();
 		CompleteTurn completeTurn = new CompleteTurn(currentTurn);
 		// completa il turno
@@ -186,17 +192,17 @@ public class GameController {
 	 */
 	public synchronized void getChangeTurn(int turnPreviousNumber,
 			int playerPreviousNumber) throws InterruptedException {
-		if (turnPreviousNumber == round	&& playerPreviousNumber == currentNumberPlayer)
+		if (turnPreviousNumber == round
+				&& playerPreviousNumber == currentNumberPlayer)
 			this.wait();
 	}
-	
+
 	/**
 	 * Notify the turn's change
 	 */
-
 	public synchronized void setChangeTurn() {
-		this.notifyAll(); // notifica al thread che segue i giocatori che il
-							// turno è finito
+		// notifica al thread che segue i giocatori che il turno è finito
+		this.notifyAll();
 	}
 
 	/**
@@ -213,18 +219,34 @@ public class GameController {
 		return currentNumberPlayer;
 	}
 
+	/**
+	 * 
+	 * @param currentTurn
+	 */
 	public void setCurrentTurn(Turn currentTurn) {
 		this.currentTurn = currentTurn;
 	}
 
+	/**
+	 * 
+	 * @return instance of model of the game
+	 */
 	public Game getGame() {
 		return game;
 	}
 
+	/**
+	 * 
+	 * @param round
+	 */
 	public void setRound(int round) {
 		this.round = round;
 	}
 
+	/**
+	 * 
+	 * @param currentNumberPlayer
+	 */
 	public void setCurrentNumberPlayer(int currentNumberPlayer) {
 		this.currentNumberPlayer = currentNumberPlayer;
 	}

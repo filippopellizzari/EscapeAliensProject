@@ -17,6 +17,9 @@ public class ClientModel {
 	private Coordinate coordinate;
 	private final List<ItemCardType> items;
 
+	/**
+	 * Initializes list of Item Cards
+	 */
 	public ClientModel() {
 		this.items = new ArrayList<ItemCardType>();
 	}
