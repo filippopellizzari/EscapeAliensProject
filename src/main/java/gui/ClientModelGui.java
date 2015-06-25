@@ -13,14 +13,12 @@ public class ClientModelGui {
 	private Coordinate coordinate;
 	private final List<ItemCardType> items;
 	private DefaultTableModel dataModel;
-	
-	public ClientModelGui(DefaultTableModel dataModel ){
+
+	public ClientModelGui(DefaultTableModel dataModel) {
 		this.items = new ArrayList<ItemCardType>();
 		this.dataModel = dataModel;
 	}
 
-	
-	
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
 
@@ -30,24 +28,34 @@ public class ClientModelGui {
 		return coordinate;
 	}
 
-
 	public List<ItemCardType> getItems() {
 		return items;
 	}
 
-	public void removeItem(ItemCardType type){
-		for(int i = 0; i < items.size(); i++){
-			if(items.get(i).equals(type)){
-				updateDiscardPanel(type);
+	public void addItem(ItemCardType type) {
+		items.add(type);
+		int row = chooseRow(type);
+		int num = (int) dataModel.getValueAt(row, 1);
+		num++;
+		dataModel.setValueAt(num, row, 1);
+	}
+
+	public void removeItem(ItemCardType type) {
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).equals(type)) {
 				items.remove(i);
+				int row = chooseRow(type);
+				int num = (int) dataModel.getValueAt(row, 1);
+				num--;
+				dataModel.setValueAt(num, row, 1);
 				return;
 			}
-		}			
+		}
 	}
-	
-	private void updateDiscardPanel(ItemCardType type){
+
+	private int chooseRow(ItemCardType type) {
 		int row = 0;
-		switch(type){
+		switch (type) {
 		case ATTACK:
 			row = 0;
 			break;
@@ -69,8 +77,6 @@ public class ClientModelGui {
 		default:
 			break;
 		}
-		int num = (int) dataModel.getValueAt(row, 1);
-		num--;
-		dataModel.setValueAt(num, row, 1);
+		return row;
 	}
 }

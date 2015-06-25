@@ -14,7 +14,7 @@ public class DiscardAction {
 			UnknownHostException, IOException {
 
 		DTOSend dtoSend;
-
+		
 		switch (row) {
 		case 0:
 			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(),
