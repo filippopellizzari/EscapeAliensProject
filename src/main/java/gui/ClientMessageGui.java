@@ -66,7 +66,7 @@ public class ClientMessageGui {
 
 		} else {
 			// messaggio di errore
-			rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage());
+			rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage()+"\n");
 		}
 
 		chatMessage(dtoGame);
@@ -77,7 +77,7 @@ public class ClientMessageGui {
 		int numDefended = dtoGame.getNumberPlayerDefense();
 		if(numDefended >= 0 && numDefended <=8){
 			rp.getMessagePanel().getTextArea().append("<giocatore "+(numDefended+1)+"> è stato attaccato, "
-					+ " ma si è salvato grazie alla carta difesa");
+					+ " ma si è salvato grazie alla carta difesa\n");
 			if(numberOfPlayer == numDefended){
 				model.removeItem(ItemCardType.DEFENSE);
 			}
@@ -105,11 +105,11 @@ public class ClientMessageGui {
 		if (numberOfPlayer == dtoGame.getPlayerNumber()) {
 			if (dtoGame.getItemCardType() != null) {
 				rp.getMessagePanel().getTextArea().append("Hai pescato una carta oggetto "
-						+ dtoGame.getItemCardType());
+						+ dtoGame.getItemCardType()+"\n");
 				model.getItems().add(dtoGame.getItemCardType());
 			}
 			if (dtoGame.getGameMessage() != null) {
-				rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage());
+				rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage()+"\n");
 			}
 
 		}
@@ -120,7 +120,7 @@ public class ClientMessageGui {
 	 * @param dtoGame
 	 */
 	private void endTurnMessage(DTOGame dtoGame) {
-		rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage());
+		rp.getMessagePanel().getTextArea().append(dtoGame.getGameMessage()+"\n");
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class ClientMessageGui {
 	private void chatMessage(DTOGame dtoGame) {
 		if (dtoGame.getChat() != null) {
 			rp.getMessagePanel().getTextArea().append("<giocatore " + (dtoGame.getPlayerNumber() + 1)
-					+ "> " + dtoGame.getChat());
+					+ "> " + dtoGame.getChat()+"\n");
 		}
 	}
 }

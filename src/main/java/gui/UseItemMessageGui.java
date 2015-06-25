@@ -10,7 +10,7 @@ public class UseItemMessageGui implements MessageGui {
 	public void receive(DTOGame dtoGame, RightPanel rp) {
 		rp.getMessagePanel().getTextArea().append("<giocatore " + (dtoGame.getPlayerNumber()+1)
 				+ ">" + " ha usato la carta "
-				+ dtoGame.getItemCardType());
+				+ dtoGame.getItemCardType()+"\n");
 		switch (dtoGame.getItemCardType()) {
 		case ATTACK:
 			rp.getMessagePanel().getTextArea().append("<giocatore "
@@ -18,13 +18,13 @@ public class UseItemMessageGui implements MessageGui {
 							+ ">"
 							+ " ATTACCO IN SETTORE "
 							+ dtoGame.getCoordinate(dtoGame
-									.getPlayerNumber()));
+									.getPlayerNumber())+"\n");
 			for (int i = 0; i < dtoGame.getPlayerType().length; i++) {
 				PlayerType type = dtoGame.getPlayerType(i);
 				if (type != null) {
 					rp.getMessagePanel().getTextArea().append("<giocatore " + (i+1) + ">"
 							+ " è stato attaccato e viene eliminato:\n"
-							+ "era un " + type);
+							+ "era un " + type+"\n");
 				}
 			}
 			break;
@@ -33,7 +33,7 @@ public class UseItemMessageGui implements MessageGui {
 				Coordinate coord = dtoGame.getCoordinate(i);
 				if (coord != null) {
 					rp.getLogPanel().getTextArea().append("<giocatore " + (i+1) + ">"
-							+ " si trova nel settore" + coord);
+							+ " si trova nel settore" + coord+"\n");
 				}
 			}
 			break;

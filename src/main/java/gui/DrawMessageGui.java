@@ -9,23 +9,23 @@ public class DrawMessageGui implements MessageGui {
 		switch (dtoGame.getSectorCardType()) {
 		case NOISEANY:
 			rp.getMessagePanel().getTextArea().append("Hai pescato una carta Noise in Any Sector:\n "
-					+ "seleziona un settore a scelta");
+					+ "seleziona un settore a scelta\n");
 			break;
 		case NOISEYOUR:
 			rp.getLogPanel().getTextArea().append("<giocatore " + (dtoGame.getPlayerNumber()+1) + "> "
 					+ "RUMORE IN SETTORE "
-					+ dtoGame.getCoordinate(dtoGame.getPlayerNumber()));
+					+ dtoGame.getCoordinate(dtoGame.getPlayerNumber())+"\n");
 			break;
 		case SILENCE:
 			rp.getMessagePanel().getTextArea().append("<giocatore " + (dtoGame.getPlayerNumber()+1) + ">"
-					+ " SILENZIO IN TUTTI I SETTORI ");
+					+ " SILENZIO IN TUTTI I SETTORI\n ");
 			break;
 		default:
 			break;
 		}
 		if (dtoGame.getItemCardType() != null) {
 			rp.getMessagePanel().getTextArea().append("<giocatore " + (dtoGame.getPlayerNumber()+1)
-					+ "> ha pescato una carta oggetto");
+					+ "> ha pescato una carta oggetto\n");
 		}
 
 	}
