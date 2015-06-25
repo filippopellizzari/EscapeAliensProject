@@ -19,15 +19,15 @@ public class LeftPanel extends JPanel {
 
 		super(new BorderLayout());
 		setOpaque(true);
-		setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 		
-		itemsPanel = new ItemsPanel(cd);
 		discardPanel = new DiscardPanel(cd);
+		itemsPanel = new ItemsPanel(cd);
 		southWestPanel = new SouthWestPanel(cd);
 
 		//layout
-		add(itemsPanel, BorderLayout.NORTH);
-		add(discardPanel, BorderLayout.CENTER);
+		add(discardPanel, BorderLayout.NORTH);
+		add(itemsPanel, BorderLayout.CENTER);
 		add(southWestPanel, BorderLayout.SOUTH);
 		
 	}
@@ -35,6 +35,11 @@ public class LeftPanel extends JPanel {
 	public DiscardPanel getDiscardPanel() {
 		return discardPanel;
 	}
+
+	public SouthWestPanel getSouthWestPanel() {
+		return southWestPanel;
+	}
+	
 	
 	
 }

@@ -1,6 +1,6 @@
 package gui;
 
-import cli.ClientModel;
+
 import model.ItemCardType;
 import dto.DTOGame;
 
@@ -14,10 +14,10 @@ import dto.DTOGame;
 public class ClientMessageGui {
 
 	private int numberOfPlayer;
-	private ClientModel model;
+	private ClientModelGui model;
 	private RightPanel rp;
 
-	public ClientMessageGui(int numberOfPlayer, ClientModel model, RightPanel rp) {
+	public ClientMessageGui(int numberOfPlayer, ClientModelGui model, RightPanel rp) {
 		this.numberOfPlayer = numberOfPlayer;
 		this.model = model;
 		this.rp = rp;
@@ -79,7 +79,7 @@ public class ClientMessageGui {
 			rp.getMessagePanel().getTextArea().append("<giocatore "+(numDefended+1)+"> è stato attaccato, "
 					+ " ma si è salvato grazie alla carta difesa\n");
 			if(numberOfPlayer == numDefended){
-				model.removeItem(ItemCardType.DEFENSE);
+				model.removeItem(ItemCardType.DEFENSE);			
 			}
 		}
 		
@@ -88,6 +88,7 @@ public class ClientMessageGui {
 	private void updatePosition(DTOGame dtoGame){
 		if(numberOfPlayer == dtoGame.getPlayerNumber()){
 		model.setCoordinate(dtoGame.getCoordinate(numberOfPlayer));
+		rp.getMyPositionPanel().getTextArea().append(model.getCoordinate().toString()+"\n");
 		}
 	}
 	private void removeItem(DTOGame dtoGame){

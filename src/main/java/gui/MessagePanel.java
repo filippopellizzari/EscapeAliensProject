@@ -24,11 +24,11 @@ public class MessagePanel extends JPanel implements ActionListener{
 		this.cd = cd;
 		setBackground(Color.GRAY);
 		
-		textArea = new JTextArea(20,20);
+		textArea = new JTextArea(20,28);
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		
-		textField = new JTextField(20);
+		textField = new JTextField(28);
 		textField.addActionListener(this);
 		
 		//Add Components to this panel.

@@ -6,12 +6,11 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.util.Scanner;
 
-
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 import cli.ChooseConnection;
 import cli.ChooseMap;
-import cli.ClientModel;
 import connection.ClientData;
 
 public class ClientGui {
@@ -47,20 +46,44 @@ public class ClientGui {
 		
 		in.close();
 		
+		// da qui si crea la grafica 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				Gui gui = new Gui();
 				gui.createAndShowGUI(mapName, cd);
 				
-				ClientModel model = new ClientModel();
+				RightPanel rp = gui.getGameTable().getRightPanel();
+				LeftPanel lp = gui.getGameTable().getLeftPanel();
+				DefaultTableModel dataModel = lp.getDiscardPanel().getDataModel();
+				
+				ClientModelGui model = new ClientModelGui(dataModel);
 				try {
 					model.setCoordinate(cd.getView().getCoordinate());
 				} catch (InterruptedException e) {
 					System.out.println("Problem Get Starting Coordinates");
 				}
+					
+				//posizione a inizio partita
+				rp.getMyPositionPanel().getTextArea().append(model.getCoordinate().toString()+"\n");
 				
-				RightPanel rp = gui.getGameTable().getRightPanel();
+				//info per tutta la partita
+				try {
+					lp.getSouthWestPanel().getTextArea().append("Info Giocatore\n"
+							+ "Numero: "+ (cd.getView().getNumberPlayer() + 1)+"\n");
+				} catch (InterruptedException e1) {
+					System.out.println("Problem Get View: "+e1);
+				}
+				try {
+					lp.getSouthWestPanel().getTextArea().append("Tipo: " + cd.getView().getPlayerType());
+				} catch (InterruptedException e1) {
+					System.out.println("Problem Get View: "+e1);
+					
+				}
 				
+				//primo turno
+				rp.getMessagePanel().getTextArea().append("Round 1\n Turno Giocatore 1\n");
+				
+				//thread dei messaggi
 				Thread showMessage = null;
 				try {
 					showMessage = new Thread(new ShowMessageGui(cd,model,rp));

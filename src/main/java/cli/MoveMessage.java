@@ -6,8 +6,7 @@ public class MoveMessage implements Message{
 
 	@Override
 	public void receive(DTOGame dtoGame){
-		System.out.println("<giocatore " + (dtoGame.getPlayerNumber()+1)
-				+ ">" + " mosso con successo in settore "
+		System.out.println("Ti sei mosso con successo in settore "
 				+ dtoGame.getCoordinate(dtoGame.getPlayerNumber()));
 		if (dtoGame.getHatchCardColor() != null) {
 			switch (dtoGame.getHatchCardColor()) {

@@ -29,11 +29,11 @@ public class CoordinatePanel extends JPanel {
 
 		
 		//coord comboBox
-		final JComboBox letteraBox = new JComboBox();
+		final JComboBox<Character> letteraBox = new JComboBox<Character>();
 		for (int i = 65; i <= 87; i++) {
 			letteraBox.addItem((char) i);
 		}
-		final JComboBox numeroBox = new JComboBox();
+		final JComboBox<Integer> numeroBox = new JComboBox<Integer>();
 		for (int i = 1; i <= 14; i++) {
 			numeroBox.addItem(new Integer(i));
 		}

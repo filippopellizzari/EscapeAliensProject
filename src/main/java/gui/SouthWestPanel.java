@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import connection.ClientData;
 import controller.ActionType;
@@ -18,10 +19,19 @@ public class SouthWestPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	private JTextArea textArea;
+	
 	public SouthWestPanel(final ClientData cd) {
 		super(new GridLayout(0, 1));
 		setBackground(Color.GRAY);
 
+		//info textArea
+		
+		textArea = new JTextArea(3,15);
+		textArea.setEditable(false);
+		
+		
+		
 		// buttons
 		JButton drawButton = new JButton("PESCA");
 		drawButton.addActionListener(new ActionListener(){
@@ -97,10 +107,16 @@ public class SouthWestPanel extends JPanel {
 		
 
 		// add components
+		add(textArea);
 		add(drawButton);
 		add(alienAttack);
 		add(endTurn);
 	
 	}
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+	
 
 }

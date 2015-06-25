@@ -43,7 +43,7 @@ public class EndTurn implements ChooseAnAction {
 		if (isEndTurn()) {
 			dtoGame.setGameMessage("FINE TURNO");
 		} else {
-			dtoGame.setGameMessage("Non hai completato tutte le azioni obbligatorie per finire il turno");
+			dtoGame.setGameMessage("Non hai completato tutte le azioni obbligatorie!");
 			dtoGame.setReceiver(status.getPlayer().getNumber());
 		}
 		return dtoGame;

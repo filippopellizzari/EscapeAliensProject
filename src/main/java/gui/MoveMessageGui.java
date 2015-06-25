@@ -7,8 +7,7 @@ public class MoveMessageGui implements MessageGui{
 
 	@Override
 	public void receive(DTOGame dtoGame, RightPanel rp){
-		rp.getLogPanel().getTextArea().append("<giocatore " + (dtoGame.getPlayerNumber()+1)
-				+ ">" + " mosso con successo in settore "
+		rp.getLogPanel().getTextArea().append("Ti sei mosso con successo in settore "
 				+ dtoGame.getCoordinate(dtoGame.getPlayerNumber())+"\n");
 		if (dtoGame.getHatchCardColor() != null) {
 			switch (dtoGame.getHatchCardColor()) {
