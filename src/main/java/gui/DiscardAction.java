@@ -1,27 +1,21 @@
-package cli;
+package gui;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 import model.ItemCardType;
 import connection.ClientData;
 import controller.ActionType;
 import dto.DTOSend;
 
-public class DiscardPlay {
+public class DiscardAction {
 
-	public void action(DTOSend dtoSend, ClientData cd, Scanner in)
-			throws UnknownHostException, IOException, InterruptedException {
-		System.out
-				.println("Scegli tipo:\n 1: ATTACK\n 2: TELEPORT\n 3: SEDATIVES\n 4: SPOTLIGHT\n 5: ADRENALINE\n 6: DEFENSE");
+	public void discard(ClientData cd, int row) throws InterruptedException,
+			UnknownHostException, IOException {
 
-		int typeToDiscard;
-		do {
-			typeToDiscard = in.nextInt();
-		} while (typeToDiscard < 1 || typeToDiscard > 5);
+		DTOSend dtoSend;
 
-		switch (typeToDiscard) {
+		switch (row) {
 		case 1:
 			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(),
 					ItemCardType.ATTACK, ActionType.DISCARDITEM, null);
@@ -55,6 +49,6 @@ public class DiscardPlay {
 		default:
 			break;
 		}
-	}
 
+	}
 }

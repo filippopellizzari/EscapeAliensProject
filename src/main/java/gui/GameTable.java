@@ -13,6 +13,7 @@ public class GameTable extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
+	private LeftPanel leftPanel;
 	private RightPanel rightPanel;
 
 	public GameTable(JFrame frame, String mapName, ClientData cd) {
@@ -31,9 +32,8 @@ public class GameTable extends JPanel {
 		mapContainer.setIcon(map);
 		mapContainer.setSize(map.getIconWidth(), map.getIconHeight());
 
-		// left panel
-		LeftPanel leftPanel = new LeftPanel(cd);
-		// rightPanel
+		//left & right panels
+		leftPanel = new LeftPanel(cd);
 		rightPanel = new RightPanel(cd);
 
 		// layout
@@ -52,6 +52,11 @@ public class GameTable extends JPanel {
 			System.out.println("Error loadIcon: "+e);
 			return null;
 		}
+	}
+
+	
+	public LeftPanel getLeftPanel() {
+		return leftPanel;
 	}
 
 	public RightPanel getRightPanel() {

@@ -22,14 +22,14 @@ public class RightPanel extends JPanel {
 		setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
 		coordPanel = new CoordinatePanel(cd);
-		messagePanel = new MessagePanel();
 		logPanel = new LogPanel();
-
+		messagePanel = new MessagePanel(cd);
+		
 		// layout
 		add(coordPanel, BorderLayout.NORTH);
-		add(messagePanel, BorderLayout.SOUTH);
 		add(logPanel, BorderLayout.CENTER);
-
+		add(messagePanel, BorderLayout.SOUTH);
+		
 	}
 
 	public LogPanel getLogPanel() {
