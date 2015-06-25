@@ -14,7 +14,7 @@ public class LogPanel extends JPanel{
 		super(new GridBagLayout());
 		setBackground(Color.GRAY);
 		
-		textArea = new JTextArea(10,28);
+		textArea = new JTextArea(6,28);
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		

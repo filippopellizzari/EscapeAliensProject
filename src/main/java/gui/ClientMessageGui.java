@@ -29,7 +29,7 @@ public class ClientMessageGui {
 			switch (dtoGame.getActionType()) {
 			case MOVE:
 				message = new MoveMessageGui();
-				message.receive(dtoGame, rp);;
+				message.receive(dtoGame, rp);
 				updatePosition(dtoGame);
 				break;	
 			case ATTACK:
@@ -104,7 +104,7 @@ public class ClientMessageGui {
 			if (dtoGame.getItemCardType() != null) {
 				rp.getMessagePanel().getTextArea().append("<giocatore "
 						+ (dtoGame.getPlayerNumber() + 1)
-						+ "> ha pescato una carta oggetto");
+						+ "> ha pescato una carta oggetto\n");
 			}
 		}
 
@@ -114,7 +114,7 @@ public class ClientMessageGui {
 		if (numberOfPlayer == dtoGame.getPlayerNumber()) {
 			if (dtoGame.getItemCardType() != null) {
 				rp.getMessagePanel().getTextArea().append("Hai pescato una carta oggetto "
-						+ dtoGame.getItemCardType());
+						+ dtoGame.getItemCardType()+"\n");
 				model.getItems().add(dtoGame.getItemCardType());
 			}
 			if (dtoGame.getGameMessage() != null) {

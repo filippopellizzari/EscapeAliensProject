@@ -8,7 +8,7 @@ import java.util.List;
 import dto.*;
 
 /**
- * This class contains all the data needed by client, the method to starts a game and calls the actions
+ * This class contains all the data needed by client, the method to start a game and calls the actions
  * @author Nicola
  *
  */
@@ -39,7 +39,7 @@ public abstract class ClientData {
 			IOException, ClassNotFoundException;
 	
 	/**
-	 * Begin a new game, the response can be ok or no if there is only 1 request and the game is aborted
+	 * Begins a new game, the response can be ok or no if there is only 1 request and the game is aborted
 	 * @param typeOfMap
 	 * @throws UnknownHostException
 	 * @throws IOException
