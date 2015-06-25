@@ -64,7 +64,6 @@ public class CoordinatePanel extends JPanel {
 				}
 
 			}
-
 		});
 		//noise button
 		JButton noiseButton = new JButton("NOISE");
