@@ -143,15 +143,13 @@ public class ClientMessageGui {
 	 * @param dtoGame
 	 */
 	private void itemDrawnPublicMessage(DTOGame dtoGame) {
-		if (numberOfPlayer != dtoGame.getPlayerNumber()) {
-			if (dtoGame.getItemCardType() != null) {
-				rp.getMessagePanel()
-						.getTextArea()
-						.append("<giocatore " + (dtoGame.getPlayerNumber() + 1)
-								+ "> ha pescato una carta oggetto\n");
-			}
+		if (numberOfPlayer != dtoGame.getPlayerNumber()
+				&& dtoGame.getItemCardType() != null) {
+			rp.getMessagePanel()
+					.getTextArea()
+					.append("<giocatore " + (dtoGame.getPlayerNumber() + 1)
+							+ "> ha pescato una carta oggetto\n");
 		}
-
 	}
 
 	/**

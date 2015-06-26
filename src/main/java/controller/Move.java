@@ -17,8 +17,9 @@ public class Move implements ChooseAnAction {
 
 	/**
 	 * 
-	 * @param gameStatus, the status of a turn, reference at model and the player who
-	 * are playing, now is his turn
+	 * @param gameStatus
+	 *            , the status of a turn, reference at model and the player who
+	 *            are playing, now is his turn
 	 */
 
 	public Move(GameStatus status) {
@@ -42,7 +43,6 @@ public class Move implements ChooseAnAction {
 				&& destCheck(player, destSector);
 	}
 
-	
 	/**
 	 * 
 	 * check that an alien can not move to an escape hatch sector
@@ -83,7 +83,7 @@ public class Move implements ChooseAnAction {
 							.getSector(adjCoord);
 					if (!adjSector.isClosed()) {
 						speed--;
-						if(adjSector.getCoordinate().equals(dest))
+						if (adjSector.getCoordinate().equals(dest))
 							return true;
 						if (pathCheck(adjCoord, dest, speed)) {
 							return true;
@@ -120,8 +120,7 @@ public class Move implements ChooseAnAction {
 		dtoGame.setActionType(ActionType.MOVE);
 		switch (destSector.getType()) {
 		case DANGEROUS:
-			if (!status.isSedated()) {
-				// obbligato a pescare, se non è sedato
+			if (!status.isSedated()){
 				status.setMustDraw(true);
 			}
 			dtoGame.setReceiver(status.getPlayer().getNumber());
@@ -145,6 +144,7 @@ public class Move implements ChooseAnAction {
 	 */
 
 	public void drawHatchCard() {
+		Player player = status.getPlayer();
 		// pesco carta hatch
 		HatchCard current = status.getGame().getHatchCards().draw();
 		HatchCardColor color = current.getColor();
@@ -153,17 +153,19 @@ public class Move implements ChooseAnAction {
 		case RED:
 			break;
 		case GREEN:
-			Player player = status.getPlayer();
 			player.setInGame(false);
 			player.setPlayerState(PlayerState.WINNER);
 			removeAllItems(player);// partita conclusa per lui
 			break;
+		default:
+			break;
 		}
 		status.getGame().getHatchCards().discard(current);
 	}
-	
+
 	/**
 	 * Removes all items from dead players
+	 * 
 	 * @param player
 	 */
 

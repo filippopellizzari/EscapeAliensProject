@@ -74,7 +74,7 @@ public abstract class ClientData {
 	 */
 	
 	public synchronized DTOGame getDtoGame() throws InterruptedException {
-		while(dtoGameList.size()==0) 
+		while(dtoGameList.isEmpty()) 
 			this.wait();
 		return dtoGameList.remove(0);
 	}

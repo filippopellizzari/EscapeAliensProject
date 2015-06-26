@@ -54,17 +54,7 @@ public class UseItemPlay {
 			cd.clickOnDoMove(dtoSend);
 			break;
 		case 4:
-			System.out.println("Inserisci le coordinate:");
-
-			System.out.println("Lettera:");
-			char letteraSpot = in.next().charAt(0);
-			int xSpot = (int) letteraSpot - 96; // converto char/int
-
-			System.out.println("Numero:");
-			int ySpot = in.nextInt();
-
-			Coordinate coordSpot = new Coordinate(xSpot, ySpot);
-
+			Coordinate coordSpot = chooseCoordinate(in);
 			dtoSend = new DTOSend(coordSpot, cd.getView().getNumberPlayer(),
 					ItemCardType.SPOTLIGHT, ActionType.USEITEM, null);
 			cd.clickOnDoMove(dtoSend);
@@ -77,6 +67,20 @@ public class UseItemPlay {
 		default:
 			break;
 		}
+		
+	}
+	
+	private Coordinate chooseCoordinate(Scanner in){
+		System.out.println("Inserisci le coordinate:");
+
+		System.out.println("Lettera:");
+		char letteraSpot = in.next().charAt(0);
+		int xSpot = (int) letteraSpot - 96; // converto char/int
+
+		System.out.println("Numero:");
+		int ySpot = in.nextInt();
+
+		return new Coordinate(xSpot, ySpot);
 	}
 
 }

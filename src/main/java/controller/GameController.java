@@ -25,7 +25,7 @@ public class GameController {
 	private Turn currentTurn;
 	private int round;
 	private int currentNumberPlayer;
-	private final int TOT_ROUNDS = 39;
+	private final static int TOTROUNDS = 39;
 
 	/**
 	 * 
@@ -100,7 +100,7 @@ public class GameController {
 		dtoGame.setPlayerNumber(currentNumberPlayer);
 		if (end != null) {
 			disconnectAll();
-			round = TOT_ROUNDS + 1;
+			round = TOTROUNDS + 1;
 			dtoGame.setGameMessage(end);
 			dtoGame.setReceiver(9);
 			dtoGame.setActionType(ActionType.ENDTURN);
@@ -121,7 +121,7 @@ public class GameController {
 				nextPlayerDecided = true;
 		} while (!nextPlayerDecided);
 
-		if (round <= TOT_ROUNDS) {
+		if (round <= TOTROUNDS) {
 			currentTurn = new Turn(game, game.getPlayers(currentNumberPlayer));
 			dtoGame.setActionType(ActionType.ENDTURN);
 			if (nuovoRound) {

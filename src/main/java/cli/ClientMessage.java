@@ -83,8 +83,8 @@ public class ClientMessage {
 	}
 
 	/**
-	 * This method displays a message when a player is attacked,
-	 * but he is not eliminated thanks to defense Item Card
+	 * This method displays a message when a player is attacked, but he is not
+	 * eliminated thanks to defense Item Card
 	 * 
 	 * @param dtoGame
 	 */
@@ -131,14 +131,11 @@ public class ClientMessage {
 	 * @param dtoGame
 	 */
 	private void itemDrawnPublicMessage(DTOGame dtoGame) {
-		if (numberOfPlayer != dtoGame.getPlayerNumber()) {
-			if (dtoGame.getItemCardType() != null) {
-				System.out.println("<giocatore "
-						+ (dtoGame.getPlayerNumber() + 1)
-						+ "> ha pescato una carta oggetto");
-			}
+		if (numberOfPlayer != dtoGame.getPlayerNumber()
+				&& dtoGame.getItemCardType() != null) {
+			System.out.println("<giocatore " + (dtoGame.getPlayerNumber() + 1)
+					+ "> ha pescato una carta oggetto");
 		}
-
 	}
 
 	/**

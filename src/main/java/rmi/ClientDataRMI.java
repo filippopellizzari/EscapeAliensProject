@@ -21,7 +21,7 @@ public class ClientDataRMI extends ClientData {
 	
 	private final static String HOST = "127.0.0.1";
 	private final static int PORT = 39999;
-	private final String NAME = "room";
+	private final static String NAME = "room";
 	private final Actions game;
 	private final Registry registry;
 	

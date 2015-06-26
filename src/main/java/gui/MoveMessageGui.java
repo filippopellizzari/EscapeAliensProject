@@ -21,24 +21,34 @@ public class MoveMessageGui implements MessageGui {
 		if (dtoGame.getHatchCardColor() != null) {
 			switch (dtoGame.getHatchCardColor()) {
 			case RED:
-				rp.getMessagePanel()
-						.getTextArea()
-						.append("<giocatore "
-								+ (dtoGame.getPlayerNumber() + 1)
-								+ ">"
-								+ " pesca carta scialuppa rossa:\n il giocatore non si salva "
-								+ "e il settore rimane bloccato\n");
+				displayRed(dtoGame, rp);
 				break;
 			case GREEN:
-				rp.getMessagePanel()
-						.getTextArea()
-						.append("<giocatore "
-								+ (dtoGame.getPlayerNumber() + 1)
-								+ ">"
-								+ " pesca carta scialuppa verde:\n il giocatore ha vinto "
-								+ "e il settore rimane bloccato\n");
+				displayGreen(dtoGame, rp);
+				break;
+			default:
 				break;
 			}
 		}
+	}
+	
+	private void displayRed(DTOGame dtoGame, RightPanel rp){
+		rp.getMessagePanel()
+		.getTextArea()
+		.append("<giocatore "
+				+ (dtoGame.getPlayerNumber() + 1)
+				+ ">"
+				+ " pesca carta scialuppa rossa:\n il giocatore non si salva "
+				+ "e il settore rimane bloccato\n");
+	}
+	
+	private void displayGreen(DTOGame dtoGame, RightPanel rp){
+		rp.getMessagePanel()
+		.getTextArea()
+		.append("<giocatore "
+				+ (dtoGame.getPlayerNumber() + 1)
+				+ ">"
+				+ " pesca carta scialuppa verde:\n il giocatore ha vinto "
+				+ "e il settore rimane bloccato\n");
 	}
 }

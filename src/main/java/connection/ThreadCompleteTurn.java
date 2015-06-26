@@ -60,7 +60,7 @@ public class ThreadCompleteTurn implements Runnable {
 				turn = gameDescription.getController().getRound(); //imposto il nuovo turno e giocatore
 				numberPlayer = gameDescription.getController().getCurrentNumberPlayer();
 				gameDescription.setStatus(); // libera il controller
-				while (list.size() > 0)
+				while (!list.isEmpty())
 					gameDescription.getBroker().publish(list.remove(0));
 				if(turn>=40) {
 					goOn=false;

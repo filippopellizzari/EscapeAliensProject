@@ -40,9 +40,6 @@ public class DrawSectorCard implements ChooseAnAction {
 		switch (type) {
 		case NOISEANY:
 			status.setMustNoise(true);
-			// unica volta che il messaggio è privato ma parte 
-			// di esso va messo nel buffer
-			// per essere poi dato a tutti i giocatori
 			dtoGame.setReceiver(10);
 			break;
 		case NOISEYOUR:
@@ -56,11 +53,12 @@ public class DrawSectorCard implements ChooseAnAction {
 		default:
 			break;
 		}
-		if (current.isItemIcon()) { // vedi se devi pescare carta oggetto
+		// pesca carta oggetto, se possibile
+		if (current.isItemIcon()) {
 			drawItemCard();
 		}
-		//scarta carta settore
-		status.getGame().getSectorCards().discard(current); 
+		// scarta carta settore
+		status.getGame().getSectorCards().discard(current);
 	}
 
 	/**
@@ -101,7 +99,7 @@ public class DrawSectorCard implements ChooseAnAction {
 		}
 		return dtoGame;
 	}
-	
+
 	/**
 	 * Return the dtoGame
 	 */

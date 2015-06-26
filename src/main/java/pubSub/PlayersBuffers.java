@@ -34,7 +34,7 @@ public class PlayersBuffers {
 	 * @throws InterruptedException 
 	 */
 	public synchronized DTOGame getBuffer() throws InterruptedException {
-		while(buffer.size()==0) 
+		while(buffer.isEmpty()) 
 			this.wait();
 		DTOGame dtoGame= buffer.remove(0);
 		if(dtoGame.getActionType()==ActionType.ENDGAME) {

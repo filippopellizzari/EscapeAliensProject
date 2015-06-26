@@ -21,9 +21,10 @@ public class ControlDataReceived {
 	private final Game game;
 	private final int numberPlayer;
 	private final Player player;
-	
+
 	/**
 	 * Creates the class
+	 * 
 	 * @param dtoSend
 	 * @param game
 	 * @param numberPlayer
@@ -35,9 +36,10 @@ public class ControlDataReceived {
 		this.numberPlayer = numberPlayer;
 		this.player = game.getPlayers(numberPlayer);
 	}
-	
+
 	/**
 	 * Verifies the correction of the object passed from player
+	 * 
 	 * @return
 	 */
 
@@ -45,25 +47,27 @@ public class ControlDataReceived {
 		if (!player.isInGame()) {
 			return "Sei fuori dal gioco!";
 		}
-		
+
 		if (numberPlayer != dtoSend.getNumberPlayer()) {
 			return "Ora non è il tuo turno";
 		}
-		
-		if (dtoSend.getCoordinate() != null) {
-			if (game.getMap().isNull(dtoSend.getCoordinate()))
-				return "Il settore non esiste sulla mappa";
+
+		if (dtoSend.getCoordinate() != null
+				&& game.getMap().isNull(dtoSend.getCoordinate())) {
+			return "Il settore non esiste sulla mappa";
 		}
-		if (dtoSend.getItemCardType() != null) {
-			if (!hasItemCard(dtoSend.getItemCardType()))
-				return "Non possiedi questa carta";
+
+		if (dtoSend.getItemCardType() != null
+				&& !hasItemCard(dtoSend.getItemCardType())) {
+			return "Non possiedi questa carta";
 
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Controls if the player has the card passed
+	 * 
 	 * @param type
 	 * @return
 	 */
