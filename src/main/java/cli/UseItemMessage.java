@@ -28,22 +28,22 @@ public class UseItemMessage implements Message {
 			break;
 		}
 	}
-	
-	private void displayAttack(DTOGame dtoGame){
+
+	private void displayAttack(DTOGame dtoGame) {
 		System.out.println("<giocatore " + (dtoGame.getPlayerNumber() + 1)
-					+ ">" + " ATTACCO IN SETTORE "
-					+ dtoGame.getCoordinate(dtoGame.getPlayerNumber()));
-			for (int i = 0; i < dtoGame.getPlayerType().length; i++) {
-				PlayerType type = dtoGame.getPlayerType(i);
-				if (type != null) {
-					System.out.println("<giocatore " + (i + 1) + ">"
-							+ " è stato attaccato e viene eliminato:\n"
-							+ "era un " + type);
-				}
+				+ ">" + " ATTACCO IN SETTORE "
+				+ dtoGame.getCoordinate(dtoGame.getPlayerNumber()));
+		for (int i = 0; i < dtoGame.getPlayerType().length; i++) {
+			PlayerType type = dtoGame.getPlayerType(i);
+			if (type != null) {
+				System.out.println("<giocatore " + (i + 1) + ">"
+						+ " è stato attaccato e viene eliminato:\n" + "era un "
+						+ type);
 			}
+		}
 	}
-	
-	private void displaySpotlight(DTOGame dtoGame){
+
+	private void displaySpotlight(DTOGame dtoGame) {
 		for (int i = 0; i < dtoGame.getCoordinate().length; i++) {
 			Coordinate coord = dtoGame.getCoordinate(i);
 			if (coord != null) {
