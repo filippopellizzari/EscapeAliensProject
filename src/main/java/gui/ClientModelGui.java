@@ -66,6 +66,7 @@ public class ClientModelGui {
 		int row = chooseRow(type);
 		int num = (int) dataModel.getValueAt(row, 1);
 		num++;
+		System.out.println(type+","+ num);
 		dataModel.setValueAt(num, row, 1);
 	}
 

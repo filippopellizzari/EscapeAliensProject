@@ -47,7 +47,7 @@ public class DatabaseInscriptionsForGames {
 			}
 		}
 		playerWithRelativeConnection.add(new DetailsPlayers(typeOfMapChoose));		//nuovo gioco
-		Thread temporize=new Thread(new TimerInscriptionForGame(20,this,typeOfMapChoose));		//temporize con nome
+		Thread temporize=new Thread(new TimerInscriptionForGame(60,this,typeOfMapChoose));		//temporize con nome
 		temporize.start();
 		return playerWithRelativeConnection.get(playerWithRelativeConnection.size()-1);		//dagli il details player appena creato
 	}

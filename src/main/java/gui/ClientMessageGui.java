@@ -166,11 +166,11 @@ public class ClientMessageGui {
 						.getTextArea()
 						.append("Hai pescato una carta oggetto "
 								+ dtoGame.getItemCardType() + "\n");
-				model.getItems().add(dtoGame.getItemCardType());
+				model.addItem(dtoGame.getItemCardType());
 			}
 			if (dtoGame.getGameMessage() != null) {
 				rp.getMessagePanel().getTextArea()
-						.append(dtoGame.getGameMessage());
+						.append(dtoGame.getGameMessage()+"\n");
 			}
 
 		}

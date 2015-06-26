@@ -27,7 +27,7 @@ public class ThreadCompleteTurn implements Runnable {
 	
 	public ThreadCompleteTurn(GameDescription gameDescription) {
 		this.gameDescription = gameDescription;
-		this.time = 120;
+		this.time = 200;
 	}
 	
 	/**
