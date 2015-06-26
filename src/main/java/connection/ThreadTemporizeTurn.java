@@ -9,8 +9,8 @@ package connection;
 public class ThreadTemporizeTurn implements Runnable {
 	private int time;
 	private GameDescription gameDescription;
-	private int turn = 0;
-	private int numberPlayer = 0;
+	private int turn;
+	private int numberPlayer;
 	
 	/**
 	 * This constructor sets the time and the game to cronometer

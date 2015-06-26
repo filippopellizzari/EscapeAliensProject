@@ -22,6 +22,7 @@ public class GameDescription {
 	 * @param mapName
 	 * @param numberOfPlayers
 	 * @param controller
+	 * @param status game, if this round is completed is true
 	 */
 	
 	public GameDescription(MapName mapName, int numberOfPlayers,
