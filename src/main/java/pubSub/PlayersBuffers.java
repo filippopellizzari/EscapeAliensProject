@@ -17,8 +17,13 @@ public class PlayersBuffers {
 	private List<DTOGame> buffer;
 	private Broker broker;
 	
+	/**
+	 * Initialize list of DtoGames
+	 * 
+	 * @param broker
+	 */
 	public PlayersBuffers(Broker broker) {
-		this.buffer=new ArrayList<DTOGame>();
+		this.buffer = new ArrayList<DTOGame>();
 		this.broker=broker;
 	}
 

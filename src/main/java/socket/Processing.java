@@ -6,7 +6,9 @@ package socket;
  * @author Nicola
  *
  */
-
 public interface Processing {
+	/**
+	 * method to call
+	 */
 	public void start();
 }
