@@ -18,7 +18,7 @@ public class ClientModel {
 	private final List<ItemCardType> items;
 
 	/**
-	 * Initializes list of Item Cards
+	 * Initializes list of Item Cards of a player
 	 */
 	public ClientModel() {
 		this.items = new ArrayList<ItemCardType>();

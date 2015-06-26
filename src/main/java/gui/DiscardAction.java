@@ -8,13 +8,29 @@ import connection.ClientData;
 import controller.ActionType;
 import dto.DTOSend;
 
+/**
+ * This class is used to discard the ItemCard selected in the JTable, after
+ * clicking on Discard button
+ * 
+ * @author Filippo
+ *
+ */
 public class DiscardAction {
 
+	/**
+	 * 
+	 * @param cd
+	 * @param row
+	 *            row selected in the JTable
+	 * @throws InterruptedException
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	public void discard(ClientData cd, int row) throws InterruptedException,
 			UnknownHostException, IOException {
 
 		DTOSend dtoSend;
-		
+
 		switch (row) {
 		case 0:
 			dtoSend = new DTOSend(null, cd.getView().getNumberPlayer(),

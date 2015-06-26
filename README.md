@@ -1,29 +1,22 @@
-# README #
+README
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Project Name :  cg_27 ("Escape From The Aliens In Outer Space")
+Authors: Filippo Pellizzari, Nicola Saporetti
 
-### What is this repository for? ###
+Description:
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+To Play in CLI mode:
+1. run class "Server" in package "connection";
+2. run class "Client" in package "cli".
 
-### How do I get set up? ###
+To Play in GUI mode: 
+1. run class "Server" in package "connection" 
+2. run class "ClientGui" in package "gui";
+3. choose connection (RMI or Socket) through console;
+4. choose map (Fermi, Galilei or Galvani) through console;
+5. wait for a game available.
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+To start a game, at least two clients have to choose the same map.
+ 
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact

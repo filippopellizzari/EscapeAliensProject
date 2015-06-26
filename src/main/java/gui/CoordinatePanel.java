@@ -17,18 +17,34 @@ import connection.ClientData;
 import controller.ActionType;
 import dto.DTOSend;
 
+/**
+ * This class is a panel which contains a comboBox to select coordinates and 3
+ * buttons: move, noise and spotlight. Move button is used to do a move action,
+ * noise button is used to do a noise in any sector action, spotlight button is
+ * used to do a spotlight item card action. All theese actions need the
+ * selection of coordinates. This panel is in the North position in the right
+ * side of Game Table.
+ * 
+ * @author Filippo
+ *
+ */
 public class CoordinatePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 
+	 * 
+	 * @param cd
+	 *            , ClientData used to do action
+	 */
 	public CoordinatePanel(final ClientData cd) {
 		super(new GridLayout(0, 2));
 
 		setBorder(new TitledBorder("Coordinates"));
 		setBackground(Color.GRAY);
 
-		
-		//coord comboBox
+		// coord comboBox
 		final JComboBox<Character> letteraBox = new JComboBox<Character>();
 		for (int i = 65; i <= 87; i++) {
 			letteraBox.addItem((char) i);
@@ -38,7 +54,7 @@ public class CoordinatePanel extends JPanel {
 			numeroBox.addItem(new Integer(i));
 		}
 
-		//move button
+		// move button
 		JButton moveButton = new JButton("MOVE");
 		moveButton.addActionListener(new ActionListener() {
 
@@ -65,7 +81,7 @@ public class CoordinatePanel extends JPanel {
 
 			}
 		});
-		//noise button
+		// noise button
 		JButton noiseButton = new JButton("NOISE");
 		noiseButton.addActionListener(new ActionListener() {
 
@@ -93,43 +109,44 @@ public class CoordinatePanel extends JPanel {
 			}
 
 		});
-		//spotlight button
+		// spotlight button
 		JButton spotlightButton = new JButton("SPOTLIGHT");
-		spotlightButton.addActionListener(new ActionListener(){
+		spotlightButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			
+
 				char lettera = (char) letteraBox.getSelectedItem();
 				int xSpot = (int) lettera - 64;
 				int ySpot = (int) numeroBox.getSelectedItem();
 
 				Coordinate coordSpot = new Coordinate(xSpot, ySpot);
-				
+
 				DTOSend dtoSend = null;
 				try {
-					dtoSend = new DTOSend(coordSpot, cd.getView().getNumberPlayer(),
-							ItemCardType.SPOTLIGHT, ActionType.USEITEM, null);
+					dtoSend = new DTOSend(coordSpot, cd.getView()
+							.getNumberPlayer(), ItemCardType.SPOTLIGHT,
+							ActionType.USEITEM, null);
 				} catch (InterruptedException e1) {
-					System.out.println("Problem spotlight item: "+e1);
+					System.out.println("Problem spotlight item: " + e1);
 				}
 				try {
 					cd.clickOnDoMove(dtoSend);
 				} catch (IOException e1) {
-					System.out.println("Problem spotlight item: "+e1);
+					System.out.println("Problem spotlight item: " + e1);
 				}
-				
+
 			}
-			
+
 		});
-		
+
 		// testo esplicativo al passaggio mouse
 		String text = "Seleziona coordinata, prima di cliccare";
 		moveButton.setToolTipText(text);
 		noiseButton.setToolTipText(text);
 		spotlightButton.setToolTipText(text);
-		
-		//add components
+
+		// add components
 		add(letteraBox);
 		add(numeroBox);
 		add(moveButton);

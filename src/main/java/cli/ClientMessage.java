@@ -82,6 +82,12 @@ public class ClientMessage {
 		chatMessage(dtoGame);
 	}
 
+	/**
+	 * This method displays a message when a player is attacked,
+	 * but he is not eliminated thanks to defense Item Card
+	 * 
+	 * @param dtoGame
+	 */
 	private void notifyDefense(DTOGame dtoGame) {
 		if (dtoGame.getNumberPlayerDefense() != null) {
 			int numDefended = dtoGame.getNumberPlayerDefense();
