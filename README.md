@@ -1,9 +1,9 @@
-README
+# Escape Aliens Project
 
-Project Name :  cg_27 ("Escape From The Aliens In Outer Space")
+Project Name : "Escape From The Aliens In Outer Space"
 Authors: Filippo Pellizzari, Nicola Saporetti
 
-Description:
+## Instructions
 
 To Play in CLI mode:
 1. run class "Server" in package "connection";
