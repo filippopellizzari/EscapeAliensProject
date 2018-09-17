@@ -1,6 +1,7 @@
 # Escape Aliens Project
 
 Project Name : "Escape From The Aliens In Outer Space"
+
 Authors: Filippo Pellizzari, Nicola Saporetti
 
 ## Instructions
