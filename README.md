@@ -4,6 +4,8 @@ Project Name : "Escape From The Aliens In Outer Space"
 
 Authors: Filippo Pellizzari, Nicola Saporetti
 
+Java implementation of the board game "Escape from the Aliens in Outer Space", with a client-server architecture. The software architecture adheres the MVC pattern and other useful design patterns (such as Strategy and Factory Method). The application includes both graphic and command line interface. 
+
 ## Instructions
 
 To Play in CLI mode:
